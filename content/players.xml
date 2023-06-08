@@ -1,0 +1,5 @@
+<players root="gfx/ibs/characters/costumes/players/" nameimageroot="gfx/ibs/ui/portrait/" portraitroot="gfx/ibs/ui/portrait/" >
+	<player name="Benighted Isaac" birthright="Go up" skin="bisaac/bisaac.png" hp="0" armor="6" nameimage="bisaac_name.png" portrait="bisaac.png" skinColor="-1" costumeSuffix="bisaac" hidden="true" />
+	<player name="Benighted Magdalene" birthright="Iron up" skin="bmaggy/bmaggy.png" hp="0" armor="8" broken="4" nameimage="bmaggy_name.png" portrait="air.png" extraportrait="bmaggy.anm2" skinColor="5" costumeSuffix="bmaggy" hidden="true" />
+	
+</players>

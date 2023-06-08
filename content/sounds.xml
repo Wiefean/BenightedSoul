@@ -1,0 +1,18 @@
+<sounds root="sfx/ibs/">
+	<sound name="恶魔奖励">
+		<sample weight="1" path="devilbonus.wav" />
+	</sound>
+	
+	<sound name="天使奖励">
+		<sample weight="1" path="angelbonus.wav" />
+	</sound>
+
+	<sound name="仰望星空冷却完毕">
+		<sample weight="1" path="ssg_ready.wav" />
+	</sound>
+
+	<sound name="仰望星空发射">
+		<sample weight="1" path="ssg_fire.wav" />
+	</sound>
+
+</sounds>

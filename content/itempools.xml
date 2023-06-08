@@ -1,0 +1,184 @@
+<ItemPools>
+
+	<Pool Name="treasure">
+		<Item Name="Shooting Stars Gazer" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1"/>
+		<Item Name="The Light D6" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
+		<Item Name="The Waster" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+		<Item Name="Purple Bubbles" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		
+	</pool>
+	
+	<Pool Name="greedTreasure">
+		<Item Name="Shooting Stars Gazer" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1"/>
+		<Item Name="The Light D6" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Waster" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+		<Item Name="Purple Bubbles" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		
+	</pool>
+	
+	<Pool Name="planetarium">
+		<Item Name="Shooting Stars Gazer" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+
+	</pool>
+	
+	<Pool Name="shop">
+		<Item Name="No Options" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1"/>
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+		<Item Name="Purple Bubbles" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		
+	</pool>
+	
+	<Pool Name="greedShop">
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+		<Item Name="Purple Bubbles" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		
+	</pool>
+	
+	<Pool Name="babyShop">	
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+	
+	</pool>
+	
+	<Pool Name="boss">
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+
+	</pool>
+	
+	<Pool Name="greedBoss">
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+		
+	</pool>	
+	
+	<Pool Name="secret">
+		<Item Name="D4D" weight="0.3" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Shooting Stars Gazer" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+		
+	</pool>
+
+	<Pool Name="greedSecret">
+		<Item Name="D4D" weight="0.3" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Shooting Stars Gazer" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+		
+	</pool>	
+	
+	<Pool Name="curse">
+		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Mantle" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+	
+	</pool>
+	
+	<Pool Name="greedCurse">
+		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Mantle" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+	
+	</pool>
+	
+	<Pool Name="devil">
+		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Mantle" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+	
+	</pool>
+	
+	<Pool Name="greedDevil">
+		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Mantle" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+	
+	</pool>	
+	
+	<Pool Name="angel">
+		<Item Name="The Light D6" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Waster" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+		<Item Name="Glowing Heart" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+
+	</pool>
+	<Pool Name="greedAngel">
+		<Item Name="The Light D6" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Waster" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+		<Item Name="Glowing Heart" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
+	
+	</pool>
+
+	<Pool Name="library">
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+	
+	</pool>
+	
+	<Pool Name="shellGame">
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+
+	</pool>
+	
+	<Pool Name="craneGame">	
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+	
+	</pool>
+
+	<Pool Name="ultraSecret">
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+	
+	</pool>
+
+	<Pool Name="goldenChest">
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+	
+	</pool>
+	
+	<Pool Name="redChest">
+		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+	
+	</pool>
+	
+	<Pool Name="momsChest">	
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+	
+	</pool>
+	
+	<Pool Name="oldChest">	
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+	
+	</pool>
+	
+	<Pool Name="woodenChest">	
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+	
+	</pool>
+	
+	<Pool Name="beggar">
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+	
+	</pool>
+	
+	<Pool Name="demonBeggar">
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+	
+	</pool>
+	
+	<Pool Name="keyMaster">	
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+
+	</pool>
+	
+	<Pool Name="batteryBum">
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+
+	</pool>
+	
+	<Pool Name="bombBum">
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+
+	</pool>
+	
+	<Pool Name="rottenBeggar">
+		<Item Name="Ennnnnnvyyyyyy" weight="0.01" DecreaseBy="0.01" RemoveOn="0.001" />
+
+	</pool>
+	
+</ItemPools>
+

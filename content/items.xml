@@ -1,0 +1,17 @@
+<items gfxroot="gfx/ibs/items/" deathanm2="gfx/ibsitem.anm2" version="1">
+
+	<active id="1" name="The Light D6" description="Average your destiny" maxcharges="4" gfx="light d6.png" quality="4" tags="offensive" />
+	<passive id="2" name="No Options" description="Minnnnnnne" gfx="nop.png" quality = "4" tags="offensive summonable nogreed" />
+	<active id="3" name="D4D" description="Control your destiny" maxcharges="6" cooldown="60" gfx="d4d.png" devilprice = "2" shopprice="999" quality="4" tags="offensive" />
+	<passive id="4" name="Shooting Stars Gazer" description="Double tap stars" gfx="ssg.png" devilprice = "2" quality="3" tags="offensive summonable stars" />
+	<passive id="5" name="The Waster" description="Damage resistance..." gfx="waster.png" quality="2" tags="summonable nokeeper" />
+	<passive id="6" cache="all" name="Ennnnnnvyyyyyy" description="How old are you?" gfx="envy.png" quality="0" tags="offensive summonable" />
+	<active id="7" name="Glowing Heart" description="Reusable regeneration" chargetype="special" maxcharges="7" initcharge="0" gfx="glowingheart.png" quality="3" tags="nolostbr" />
+	<active id="8" cache="all" name="Purple Bubbles" description="Reusable drunk" maxcharges="2" gfx="pb.png" quality="1" tags="offensive" />
+	<active id="9" name="Cursed Mantle" description="Binding curse + shield with retaliation" maxcharges="2" gfx="cursedmantle.png" quality="2" tags="offensive" />
+
+
+	<trinket name="Bottle Shard" description="He really did it" gfx="bottleshard.png" />
+	<trinket name="Dad's Promise" description="The old ends, The new comes" gfx="dadspromise.png" />
+	
+</items>

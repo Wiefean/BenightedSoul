@@ -1,0 +1,16 @@
+<costumes anm2root="gfx/ibs/characters/">
+
+<!-- items -->
+	<!-- envy -->
+	<costume id="6" anm2path="envy_head.anm2" type="passive"/>
+	<!-- purplebubbles -->
+	<costume id="8" anm2path="purplebubbles_head.anm2" type="active" hasOverlay="true" />
+
+<!-- players -->
+	<!-- bisaac-->
+	<costume anm2path="bisaac_cross.anm2" type="none" priority="2" />
+	<!-- bmaggy-->
+	<costume anm2path="bmaggy_hair.anm2" type="none" priority="2" />
+
+	
+</costumes>
