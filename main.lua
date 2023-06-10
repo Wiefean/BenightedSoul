@@ -7,7 +7,7 @@
 Isaac_BenightedSoul = RegisterMod("Benighted Soul",1)
 
 local mod = Isaac_BenightedSoul
-mod.ModVersion = "0.2.0"
+mod.ModVersion = "0.2.1"
 
 
 --防止渲染崩溃

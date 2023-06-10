@@ -346,6 +346,23 @@ local trinketEID={
 	mult={findReplace = {"15","20","25"}}	
 },
 
+[IBS_Trinket.divineretaliation]={
+	name="神圣反击",
+	info="10%概率免疫泪弹伤害#被泪弹击中时，将周围的所有泪弹变为火焰",
+	mult={
+		numberToMultiply = 10,
+		maxMultiplier = 3,
+	}	
+},
+
+[IBS_Trinket.toughheart]={
+	name="硬的心",
+	info="10%概率免疫伤害#受伤时，免伤概率增加15%，直到下一次免伤#对自伤无效",
+	mult={
+		numberToMultiply = 10,
+		maxMultiplier = 3,
+	}	
+},
 
 }
 

@@ -297,7 +297,7 @@ do --void/abyss up
 	EID:addDescriptionModifier("ibsVoidAbyssUp".."_"..LANG, condition, callback)
 end
 --------------------------------------------------------
---------------------------饰品--------------------------
+-------------------------Trinket------------------------
 --------------------------------------------------------
 local trinketEID={
 
@@ -313,7 +313,25 @@ local trinketEID={
 [IBS_Trinket.dadspromise]={
 	name="Dad's Promise",
 	info="{{BossRoom}} Completing Boss room in 45 + (15*levels) seconds brings {{Card49}}",
-	mult={findReplace = {"15","20","25"}}	
+	mult={findReplace = {"15","20","25"}},
+},
+
+[IBS_Trinket.divineretaliation]={
+	name="Divine Retaliation",
+	info="10% chance to resist damage from projectiles#When hit by projectiles, transform projectiles around into fire",
+	mult={
+		numberToMultiply = 10,
+		maxMultiplier = 3,
+	}
+},
+
+[IBS_Trinket.toughheart]={
+	name="Tough Heart",
+	info="10% chance to resist damage#When damaged, the chance + 15% until next resistance#No effect on self-damage",
+	mult={
+		numberToMultiply = 10,
+		maxMultiplier = 3,
+	}	
 },
 
 

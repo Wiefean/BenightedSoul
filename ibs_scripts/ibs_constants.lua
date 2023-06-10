@@ -152,6 +152,8 @@ cmantle = Isaac.GetItemIdByName("Cursed Mantle"),
 mod.IBS_Trinket = {
 bottleshard = Isaac.GetTrinketIdByName("Bottle Shard"),
 dadspromise = Isaac.GetTrinketIdByName("Dad's Promise"),
+divineretaliation = Isaac.GetTrinketIdByName("Divine Retaliation"),
+toughheart = Isaac.GetTrinketIdByName("Tough Heart"),
 
 }
 

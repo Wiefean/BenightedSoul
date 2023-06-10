@@ -48,6 +48,10 @@ Beast = (IBS_Item.nop),
 Greed = (IBS_Item.ssg),
 },
 
+["bmaggy"] = {
+Delirium = (IBS_Item.gheart),
+},
+
 }
 
 --通过打标解锁的饰品
@@ -56,6 +60,11 @@ local MarkTrinket = {
 ["bisaac"] = {
 	IBSL = (IBS_Trinket.bottleshard),
 	Witness = (IBS_Trinket.dadspromise),
+},
+
+["bmaggy"] = {
+	IBSL = (IBS_Trinket.divineretaliation),
+	Witness = (IBS_Trinket.toughheart),
 },
 
 }

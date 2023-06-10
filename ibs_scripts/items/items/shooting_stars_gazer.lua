@@ -272,7 +272,7 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_,player)
 		elseif data.Ready == false then
 			data.Ready = true
 			sfx:Play(IBS_Sound.ssg_ready,0.6)
-			player:SetColor(Color(0, 0, 0, 1, 0,0.25,1),15,2,true)
+			player:SetColor(Color(1, 1, 1, 1, 0,0.25,1),15,2,true)
 		end
 		
 		--流星

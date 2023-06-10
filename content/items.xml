@@ -13,5 +13,6 @@
 
 	<trinket name="Bottle Shard" description="He really did it" gfx="bottleshard.png" />
 	<trinket name="Dad's Promise" description="The old ends, The new comes" gfx="dadspromise.png" />
-	
+	<trinket name="Divine Retaliation" description="Projectile to fire" gfx="devineretaliation.png" />
+	<trinket name="Tough Heart" description="Blocks damage... sometimes" gfx="toughheart.png" />
 </items>

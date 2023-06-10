@@ -32,6 +32,13 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
 			sspd = 0,
 			luck = 0
 		}
+		
+		--刷新角色属性
+		for i = 0, Game():GetNumPlayers() -1 do
+			local player = Isaac.GetPlayer(i)
+			player:AddCacheFlags(CacheFlag.CACHE_ALL)
+			player:EvaluateItems()
+		end			
 	end
 end)
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_,player,flag)

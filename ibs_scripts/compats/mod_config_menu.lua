@@ -636,7 +636,7 @@ do	--昧化抹大拉
 	
 	do	--以撒标记
 		local KEY = "Isaac"
-		local INFO = {"No achievement yet"}
+		local INFO = {"One of four marks for divine retaliation"}
 		
 		local setting = mcm.AddBooleanSetting(
 			ModName, 
@@ -664,7 +664,7 @@ do	--昧化抹大拉
 
 	do	--蓝人标记
 		local KEY = "BlueBaby"
-		local INFO = {"No achievement yet"}
+		local INFO = {"One of four marks for divine retaliation"}
 		
 		local setting = mcm.AddBooleanSetting(
 			ModName, 
@@ -692,7 +692,7 @@ do	--昧化抹大拉
 
 	do	--撒旦标记
 		local KEY = "Satan"
-		local INFO = {"No achievement yet"}
+		local INFO = {"One of four marks for divine retaliation"}
 		
 		local setting = mcm.AddBooleanSetting(
 			ModName, 
@@ -720,7 +720,7 @@ do	--昧化抹大拉
 
 	do	--羔羊标记
 		local KEY = "Lamb"
-		local INFO = {"No achievement yet"}
+		local INFO = {"One of four marks for divine retaliation"}
 		
 		local setting = mcm.AddBooleanSetting(
 			ModName, 
@@ -832,7 +832,7 @@ do	--昧化抹大拉
 	
 	do	--精神错乱标记
 		local KEY = "Delirium"
-		local INFO = {"No achievement yet"}
+		local INFO = {"Mark for glowing heart"}
 		
 		local setting = mcm.AddBooleanSetting(
 			ModName, 
@@ -860,7 +860,7 @@ do	--昧化抹大拉
 	
 	do	--见证者标记
 		local KEY = "Witness"
-		local INFO = {"No achievement yet"}
+		local INFO = {"Mark for tough heart"}
 		
 		local setting = mcm.AddBooleanSetting(
 			ModName, 
@@ -998,10 +998,11 @@ if mcm.i18n == "Chinese" then
 			["For debug console"] = "用于控制台",
 			["(See the text file for more)"] = "(详见txt文件)"
 		})	
-	end	
+	end
 	--基础板块结束--
 	
 	--成就板块1开始--
+	do
 		mcm.SetSubcategoryNameTranslate(ModName, AchievSettings1,"成就1")
 		mcm.TranslateOptionsDisplayTextWithTable(ModName, AchievSettings1, {
 			["Items"] = "物品",
@@ -1016,7 +1017,8 @@ if mcm.i18n == "Chinese" then
 		mcm.TranslateOptionsInfoTextWithTable(ModName, AchievSettings1, {
 			["Use D4 40 times in a run to unlock"] = "单局使用四面骰40次以解锁",
 			["Finish it for Isaac up"] = "完成以强化以撒",
-		})	
+		})
+	end
 	--成就板块1结束--
 	
 	--成就板块2开始--
@@ -1058,6 +1060,9 @@ if mcm.i18n == "Chinese" then
 			["Mark for Shooting Stars Gazer"]= "解锁仰望星空",
 			["For a mini boss"] = "解锁一个小头目",
 			["This only affects its single achievement"] = "改动此项仅影响对应的单个成就",
+			["One of four marks for divine retaliation"] = "1/4解锁神圣反击",
+			["Mark for glowing heart"] = "解锁发光的心",
+			["Mark for tough heart"] = "解锁硬的心",
 		})	
 	end	
 	--成就板块2结束--	

@@ -120,7 +120,7 @@ local function UpdatePlayerSprite(player)
 			data.CostumeState = costumeState
 			player:TryRemoveNullCostume(costume)
 			
-			if costumeState == 1 then
+			if data.CostumeState == 1 then
 				player:AddNullCostume(costume)
 			end
 		end
@@ -295,7 +295,7 @@ local function IronHeart_TakeDMG(_,ent, amount, flag, source)
 		end
 	end
 end
-mod:AddPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, 700, IronHeart_TakeDMG)
+mod:AddPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, -700, IronHeart_TakeDMG)
 
 --楼层状态影响铁心上限
 local LevelStateInfluence = {

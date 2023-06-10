@@ -81,6 +81,16 @@ Trinket = {
 		Desc="旧约的结束是新约的开始"
 	},
 
+	[IBS_Trinket.divineretaliation]={
+		Name="神圣反击",
+		Desc="弹火"
+	},
+
+	[IBS_Trinket.toughheart]={
+		Name="硬的心",
+		Desc="抵挡伤害...总会有效"
+	},
+
 },
 
 --口袋物品(不包含药丸)

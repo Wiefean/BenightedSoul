@@ -9,7 +9,7 @@ local BigBooks = mod.IBS_Lib.BigBooks
 local LANG = Options.Language
 
 
---对应成就
+--对应成就贴图
 local Paper = {
 
 [IBS_Player.bisaac] = {
@@ -24,11 +24,11 @@ local Paper = {
 },
 
 [IBS_Player.bmaggy] = {
-	IBSL = nil,
+	IBSL = "divineretaliation",
 	MegaSatan = nil,
 	BRH = nil,
-	Delirium = nil,
-	Witness = nil,
+	Delirium = "gheart",
+	Witness = "toughheart",
 	Beast = nil,
 	Greed = nil,
 	FINISHED = nil

@@ -19,8 +19,10 @@ local items = {
 
 	"trinkets.bottleshard",
 	"trinkets.dadspromise",
+	"trinkets.divineretaliation",
+	"trinkets.toughheart",
 	
-	"pocketitems.CuZnD6",	
+	"pocketitems.CuZnD6",
 }
 LoadScripts(items)
 

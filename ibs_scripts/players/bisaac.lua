@@ -14,13 +14,17 @@ local sfx = SFXManager()
 
 --装扮
 local costume = Isaac.GetCostumeIdByPath('gfx/ibs/characters/bisaac_cross.anm2')
+local costume_devilBonus = Isaac.GetCostumeIdByPath('gfx/ibs/characters/bisaac_devil.anm2')
+local costume_angelBonus = Isaac.GetCostumeIdByPath('gfx/ibs/characters/bisaac_angel.anm2')
+local costume_bothBonus = Isaac.GetCostumeIdByPath('gfx/ibs/characters/bisaac_both.anm2')
 
 --临时玩家数据
 local function GetPlayerData(player)
 	local data = Ents:GetTempData(player)
 	data.BISAAC = data.BISAAC or {
 		PlayerMatched = false,
-		CostumeState = 0
+		CostumeState = 0,
+		Costume2State = "none"
 	}
 
 	return data.BISAAC
@@ -65,7 +69,7 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, Bisaac_Init)
 
 local function Bisaac_Costume(_,player)--更新装扮
-    local data = GetPlayerData(player)
+    local data = GetPlayerData(player)	
     local state = 1
 
 	if player:GetPlayerType() == (IBS_Player.bisaac) then
@@ -78,10 +82,32 @@ local function Bisaac_Costume(_,player)--更新装扮
 				player:AddNullCostume(costume)
 			end
 		end
+		
+		--恶魔/天使奖励装扮
+		if IBS_Data.GameState.Temp.BenightedIsaac then		
+			local mode = IBS_Data.GameState.Temp.BenightedIsaac.BonusMode
+			if data.Costume2State ~= mode then
+				data.Costume2State = mode
+				player:TryRemoveNullCostume(costume_devilBonus)
+				player:TryRemoveNullCostume(costume_angelBonus)
+				player:TryRemoveNullCostume(costume_bothBonus)
+				
+				if data.Costume2State == "both" then
+					player:AddNullCostume(costume_bothBonus)
+				elseif data.Costume2State == "angel" then
+					player:AddNullCostume(costume_angelBonus)
+				elseif data.Costume2State == "devil" then
+					player:AddNullCostume(costume_devilBonus)					
+				end
+			end			
+		end	
 	else
 		if data.PlayerMatched then
 			data.PlayerMatched = false
 			player:TryRemoveNullCostume(costume)
+			player:TryRemoveNullCostume(costume_devilBonus)
+			player:TryRemoveNullCostume(costume_angelBonus)
+			player:TryRemoveNullCostume(costume_bothBonus)
 		end
 	end	
 end
@@ -118,13 +144,15 @@ local function IsDAOpen()
 		local door = room:GetDoor(i)
 		if door ~= nil then
 			local idx = door.TargetRoomIndex
-			local data = level:GetRoomByIdx(idx).Data 
-			if (data.Type == RoomType.ROOM_DEVIL) then	
-				devil = true
+			local data = level:GetRoomByIdx(idx).Data
+			if data then
+				if (data.Type == RoomType.ROOM_DEVIL) then	
+					devil = true
+				end
+				if (data.Type == RoomType.ROOM_ANGEL) then	
+					angel = true
+				end
 			end
-			if (data.Type == RoomType.ROOM_ANGEL) then	
-				angel = true
-			end			
 		end
 	end
 	
@@ -140,16 +168,19 @@ local function AfterBoss()
 				local player = Isaac.GetPlayer(i)
 				if player:GetPlayerType() == (IBS_Player.bisaac) then
 					local devil,angel = IsDAOpen()
-						if Check("BonusMode") == "none" then
-							if devil and angel then
-								Change("BonusMode", "both")
-							elseif devil then
-								Change("BonusMode", "angel")
-							elseif angel then
-								Change("BonusMode", "devil")
-							end
-						end
-					break
+					if Check("BonusMode") == "none" then
+						if player:HasCollectible(498) then --二元性
+							Change("BonusMode", "both")
+							break
+						end					
+						if devil and angel then
+							Change("BonusMode", "both")
+						elseif devil then
+							Change("BonusMode", "angel")
+						elseif angel then
+							Change("BonusMode", "devil")
+						end	
+					end
 				end
 			end
 		end	
@@ -164,16 +195,19 @@ local function AfterDealWave(_,state)
 			local player = Isaac.GetPlayer(i)
 			if player:GetPlayerType() == (IBS_Player.bisaac) then
 				local devil,angel = IsDAOpen()
-					if Check("BonusMode") == "none" then
-						if devil and angel then
-							Change("BonusMode", "both")
-						elseif devil then
-							Change("BonusMode", "angel")
-						elseif angel then
-							Change("BonusMode", "devil")
-						end
+				if Check("BonusMode") == "none" then
+					if player:HasCollectible(498) then
+						Change("BonusMode", "both")
+						break
 					end
-				break
+					if devil and angel then
+						Change("BonusMode", "both")
+					elseif devil then
+						Change("BonusMode", "angel")
+					elseif angel then
+						Change("BonusMode", "devil")
+					end
+				end
 			end
 		end
 	end	
