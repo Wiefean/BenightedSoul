@@ -2,6 +2,7 @@
 
 local mod = Isaac_BenightedSoul
 local IBS_Callback = mod.IBS_Callback
+local Players = mod.IBS_Lib.Players
 
 local config = Isaac.GetItemConfig()
 
@@ -17,14 +18,14 @@ local function IsActiveButtonTriggered(player, slot)
 		if (slot == ActiveSlot.SLOT_PRIMARY) then
 			return Input.IsActionTriggered(action, cid) and not Input.IsActionPressed(ButtonAction.ACTION_DROP, cid)
 		elseif (slot == ActiveSlot.SLOT_POCKET) then
-			return Input.IsActionTriggered(ButtonAction.ACTION_PILLCARD, cid)			
+			return (player:GetCard(0) <= 0 and player:GetPill(0) <= 0) and Input.IsActionTriggered(action, cid)	and Input.IsActionPressed(ButtonAction.ACTION_DROP, cid)		
 		end
 	else
 		if not Input.IsActionPressed(ButtonAction.ACTION_DROP, cid) then --这里主要是为了某些模组的兼容(但也会导致按住切换键时会返回false,总体来说无伤大雅)
 			if (slot == ActiveSlot.SLOT_PRIMARY) then
 				return Input.IsActionTriggered(ButtonAction.ACTION_ITEM, cid)
 			elseif (slot == ActiveSlot.SLOT_POCKET) then
-				return Input.IsActionTriggered(ButtonAction.ACTION_PILLCARD, cid)
+				return (player:GetCard(0) <= 0 and player:GetPill(0) <= 0) and Input.IsActionTriggered(ButtonAction.ACTION_PILLCARD, cid)
 			end
 		end	
 	end
@@ -32,6 +33,20 @@ local function IsActiveButtonTriggered(player, slot)
 	return false
 end
 
+--用于修正
+local TryUseTimeOut = 0 
+mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
+	if TryUseTimeOut > 0 then
+		TryUseTimeOut = TryUseTimeOut -1
+	end
+end)
+
+--尝试使用主动回调
+--[[说明:
+这个回调主要是用来触发主动的
+在相应使用道具回调(ModCallbacks.MC_USE_ITEM)中应返回{DisCharge = false}
+之后的充能消耗和魂火生成要自行添加
+]]
 --尝试使用主动回调
 --[[说明:
 这个回调主要是用来触发主动的
@@ -39,7 +54,7 @@ end
 之后的充能消耗和魂火生成要自行添加
 ]]
 local function TryUseItemCallback(mod, player)
-	if (not Game():IsPaused()) and (player:AreControlsEnabled()) and (Game():GetRoom():GetRenderMode() ~= RenderMode.RENDER_WATER_REFLECT) then
+	if (not Game():IsPaused()) and (player:AreControlsEnabled()) then
 		for slot = ActiveSlot.SLOT_PRIMARY, ActiveSlot.SLOT_POCKET, 2 do --只考虑第一主动和副手主动槽
 			local item = player:GetActiveItem(slot)
 			local itemConfig = config:GetCollectible(item)
@@ -48,28 +63,35 @@ local function TryUseItemCallback(mod, player)
 			if (item > 0) and (itemConfig.MaxCharges > 0) and IsActiveButtonTriggered(player, slot) then
 				local canUse = false
 				local flags = UseFlag.USE_OWNED --已经自动添加使用标签"拥有"
+				local charges = 0
+				local chargeType = itemConfig.ChargeType
+				if (chargeType == ItemConfig.CHARGE_TIMED) then
+					charges = Players:GetTimedSlotCharges(player, slot)
+				else	
+					charges = Players:GetSlotCharges(player, slot)
+				end
 				
-				for _, callback in ipairs(Isaac.GetCallbacks(DMM_Callback.TRY_USE_ITEM)) do
+				for _, callback in ipairs(Isaac.GetCallbacks(IBS_Callback.TRY_USE_ITEM)) do
 					if (not callback.Param) or (callback.Param == item) then
-						local result = callback.Function(mod, item, player, slot) or false
+						local result = callback.Function(mod, item, player, slot, charges, chargeType) or false
 						if type(result) == "table" then
 							canUse = result.CanUse or false
 							if (canUse) then
 								flags = (result.UseFlags and (flags | result.UseFlags)) or flags
-								break
 							end
 						elseif type(result) == "boolean" then
 							canUse = result
-							if (canUse) then break end
 						end
 					end
 				end
 							
-				if (canUse) then
+				if (canUse) and (TryUseTimeOut <= 0) then
 					player:UseActiveItem(item, flags, slot)
+					TryUseTimeOut = TryUseTimeOut + 2
 				end	
 			end 
 		end
 	end
 end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, TryUseItemCallback, 0)
+

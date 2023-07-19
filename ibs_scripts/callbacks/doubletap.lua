@@ -77,50 +77,49 @@ end
 
 --更新数据以及双击回调
 local function DoubleTapCallback(_,player)
-	if (not Game():IsPaused()) and (player:AreControlsEnabled()) and (Game():GetRoom():GetRenderMode() ~= RenderMode.RENDER_WATER_REFLECT) then
+	local game = Game()
+	if (not game:IsPaused()) and (player:AreControlsEnabled()) and (game:GetRoom():GetRenderMode() ~= RenderMode.RENDER_WATER_REFLECT) then
 		local data = GetLastInputData(player)
 		local cid = player.ControllerIndex
 		
-		if not Input.IsActionPressed(ButtonAction.ACTION_MAP, cid) then --没有按下地图键
-			do--移动
-				local action = GetWalkInput(player)
-				if action >= 0 then
-					if action == data.Walk.Action then
-						Isaac.RunCallback(IBS_Callback.PLAYER_DOUBLE_TAP, player, 0, action)
-						data.Walk.TimeOut = 0
-					else
-						data.Walk.Action = action
-						data.Walk.TimeOut = 10
-					end
-				end	
-			end
-			do--射击
-				local dir = GetShootDirection(player)
-				if dir >= 0 then
-					if dir == data.Shoot.Direction then
-						Isaac.RunCallback(IBS_Callback.PLAYER_DOUBLE_TAP, player, 1, dir)
-						data.Shoot.TimeOut = 0
-					else
-						data.Shoot.Direction = dir
-						data.Shoot.TimeOut = 10
-					end
+		do--移动
+			local action = GetWalkInput(player)
+			if action >= 0 then
+				if action == data.Walk.Action then
+					Isaac.RunCallback(IBS_Callback.PLAYER_DOUBLE_TAP, player, 0, action)
+					data.Walk.TimeOut = 0
+				else
+					data.Walk.Action = action
+					data.Walk.TimeOut = 10
+				end
+			end	
+		end
+		do--射击
+			local dir = GetShootDirection(player)
+			if dir >= 0 then
+				if dir == data.Shoot.Direction then
+					Isaac.RunCallback(IBS_Callback.PLAYER_DOUBLE_TAP, player, 1, dir)
+					data.Shoot.TimeOut = 0
+				else
+					data.Shoot.Direction = dir
+					data.Shoot.TimeOut = 10
 				end
 			end
-			do--其他
-				for _,action in pairs(OtherAction) do
-					if Input.IsActionTriggered(action, cid) then
-						local exist = false
-						for _,v in pairs(data.Other) do
-							if action == v.Action then
-								Isaac.RunCallback(IBS_Callback.PLAYER_DOUBLE_TAP, player, 2, action)
-								v.TimeOut = 0						
-								exist = true
-								break
-							end
+		end
+		do--其他
+			for _,action in pairs(OtherAction) do
+				if Input.IsActionTriggered(action, cid) then
+					local exist = false
+					for _,v in pairs(data.Other) do
+						if action == v.Action then
+							Isaac.RunCallback(IBS_Callback.PLAYER_DOUBLE_TAP, player, 2, action)
+							v.TimeOut = 0						
+							exist = true
+							break
 						end
-						if not exist then
-							table.insert(data.Other, {Action = action, TimeOut = 10})
-						end
+					end
+					if not exist then
+						table.insert(data.Other, {Action = action, TimeOut = 10})
 					end
 				end
 			end

@@ -10,5 +10,7 @@ local callbacks = {
 	"greed",
 	"item",
 	"doubletap",
+	"tryuseitem",
+	"activerender",
 }
 LoadScripts(callbacks)

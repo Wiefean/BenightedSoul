@@ -16,6 +16,10 @@ local items = {
 	"items.glowingheart",
 	"items.purplebubbles",
 	"items.cursedmantle",
+	"items.hypercube",
+	"items.defined",
+	"items.chocolate",
+	"items.diamoond",
 
 	"trinkets.bottleshard",
 	"trinkets.dadspromise",

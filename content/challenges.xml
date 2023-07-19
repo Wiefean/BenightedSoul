@@ -30,5 +30,6 @@
 -->
 <challenges version="1">
 	<challenge name="BC1 Rolling Destiny" playertype="0" endstage="6" cursefilter="8" roomfilter="7,8" difficulty="1"/>
+	<challenge name="BC2 The Fragile" playertype="22" startingitems="352,694" endstage="8" getcurse="1" roomfilter="4,7,8,21" difficulty="1"/>
 	
 </challenges>

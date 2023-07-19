@@ -11,11 +11,12 @@ local function VoidUp(_,col,rng,player,flags)
 			--吞掉地上的饰品
 			local ts = Isaac.FindByType(5, 350)
 			for i = 1, #ts do
-				if ts[i].SubType > 0 then
-					player:AddTrinket(ts[i].SubType, ts[i]:ToPickup().Touched)
+				local item = ts[i]:ToPickup()
+				if (item.SubType > 0) and (item.Price == 0) then
+					player:AddTrinket(item.SubType, item.Touched)
 					player:UseActiveItem(479,false,false)
-					Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, ts[i].Position, Vector.Zero, nil)						
-					ts[i]:Remove()
+					Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, item.Position, Vector.Zero, nil)						
+					item:Remove()
 				end
 			end		
 		end
@@ -29,12 +30,14 @@ local function AbyssUp(_,col,rng,player,flags)
 	if (flags & UseFlag.USE_OWNED > 0) then
 		if IBS_Data.Setting["abyssUp"] then
 			local ts = Isaac.FindByType(5, 350)
+			
 			for i = 1, #ts do
-				if ts[i].SubType > 0 then
-					local locust = Isaac.Spawn(3, FamiliarVariant.ABYSS_LOCUST, 2, ts[i].Position, Vector.Zero, player):ToFamiliar()
+			local item = ts[i]:ToPickup()
+				if (item.SubType > 0) and (item.Price == 0) then
+					local locust = Isaac.Spawn(3, FamiliarVariant.ABYSS_LOCUST, 2, item.Position, Vector.Zero, player):ToFamiliar()
 					locust.Player = player
-					Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, ts[i].Position, Vector.Zero, nil)						
-					ts[i]:Remove()
+					Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, item.Position, Vector.Zero, nil)						
+					item:Remove()
 				end
 			end		
 		end

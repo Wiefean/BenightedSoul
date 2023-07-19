@@ -47,10 +47,10 @@ end
 local function RecorD4(_,col,rng,player,flags,slot)
 	if (flags & UseFlag.USE_OWNED > 0) then --要求持有
 		if not IBS_Data.Setting["d4dUnlocked"] and IsUnlockable() then --未解锁且能解锁成就时才记录 
-			local data = mod:GetIBSData("Temp")
+			local data = mod:GetIBSData("Level")
 			data.d4UsedTimes = data.d4UsedTimes or 1
 			
-			if data.d4UsedTimes < 40 then
+			if data.d4UsedTimes < 4 then
 				data.d4UsedTimes = data.d4UsedTimes + 1
 			else
 				ShowPaper()

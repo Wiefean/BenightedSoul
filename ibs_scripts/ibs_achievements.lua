@@ -13,6 +13,7 @@ local achiev = {
 	"rules",
 	
 	"challenges.1",
+	"challenges.2",
 	
 	"items.items.d4d_unlocking",
 	
@@ -50,6 +51,8 @@ Greed = (IBS_Item.ssg),
 
 ["bmaggy"] = {
 Delirium = (IBS_Item.gheart),
+Beast = (IBS_Item.diamoond),
+Greed = (IBS_Item.chocolate),
 },
 
 }
@@ -82,6 +85,7 @@ local MarkPocket = {
 local MarkChallenge = {
 
 [IBS_Challenge.bc1] = "bisaac",
+[IBS_Challenge.bc2] = "bmaggy",
 
 }
 

@@ -79,7 +79,7 @@ PICK_CARD = "IBS_CALLBACK_PICK_CARD",
 	11 -- 丢弃/切换
 	13 -- 展开地图
 	
-射击方向(类型为射击时使用):	
+射击方向(类型为射击时使用):
 	0 -- 左
 	1 -- 上
 	2 -- 右
@@ -96,41 +96,49 @@ PLAYER_DOUBLE_TAP = "IBS_CALLBACK_PLAYER_DOUBLE_TAP",
 	0 -- 第一主动
 	2 -- 副手主动
 
-充能类型:
+主动槽:
 	0 -- 普通
 	1 -- 自充
 	2 -- 特殊
 
-已充能数包括魂心/红心充能
-
-在充能类型为自充时,充能单位是逻辑帧而不是格,30逻辑帧为1秒
-
 添加的函数中返回包含以下内容的表,则可以尝试在充能未满时使用主动(没有填入项时,将采用中括号内的默认值):
 	CanUse -- 是否可使用 [false]
-	DisCharge --可使用时消耗的充能数 [默认为所有已充能数]
-	EvenFullCharge --即使充能已满,仍然通过该回调消耗充能和使用主动 [false]
 	UseFlags --添加使用标签 [默认已经添加标签"拥有"]
-	AutoCheckVirtue --是否自动尝试生成魂火 [true]
-	IncludeSpecial --是否包括特殊充能主动 [false]
-	IgnoreSoulCharge --忽略魂心充能(用于消耗充能) [false]
-	IgnoreBloodCharge --忽略红心充能(用于消耗充能) [false]
 
 可添加的使用标签(标签为位运算形式):
 	UseFlag.USE_NOANIM --不播放举起动画
 	UseFlag.USE_NOCOSTUME --不添加服装
 	UseFlag.USE_OWNED --拥有(已经自动添加)
-	UseFlag.USE_ALLOWWISPSPAWN --生成魂火(一般在AutoCheckVirtue为false时使用) 
-	
-{CanUse, DisCharge, EvenFullCharge, UseFlags, AutoCheckVirtue, IncludeSpecial, IgnoreSoulCharge, IgnoreBloodCharge}
+	UseFlag.USE_ALLOWWISPSPAWN --允许生成魂火(搭配上面的NOANIM使用) 
 
-直接返回true或false时,将改变CanUse,其他项使用默认值
-一旦CanUse为true,将不再检测之后的函数返回的值
+直接返回true或false时,只改变CanUse
+之后的结果会覆盖之前的结果
 
-通过该回调使用主动并不会跳过而是跳转使用道具回调(MC_USE_ITEM)
-所以当EvenFullCharge为true时,在相应使用道具回调(MC_USE_ITEM)中应返回{DisCharge = false},
-否则会消耗两次充能,使用两次主动
+已充能数包括了魂心和红心充能
+当充能类型为自充时,充能数的单位为逻辑帧数而不是格数
+
+这个回调主要是用来触发主动的,且对零充主动无效
+在相应使用道具回调(ModCallbacks.MC_USE_ITEM)中应返回{DisCharge = false}
+之后的充能消耗和魂火生成要自行添加
 ]]
 TRY_USE_ITEM = "IBS_CALLBACK_TRY_USE_ITEM",
+
+
+--主动槽渲染
+--[[
+提供参数:道具ID, 玩家(实体), 主动槽(整数), 主动槽位置(矢量), 主动槽缩放比例(矢量)
+可输入参数:道具ID
+主动槽:
+	0 -- 第一主动
+	1 -- 第二主动
+	2 -- 副手主动
+
+第一主动和P1玩家副手主动的贴图缩放比例为Vector(1,1),也就是大小不变
+第二主动和非P1玩家副手主动的贴图是缩小一半的,缩放比例为Vector(0.5,0.5)
+
+贴图通过该回调进行渲染会显示在HUD上层
+]]
+ACTIVE_SLOT_RENDER = "IBS_CALLBACK_ACTIVE_SLOT_RENDER",
 
 }
 
@@ -145,6 +153,10 @@ envy = Isaac.GetItemIdByName("Ennnnnnvyyyyyy"),
 gheart = Isaac.GetItemIdByName("Glowing Heart"),
 pb = Isaac.GetItemIdByName("Purple Bubbles"),
 cmantle = Isaac.GetItemIdByName("Cursed Mantle"), 
+hypercube = Isaac.GetItemIdByName("Hypercube"), 
+defined = Isaac.GetItemIdByName("Defined"), 
+chocolate = Isaac.GetItemIdByName("Valentinus Chocolate"),
+diamoond = Isaac.GetItemIdByName("Diamoond"),
 
 }
 
@@ -173,6 +185,7 @@ bmaggy = Isaac.GetPlayerTypeByName("Benighted Magdalene"),
 --挑战
 mod.IBS_Challenge = {
 bc1 = Isaac.GetChallengeIdByName("BC1 Rolling Destiny"),
+bc2 = Isaac.GetChallengeIdByName("BC2 The Fragile"),
 
 }
 
@@ -245,14 +258,17 @@ end
 
 --函数库
 --具体用法在对应lua文件
-mod.IBS_Lib = {
-Translations = include("ibs_scripts.lib.translations"),
-Maths = include("ibs_scripts.lib.maths"),
-Pools = include("ibs_scripts.lib.pools"),
-Finds = include("ibs_scripts.lib.finds"),
-Players = include("ibs_scripts.lib.players"),
-Stats = include("ibs_scripts.lib.stats"),
-BigBooks = include("ibs_scripts.lib.bigbooks"),
-Ents = include("ibs_scripts.lib.ents"),
+mod.IBS_Lib = {}
 
-}
+local function SetLib(key, fileName)
+	mod.IBS_Lib[key] = include("ibs_scripts.lib."..fileName)
+end
+
+SetLib("Translations", "translations")
+SetLib("Maths", "maths")
+SetLib("Pools", "pools")
+SetLib("Finds", "finds")
+SetLib("Ents", "ents")
+SetLib("Players", "players")
+SetLib("Stats", "stats")
+SetLib("BigBooks", "bigbooks")

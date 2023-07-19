@@ -23,6 +23,7 @@ local function PreTakeDMG(_,ent, amount, flag, source)
 				for _,proj in pairs(Isaac.FindInRadius(player.Position, 100, EntityPartition.BULLET)) do
 					local fire = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BLUE_FLAME, 0, proj.Position, 5*((proj.Position - player.Position):Normalized()), player):ToEffect()
 					fire.Parent = player
+					fire.Color = Color(1,1,1,0.5,2,2,0)
 					fire.CollisionDamage = math.max(3.5, player.Damage)
 					fire.Timeout = rng:RandomInt(180) + 120
 					proj:Remove()

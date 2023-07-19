@@ -24,7 +24,7 @@ Item = {
 	},
 	[IBS_Item.ld6]={
 		Name="光辉六面骰",
-		Desc="平衡你的命运"
+		Desc="权衡你的命运"
 	},
 
 	[IBS_Item.nop]={
@@ -66,6 +66,26 @@ Item = {
 		Name="诅咒屏障",
 		Desc="绑定诅咒 + 防御反击"
 	},
+
+	[IBS_Item.hypercube]={
+		Name="超立方",
+		Desc="复制你的命运"
+	},
+
+	[IBS_Item.defined]={
+		Name="已定义",
+		Desc="旅途愉快"
+	},
+	
+	[IBS_Item.chocolate]={
+		Name="瓦伦丁巧克力",
+		Desc="双击友好 , 每房间两次机会"
+	},
+	
+	[IBS_Item.diamoond]={
+		Name="钻石",
+		Desc="超月燃"
+	},	
 
 },
 

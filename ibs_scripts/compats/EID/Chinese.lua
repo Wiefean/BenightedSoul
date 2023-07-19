@@ -102,7 +102,7 @@ end
 -----------------------角色长子权-----------------------
 --------------------------------------------------------
 EID:addBirthright(IBS_Player.bisaac, "飞行#恶魔/天使房中道具选择 + 1", "昧化以撒", LANG)
-EID:addBirthright(IBS_Player.bmaggy, "坚贞之心恢复速度翻倍", "昧化抹大拉", LANG)
+EID:addBirthright(IBS_Player.bmaggy, "进入新房间或贪婪新波次，坚贞之心恢复量翻倍", "昧化抹大拉", LANG)
 
 --------------------------------------------------------
 --------------------------道具--------------------------
@@ -111,9 +111,16 @@ local itemEID={
 
 [IBS_Item.ld6]={
 	name="光辉六面骰",
-	info="以房间内道具平均品质重置道具",
+	info="无需满充能即可使用"..
+		 "#以房间内道具平均品质重置道具"..
+		 "#消耗的充能由平均品质决定:"..
+		 "#{{Quality0}} 及以下: 0"..
+		 "#{{Quality1}} : 1"..
+		 "#{{Quality2}} : 3"..
+		 "#{{Quality3}} : 4"..
+		 "#{{Quality4}} 及以上 : 6",
 	virtue="内层魂火，概率发射圣光眼泪#每重置1个道具额外生成1魂火",
-	belial="品质可能上下浮动"
+	belial="品质可能上下浮动"	
 },
 
 [IBS_Item.nop]={
@@ -130,7 +137,7 @@ local itemEID={
 [IBS_Item.d4d]={
 	name="四维骰",
 	info="以相对方位改变离角色最近道具的ID#左加;右减;上翻倍;下减半",
-	virtue="4个不可见外层魂火，不发射眼泪",
+	virtue="4个外层魂火，不发射眼泪",
 	belial="没有对应道具时，以{{Collectible51}}五芒星代替"
 },
 
@@ -160,7 +167,7 @@ local itemEID={
 	virtue="内层魂火，概率发射圣光眼泪",
 	greed="贪婪模式:波次开始时也会充能",
 	belial="无{{BrokenHeart}}碎心时，效果改为获得1{{BlackHeart}}黑心",
-	player={[IBS_Player.bmaggy]="同时恢复25坚贞之心"}
+	player={[IBS_Player.bmaggy]="同时恢复25可超上限的坚贞之心(切换房间后移除超出上限部分)"}
 },
 
 [IBS_Item.pb]={
@@ -181,11 +188,44 @@ local itemEID={
 	name="诅咒屏障",
 	info="强占主动槽，除非持有{{Collectible260}}黑蜡烛或{{Collectible584}}美德之书"..
 		 "#直接使用无效果"..
-		 "#即将受伤时，自动使用，免疫伤害，并进入影遁状态",
+		 "#即将受伤时，消耗2充能，免疫伤害，并进入影遁状态",
 	virtue="每用影遁杀死一个敌人生成一个单房间魂火#阻止该道具强占主动槽",
 	belial="无特殊效果",
 	player={[PlayerType.PLAYER_JUDAS_B]="影遁同样会给予{{Damage}}伤害提升"}
 
+},
+
+[IBS_Item.hypercube]={
+	name="超立方",
+	info="无记录时，记录距离最近的道具，并将其移出道具池"..
+		 "#已有记录时，将房间内的道具重置为记录的道具"..
+		 "#所有{{Collectible"..(IBS_Item.hypercube).."}}".."超立方共享记录",
+	virtue="外层魂火，发射追踪眼泪",
+	belial="无特殊效果"
+},
+
+[IBS_Item.defined]={
+	name="已定义",
+	info="无需满充能即可使用"..
+		 "#传送至选定类型的房间"..
+		 "#双击 "..EID.ButtonToIconMap[ButtonAction.ACTION_MAP].." 地图键以切换类型",
+	virtue="无魂火#充能消耗 - 1",
+	belial="充能消耗 - 1",
+},
+
+[IBS_Item.chocolate]={
+	name="瓦伦丁巧克力",
+	info="{{SoulHeart}} 魂心 + 2"..
+		 "#双击发射一颗特殊眼泪，将命中的非Boss敌人变为友好状态，但其生命减半"..
+		 "#两次机会，进入新房间重置"
+},
+
+[IBS_Item.diamoond]={
+	name="钻石",
+	info="{{Burning}} 33%火焰眼泪"..
+		 "#{{Slow}} 33%减速眼泪"..
+		 "#{{Luck}} 幸运不会影响概率"..
+		 "#{{Freezing}} 冰冻同时被点燃和减速的非Boss敌人"
 },
 
 }

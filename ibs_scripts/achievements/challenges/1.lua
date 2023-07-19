@@ -57,13 +57,7 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
 end)
 
 --完成
-function mod:onRemove(entity)
-	local room = game:GetRoom()
-	if entity.Type == EntityType.ENTITY_MOM then
-		room:TrySpawnBossRushDoor(true)
-	end
-end
-mod:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE , function(_,ent)
+mod:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE , function()
 	if IsUnlockable(6) then
 		if not IBS_Data.Setting["bc1"] then			
 			ShowPaper()
@@ -72,3 +66,4 @@ mod:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE , function(_,ent)
 		mod:SaveIBSData()
 	end
 end, EntityType.ENTITY_MOM)
+

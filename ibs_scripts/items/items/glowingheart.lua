@@ -15,23 +15,24 @@ local function Charge()
 		for slot = 0,2 do
 			if player:GetActiveItem(slot) == (IBS_Item.gheart) then
 				local charges = Players:GetSlotCharges(player, slot, true, true)
-				if charges == 6 then
-					sfx:Play(SoundEffect.SOUND_BATTERYCHARGE)
-				end
 				if charges < 7 then
+					Players:ChargeSlot(player, slot, 1, true)
+					charges = charges + 1
 					Game():GetHUD():FlashChargeBar(player, slot)
+					
+					if charges < 7 then
+						sfx:Play(SoundEffect.SOUND_BEEP)
+					elseif charges == 7 then
+						sfx:Play(SoundEffect.SOUND_BATTERYCHARGE)
+					end
 				end					
-				Players:ChargeSlot(player, slot, 1, true)			
-				if charges+1 < 7 then	
-					sfx:Play(SoundEffect.SOUND_BEEP)
-				end
 			end
 		end
 	end	
 end
 mod:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, Charge)
 
---贪婪模式兼容
+--贪婪模式波次充能
 mod:AddCallback(IBS_Callback.GREED_NEW_WAVE, Charge)
 
 --使用效果
@@ -41,7 +42,7 @@ local function OnUse(_,col, rng, player, flags)
 	if player:GetPlayerType() == (IBS_Player.bmaggy) then
 		local data = Players:GetData(player)
 		if data.IronHeart then 
-			data.IronHeart.Num = math.min(data.IronHeart.Max, data.IronHeart.Num + 25)
+			data.IronHeart.Extra = data.IronHeart.Extra + 25
 		end	
 	end
 

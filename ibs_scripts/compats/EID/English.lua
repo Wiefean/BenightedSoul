@@ -84,7 +84,7 @@ end
 -----------------------Birthright-----------------------
 --------------------------------------------------------
 EID:addBirthright(IBS_Player.bisaac, "Grants flight#There are more options in devil/angel room", "Benighted Isaac", LANG)
-EID:addBirthright(IBS_Player.bmaggy, "Doubles iron heart's recovery speed", "Benighted Magdalene", LANG)
+EID:addBirthright(IBS_Player.bmaggy, "Doubles iron heart recovery when entering a new room or a new greed wave", "Benighted Magdalene", LANG)
 
 --------------------------------------------------------
 -------------------------Item---------------------------
@@ -93,9 +93,16 @@ local itemEID={
 
 [IBS_Item.ld6]={
 	name="The Light D6",
-	info="Rerolls items with their average quality in the current room",
+	info="Can be used without full charge"..
+		 "#Rerolls items with their average quality in the current room"..
+		 "Costs charges:"..
+		 "#{{Quality0}} and below: 0"..
+		 "#{{Quality1}} : 1"..
+		 "#{{Quality2}} : 3"..
+		 "#{{Quality3}} : 4"..
+		 "#{{Quality4}} and above : 6",
 	virtue="Wisps that sometimes shoot holy tears#Spawns an extra wisp per rerolled item",
-	belial="Quality maybe changed a bit"
+	belial="The quality maybe changed a bit"
 },
 
 [IBS_Item.nop]={
@@ -104,8 +111,8 @@ local itemEID={
 	player={
 		[PlayerType.PLAYER_THELOST]="If there's only {{Player10}}or{{Player31}},free devil deals",
 		[PlayerType.PLAYER_THELOST_B]="If there's only {{Player10}}or{{Player31}},free devil deals",
-		[PlayerType.PLAYER_JACOB] = "{{Collectible249}}",
-		[PlayerType.PLAYER_ESAU] = "{{Collectible414}}"		
+		[PlayerType.PLAYER_JACOB] = "Grants{{Collectible249}}",
+		[PlayerType.PLAYER_ESAU] = "Grants{{Collectible414}}"		
 	}	
 },
 
@@ -114,7 +121,7 @@ local itemEID={
 	info="Changes the ID of an item closest to Isaac with relative direction"..
 		 "#Left +1 ; Right -1;"..
 		 "Up x2 ; Down /2",
-	virtue="4 invisible wisps",
+	virtue="4 wisps that do not shoot tears",
 	belial="Replaces the item with{{Collectible51}} if no corresponding ID"
 },
 
@@ -132,9 +139,9 @@ local itemEID={
 
 [IBS_Item.envy]={
 	name="Ennnnnnvyyyyyy",
-	info="↓ {{Speed}} - 0.15"..
-		 "#↓ {{Tears}} - 0.06"..
-		 "#↑ {{Damage}} + 1"..
+	info="↓ {{Speed}} spd - 0.15"..
+		 "#↓ {{Tears}} tears - 0.06"..
+		 "#↑ {{Damage}} dmg + 1"..
 		 "#6% chance to replace later items(Max:60%)"
 },
 
@@ -150,11 +157,11 @@ local itemEID={
 [IBS_Item.pb]={
 	name="Purple Bubbles",
 	info="Randomly grants:"..
-		 "#↓ {{Speed}} - 0.02"..
-		 "#↑ {{Tears}} + 0.06"..
-		 "#↑ {{Damage}} + 0.1"..
-		 "#↑ {{Range}} + 0.12"..
-		 "#↓ {{Shotspeed}} -0.03"..
+		 "#↓ {{Speed}} spd - 0.02"..
+		 "#↑ {{Tears}} tears + 0.06"..
+		 "#↑ {{Damage}} dmg + 0.1"..
+		 "#↑ {{Range}} rng + 0.12"..
+		 "#↓ {{Shotspeed}} sspd - 0.03"..
 		 "#Reset them in the next level if not carrying this item (Unless using this item 24 times or more)",
 	virtue="Wisps that sometimes shoot confusing tears",		 
 	belial="No special effect"
@@ -163,12 +170,46 @@ local itemEID={
 [IBS_Item.cmantle]={
 	name="Cursed Mantle",
 	info="Occupies the first active slot，unless holding{{Collectible260}}or{{Collectible584}}"..
-		 "#Automatically used before taking damage, Isaac will negate it and then begin shadow running",
+		 "#Automatically used and costs 2 charges before taking damage, Isaac will negate it and then begin shadow running",
 	virtue="Single room wisp per enemy killed by shadow running#Prevents occupying",
 	belial="No special effect",
 	player={[PlayerType.PLAYER_JUDAS_B]="Shadow running also grants{{Damage}}"}
 
 },
+
+[IBS_Item.hypercube]={
+	name="Hypercube",
+	info="Records the closest item and removes it form pools"..
+		 "#If recorded before, transform items in the current room into the recorded item"..
+		 "#All{{Collectible"..(IBS_Item.hypercube).."}}".."share the same record",
+	virtue="Wisps that sometimes shoot homing tears",
+	belial="No special effect"
+},
+
+[IBS_Item.defined]={
+	name="Defined",
+	info="Can be used without full charge"..
+		 "#Teleports to a room with selected type"..
+		 "#Double-tap "..EID.ButtonToIconMap[ButtonAction.ACTION_MAP].." to select room type",
+	virtue="No wisps#Charge cost - 1",
+	belial="Charge cost - 1",
+},
+
+[IBS_Item.chocolate]={
+	name="Valentinus Chocolate",
+	info="{{SoulHeart}} + 2"..
+		 "#Double-tapping a fire key creates a special tear that makes a normal enemy friendly with half hp"..
+		 "#Two shots for a room"
+},
+
+[IBS_Item.diamoond]={
+	name="Diamoond",
+	info="{{Burning}} 33%Burning tear"..
+		 "#{{Slow}} 33%Slowing tear"..
+		 "#{{Luck}} Luck has no effect on it"..
+		 "#{{Freezing}} Freezes a normal enemy that is both burning and slowing"
+},
+
 
 }
 

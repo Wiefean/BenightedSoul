@@ -2,6 +2,7 @@
 
 local mod = Isaac_BenightedSoul
 local IBS_Callback = mod.IBS_Callback
+local IBS_Challenge = mod.IBS_Challenge
 local IBS_Item = mod.IBS_Item
 local IBS_Player = mod.IBS_Player
 local IBS_Sound = mod.IBS_Sound
@@ -21,11 +22,23 @@ local Init = {
 	IronHeart_Max = 25, --铁心上限
 	IronHeart_MaxMax = 70, --铁心上限上限
 	IronHeart_MaxMin = 14, --铁心上限下限
-	IronHeart_RecoveryInterval = 72, --铁心恢复间隔,60=1秒
-	IronHeart_Interruption = 240, --铁心被打断恢复持续时间,60=1秒
-	ShockWave_MaxCharges = 180, --震荡波充能时间,60=1秒
-	ShockWave_Cost = 7 --震荡波消耗
 }
+
+--完成挑战后附加2点铁心上限
+mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.EARLY, function(_,isContinue)
+	if not isContinue then
+		if IBS_Data.Setting["bc2"] then
+			Init.IronHeart_Max = 27
+		else
+			Init.IronHeart_Max = 25
+		end
+	end
+end)
+
+--易碎品挑战检测
+local function IBSChallenge()
+	return Isaac.GetChallenge() == IBS_Challenge.bc2
+end
 
 --角色属性
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_,player, flag)
@@ -33,12 +46,6 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_,player, flag)
 		if flag == CacheFlag.CACHE_SPEED then
 			Stats:Speed(player, -0.3)
 		end
-		if flag == CacheFlag.CACHE_DAMAGE then
-			player.Damage = player.Damage * 0.75
-		end
-		if flag == CacheFlag.CACHE_RANGE then
-			player.TearRange = player.TearRange * 0.5
-		end		
 	end	
 end)
 
@@ -48,6 +55,7 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_,player)
         local game = Game()
         if not (game:GetRoom():GetFrameCount() < 0 and game:GetFrameCount() > 0) then
             player:SetPocketActiveItem((IBS_Item.gheart), ActiveSlot.SLOT_POCKET, false)
+			player:SetActiveCharge(0, ActiveSlot.SLOT_POCKET)
         end
     end
 end)
@@ -72,12 +80,8 @@ local function GetPlayerTempData(player)
 			PlayerMatched = false,
 			CostumeState = 0,
 			SpriteState = 0,
-			IronHeart_Interruption = 0,
-			IronHeart_Recovering = 0,
 			IronHeart_Sprite = spr,
 			IronHeart_Font = fnt,
-			Charges = 0,
-			ChargeBarSprite = bar
 		}
 	end
 	
@@ -89,7 +93,9 @@ local function GetIronHeartData(player)
 	local data = Players:GetData(player)
 	data.IronHeart = data.IronHeart or {
 		Num = 0,
-		Max = Init.IronHeart_Max
+		Max = Init.IronHeart_Max,
+		Extra = 0,
+		HeartAbsorption = 0
 	}
 
 	return data.IronHeart
@@ -154,12 +160,13 @@ local function Henshin(_,ent, dmg, flag, source)
 				if ready then
 					local data = GetIronHeartData(player)
 					player:ChangePlayerType(IBS_Player.bmaggy)
-					data.Num = 25
+					data.Num = Init.IronHeart_Max
 					player:RemoveCollectible(45, true)
 					player:AddSoulHearts(8)
-					player:AddMaxHearts(-99)
+					player:AddMaxHearts(-8)
 					player:AddBrokenHearts(4)
 					player:SetPocketActiveItem((IBS_Item.gheart), ActiveSlot.SLOT_POCKET, false)
+					player:SetActiveCharge(0, ActiveSlot.SLOT_POCKET)
 					player:AddNullCostume(costume)
 					
 					--我释放震荡波
@@ -172,7 +179,7 @@ local function Henshin(_,ent, dmg, flag, source)
 					poof.SpriteScale = Vector(1.5,1.5)
 					poof.Color = Color(0.5,0.5,0.5)
 
-					Game():ShakeScreen(50)
+					Game():ShakeScreen(40)
 					SFXManager():Play(SoundEffect.SOUND_BLACK_POOF, 4)
 					
 					player:SetMinDamageCooldown(127)
@@ -215,23 +222,23 @@ local function CalculateDMG(amount, flag, source)
 	if source then
 		local type = source.Type
 		if type == EntityType.ENTITY_PROJECTILE then --子弹
-			dmg = 7
+			dmg = 6
 			cd = 20
 		elseif source.Entity and source.Entity:IsEnemy() then --敌人
 			dmg = 2
-			cd = 3
+			cd = 5
 		elseif type == EntityType.ENTITY_EFFECT then --水迹
 	        local V = source.Variant
             if V == (EffectVariant.CREEP_RED) or (V == EffectVariant.CREEP_GREEN) or (V == EffectVariant.CREEP_YELLOW) or (V == EffectVariant.CREEP_WHITE) or (V == EffectVariant.CREEP_BLACK) then
 				dmg = 2
-				cd = 15
+				cd = 60
 			end
 		end
 	end
 	
 	if (flag & DamageFlag.DAMAGE_EXPLOSION > 0) then --爆炸
 		dmg = dmg + 33
-		cd = cd + 75
+		cd = cd + 100
 	end
 	
 	--尖刺/诅咒门/刺箱
@@ -246,8 +253,8 @@ local function CalculateDMG(amount, flag, source)
 	end
 	
 	if (flag & DamageFlag.DAMAGE_FIRE > 0) then --火焰
-		dmg = dmg + 2
-		cd = cd + 30
+		dmg = dmg + 1
+		cd = cd + 60
 	end
 	
 	if dmg <= 0 then dmg = 4 end
@@ -260,38 +267,62 @@ end
 local function IronHeart_TakeDMG(_,ent, amount, flag, source)
 	local player = ent:ToPlayer()
 	
-	if player and player:GetPlayerType() == (IBS_Player.bmaggy) then
+	if player and (player:GetPlayerType() == (IBS_Player.bmaggy) or IBSChallenge()) then
 		local IronHeart = GetIronHeartData(player)
 		local data = GetPlayerTempData(player)
 		local dmg,cd = CalculateDMG(amount, flag, source)
 		
-		if ShouldProtect(flag, source) and IronHeart.Num > 0 then
-			if IronHeart.Num > dmg then
-				IronHeart.Num = IronHeart.Num - dmg
-				player:SetMinDamageCooldown(cd)
-				
+		if ShouldProtect(flag, source) and (IronHeart.Num + IronHeart.Extra > 0) then
+			if (IronHeart.Num >= dmg) or (IronHeart.Num + IronHeart.Extra >= dmg) then
+				if (IronHeart.Num >= dmg) then
+					IronHeart.Num = IronHeart.Num - dmg
+				end	
+				if (IronHeart.Num + IronHeart.Extra >= dmg) then
+					dmg = dmg - IronHeart.Num
+					IronHeart.Num = 0
+					IronHeart.Extra = IronHeart.Extra - dmg
+				end
+
 				--5毛钱特效
 				local effect = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.IMPACT, 0, player.Position+Vector(0,-20), Vector(0,0), nil):ToEffect()
 				effect.Timeout = 60
 				effect.SpriteScale = player.SpriteScale
 				effect:GetSprite().Color = Color(1,1,1,1,0.5,0.5,0.5)
 				effect:FollowParent(player)	
-				effect.ParentOffset = Vector(0,-20)
-				
+				effect.ParentOffset = Vector(0,-20)	
 				SFXManager():Play(SoundEffect.SOUND_SCYTHE_BREAK, 1, 2, false, 0.8)
-				data.IronHeart_Interruption = Init.IronHeart_Interruption
+			
+				player:SetMinDamageCooldown(cd)
 				
 				return false
 			else
 				player:TakeDamage(1, DamageFlag.DAMAGE_NO_PENALTIES | DamageFlag.DAMAGE_IV_BAG | DamageFlag.DAMAGE_NO_MODIFIERS | DamageFlag.DAMAGE_INVINCIBLE | DamageFlag.DAMAGE_CLONES, source, 10)
 				IronHeart.Num = 0
+				IronHeart.Extra = 0
 				
-				--1块钱特效
+				--我释放震荡波
+				local timeOut = 3*(math.floor(player.Damage))
+				local range = (player.TearRange)/5
+				if timeOut < 12 then timeOut = 12 end
+				if timeOut > 60 then timeOut = 60 end
+				if range < 40 then range = 40 end
+				if range > 150 then range = 150 end
+				
+				local wave = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SHOCKWAVE, 0, player.Position, Vector.Zero, player):ToEffect()
+				wave.Parent = player
+				wave:SetTimeout(timeOut)
+				wave:SetRadii(0,range)
+				
+				local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF02, 1, player.Position, Vector.Zero, player)				
+				poof.SpriteScale = Vector(1,1)*(range/90)
+				poof.Color = Color(0.5,0.5,0.5)
+
+				Game():ShakeScreen(timeOut+5)
+				SFXManager():Play(SoundEffect.SOUND_BLACK_POOF)				
+				
 				Game():SpawnParticles(player.Position, EffectVariant.ROCK_PARTICLE, 7, 5, Color(1.1,1.1,1.1,1), 100000, 1)
-				
 				SFXManager():Play(SoundEffect.SOUND_ROCK_CRUMBLE)
 			end
-			data.IronHeart_Interruption = Init.IronHeart_Interruption
 		end
 	end
 end
@@ -352,12 +383,17 @@ end
 local function CalculateMaxIronHeart(player)
 	local result = Init.IronHeart_Max
 	local level = Game():GetLevel()
-	local devilDeal = Game():GetDevilRoomDeals()
 	local devilNum,angelNum = GetDAItemsNum(player)
+	local devilDeal = 0
+	
+	if Game():GetDevilRoomDeals() > 0 then
+		devilDeal = 6
+	end
 	
 	--楼层状态
 	for flag,influence in pairs(LevelStateInfluence) do
 		if level:GetStateFlag(LevelStateFlag[flag]) then
+			if (influence < 0) and player:HasCollectible(498) then influence = 0 end --二元性
 			result = result + influence
 		end
 	end
@@ -370,62 +406,108 @@ local function CalculateMaxIronHeart(player)
 		result = result + 2
 	end
 	
-	result = result - 6*devilDeal - 3*devilNum + 4*angelNum
+	--二元性
+	if player:HasCollectible(498) then
+		devilDeal = 0
+		devilNum = 0
+	end
+	
+	result = result - devilDeal - 3*devilNum + 4*angelNum
 	if result < Init.IronHeart_MaxMin then result = Init.IronHeart_MaxMin end
 	if result > Init.IronHeart_MaxMax then result = Init.IronHeart_MaxMax end
+	
+	--易碎品挑战
+	if IBSChallenge() then
+		result = 7
+	end
 	
 	return result
 end
 
---铁心更新
-local function IronHeart_Update(_,player)
-	if player:GetPlayerType() == (IBS_Player.bmaggy) then
+--吸收心(未使用)
+-- mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, function(_, pickup, collider)
+	-- local player = collider:ToPlayer()
+	
+	-- if player and player:GetPlayerType() == (IBS_Player.bmaggy) then
+		-- local IronHeart = GetIronHeartData(player)
+		-- local id = pickup.SubType
+		
+		-- if (id == HeartSubType.HEART_FULL) or (id == HeartSubType.HEART_HALF) or (id == HeartSubType.HEART_DOUBLEPACK) or (id == HeartSubType.HEART_SCARED) or (id == HeartSubType.HEART_ROTTEN) then
+			-- IronHeart.HeartAbsorption = IronHeart.HeartAbsorption + 1
+			-- pickup:Remove()
+		-- elseif (id == HeartSubType.HEART_SOUL) or (id == HeartSubType.HEART_BLACK) or (id == HeartSubType.HEART_HALF_SOUL) or (id == HeartSubType.HEART_BLENDED) then
+			-- IronHeart.HeartAbsorption = IronHeart.HeartAbsorption + 2
+			-- pickup:Remove()
+		-- elseif (id == HeartSubType.HEART_ETERNAL) or (id == HeartSubType.HEART_GOLDEN) or (id == HeartSubType.HEART_BONE) then
+			-- IronHeart.HeartAbsorption = IronHeart.HeartAbsorption + 3
+			-- pickup:Remove()
+		-- end
+		
+		-- return false
+	-- end
+-- end, PickupVariant.PICKUP_HEART)
+
+--角色更新
+local function OnUpdate(_,player)
+	if (player:GetPlayerType() == (IBS_Player.bmaggy) or IBSChallenge()) then
 		UpdatePlayerSprite(player) --更新角色贴图
 		
+		--更新铁心上限
 		local IronHeart = GetIronHeartData(player)
-		local data = GetPlayerTempData(player)
 		
-		IronHeart.Max = CalculateMaxIronHeart(player) --更新铁心上限
-		
-		local recoveryInterval = Init.IronHeart_RecoveryInterval
-		if player:HasCollectible(619) then --长子权
-			recoveryInterval = recoveryInterval / 2
+		if player:GetEternalHearts() > 0 then
+			player:AddEternalHearts(-1)
+			IronHeart.HeartAbsorption = IronHeart.HeartAbsorption + 1
 		end
 		
-		if data.IronHeart_Interruption > 0 then
-			data.IronHeart_Interruption = data.IronHeart_Interruption - 1
-		else
-			if data.IronHeart_Recovering > 0 then
-				data.IronHeart_Recovering = data.IronHeart_Recovering - 1
-			else
-				if IronHeart.Num < IronHeart.Max then
-					IronHeart.Num = IronHeart.Num + 1
-					data.IronHeart_Recovering = math.floor(recoveryInterval)
-				end
-			end
-		end
+		IronHeart.Max = CalculateMaxIronHeart(player) + IronHeart.HeartAbsorption
 		
-		if IronHeart.Num > IronHeart.Max then IronHeart.Num = IronHeart.Max end
+		--if IronHeart.Num > IronHeart.Max then IronHeart.Num = IronHeart.Max end
 		
 		IronHeart.Num = math.floor(IronHeart.Num)
 		IronHeart.Max = math.floor(IronHeart.Max)
+		IronHeart.Extra = math.floor(IronHeart.Extra)
 	end
 end
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, IronHeart_Update)
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, OnUpdate)
 
---是否在蓄力
-local function IsCharging(player)
-    if player:AreControlsEnabled() and player:GetPlayerType() == (IBS_Player.bmaggy) then
-        local cid = player.ControllerIndex
-        if player:GetFireDirection() ~= Direction.NO_DIRECTION and not Input.IsActionPressed(ButtonAction.ACTION_DROP, cid) then
-			if not Input.IsActionPressed(ButtonAction.ACTION_MAP, cid) then
-				return true
+--铁心恢复
+local function IronHeart_Recovery(value)
+	for i = 0, Game():GetNumPlayers() -1 do
+		local player = Isaac.GetPlayer(i)
+		if (player:GetPlayerType() == (IBS_Player.bmaggy) or IBSChallenge()) then
+			local IronHeart = GetIronHeartData(player)
+			local recovery = math.floor(value*(IronHeart.Max))
+			
+			if player:HasCollectible(619) and player:GetPlayerType() == (IBS_Player.bmaggy) then
+				recovery = recovery * 2
 			end
-		end	
-    end
-	
-    return false
+			
+			if IBSChallenge() then
+				recovery = 5
+			end
+			
+			IronHeart.Num = math.min(IronHeart.Max, IronHeart.Num + recovery)
+		end
+	end
 end
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
+	if Game():GetRoom():IsFirstVisit() then
+		IronHeart_Recovery(0.2)
+	end
+	
+	for i = 0, Game():GetNumPlayers() -1 do
+		local player = Isaac.GetPlayer(i)
+		if player:GetPlayerType() == (IBS_Player.bmaggy) or IBSChallenge() then
+			local IronHeart = GetIronHeartData(player)
+			IronHeart.Num = math.min(IronHeart.Max, IronHeart.Num + IronHeart.Extra)
+			IronHeart.Extra = 0
+		end
+	end
+end)
+mod:AddCallback(IBS_Callback.GREED_NEW_WAVE, function()
+	IronHeart_Recovery(0.15)
+end)
 
 --获取屏幕尺寸
 local function GetScreenSize()
@@ -468,125 +550,56 @@ local function IronHeart_Render()
 		
 		for i = 0, Game():GetNumPlayers() -1 do
 			local player = Isaac.GetPlayer(i)
-			if (player.Variant == 0) then
-				local cid = player.ControllerIndex
-				if not controllers[cid] then
-					if player:GetPlayerType() == (IBS_Player.bmaggy) then
-						local IronHeart = GetIronHeartData(player)
-						local data = GetPlayerTempData(player)
-						IronHeart.Num = math.floor(IronHeart.Num)
-						IronHeart.Max = math.floor(IronHeart.Max)
-						
-						local X,Y = GetIronHeartRenderPosition(index)
-						local spr = data.IronHeart_Sprite
-						local fnt = data.IronHeart_Font
-						local inum = tostring(IronHeart.Num)
-						local imax = tostring(IronHeart.Max)
-						if IronHeart.Num < 10 then inum = " "..inum end
-						
-						--未知诅咒兼容
-						if (Game():GetLevel():GetCurses() & LevelCurse.CURSE_OF_THE_UNKNOWN > 0) then
-							inum = " ?"
-							imax = "?"
+			local cid = player.ControllerIndex
+			if (player.Variant == 0) and not controllers[cid] then
+				if (player:GetPlayerType() == (IBS_Player.bmaggy) or IBSChallenge()) then
+					local IronHeart = GetIronHeartData(player)
+					local data = GetPlayerTempData(player)
+					IronHeart.Num = math.floor(IronHeart.Num)
+					IronHeart.Max = math.floor(IronHeart.Max)
+					IronHeart.Extra = math.floor(IronHeart.Extra)
+					
+					local X,Y = GetIronHeartRenderPosition(index)
+					local spr = data.IronHeart_Sprite
+					local fnt = data.IronHeart_Font
+					local inum = tostring(IronHeart.Num + IronHeart.Extra)
+					local imax = tostring(IronHeart.Max)
+					if IronHeart.Num < 10 then inum = " "..inum end
+					
+					--未知诅咒兼容
+					if (Game():GetLevel():GetCurses() & LevelCurse.CURSE_OF_THE_UNKNOWN > 0) then
+						inum = " ?"
+						imax = "?"
+					end
+					
+					local inumColor = KColor(1,1,1,1,0,0,0)
+					if (IronHeart.Num + IronHeart.Extra) > IronHeart.Max then inumColor = KColor(1,1,0,1,0,0,0) end
+					
+					local imaxColor = KColor(1,1,1,1,0,0,0)
+					if IronHeart.Max < Init.IronHeart_Max then imaxColor = KColor(1,0,0,1,0,0,0) end
+					if IronHeart.Max > Init.IronHeart_Max then imaxColor = KColor(0.5,1,1,1,0,0,0) end
+					
+					spr:Render(Vector(X,Y))
+					fnt:DrawString(inum, X+7, Y-7, inumColor)
+					fnt:DrawString("/", X+7+fnt:GetStringWidth(inum), Y-7, KColor(1,1,1,1,0,0,0))
+					fnt:DrawString(imax, X+7+fnt:GetStringWidth("/"..inum), Y-7, imaxColor)				
+					
+					
+					--EID显示位置稍微调下面一些
+					if EID then
+						if EID.player then
+							EID:addTextPosModifier("IBS_BMAGGY", Vector(0,20))
+						else
+							EID:removeTextPosModifier("IBS_BMAGGY")
 						end
-						
-						local inumColor = KColor(1,1,1 - (data.IronHeart_Interruption / 240),1,0,0,0)
-						local imaxColor = KColor(1,1,1,1,0,0,0)
-						if IronHeart.Max < Init.IronHeart_Max then imaxColor = KColor(1,0,0,1,0,0,0) end
-						if IronHeart.Max > Init.IronHeart_Max then imaxColor = KColor(0.5,1,1,1,0,0,0) end
-						
-						spr:Render(Vector(X,Y))
-						fnt:DrawString(inum, X+7, Y-7, inumColor)
-						fnt:DrawString("/", X+7+fnt:GetStringWidth(inum), Y-7, KColor(1,1,1,1,0,0,0))
-						fnt:DrawString(imax, X+7+fnt:GetStringWidth("/"..inum), Y-7, imaxColor)				
-						
-						
-						--EID显示位置稍微调下面一些
-						if EID then
-							if EID.player then
-								EID:addTextPosModifier("IBS_BMAGGY", Vector(0,20))
-							else
-								EID:removeTextPosModifier("IBS_BMAGGY")
-							end
-						end
-					end	
-					controllers[cid] = true
-					index = index + 1		
-				end
+					end
+				end	
+				controllers[cid] = true
+				index = index + 1
 			end
 		end
 	end
 end
 mod:AddPriorityCallback(ModCallbacks.MC_POST_RENDER, CallbackPriority.EARLY, IronHeart_Render)
 
---震荡波
-local function ShockWave(_,player, offset)
-	if player:GetPlayerType() == (IBS_Player.bmaggy) and (Game():GetRoom():GetRenderMode() ~= RenderMode.RENDER_WATER_REFLECT) then
-		local IronHeart = GetIronHeartData(player)
-		local data = GetPlayerTempData(player)
-		local isCharging = IsCharging(player)
-		local maxCharges = Init.ShockWave_MaxCharges
-		local cost = Init.ShockWave_Cost
-		local game = Game()
-		local room = game:GetRoom()
-		
-		if isCharging then
-			if data.Charges < maxCharges then
-				data.Charges = data.Charges + 1
-			end
-		else
-			if (data.Charges >= maxCharges) and (IronHeart.Num > cost) and not Input.IsActionPressed(ButtonAction.ACTION_DROP, player.ControllerIndex) then
-				IronHeart.Num = IronHeart.Num - cost
-				local timeOut = 3*(math.floor(player.Damage))
-				local range = (player.TearRange)/5
-				if timeOut < 12 then timeOut = 12 end
-				if timeOut > 60 then timeOut = 60 end
-				if range < 40 then range = 40 end
-				if range > 150 then range = 150 end
-				
-				local wave = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SHOCKWAVE, 0, player.Position, Vector.Zero, player):ToEffect()
-				wave.Parent = player
-				wave:SetTimeout(timeOut)
-				wave:SetRadii(0,range)
-				
-				local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF02, 1, player.Position, Vector.Zero, player)				
-				poof.SpriteScale = Vector(1,1)*(range/90)
-				poof.Color = Color(0.5,0.5,0.5)
-
-				game:ShakeScreen(timeOut+5)
-				SFXManager():Play(SoundEffect.SOUND_BLACK_POOF)
-			end
-			data.Charges = 0
-		end	
-		
-		if Options.ChargeBars then
-			local charges = data.Charges
-			local bar = data.ChargeBarSprite
-			local anim = bar:GetAnimation()
-		
-			if isCharging and charges > 7 then
-				if charges >= maxCharges then
-					if (anim ~= "StartCharged") and (anim ~= "Charged") then
-						bar:Play("StartCharged")
-					end
-					if bar:IsFinished("StartCharged") then
-						bar:Play("Charged")
-					end
-				else
-					bar:SetFrame("Charging", math.floor(charges*100 / maxCharges))
-				end
-			else
-				bar:Play("Disappear")
-			end
-			
-			if (player.FrameCount % 2 == 0) then
-				bar:Update()
-			end
-			
-			local pos = Isaac.WorldToScreen(Vector(-24,-54) + player.Position + player.PositionOffset) + offset - room:GetRenderScrollOffset() - Game().ScreenShakeOffset			
-			bar:Render(pos)
-		end
-	end	
-end
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, ShockWave, 0)
 

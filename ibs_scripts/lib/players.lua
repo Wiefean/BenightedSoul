@@ -1,6 +1,7 @@
 --玩家实体相关函数
 
 local mod = Isaac_BenightedSoul
+local Ents = mod.IBS_Lib.Ents
 
 local config = Isaac.GetItemConfig()
 
@@ -68,6 +69,46 @@ function Players:GetPlayerCollectibles(player, condition)
 end
 
 
+do --充能区 
+
+--临时充能数据
+local function GetChargeData(player)
+	local data = Ents:GetTempData(player)
+	data.SETCHARGE = data.SETCHARGE or {}
+
+	return data.SETCHARGE
+end
+
+--设置充能数据
+local function SetChargeData(player, slot, charge, soul, blood)
+	local data = GetChargeData(player)
+	if (not data[slot]) then
+		data[slot] = {
+			TimeOut = 1,
+			SetCharge = charge,
+			SoulCost = soul or 0,
+			BloodCost = blood or 0
+		}
+	end
+end
+
+--更新充能数据
+local function UpdateChargeData(_,player)
+	local data = GetChargeData(player)
+
+	for slot,v in pairs(data) do
+		if v.TimeOut > 0 then
+			v.TimeOut = v.TimeOut - 1
+		else	
+			player:SetActiveCharge(math.max(0, v.SetCharge), slot)
+			player:AddSoulCharge(-v.SoulCost)
+			player:AddBloodCharge(-v.BloodCost)
+			data[slot] = nil
+		end	
+	end
+end
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, UpdateChargeData)
+
 --获取一个主动槽的已充能数
 --(自充道具的充能数是逻辑帧数,30逻辑帧为1秒,建议获取时忽略魂心/红心充能)
 function Players:GetSlotCharges(player, slot, ignoreSoul, ignoreBlood)
@@ -80,6 +121,29 @@ function Players:GetSlotCharges(player, slot, ignoreSoul, ignoreBlood)
 	end
 	if not ignoreBlood then
 		charges = charges + player:GetEffectiveBloodCharge()
+	end
+	
+	return charges
+end
+
+
+--获取一个主动槽的已充能数,但针对自充主动
+--(与上一个函数基本一致,但充能单位由格改为逻辑帧,30逻辑帧为1秒.对非自充主动只会返回0)
+function Players:GetTimedSlotCharges(player, slot, ignoreSoul, ignoreBlood)
+	if (slot < ActiveSlot.SLOT_PRIMARY or slot > ActiveSlot.SLOT_POCKET) then return 0 end
+	local itemConfig = config:GetCollectible(player:GetActiveItem(slot))
+	local type = itemConfig.ChargeType
+	if (type ~= ItemConfig.CHARGE_TIMED) then return 0 end
+	
+	local charges = player:GetActiveCharge(slot) + player:GetBatteryCharge(slot)
+	local maxCharges = itemConfig.MaxCharges
+	
+	--可选择是否忽略魂心/红心充能
+	if not ignoreSoul then
+		charges = charges + maxCharges*(player:GetEffectiveSoulCharge())
+	end
+	if not ignoreBlood then
+		charges = charges + maxCharges*(player:GetEffectiveBloodCharge())
 	end
 	
 	return charges
@@ -160,7 +224,7 @@ end
 音效可以自行添加
 SFXManager():Play(SoundEffect.SOUND_BATTERYDISCHARGE)
 ]]
-function Players:DisChargeSlot(player, slot, amount, includeSpecial, force, ignoreSoul, ignoreBlood)
+function Players:DischargeSlot(player, slot, amount, includeSpecial, force, ignoreSoul, ignoreBlood)
 	if (slot < ActiveSlot.SLOT_PRIMARY or slot > ActiveSlot.SLOT_POCKET or amount < 0) then return false end
 	local SUCCESS = false
 	local itemConfig = config:GetCollectible(player:GetActiveItem(slot))
@@ -184,15 +248,14 @@ function Players:DisChargeSlot(player, slot, amount, includeSpecial, force, igno
 	--可选择是否消耗特殊充能道具的充能
 	if normal or (special and includeSpecial) then --常规/特殊
 		if (charges >= amount) or force then
-			player:SetActiveCharge(charges - amount, slot)
+			SetChargeData(player, slot, charges-amount)
 			SUCCESS = true
 		elseif (totalCharges >= amount) then
-			player:SetActiveCharge(0, slot)
 			amount = amount - charges	
 			if (player:GetSoulCharge() > 0) then
-				player:AddSoulCharge(-amount)
+				SetChargeData(player, slot, 0, amount)
 			elseif (player:GetBloodCharge() > 0) then
-				player:AddBloodCharge(-amount)
+				SetChargeData(player, slot, 0, 0, amount)
 			end
 			SUCCESS = true
 		end
@@ -201,15 +264,14 @@ function Players:DisChargeSlot(player, slot, amount, includeSpecial, force, igno
 		local realCharges = Players:GetSlotCharges(player, slot, true, true)
 	
 		if (charges >= amount) or force then
-			player:SetActiveCharge(realCharges - maxCharges, slot)
+			SetChargeData(player, slot, realCharges-maxCharges)
 			SUCCESS = true
 		elseif (totalCharges >= amount) then
-			player:SetActiveCharge(0, slot)
 			amount = amount - charges
 			if (player:GetSoulCharge() > 0) then
-				player:AddSoulCharge(-amount)
+				SetChargeData(player, slot, 0, amount)
 			elseif (player:GetBloodCharge() > 0) then
-				player:AddBloodCharge(-amount)
+				SetChargeData(player, slot, 0, 0, amount)
 			end
 			SUCCESS = true
 		end
@@ -227,7 +289,7 @@ end
 当force为true时,不影响魂心/红心充能,ignoreSoul和ignoreBlood无用
 在成功消耗充能时返回true,否则返回false
 ]]
-function Players:DisChargeTimedSlot(player, slot, amount, force, ignoreSoul, ignoreBlood)
+function Players:DischargeTimedSlot(player, slot, amount, force, ignoreSoul, ignoreBlood)
 	if (slot < ActiveSlot.SLOT_PRIMARY or slot > ActiveSlot.SLOT_POCKET or amount < 0) then return false end
 	local itemConfig = config:GetCollectible(player:GetActiveItem(slot))
 	if (itemConfig.ChargeType ~= ItemConfig.CHARGE_TIMED) then return false end
@@ -246,16 +308,13 @@ function Players:DisChargeTimedSlot(player, slot, amount, force, ignoreSoul, ign
 	end
 	
 	if (charges >= amount) or force then
-		player:SetActiveCharge(charges - amount, slot)
+		SetChargeData(player, slot, charges-amount)
 		SUCCESS = true
 	elseif (totalCharges >= amount) then
-		amount = amount - charges
-		amount = math.floor(amount/maxCharges) --将自充道具的充能数转换为常规充能数
-		
 		if (player:GetSoulCharge() > 0) then
-			player:AddSoulCharge(-amount)
+			SetChargeData(player, slot, 0, 1)
 		elseif (player:GetBloodCharge() > 0) then
-			player:AddBloodCharge(-amount)
+			SetChargeData(player, slot, 0, 0, 1)
 		end
 		SUCCESS = true
 	end
@@ -263,5 +322,7 @@ function Players:DisChargeTimedSlot(player, slot, amount, force, ignoreSoul, ign
 	return SUCCESS
 end
 
+
+end
 
 return Players

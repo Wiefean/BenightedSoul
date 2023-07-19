@@ -21,7 +21,7 @@ local function PreTakeDMG(_,ent, amount, flag, source)
 			if player:GetActiveItem(slot) == (IBS_Item.cmantle) then
 			
 				--成功消耗充能才触发效果
-				if Players:DisChargeSlot(player, slot, 2, false, false) then
+				if Players:DischargeSlot(player, slot, 2, false, false) then
 					player:SetMinDamageCooldown(66)
 					player:UseActiveItem(705, false, false)
 					
@@ -62,7 +62,7 @@ local function Occupation(_,pickup, other)
 		
 		if active then
 			if player:GetActiveItem(0) == (IBS_Item.cmantle) and not (player:HasCollectible(260) or player:HasCollectible(584)) then
-				return true
+				return false
 			end
 		end
 	end	

@@ -62,7 +62,7 @@ mod:AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, function(_,tear,target)
 	local data = GetTearData(tear)
     if data.Other then
         if target:IsEnemy() and target:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) == false then
-            if (-tear.Height > target.Size) then
+            if (-tear.Height > 1.2*(target.Size)) then
                 return true
             end
         end
@@ -76,22 +76,24 @@ local function TryBrimeStone(player, timer, pos)
 		local tear = Isaac.Spawn(EntityType.ENTITY_EFFECT, 101, 0, pos, Vector.Zero, player):ToEffect()
 		SetFallenTear(tear)  --(这里懒得写直接写tear)
 		tear.Timeout = timer + 60
-		tear.CollisionDamage = player.Damage / 3
+		tear.CollisionDamage = math.max(player.Damage / 2, 2)
 		tear.EntityCollisionClass = EntityCollisionClass.ENTCOLL_ENEMIES
 		tear:SetColor(Color(0.75, 0.75, 1, 1, 0, 0, 1),-1,0)	
 		sfx:Play(7,0.5)
 	end
 end
 mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_,effect)
-	local data = GetTearData(effect)
-	if data.Other then
-		local target = Isaac.FindInRadius(effect.Position, 10, EntityPartition.ENEMY)
-		for i = 1 , #target do
-			if target[i]:IsVulnerableEnemy() and (target[i]:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) == false) then	
-				target[i]:TakeDamage(effect.CollisionDamage, 0, EntityRef(effect), 6)
+	if (effect.FrameCount % 2 == 0) then
+		local data = GetTearData(effect)
+		if data.Other then
+			local target = Isaac.FindInRadius(effect.Position, 10, EntityPartition.ENEMY)
+			for i = 1 , #target do
+				if target[i]:IsVulnerableEnemy() and (target[i]:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) == false) then	
+					target[i]:TakeDamage(effect.CollisionDamage, 0, EntityRef(effect), 6)
+				end
 			end
 		end
-	end	
+	end
 	if effect.TimeOut == 0 then
 		effect:Die()
 	end
@@ -148,8 +150,8 @@ local function SetPlayer(tear, player)
 end
 
 --双击发射引物
-local function ShootingStars(_,player,type,dir)
-	if type == 1 then
+local function ShootingStars(_,player, type, dir)
+	if (type == 1) and not Input.IsActionPressed(ButtonAction.ACTION_MAP, player.ControllerIndex) then
 		if player:HasCollectible(IBS_Item.ssg) and player:IsExtraAnimationFinished() and not player:IsCoopGhost() then
 			local data = GetPlayerData(player)
 			if data.CD <= 0 then
@@ -166,7 +168,8 @@ local function ShootingStars(_,player,type,dir)
 					laser.TearFlags = TearFlags.TEAR_HOMING
 					laser:AddTearFlags(TearFlags.TEAR_SPECTRAL)
 					laser.CollisionDamage = 7
-					laser:SetColor(Color(0.1, 0.1, 0.8, 0.5, 0.25, 0.25, 1),-1,0)					
+					laser:SetColor(Color(0.1, 0.1, 0.8, 0.5, 0.25, 0.25, 1),-1,0)
+					laser:Update()
 				else
 					local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, 18, 0, player.Position, ToVector[dir]*20, player):ToTear()
 					SetPlayer(tear, player)
@@ -176,6 +179,7 @@ local function ShootingStars(_,player,type,dir)
 					tear:AddTearFlags(TearFlags.TEAR_SPECTRAL)
 					tear.CollisionDamage = 7
 					tear:SetColor(Color(1, 1, 1, 1, 0, 0, 1),-1,0)
+					tear:Update()
 				end	
 				sfx:Play(IBS_Sound.ssg_fire,0.6)
 			end
@@ -218,12 +222,19 @@ local function SpawnStars(player, pos)
 		tear:ClearTearFlags(TearFlags.TEAR_POP) 
 	end
 	
+	--三圣颂不兼容
+	if tear:HasTearFlags(TearFlags.TEAR_LASERSHOT) then
+		tear:ClearTearFlags(TearFlags.TEAR_LASERSHOT) 
+	end	
+	
 	SetFallenTear(tear)
 	tear.CollisionDamage = dmg
 	tear.Scale = scale
 	tear.Height = -800
 	tear:AddTearFlags(TearFlags.TEAR_HOMING)
-	tear.FallingAcceleration = fallingSpd		
+	tear:AddTearFlags(TearFlags.TEAR_SPECTRAL)
+	tear.FallingAcceleration = fallingSpd
+	tear:Update()
 	
 	sfx:Stop(153)
 end
@@ -291,11 +302,24 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_,player)
 		end
 	end
 end,0)
-mod:AddPriorityCallback(ModCallbacks.MC_POST_NEW_LEVEL, CallbackPriority.EARLY, function()
+
+--新房间清除点位以及彩蛋
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
 	for i = 0, Game():GetNumPlayers() -1 do
 		local player = Isaac.GetPlayer(i)
 		local data = GetPlayerData(player)
 		data.Area = {}
 	end
+
+	local chance = math.random(1,100)
+	if (chance > 80) and not Game():GetRoom():IsFirstVisit() then
+		for _,item in pairs(Isaac.FindByType(5,100)) do
+			if item.SubType == (IBS_Item.ssg) then
+				local spr = item:GetSprite()
+				spr:ReplaceSpritesheet(1, "gfx/ibs/items/collectibles/ssg_alt.png")
+				spr:LoadGraphics()
+			end
+		end
+	end	
 end)
 

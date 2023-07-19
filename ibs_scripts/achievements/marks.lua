@@ -26,11 +26,11 @@ local Paper = {
 [IBS_Player.bmaggy] = {
 	IBSL = "divineretaliation",
 	MegaSatan = nil,
-	BRH = nil,
+	BRH = "bc2",
 	Delirium = "gheart",
 	Witness = "toughheart",
-	Beast = nil,
-	Greed = nil,
+	Beast = "diamoond",
+	Greed = "chocolate",
 	FINISHED = nil
 },
 
@@ -506,6 +506,7 @@ local function Mark_Beast(_,ent)
 		end	
 	end	
 end
+mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, Mark_Beast, EntityType.ENTITY_BEAST)
 mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, Mark_Beast, EntityType.ENTITY_BEAST)
 
 --贪婪标记

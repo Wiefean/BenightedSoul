@@ -47,8 +47,6 @@ end
 (没有抽取到道具时会以早餐代替)
 ]]
 function Pools:GetCollectibleWithQuality(quality, pool, shouldRemove, rng)
-	if quality < 0 then quality = 0 end
-	if quality > 4 then quality = 4 end
 	if not pool then pool = ItemPoolType.POOL_TREASURE end
 	if not rng then rng = RNG() rng:SetSeed(Game():GetSeeds():GetStartSeed(), 35) end
 
@@ -56,7 +54,7 @@ function Pools:GetCollectibleWithQuality(quality, pool, shouldRemove, rng)
     local item = 1
     local Q = 114514
 	local times = 0
-	local MAX = Isaac.GetItemConfig():GetCollectibles().Size or 2023
+	local MAX = 2*(Isaac.GetItemConfig():GetCollectibles().Size) or 2023
 	
 	while (Q ~= quality) do  
 		item = itemPool:GetCollectible(pool, false, rng:Next(), 25)

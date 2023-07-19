@@ -72,6 +72,8 @@ local function Setting_Init() --此处可新增设置
 		["d4dUnlocked"] = false, --D4D解锁
 		
 		["bc1"] = false,
+		["bc2"] = false,
+		
 		--["bisaac"] = Mark_Init(), --角色成就自动添加
 		--成就区结束--
 		}

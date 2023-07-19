@@ -21,7 +21,7 @@ local function GetDrunkData(player)
 	return data.PurpleBubbles	
 end	
 
-local function Drink(_,col, rng, player)
+local function Drink(_,col, rng, player, flags)
 	local data = GetDrunkData(player)
 	local chance = rng:RandomInt(99) + 1
 
@@ -39,6 +39,10 @@ local function Drink(_,col, rng, player)
 
 	if data.usedtimes < 25 then
 		data.usedtimes = data.usedtimes + 1
+		
+		if (flags & UseFlag.USE_VOID > 0) then
+			data.usedtimes = data.usedtimes + 99
+		end
 	end
 	
 	sfx:Play(SoundEffect.SOUND_VAMP_GULP)

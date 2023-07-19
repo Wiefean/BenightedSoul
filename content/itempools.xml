@@ -6,6 +6,9 @@
 		<Item Name="The Waster" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
 		<Item Name="Purple Bubbles" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hypercube" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Defined" weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
+		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</pool>
 	
@@ -15,11 +18,14 @@
 		<Item Name="The Waster" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
 		<Item Name="Purple Bubbles" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hypercube" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Defined" weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
+		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</pool>
 	
 	<Pool Name="planetarium">
-		<Item Name="Shooting Stars Gazer" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Shooting Stars Gazer" Weight="2" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
 
 	</pool>
@@ -28,12 +34,21 @@
 		<Item Name="No Options" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1"/>
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
 		<Item Name="Purple Bubbles" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Defined" weight="1" DecreaseBy="1" RemoveOn="0.1" />		
+		<Item Name="Hypercube" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Defined" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
+		<Item Name="Valentinus Chocolate" weight="1" DecreaseBy="0.5" RemoveOn="0.1" />
+		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</pool>
 	
 	<Pool Name="greedShop">
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
 		<Item Name="Purple Bubbles" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hypercube" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Defined" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Valentinus Chocolate" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</pool>
 	
@@ -56,6 +71,8 @@
 		<Item Name="D4D" weight="0.3" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Shooting Stars Gazer" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Hypercube" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Defined" weight="1" DecreaseBy="1" RemoveOn="0.1" />		
 		
 	</pool>
 
@@ -63,6 +80,8 @@
 		<Item Name="D4D" weight="0.3" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="Shooting Stars Gazer" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Hypercube" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Defined" weight="1" DecreaseBy="1" RemoveOn="0.1" />		
 		
 	</pool>	
 	
@@ -95,6 +114,7 @@
 		<Item Name="The Waster" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
 		<Item Name="Glowing Heart" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Valentinus Chocolate" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</pool>
 	<Pool Name="greedAngel">
@@ -122,6 +142,8 @@
 
 	<Pool Name="ultraSecret">
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Defined" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
+		<Item Name="Valentinus Chocolate" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</pool>
 

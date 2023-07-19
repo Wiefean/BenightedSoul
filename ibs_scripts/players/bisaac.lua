@@ -116,7 +116,10 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, Bisaac_Costume)
 --记录初始化
 local function TryInit()
 	if not IBS_Data.GameState.Temp.BenightedIsaac then
-		IBS_Data.GameState.Temp.BenightedIsaac = {["BonusMode"] = "none"}
+		IBS_Data.GameState.Temp.BenightedIsaac = {
+			["BonusMode"] = "none",
+			["LightD6PlusTimes"] = 0 --用于光D6
+		}
 	end
 end
 
@@ -159,6 +162,18 @@ local function IsDAOpen()
 	return devil,angel
 end
 
+--二元性
+local function Duality()
+	for i = 0, Game():GetNumPlayers() -1 do
+		local player = Isaac.GetPlayer(i)
+		if player:HasCollectible(498) then
+			return true
+		end
+	end
+
+	return false
+end
+
 --击败Boss后检测房门
 local function AfterBoss()
 	if not (Game():IsGreedMode()) then --非贪婪
@@ -169,7 +184,7 @@ local function AfterBoss()
 				if player:GetPlayerType() == (IBS_Player.bisaac) then
 					local devil,angel = IsDAOpen()
 					if Check("BonusMode") == "none" then
-						if player:HasCollectible(498) then --二元性
+						if Duality() then --二元性
 							Change("BonusMode", "both")
 							break
 						end					
@@ -196,7 +211,7 @@ local function AfterDealWave(_,state)
 			if player:GetPlayerType() == (IBS_Player.bisaac) then
 				local devil,angel = IsDAOpen()
 				if Check("BonusMode") == "none" then
-					if player:HasCollectible(498) then
+					if Duality() then
 						Change("BonusMode", "both")
 						break
 					end
@@ -215,17 +230,26 @@ end
 mod:AddCallback(IBS_Callback.GREED_WAVE_END_STATE, AfterDealWave)
 
 
---触发奖励时至少有一个道具
-local function Compensation(IsDevil)
-	local items = Isaac.FindByType(5, 100)
-	if #items <= 0 then
-		local pool = Pools:GetRoomPool()
-		local id = Game():GetItemPool():GetCollectible(pool, true, IBS_RNG:Next())
-		local pos = Game():GetRoom():FindFreePickupSpawnPosition((Game():GetLevel():GetCurrentRoom():GetCenterPos()), 0, true)
-		local item = Isaac.Spawn(5, 100, id, pos, Vector(0,0), nil):ToPickup()
+--触发天使奖励时房间内至少有一个道具,恶魔则为两个
+local function TryCompensation(num, isDevil)
+	local total = 0
+	
+	for _,item in pairs(Isaac.FindByType(5, 100)) do
+		if item.SubType ~= 0 then
+			total = total + 1	
+		end
+	end
+	
+	if total < num then
+		for i = 1,(num - total) do
+			local pool = Pools:GetRoomPool(IBS_RNG:Next())
+			local id = Game():GetItemPool():GetCollectible(pool, true, IBS_RNG:Next())
+			local pos = Game():GetRoom():FindFreePickupSpawnPosition((Game():GetLevel():GetCurrentRoom():GetCenterPos()), 0, true)
+			local item = Isaac.Spawn(5, 100, id, pos, Vector(0,0), nil):ToPickup()
 
-		if IsDevil then
-			item.Price = -1
+			if isDevil then
+				item.Price = -1
+			end
 		end
 	end	
 end
@@ -254,10 +278,16 @@ local function EnterDARoom()
 					if devilRoom then
 						BirthRight(player)
 						if devilBonus or bothBonus then
-							Compensation(true)
+							TryCompensation(2, true)
 							player:UseCard(81, UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER | UseFlag.USE_MIMIC)
 							sfx:Play(IBS_Sound.devilbonus, 0.7)
 							Change("BonusMode", "none")
+							Change("LightD6PlusTimes" , 1 + Check("LightD6PlusTimes"))
+							if devilBonus then
+								Change("LastBonus", "devil")
+							elseif bothBonus then
+								Change("LastBonus", "both")
+							end
 						end
 						if angelBonus then
 							Change("BonusMode", "none")
@@ -266,11 +296,17 @@ local function EnterDARoom()
 					if angelRoom then
 						BirthRight(player)
 						if angelBonus or bothBonus then
-							Compensation(false)
+							TryCompensation(1, false)
 							player:UseCard(81, UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER | UseFlag.USE_MIMIC)
 							sfx:Play(IBS_Sound.angelbonus)
 							Change("BonusMode", "none")
-						end
+							Change("LightD6PlusTimes" , 1 + Check("LightD6PlusTimes"))
+							if angelBonus then
+								Change("LastBonus", "angel")
+							elseif bothBonus then
+								Change("LastBonus", "both")
+							end
+						end	
 						if devilBonus then
 							Change("BonusMode", "none")
 						end	
