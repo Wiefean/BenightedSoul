@@ -95,6 +95,7 @@ local function GetIronHeartData(player)
 		Num = 0,
 		Max = Init.IronHeart_Max,
 		Extra = 0,
+		Lost = 0,
 		HeartAbsorption = 0
 	}
 
@@ -263,13 +264,34 @@ local function CalculateDMG(amount, flag, source)
 	return dmg,cd
 end
 
+--我释放震荡波
+local function ShockWave(player)
+	local timeOut = 3*(math.floor(player.Damage))
+	local range = (player.TearRange)/5
+	if timeOut < 12 then timeOut = 12 end
+	if timeOut > 60 then timeOut = 60 end
+	if range < 40 then range = 40 end
+	if range > 150 then range = 150 end
+	
+	local wave = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SHOCKWAVE, 0, player.Position, Vector.Zero, player):ToEffect()
+	wave.Parent = player
+	wave:SetTimeout(timeOut)
+	wave:SetRadii(0,range)
+	
+	local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF02, 1, player.Position, Vector.Zero, player)				
+	poof.SpriteScale = Vector(1,1)*(range/90)
+	poof.Color = Color(0.5,0.5,0.5)
+
+	Game():ShakeScreen(timeOut+5)
+	SFXManager():Play(SoundEffect.SOUND_BLACK_POOF)	
+end
+
 --铁心保护
 local function IronHeart_TakeDMG(_,ent, amount, flag, source)
 	local player = ent:ToPlayer()
 	
 	if player and (player:GetPlayerType() == (IBS_Player.bmaggy) or IBSChallenge()) then
 		local IronHeart = GetIronHeartData(player)
-		local data = GetPlayerTempData(player)
 		local dmg,cd = CalculateDMG(amount, flag, source)
 		
 		if ShouldProtect(flag, source) and (IronHeart.Num + IronHeart.Extra > 0) then
@@ -282,6 +304,15 @@ local function IronHeart_TakeDMG(_,ent, amount, flag, source)
 					IronHeart.Num = 0
 					IronHeart.Extra = IronHeart.Extra - dmg
 				end
+				
+				--利用钝刀片触发受伤效果
+				IronHeart.Lost = IronHeart.Lost + dmg
+				if IronHeart.Lost >= 20 then
+					IronHeart.Lost = IronHeart.Lost - 20
+					player:UseActiveItem(486, false,false)
+					ShockWave(player)
+					SFXManager():Stop(55) -- 移除受伤音效
+				end
 
 				--5毛钱特效
 				local effect = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.IMPACT, 0, player.Position+Vector(0,-20), Vector(0,0), nil):ToEffect()
@@ -291,7 +322,7 @@ local function IronHeart_TakeDMG(_,ent, amount, flag, source)
 				effect:FollowParent(player)	
 				effect.ParentOffset = Vector(0,-20)	
 				SFXManager():Play(SoundEffect.SOUND_SCYTHE_BREAK, 1, 2, false, 0.8)
-			
+	
 				player:SetMinDamageCooldown(cd)
 				
 				return false
@@ -299,29 +330,14 @@ local function IronHeart_TakeDMG(_,ent, amount, flag, source)
 				player:TakeDamage(1, DamageFlag.DAMAGE_NO_PENALTIES | DamageFlag.DAMAGE_IV_BAG | DamageFlag.DAMAGE_NO_MODIFIERS | DamageFlag.DAMAGE_INVINCIBLE | DamageFlag.DAMAGE_CLONES, source, 10)
 				IronHeart.Num = 0
 				IronHeart.Extra = 0
-				
-				--我释放震荡波
-				local timeOut = 3*(math.floor(player.Damage))
-				local range = (player.TearRange)/5
-				if timeOut < 12 then timeOut = 12 end
-				if timeOut > 60 then timeOut = 60 end
-				if range < 40 then range = 40 end
-				if range > 150 then range = 150 end
-				
-				local wave = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SHOCKWAVE, 0, player.Position, Vector.Zero, player):ToEffect()
-				wave.Parent = player
-				wave:SetTimeout(timeOut)
-				wave:SetRadii(0,range)
-				
-				local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF02, 1, player.Position, Vector.Zero, player)				
-				poof.SpriteScale = Vector(1,1)*(range/90)
-				poof.Color = Color(0.5,0.5,0.5)
-
-				Game():ShakeScreen(timeOut+5)
-				SFXManager():Play(SoundEffect.SOUND_BLACK_POOF)				
-				
+				ShockWave(player)
 				Game():SpawnParticles(player.Position, EffectVariant.ROCK_PARTICLE, 7, 5, Color(1.1,1.1,1.1,1), 100000, 1)
 				SFXManager():Play(SoundEffect.SOUND_ROCK_CRUMBLE)
+			end
+			
+			--伤害不溢出也会释放震荡波
+			if (IronHeart.Num <= dmg) or (IronHeart.Num + IronHeart.Extra <= dmg) then
+				ShockWave(player)
 			end
 		end
 	end
@@ -455,7 +471,7 @@ local function OnUpdate(_,player)
 		--更新铁心上限
 		local IronHeart = GetIronHeartData(player)
 		
-		if player:GetEternalHearts() > 0 then
+		if player:GetEternalHearts() > 0 and not IBSChallenge() then
 			player:AddEternalHearts(-1)
 			IronHeart.HeartAbsorption = IronHeart.HeartAbsorption + 1
 		end
@@ -551,7 +567,7 @@ local function IronHeart_Render()
 		for i = 0, Game():GetNumPlayers() -1 do
 			local player = Isaac.GetPlayer(i)
 			local cid = player.ControllerIndex
-			if (player.Variant == 0) and not controllers[cid] then
+			if (player.Variant == 0) and not player:IsCoopGhost()  and not controllers[cid] then
 				if (player:GetPlayerType() == (IBS_Player.bmaggy) or IBSChallenge()) then
 					local IronHeart = GetIronHeartData(player)
 					local data = GetPlayerTempData(player)

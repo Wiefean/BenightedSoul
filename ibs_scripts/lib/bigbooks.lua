@@ -131,8 +131,10 @@ local achievementQueue = {}
 local bigPaper = Sprite()
 local paperFrames = 0
 local paperSwitch = false
-function BigBooks:PlayPaper(_drawingSprite) 
-	table.insert(achievementQueue, #achievementQueue+1, _drawingSprite)
+function BigBooks:PlayPaper(_drawingSprite)
+	if Options.DisplayPopups then
+		table.insert(achievementQueue, #achievementQueue+1, _drawingSprite)
+	end	
 end
 local function PaperRender()
 	if (paperFrames <= 0) then

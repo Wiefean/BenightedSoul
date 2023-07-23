@@ -20,6 +20,9 @@ local items = {
 	"items.defined",
 	"items.chocolate",
 	"items.diamoond",
+	"items.cranium",
+	"items.ether",
+	"items.wisper",
 
 	"trinkets.bottleshard",
 	"trinkets.dadspromise",
@@ -27,6 +30,7 @@ local items = {
 	"trinkets.toughheart",
 	
 	"pocketitems.CuZnD6",
+	"pocketitems.goldenprayer",
 }
 LoadScripts(items)
 

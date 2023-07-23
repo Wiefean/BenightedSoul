@@ -87,6 +87,21 @@ Item = {
 		Desc="超月燃"
 	},	
 
+	[IBS_Item.cranium]={
+		Name="奇怪的头骨",
+		Desc="似曾相识"
+	},
+
+	[IBS_Item.ether]={
+		Name="以太之云",
+		Desc="复仇飞行"
+	},
+
+	[IBS_Item.wisper]={
+		Name="魂火之灵",
+		Desc="魂火们"
+	},
+
 },
 
 --饰品
@@ -119,6 +134,11 @@ Pocket = {
 		Name=" 六面骰黄金典藏版",
 		Desc="Cu + Zn"
 	},
+	[IBS_Pocket.goldenprayer]={
+		Name=" 金色祈者",
+		Desc="祈祷 , 为人与和平"
+	},
+
 
 },
 

@@ -25,7 +25,7 @@ local Paper = {
 
 [IBS_Player.bmaggy] = {
 	IBSL = "divineretaliation",
-	MegaSatan = nil,
+	MegaSatan = "goldenprayer",
 	BRH = "bc2",
 	Delirium = "gheart",
 	Witness = "toughheart",
@@ -410,6 +410,7 @@ local function Mark_MegaSatan()
 	end	
 end
 mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, Mark_MegaSatan, EntityType.ENTITY_MEGA_SATAN_2)
+mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, Mark_MegaSatan, EntityType.ENTITY_MEGA_SATAN_2)
 
 --Boss车轮战标记
 local function Mark_BossRush()

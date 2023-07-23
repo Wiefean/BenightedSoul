@@ -210,6 +210,28 @@ local itemEID={
 		 "#{{Freezing}} Freezes a normal enemy that is both burning and slowing"
 },
 
+[IBS_Item.cranium]={
+	name="Weird Cranium",
+	info="Isaac gets lost curse in a new level"..
+		 "#After finishing{{BossRoom}}boss room, + 3 {{BlackHeart}} and then removes lost curse"
+},
+
+
+[IBS_Item.ether]={
+	name="Ether",
+	info="Grants flight when Isaac is hurt, and then spawns holy light"..
+		 "#Holy light does 2 * Isaac's DMG and ignores armor"..
+		 "#The frequency of spawning holy light is attached to hurt times in the current room",
+	trans={"LEVIATHAN", "ANGEL"}
+},
+
+[IBS_Item.wisper]={
+	name="Wisper",
+	info="Orbital"..
+		 "#Does 3 * Isaac's DMG"..
+		 "#30% to spawn a common wisp when killing an enemy",
+	trans={"ANGEL"}
+},
 
 }
 
@@ -353,7 +375,7 @@ local trinketEID={
 
 [IBS_Trinket.dadspromise]={
 	name="Dad's Promise",
-	info="{{BossRoom}} Completing Boss room in 45 + (15*levels) seconds brings {{Card49}}",
+	info="{{BossRoom}} Finishing boss room in 45 + (15*levels) seconds brings {{Card49}}",
 	mult={findReplace = {"15","20","25"}},
 },
 
@@ -404,6 +426,11 @@ local cardEID={
 	info="Rerolls items#90% not to disappear, but the chance decrease per used(Also affects others)"
 },
 
+[IBS_Pocket.goldenprayer] = {
+	name="Golden Prayer",
+	info="+ 50 iron hearts#{{BossRoom}} After consumed, it will be spawned whten next boss room is cleared",
+	mimic={charge = 6, isRune = false},
+},
 
 }
 

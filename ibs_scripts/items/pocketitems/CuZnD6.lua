@@ -22,7 +22,7 @@ local function Roll(_,card,player,flag)
 	player:UseActiveItem(105,false,false)
 	
 	--尝试再给予骰子
-	if (flag & UseFlag.USE_MIMIC <= 0) and (flag & UseFlag.USE_NOANIM <= 0) then		
+	if (flag & UseFlag.USE_MIMIC <= 0) then		
 		if (rng:RandomInt(100) + 1) <= GetChance() then
 			player:AddCard(IBS_Pocket.czd6)
 		end

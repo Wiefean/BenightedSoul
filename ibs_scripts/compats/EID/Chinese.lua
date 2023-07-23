@@ -228,6 +228,29 @@ local itemEID={
 		 "#{{Freezing}} 冰冻同时被点燃和减速的非Boss敌人"
 },
 
+[IBS_Item.cranium]={
+	name="奇怪的头骨",
+	info="进入新层时，角色获得{{Player10}}游魂诅咒"..
+		 "#完成{{BossRoom}}Boss房后，获得3{{BlackHeart}}黑心，并在下一个房间恢复"
+},
+
+[IBS_Item.ether]={
+	name="以太之云",
+	info="受伤后在本房间获得飞行，并降下圣光"..
+		 "#圣光造成角色伤害的2倍穿甲伤害"..
+		 "#圣光降落频率随角色在本房间的受伤次数递增",
+	trans={"LEVIATHAN", "ANGEL"}
+},
+
+[IBS_Item.wisper]={
+	name="魂火之灵",
+	info="抵挡敌弹的环绕物跟班"..
+		 "#造成角色伤害3倍的碰撞伤害"..
+		 "#击杀敌人有30%概率生成普通魂火({{Luck}}幸运7:100%)",
+	trans={"ANGEL"}
+},
+
+
 }
 
 for id,item in pairs(itemEID) do
@@ -432,6 +455,12 @@ local cardEID={
 	info="重置道具#90%不消失，每使用一次概率降低10%(影响持续一整局)"
 },
 
+[IBS_Pocket.goldenprayer] = {
+	name="金色祈者",
+	info="获得30不可恢复的坚贞之心#消耗后，完成下一个{{BossRoom}}Boss房会再次生成该卡牌",
+	mimic={charge = 6, isRune = false},
+	player={[IBS_Player.bmaggy]="效果改为恢复30可超上限的坚贞之心(切换房间后移除超出上限部分)"}
+},
 
 }
 
@@ -443,3 +472,5 @@ for id,card in pairs(cardEID) do
 		EID:addCardMetadata(id, card.mimic.charge, card.mimic.isRune)
 	end	
 end
+EID_ContentForPlayer("ibsCardForPlayer", cardEID, 5,300)
+

@@ -1,5 +1,6 @@
 <pocketitems>
 	<!-- card -->
-	<card type="object" hud="ibs_czd6" pickup="7250" description="Cu + Zn" name="The Great Golden Collectible -- D6" greedmode="true"/>
+	<card type="object" hud="ibs_czd6" pickup="7250" description="Cu + Zn" name="The Great Golden Collectible -- D6"/>
+	<card type="special" hud="ibs_goldenprayer" pickup="7251" description="Pray for people and peace" name="Golden Prayer" mimiccharge="6"/>
 
 </pocketitems>

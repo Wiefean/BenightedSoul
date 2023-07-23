@@ -33,11 +33,14 @@ local function IsActiveButtonTriggered(player, slot)
 	return false
 end
 
---用于修正
+--限制时间(用于修正)
 local TryUseTimeOut = 0 
+mod:AddCallback(ModCallbacks.MC_USE_CARD, function()
+	TryUseTimeOut = TryUseTimeOut + 2
+end)
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
 	if TryUseTimeOut > 0 then
-		TryUseTimeOut = TryUseTimeOut -1
+		TryUseTimeOut = TryUseTimeOut - 1
 	end
 end)
 

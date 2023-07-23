@@ -1,5 +1,5 @@
 <AnimatedActor>
-	<Info CreatedBy="vinh" CreatedOn="2023/4/29 16:38:11" Version="14" Fps="30"/>
+	<Info CreatedBy="vinh" CreatedOn="2023/7/20 20:03:58" Version="15" Fps="30"/>
 	<Content>
 		<Spritesheets>
 			<Spritesheet Path="ibspocket.png" Id="0"/>
@@ -17,7 +17,8 @@
 			</RootAnimation>
 			<LayerAnimations>
 				<LayerAnimation LayerId="0" Visible="true">
-					<Frame XPosition="-1" YPosition="4" XPivot="16" YPivot="24" XCrop="2" YCrop="-2" Width="32" Height="32" XScale="50" YScale="50" Delay="2" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="true"/>
+					<Frame XPosition="-1" YPosition="4" XPivot="16" YPivot="24" XCrop="2" YCrop="-2" Width="32" Height="32" XScale="50" YScale="50" Delay="1" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="true"/>
+					<Frame XPosition="-1" YPosition="4" XPivot="16" YPivot="24" XCrop="38" YCrop="-2" Width="32" Height="32" XScale="50" YScale="50" Delay="1" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="true"/>
 				</LayerAnimation>
 			</LayerAnimations>
 			<NullAnimations/>

@@ -20,6 +20,13 @@ do
 	EID:addIcon("Card"..(IBS_Pocket.czd6), "object", 0, 8, 8, 7, 7, spr)
 end
 
+--金色祈者
+do
+	local spr = Sprite()
+	spr:Load("ibsEIDicons/pickups.anm2", true)
+	EID:addIcon("Card"..(IBS_Pocket.goldenprayer), "object", 1, 8, 8, 7, 7, spr)
+end
+
 ---------------
 
 

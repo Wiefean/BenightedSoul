@@ -157,6 +157,9 @@ hypercube = Isaac.GetItemIdByName("Hypercube"),
 defined = Isaac.GetItemIdByName("Defined"), 
 chocolate = Isaac.GetItemIdByName("Valentinus Chocolate"),
 diamoond = Isaac.GetItemIdByName("Diamoond"),
+cranium = Isaac.GetItemIdByName("Weird Cranium"),
+ether = Isaac.GetItemIdByName("Ether"),
+wisper = Isaac.GetItemIdByName("Wisper"),
 
 }
 
@@ -172,6 +175,7 @@ toughheart = Isaac.GetTrinketIdByName("Tough Heart"),
 --口袋物品(不包含药丸)
 mod.IBS_Pocket = {
 czd6 = Isaac.GetCardIdByName("ibs_czd6"),
+goldenprayer = Isaac.GetCardIdByName("ibs_goldenprayer"),
 
 }
 

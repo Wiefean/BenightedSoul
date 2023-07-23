@@ -36,7 +36,7 @@ local LANG = Options.Language
 --通过其他方式解锁的道具
 local OtherItem = {
 
-["d4dUnlocked"] = (IBS_Item.d4d)
+["d4dUnlocked"] = (IBS_Item.d4d),
 
 }
 
@@ -77,6 +77,10 @@ local MarkPocket = {
 
 ["bisaac"] = {
 	MegaSatan = (IBS_Pocket.czd6),
+},
+
+["bmaggy"] = {
+	MegaSatan = (IBS_Pocket.goldenprayer),
 },
 
 }
