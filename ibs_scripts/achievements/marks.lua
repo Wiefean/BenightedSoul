@@ -31,7 +31,7 @@ local Paper = {
 	Witness = "toughheart",
 	Beast = "diamoond",
 	Greed = "chocolate",
-	FINISHED = nil
+	FINISHED = "fortitude_boss"
 },
 
 }

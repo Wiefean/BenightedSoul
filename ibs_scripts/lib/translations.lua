@@ -171,6 +171,19 @@ BossReplaced = {
 
 },
 
+--镜子提示
+MirrorTip = {
+	["Isaac"]={
+		Title="给以撒的秘语",
+		Sub="被撒旦夺走生命后 , 再将生命夺回"
+	},
+
+	["Magdalene"]={
+		Title="给抹大拉的秘语",
+		Sub="不惜生命为上帝献祭 , 之后不断磨炼自己的意志"
+	},
+},
+
 }
 
 
@@ -188,7 +201,20 @@ BossReplaced = {
 		Sub="Fortitude !"
 	}
 
-}
+},
+
+--镜子提示
+MirrorTip = {
+	["Isaac"]={
+		Title="For Isaac",
+		Sub="Satan takes your life away, you kick back"
+	},
+
+	["Magdalene"]={
+		Title="For Magdalene",
+		Sub="Sacrifice your life for God, then keep honing your will"
+	},
+},
 
 }
 

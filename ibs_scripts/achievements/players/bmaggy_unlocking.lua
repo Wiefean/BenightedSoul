@@ -46,14 +46,14 @@ local function IsUnlockable()
 	return false
 end
 
---里抹死在献祭房判定
+--抹大拉死在献祭房判定
 local function TMaggyDeath(_,isLose)
 	if isLose then
 		if Game():GetRoom():GetType() == RoomType.ROOM_SACRIFICE then
 			for i = 0, Game():GetNumPlayers() -1 do
 				local playerType = Isaac.GetPlayer(i):GetPlayerType()
-				if (playerType == 22)then
-					IBS_Data.GameState.Persis.tmaggySacrifice = true
+				if (playerType == 1) or (playerType == 22) then
+					IBS_Data.GameState.Persis.maggySacrifice = true
 					break
 				end
 			end
@@ -64,11 +64,11 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_END, TMaggyDeath)
 
 --检测下一局玩家一是否为抹大拉
 local function IsMaggy(_,player)
-	if IBS_Data.GameState.Persis.tmaggySacrifice then
+	if IBS_Data.GameState.Persis.maggySacrifice then
 		if IsUnlockable() then
 			local playerType = Isaac.GetPlayer(0):GetPlayerType()
-			if (playerType ~= 1) then
-				IBS_Data.GameState.Persis.tmaggySacrifice = false
+			if (playerType ~= 1) and (playerType ~= 22) then
+				IBS_Data.GameState.Persis.maggySacrifice = false
 				IBS_Data.GameState.Persis.maggyTimes = 0
 				mod:SaveIBSData() --保存,以防万一
 			else
@@ -107,22 +107,25 @@ end
 local function MaggyTakeDMG(_,ent, amount, flag, source)
 	local player = ent:ToPlayer()
 	
-	if player and player:GetPlayerType() == 1 then
-		if IBS_Data.GameState.Persis.tmaggySacrifice and IsSelfDamage(flag, source) and IsUnlockable() then
-			local times = IBS_Data.GameState.Persis.maggyTimes
-			
-			if times < 26 then
-				IBS_Data.GameState.Persis.maggyTimes = IBS_Data.GameState.Persis.maggyTimes + 1
-			else
-				if not IBS_Data.Setting["bmaggy"]["Unlocked"] then
-					ShowPaper()
+	if player then
+		local playerType = player:GetPlayerType()
+		if (playerType == 1) or (playerType == 22) then
+			if IBS_Data.GameState.Persis.maggySacrifice and IsSelfDamage(flag, source) and IsUnlockable() then
+				local times = IBS_Data.GameState.Persis.maggyTimes
+				
+				if times < 26 then
+					IBS_Data.GameState.Persis.maggyTimes = IBS_Data.GameState.Persis.maggyTimes + 1
+				else
+					if not IBS_Data.Setting["bmaggy"]["Unlocked"] then
+						ShowPaper()
+					end
+					IBS_Data.GameState.Persis.maggySacrifice = false
+					IBS_Data.GameState.Persis.maggyTimes = 0
+					IBS_Data.Setting["bmaggy"]["Unlocked"] = true
+					mod:SaveIBSData()
 				end
-				IBS_Data.GameState.Persis.tmaggySacrifice = false
-				IBS_Data.GameState.Persis.maggyTimes = 0
-				IBS_Data.Setting["bmaggy"]["Unlocked"] = true
-				mod:SaveIBSData()
 			end
-		end
+		end	
 	end
 end
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, MaggyTakeDMG)

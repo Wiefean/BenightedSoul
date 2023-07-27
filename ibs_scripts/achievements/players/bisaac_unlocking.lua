@@ -26,7 +26,7 @@ local function ShowPaper()
 end
 
 --检测解锁条件
-local function IsUnlockable(bossLevel)
+local function IsUnlockable()
 	local notInChallenge = Isaac.GetChallenge() <= 0
 	local notCustomSeed = Game():GetSeeds():IsCustomRun() == false
 	local notInLap = Game():GetVictoryLap() <= 0
@@ -42,26 +42,20 @@ local function IsUnlockable(bossLevel)
 	
 	--非自定种子,非挑战,非跑圈
 	if notCustomSeed and notInChallenge and notInLap then
-		if bossLevel then --Boss房和楼层判定
-			if bossRoom and level == bossLevel then
-				return true
-			end
-		else
-			return true
-		end	
+		return true
 	end
 
 	return false
 end
 
---里以撒死在撒但房间判定
+--以撒死在撒但房间判定
 local function TIsaacDeathInSatanRoom(_,isLose)
 	if isLose then
 		if Game():GetRoom():GetBossID() == 24 then
 			for i = 0, Game():GetNumPlayers() -1 do
 				local playerType = Isaac.GetPlayer(i):GetPlayerType()
-				if (playerType == 21)then
-					IBS_Data.GameState.Persis.tisaacSatanDeath = true
+				if (playerType == 0) or (playerType == 21) then
+					IBS_Data.GameState.Persis.isaacSatanDeath = true
 					break
 				end
 			end
@@ -73,11 +67,11 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_END, TIsaacDeathInSatanRoom)
 
 --检测下一局玩家一是否为以撒
 local function IsIsaac(_,player)
-	if IBS_Data.GameState.Persis.tisaacSatanDeath then
+	if IBS_Data.GameState.Persis.isaacSatanDeath then
 		if IsUnlockable() then
 			local playerType = Isaac.GetPlayer(0):GetPlayerType()
-			if (playerType ~= 0) then
-				IBS_Data.GameState.Persis.tisaacSatanDeath = false
+			if (playerType ~= 0) and (playerType ~= 21) then
+				IBS_Data.GameState.Persis.isaacSatanDeath = false
 				mod:SaveIBSData() --保存,以防万一
 			else
 				sfx:Play(IBS_Sound.angelbonus)
@@ -89,16 +83,16 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, IsIsaac)
 
 --以撒击败撒旦判定
 local function IsaacBeatSatan()
-	if IBS_Data.GameState.Persis.tisaacSatanDeath then
+	if IBS_Data.GameState.Persis.isaacSatanDeath then
 		if Game():GetRoom():GetBossID() == 24 then
-			if IsUnlockable(10) then
+			if IsUnlockable() then
 				for i = 0, Game():GetNumPlayers() -1 do
 					local playerType = Isaac.GetPlayer(i):GetPlayerType()
-					if (playerType == 0) then
+					if (playerType == 0) or (playerType == 21) then
 						if not IBS_Data.Setting["bisaac"]["Unlocked"] then
 							ShowPaper()
 						end
-						IBS_Data.GameState.Persis.tisaacSatanDeath = false
+						IBS_Data.GameState.Persis.isaacSatanDeath = false
 						IBS_Data.Setting["bisaac"]["Unlocked"] = true
 						mod:SaveIBSData()
 						break

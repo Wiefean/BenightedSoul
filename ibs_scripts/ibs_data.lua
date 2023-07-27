@@ -25,8 +25,8 @@ local function Temp_Init()
 end
 
 local function Persis_Init() --此处可新增永久数据
-return {tisaacSatanDeath = false,
-		tmaggySacrifice = false,
+return {isaacSatanDeath = false,
+		maggySacrifice = false,
 		maggyTimes = 0
 		}
 end
