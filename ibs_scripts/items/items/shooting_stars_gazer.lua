@@ -36,6 +36,14 @@ local function GetPlayerData(player)
 	return data.SHOOTINGSTARS_PLAYER
 end
 
+--临时马刀数据
+local function GetKnifeData(knife)
+	local data = Ents:GetTempData(knife)
+	data.SHOOTINGSTARS_KNIFE = data.SHOOTINGSTARS_KNIFE or {Wait = 0}
+
+	return data.SHOOTINGSTARS_KNIFE
+end
+
 --临时敌人数据
 local function GetNpcData(npc)
 	local data = Ents:GetTempData(npc)
@@ -247,7 +255,7 @@ local function GetWaitTime(firedelay)
 	return wait
 end
 
---妈刀兼容
+--妈刀等兼容
 mod:AddCallback(ModCallbacks.MC_POST_KNIFE_UPDATE, function(_,knife)
 	local player = nil
 
@@ -255,20 +263,20 @@ mod:AddCallback(ModCallbacks.MC_POST_KNIFE_UPDATE, function(_,knife)
 		player = knife.SpawnerEntity:ToPlayer()
 	end
 	
-	if player and player:HasCollectible(114) and player:HasCollectible(IBS_Item.ssg) then
-		local data = GetPlayerData(player)
+	if player and player:HasCollectible(IBS_Item.ssg) then
+		local data = GetKnifeData(knife)
 
-		if data.KnifeWait > 0 then
-			data.KnifeWait = data.KnifeWait - 1
+		if data.Wait > 0 then
+			data.Wait = data.Wait - 1
 		else
-			data.KnifeWait = math.floor(GetWaitTime(player.MaxFireDelay) / 1.5)
+			data.Wait = math.floor(GetWaitTime(player.MaxFireDelay) / 1.5)
 			if knife:IsFlying() then
 				SpawnStars(player, knife.Position)
 			end			
 		end
 		knife:SetColor(Color(1, 1, 1, 1, 0, 0, 1),-1,0,false,true)
 	end
-end,0)
+end)
 
 
 --冷却以及流星点位更新

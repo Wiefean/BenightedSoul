@@ -10,6 +10,7 @@ local Players = mod.IBS_Lib.Players
 local sfx = SFXManager()
 
 local Destination = {
+	[0] = {Type = RoomType.ROOM_DEFAULT, Charge = 0},
 	[1] = {Type = RoomType.ROOM_BOSS, Charge = 5},
 	[2] = {Type = RoomType.ROOM_SHOP, Charge = 3},
 	[3] = {Type = RoomType.ROOM_TREASURE, Charge = 4},
@@ -22,6 +23,7 @@ local Destination = {
 }
 
 local GreedDestination = {
+	[0] = {Type = RoomType.ROOM_DEFAULT, Charge = 0},
 	[1] = {Type = RoomType.ROOM_SHOP, Charge = 1},
 	[2] = {Type = RoomType.ROOM_TREASURE, Charge = 3},
 	[3] = {Type = RoomType.ROOM_DUNGEON, Charge = 2},
@@ -31,13 +33,15 @@ local GreedDestination = {
 	[7] = {Type = RoomType.ROOM_DEVIL, Charge = 5}
 }
 
+--临时数据
 local function GetTeleportData(player)
 	local data = Ents:GetTempData(player)
-	data.DEFINED = data.DEFINED or {Mode = 1}
+	data.DEFINED = data.DEFINED or {Mode = 0}
 
 	return data.DEFINED
 end
 
+--双击切换
 local function ModeChange(_,player, type, action)
 	if (type == 2) and (action == ButtonAction.ACTION_MAP) then
 		if player:HasCollectible(IBS_Item.defined) then
@@ -52,7 +56,7 @@ local function ModeChange(_,player, type, action)
 				if data.Mode < MAX then
 					data.Mode = data.Mode + 1
 				else
-					data.Mode = 1
+					data.Mode = 0
 				end
 			end
 		end
@@ -86,6 +90,9 @@ local function Teleport(_,item, rng, player, flags, slot)
 		if Players:DischargeSlot(player, slot, discharge, true, false) or (flags & UseFlag.USE_OWNED <= 0) then
 			local idx = level:QueryRoomTypeIndex(where.Type, false, rng, true)
 			if (where.Type == RoomType.ROOM_DUNGEON) then idx = -13 end --高级商店
+			if (where.Type == RoomType.ROOM_DEFAULT) then idx = level:GetStartingRoomIndex() end --初始房间
+			
+			--由其他方式触发则传至红隐
 			if (flags & UseFlag.USE_OWNED <= 0) or (flags & UseFlag.USE_VOID > 0) then
 				idx = level:QueryRoomTypeIndex(RoomType.ROOM_ULTRASECRET, false, rng, true)
 			end

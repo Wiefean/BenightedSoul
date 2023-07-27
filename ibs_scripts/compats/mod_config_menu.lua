@@ -165,7 +165,7 @@ do	--昧化抹大拉
 	AddCharacterBool(AchievSettings2, PlayerKey, "Witness", "Mark for Tough Heart")
 	AddCharacterBool(AchievSettings2, PlayerKey, "Beast", "Mark for Diamoond")
 	AddCharacterBool(AchievSettings2, PlayerKey, "Greed", "Mark for Valentinus Chocolate")	
-	AddCharacterBool(AchievSettings2, PlayerKey, "FINISHED", {"No achievement yet","This only affects its single achievement"})			
+	AddCharacterBool(AchievSettings2, PlayerKey, "FINISHED", {"For a mini boss","This only affects its single achievement"})			
 end	
 --成就板块2结束--
 

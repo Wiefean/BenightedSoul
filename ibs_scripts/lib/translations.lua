@@ -102,6 +102,21 @@ Item = {
 		Desc="魂火们"
 	},
 
+	[IBS_Item.bone]={
+		Name="节制之骨",
+		Desc="愿你保持节制"
+	},
+
+	[IBS_Item.guard]={
+		Name="坚韧面罩",
+		Desc="愿你勇往直前"
+	},
+
+	[IBS_Item.v7]={
+		Name="美德七面骰",
+		Desc="随机的美德"
+	},
+
 },
 
 --饰品
@@ -147,7 +162,12 @@ BossReplaced = {
 	["Temperance"]={
 		Title="暴食有些不对劲 ?",
 		Sub="节制 !"
-	}
+	},
+
+	["Fortitude"]={
+		Title="愤怒有些不对劲 ?",
+		Sub="坚韧 !"
+	},
 
 },
 
@@ -161,6 +181,11 @@ BossReplaced = {
 	["Temperance"]={
 		Title="Gluttony ?",
 		Sub="Temperance !"
+	},
+
+	["Fortitude"]={
+		Title="Wrath ?",
+		Sub="Fortitude !"
 	}
 
 }

@@ -160,6 +160,10 @@ diamoond = Isaac.GetItemIdByName("Diamoond"),
 cranium = Isaac.GetItemIdByName("Weird Cranium"),
 ether = Isaac.GetItemIdByName("Ether"),
 wisper = Isaac.GetItemIdByName("Wisper"),
+bone = Isaac.GetItemIdByName("Bone of Temperance"),
+guard = Isaac.GetItemIdByName("Guard of Fortitude"),
+v7 = Isaac.GetItemIdByName("V7"),
+
 
 }
 

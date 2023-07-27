@@ -119,7 +119,7 @@ local function DoubleTapCallback(_,player)
 						end
 					end
 					if not exist then
-						table.insert(data.Other, {Action = action, TimeOut = 10})
+						table.insert(data.Other, {Action = action, TimeOut = 15})
 					end
 				end
 			end

@@ -23,6 +23,9 @@ local items = {
 	"items.cranium",
 	"items.ether",
 	"items.wisper",
+	"items.bone_of_temperance",
+	"items.guard_of_fortitude",
+	"items.v7",
 
 	"trinkets.bottleshard",
 	"trinkets.dadspromise",

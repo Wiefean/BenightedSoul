@@ -6,10 +6,11 @@
 		<Item Name="The Waster" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
 		<Item Name="Purple Bubbles" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Hypercube" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hypercube" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
 		<Item Name="Defined" weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
 		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Wisper" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
+		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="1" />	
 		
 	</pool>
 	
@@ -22,7 +23,8 @@
 		<Item Name="Hypercube" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Defined" weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
 		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Wisper" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Wisper" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="1" />	
 		
 	</pool>
 	
@@ -35,9 +37,7 @@
 	<Pool Name="shop">
 		<Item Name="No Options" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1"/>
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Purple Bubbles" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Defined" weight="1" DecreaseBy="1" RemoveOn="0.1" />		
-		<Item Name="Hypercube" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Purple Bubbles" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="Defined" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
 		<Item Name="Valentinus Chocolate" weight="1" DecreaseBy="0.5" RemoveOn="0.1" />
 		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -51,10 +51,12 @@
 		<Item Name="Defined" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Valentinus Chocolate" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bone of Temperance" weight="1" DecreaseBy="1" RemoveOn="1" />
+		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="1" />		
 		
 	</pool>
 	
-	<Pool Name="babyShop">	
+	<Pool Name="babyShop">
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
 	
 	</pool>
@@ -123,7 +125,8 @@
 		<Item Name="Glowing Heart" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Valentinus Chocolate" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
-		<Item Name="Wisper" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
+		<Item Name="Wisper" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bone of Temperance" weight="1" DecreaseBy="1" RemoveOn="1" />
 
 	</pool>
 	<Pool Name="greedAngel">
@@ -133,6 +136,7 @@
 		<Item Name="Glowing Heart" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
 		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="Wisper" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
+		<Item Name="Bone of Temperance" weight="0.5" DecreaseBy="0.5" RemoveOn="1" />		
 	
 	</pool>
 
@@ -160,6 +164,8 @@
 
 	<Pool Name="goldenChest">
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Bone of Temperance" weight="1" DecreaseBy="1" RemoveOn="1" />
+		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="1" />	
 	
 	</pool>
 	

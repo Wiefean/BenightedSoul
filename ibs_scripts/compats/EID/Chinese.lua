@@ -250,6 +250,28 @@ local itemEID={
 	trans={"ANGEL"}
 },
 
+[IBS_Item.bone]={
+	name="节制之骨",
+	info="幽灵眼泪"..
+		 "#穿透眼泪"..
+		 "#角色眼泪不再具有垂直加速度"..
+		 "#双击 "..EID.ButtonToIconMap[ButtonAction.ACTION_DROP].." 丢弃键可以使角色眼泪静止"..
+		 "#7秒后自动回收眼泪"
+},
+
+[IBS_Item.guard]={
+	name="坚韧面罩",
+	info="抵挡面前的敌弹"..
+		 "#受到敌弹伤害时，清除所有敌弹"..
+		 "#受到的爆炸伤害降低至半心"
+},
+
+[IBS_Item.v7]={
+	name="美德七面骰",
+	info="在当前房间召唤一个友好的以下小Boss："..
+		 "#节制"..
+		 "#坚韧"
+},
 
 }
 
@@ -457,7 +479,7 @@ local cardEID={
 
 [IBS_Pocket.goldenprayer] = {
 	name="金色祈者",
-	info="获得30不可恢复的坚贞之心#消耗后，完成下一个{{BossRoom}}Boss房会再次生成该卡牌",
+	info="获得30不会自动恢复的坚贞之心#消耗后，完成下一个{{BossRoom}}Boss房会再次生成该卡牌",
 	mimic={charge = 6, isRune = false},
 	player={[IBS_Player.bmaggy]="效果改为恢复30可超上限的坚贞之心(切换房间后移除超出上限部分)"}
 },

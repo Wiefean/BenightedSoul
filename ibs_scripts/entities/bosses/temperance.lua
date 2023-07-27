@@ -2,11 +2,12 @@
 --偷懒套用了暴食的id,多省事
 
 local mod = Isaac_BenightedSoul
+local IBS_Item = mod.IBS_Item
 local Maths = mod.IBS_Lib.Maths
 local Finds = mod.IBS_Lib.Finds
 local Ents = mod.IBS_Lib.Ents
 local Translations = mod.IBS_Lib.Translations
-local DropRNG = mod:GetUniqueRNG("Boss_Temperance_DorpItem")
+local DropRNG = mod:GetUniqueRNG("Boss_Temperance")
 
 local LANG = Options.Language
 if LANG ~= "zh" then LANG = "en" end
@@ -22,16 +23,14 @@ local Temperance = {
 	ProjParams = ProjectileParams(),
 	ProjParams2 = ProjectileParams()
 }
-Temperance.ProjParams.Variant = ProjectileVariant.PROJECTILE_TEAR
+Temperance.ProjParams.Variant = ProjectileVariant.PROJECTILE_BONE
 Temperance.ProjParams.Spread = 1.2
---Temperance.ProjParams.FallingSpeedModifier = 0
---Temperance.ProjParams.FallingAccelModifier = -0.1
 Temperance.ProjParams.BulletFlags = ProjectileFlags.BOUNCE
+Temperance.ProjParams.Color = Color(0.3,0.5,1)
 
-Temperance.ProjParams2.Variant = ProjectileVariant.PROJECTILE_TEAR
---Temperance.ProjParams2.FallingSpeedModifier = 0
---Temperance.ProjParams2.FallingAccelModifier = -0.1
+Temperance.ProjParams2.Variant = ProjectileVariant.PROJECTILE_BONE
 Temperance.ProjParams2.BulletFlags = ProjectileFlags.BOUNCE
+Temperance.ProjParams2.Color = Color(0.3,0.5,1)
 
 local BossState = {
 	Walk = 20,
@@ -100,7 +99,7 @@ end)
 
 --替换暴食
 mod:AddCallback(ModCallbacks.MC_POST_NPC_INIT, function(_,npc)
-	if npc.Type == 49 and npc.Variant ~= Temperance.Variant and (Game():GetRoom():GetType() ~= RoomType.ROOM_BOSS) then
+	if (npc.Type == 49) and (npc.Variant ~= Temperance.Variant) and (Game():GetRoom():GetType() ~= RoomType.ROOM_BOSS) then
 		if IBS_Data.Setting["bisaac"].FINISHED then
 			local chance = DropRNG:RandomInt(99) + 1
 			local replac = false
@@ -135,23 +134,36 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, function(_,pickup)
 	end
 end)
 mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_,npc)
-	if npc.Variant == Temperance.Variant then
+	if (npc.Variant == Temperance.Variant) and not npc:HasEntityFlags(EntityFlag.FLAG_NO_REWARD) then
 		local chance = DropRNG:RandomInt(99) + 1
-		local V = 10
-		local S = 8
 		
-		if chance <= 25 then
+		--33%节制卡
+		local V = 300
+		local S = 15
+		
+		if chance <= 34 then --34%魂心+骨心
+			V = 10
 			S = 3
-		elseif chance >25 and chance <= 40 then
+			local boneHeart = Isaac.Spawn(5, 10, 11, Game():GetRoom():FindFreePickupSpawnPosition(npc.Position), Vector.Zero, nil)
+			boneHeart.Velocity = RandomVector() / 2
+		elseif chance > 34 and chance <= 67 then --33%节制之骨
 			V = 100
-			S = 222
-		elseif chance >40 and chance <= 65 then
-			V = 300
-			S = 15
+			S = IBS_Item.bone
 		end
 		
 		local pickup = Isaac.Spawn(5, V, S, Game():GetRoom():FindFreePickupSpawnPosition(npc.Position), Vector.Zero, nil)
-		pickup.Velocity = Vector(math.random(-1,1)/2, math.random(-1,1)/2)
+		pickup.Velocity = RandomVector() / 2
+		
+		--死亡填深坑
+		local room = Game():GetRoom()
+		local size = room:GetGridSize()
+		
+		for i = 0,size-1 do
+			local grid = room:GetGridEntity(i)
+			if grid and (grid.State == 0) and (grid:GetType() == GridEntityType.GRID_PIT) then
+				grid:ToPit():MakeBridge(nil)
+			end
+		end		
 	end
 end, Temperance.Type)
 
@@ -171,15 +183,26 @@ local function OnUpdate(_,npc)
 		local spr = npc:GetSprite()
 		local vec = Vector.Zero
 		local A = Vector.Zero
-		local player = Finds:ClosestPlayer(npc.Position)
-		local dist = (npc.Position - player.Position):Length()
+		local target = nil
+		
+		--在友好状态下目标改为最近的敌人,如果没有则仍为玩家
+		if npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then
+			target = Finds:ClosestEnemy(npc.Position)
+			if target == nil then
+				target = Finds:ClosestPlayer(npc.Position)
+			end
+		else
+			target = Finds:ClosestPlayer(npc.Position)
+		end	
+
+		local dist = (npc.Position - target.Position):Length()
 		local dir = -1
 		
 		if npc.State == BossState.Walk then
 			if npc.StateFrame < 100 + math.random(0,80) then
 				 --行走状态与玩家保持距离
 				if dist < 150 then
-					vec = npc.Position - player.Position
+					vec = npc.Position - target.Position
 					A =  vec:Resized(math.min(1, (vec:Length()) / 30))
 					dir = Maths:VectorToDirection(vec:Normalized())			
 					
@@ -208,7 +231,7 @@ local function OnUpdate(_,npc)
 			end
 		elseif npc.State == BossState.Attack1 then
 			if npc.StateFrame < 80 then
-				vec = player.Position - npc.Position
+				vec = target.Position - npc.Position
 				spr:Play("Attack1", false)
 				if spr:IsPlaying("Attack1") then
 					if spr:IsEventTriggered("FireProj") then

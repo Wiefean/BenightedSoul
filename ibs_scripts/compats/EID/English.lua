@@ -233,6 +233,21 @@ local itemEID={
 	trans={"ANGEL"}
 },
 
+[IBS_Item.bone]={
+	name="Bone of Temperance",
+	info="Spectral and piercing tears"..
+		 "#Sets tears' falling speed to 0"..
+		 "#Double-tap "..EID.ButtonToIconMap[ButtonAction.ACTION_DROP].." to stop tears"..
+		 "#Each tear will be recycled after 7 seconds"
+},
+
+[IBS_Item.guard]={
+	name="Guard of Fortitude",
+	info="Blocks projectiles facing Isaac"..
+		 "#When hurt by a projectile, clear all projectiles"..
+		 "Reduces explosive damage taken to half a heart"
+},
+
 }
 
 for id,item in pairs(itemEID) do
@@ -428,7 +443,7 @@ local cardEID={
 
 [IBS_Pocket.goldenprayer] = {
 	name="Golden Prayer",
-	info="+ 50 iron hearts#{{BossRoom}} After consumed, it will be spawned whten next boss room is cleared",
+	info="+ 30 iron hearts#{{BossRoom}} After consumed, it will be spawned whten next boss room is cleared",
 	mimic={charge = 6, isRune = false},
 },
 

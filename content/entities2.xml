@@ -1,11 +1,17 @@
 <entities anm2root="gfx/ibs/" deathanm2="gfx/death enemies.anm2" version="5">
-	<!-- minibosses -->
-    <entity name="IBS_Temperance" anm2path="bosses/mini/temperance.anm2" baseHP="70" boss="1" champion="0" collisionDamage="2" collisionMass="30" collisionRadius="13" friction="1" id="49" variant="7250" numGridCollisionPoints="12" shadowSize="12" stageHP="15"  shieldStrength="10" portrait="0" >
+	<!-- bosses -->
+    <entity name="IBS_Temperance" anm2path="bosses/mini/temperance.anm2" baseHP="70" boss="1" champion="0" collisionDamage="2" collisionMass="30" collisionRadius="13" friction="1" id="49" variant="7250" numGridCollisionPoints="12" shadowSize="12" stageHP="15" shieldStrength="10" portrait="0" >
         <gibs amount="10" blood="0" bone="1" eye="0" gut="0" large="0" sound_bone="1" dust="1" />
-    </entity>	
+    </entity>
+
+    <entity name="IBS_Fortitude" anm2path="bosses/mini/fortitude.anm2" baseHP="100" boss="1" champion="0" collisionDamage="0" collisionMass="30" collisionRadius="13" friction="1" id="48" variant="7250" numGridCollisionPoints="12" shadowSize="13" stageHP="20" shieldStrength="20" portrait="1" >
+        <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0" />
+    </entity>
+
 
 	<!-- familiars -->
     <entity anm2path="familiar/wisper.anm2" id="3" variant="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" name="IBS_Wisper" numGridCollisionPoints="12" shadowSize="7" stageHP="0" />
+
 
 	<!-- pickups -->
 	<entity  name="IBS_CuZnD6" 	anm2path="items/pick ups/CuZnD6.anm2" id="5" variant="300" subtype="7250" baseHP="0" boss="0" champion="0" 	collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0">
@@ -13,6 +19,7 @@
     </entity>
 	
 	<entity name="IBS_GoldenPrayer" anm2path="items/pick ups/goldenprayer.anm2" id="5" variant="300" subtype="7251" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="21" stageHP="0" />
+	
 	
 	<!-- effects -->
 	<entity name="IBS_PickingUp" id="1000" variant="7525" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="0" collisionRadius="0" friction="0" numGridCollisionPoints="0" shadowSize="0" stageHP="0"/>	

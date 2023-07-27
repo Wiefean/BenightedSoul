@@ -79,7 +79,8 @@ local function Wisper_Collision(_,familiar, other)
 			
 			if dmg < 10 then dmg = 10 end		
 
-			other:TakeDamage(dmg, DamageFlag.DAMAGE_FIRE, EntityRef(familiar),0)					
+			other:TakeDamage(dmg, 0, EntityRef(familiar),0)
+			SFXManager():Play(43)			
 		end
 	end
 
@@ -115,7 +116,7 @@ local function Wisper_Collision(_,familiar, other)
 				if dmg < 10 then dmg = 10 end			
 
 				if dmg > 0 then
-					other:TakeDamage(dmg, DamageFlag.DAMAGE_FIRE, EntityRef(familiar),0)
+					other:TakeDamage(dmg, 0, EntityRef(familiar),0)
 				end
 			end
 		end

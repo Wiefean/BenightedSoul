@@ -7,6 +7,7 @@ end
 
 local entities = {
 	"bosses.temperance",
+	"bosses.fortitude",
 	
 	"effects.pickingup",
 	
