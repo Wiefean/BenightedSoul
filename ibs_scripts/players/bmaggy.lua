@@ -12,10 +12,11 @@ local Players = mod.IBS_Lib.Players
 local Ents = mod.IBS_Lib.Ents
 
 
---角色贴图和路径
+--角色贴图动画路径
 costume = Isaac.GetCostumeIdByPath("gfx/ibs/characters/bmaggy_hair.anm2")
 spritePath = "gfx/ibs/characters/player_bmaggy.anm2"
-spriteFlightPath = "gfx/ibs/characters/player_bmaggy.anm2"
+spriteFlightPath = "gfx/ibs/characters/player_bmaggy_flight.anm2"
+spriteDefaultPath = "gfx/001.000_player.anm2"
 
 --基础数值
 local Init = {
@@ -108,7 +109,13 @@ local function UpdatePlayerSprite(player)
     local sprState = 1
     local costumeState = 1
     local path = spritePath
-    if player.CanFly then path = spriteFlightPath sprState = 2 end
+    if player.CanFly then path = spriteFlightPath sprState = 2 end --飞行
+	
+	--超大蘑菇
+	if player:GetEffects():HasCollectibleEffect(CollectibleType.COLLECTIBLE_MEGA_MUSH) then
+		path = spriteDefaultPath
+		sprState = 0
+	end
 	
 	if player:GetPlayerType() == (IBS_Player.bmaggy) then
 		data.PlayerMatched = true
