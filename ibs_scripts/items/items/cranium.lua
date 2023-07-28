@@ -16,6 +16,8 @@ local function OnNewLevel()
 			if not effect:HasNullEffect(NullItemID.ID_LOST_CURSE) then
 				effect:AddNullEffect(NullItemID.ID_LOST_CURSE)
 			end
+		else
+			data.WeirdCranium = nil
 		end	
 	end
 end
@@ -28,15 +30,13 @@ local function OnNewRoom()
 		local effect = player:GetEffects()
 		local data = Players:GetData(player)
 		
+		if not player:HasCollectible(IBS_Item.cranium) then
+			data.WeirdCranium = nil
+		end
+		
 		if data.WeirdCranium then
 			if not effect:HasNullEffect(NullItemID.ID_LOST_CURSE) then
 				effect:AddNullEffect(NullItemID.ID_LOST_CURSE)
-			end
-		else
-			if not Game():GetRoom():IsMirrorWorld() then --不在镜子里
-				if effect:HasNullEffect(NullItemID.ID_LOST_CURSE) then
-					effect:RemoveNullEffect(NullItemID.ID_LOST_CURSE)
-				end
 			end
 		end
 	end
@@ -51,9 +51,14 @@ local function OnBoss()
 			local data = Players:GetData(player)
 			
 			if data.WeirdCranium then
-				player:AddBlackHearts(6)
+				player:AddBlackHearts(6)			
 				SFXManager():Play(SoundEffect.SOUND_UNHOLY)
 				data.WeirdCranium = nil
+				if not Game():GetRoom():IsMirrorWorld() then --不在镜子里
+					if effect:HasNullEffect(NullItemID.ID_LOST_CURSE) then
+						effect:RemoveNullEffect(NullItemID.ID_LOST_CURSE)
+					end
+				end					
 			end
 		end
 	end	
