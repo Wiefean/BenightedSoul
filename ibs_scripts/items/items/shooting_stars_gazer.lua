@@ -219,11 +219,6 @@ local function SpawnStars(player, pos)
 	if tear:HasTearFlags(TearFlags.TEAR_SHRINK) then
 		tear:ClearTearFlags(TearFlags.TEAR_SHRINK) 
 	end
-	
-	--科技零不兼容(已经另改兼容)
-	if tear:HasTearFlags(TearFlags.TEAR_LASER) then
-		tear:ClearTearFlags(TearFlags.TEAR_LASER) 
-	end
 
 	--眼球不兼容
 	if tear:HasTearFlags(TearFlags.TEAR_POP) then

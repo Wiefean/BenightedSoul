@@ -8,9 +8,9 @@ local Players = mod.IBS_Lib.Players
 local function OnNewLevel()
 	for i = 0, Game():GetNumPlayers() -1 do
 		local player = Isaac.GetPlayer(i)
+		local data = Players:GetData(player)
 		
 		if player:HasCollectible(IBS_Item.cranium) then
-			local data = Players:GetData(player)
 			local effect = player:GetEffects()
 			data.WeirdCranium = true
 			if not effect:HasNullEffect(NullItemID.ID_LOST_CURSE) then

@@ -6,7 +6,7 @@
 	<!-- purplebubbles -->
 	<costume id="8" anm2path="purplebubbles_head.anm2" type="active" hasOverlay="true" />
 	<!-- bone of temperance -->
-	<costume id="17" anm2path="bone_of_temperance.anm2" type="passive" skinColor="2" />
+	<costume id="17" anm2path="bone_of_temperance.anm2" priority="2" type="passive" skinColor="2" />
 	<!-- guard_of_fortitude -->
 	<costume id="18" anm2path="guard_of_fortitude_head.anm2" priority="5" type="passive" />
 

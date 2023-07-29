@@ -55,6 +55,11 @@ mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, function(_,tear)
 
 		tear:AddTearFlags(TearFlags.TEAR_SPECTRAL)
 		tear:AddTearFlags(TearFlags.TEAR_PIERCING)
+		
+		--突眼
+		if tear:HasTearFlags(TearFlags.TEAR_SHRINK) then
+			tear:ClearTearFlags(TearFlags.TEAR_SHRINK) 
+		end
     end
 end)
 mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, function(_,tear)
@@ -87,9 +92,9 @@ mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, function(_,tear)
 	end	
 end)
 
---常规激光兼容(包括硫磺火)
+--常规激光兼容(包括硫磺火,不包括牵引光束)
 mod:AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, function(_,laser)
-	if laser.SubType == 0 then
+	if (laser.Variant ~= 7) and (laser.SubType == 0) then
 		local player = nil
 
 		if laser.SpawnerEntity then
@@ -102,7 +107,7 @@ mod:AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, function(_,laser)
 			if data.Wait > 0 then
 				data.Wait = data.Wait - 1
 			else
-				data.Wait = 6
+				data.Wait = 9
 				local tear = player:FireTear(laser.EndPoint + 20 * RandomVector(), Vector.Zero, false, true, false)
 				local tdata = GetTearData(tear)
 				local dmg = math.max(3.5, player.Damage)
@@ -119,6 +124,17 @@ mod:AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, function(_,laser)
 				tear.FallingSpeed = 0
 				tear.FallingAcceleration = -0.1	
 				tear:ChangeVariant(37)
+				
+				--突眼
+				if tear:HasTearFlags(TearFlags.TEAR_SHRINK) then
+					tear:ClearTearFlags(TearFlags.TEAR_SHRINK) 
+				end
+				
+				--三圣颂
+				if tear:HasTearFlags(TearFlags.TEAR_LASERSHOT) then
+					tear:ClearTearFlags(TearFlags.TEAR_LASERSHOT) 
+				end	
+				
 				tear:Update()
 				
 				sfx:Stop(153)
@@ -199,6 +215,16 @@ mod:AddCallback(ModCallbacks.MC_POST_KNIFE_UPDATE, function(_,knife)
 			elseif (knife.Variant == 11) then --妈刀配英灵剑配科技对应激光剑气
 				tear:ChangeVariant(49)	
 			end	
+			
+			--突眼
+			if tear:HasTearFlags(TearFlags.TEAR_SHRINK) then
+				tear:ClearTearFlags(TearFlags.TEAR_SHRINK) 
+			end
+			
+			--三圣颂
+			if tear:HasTearFlags(TearFlags.TEAR_LASERSHOT) then
+				tear:ClearTearFlags(TearFlags.TEAR_LASERSHOT) 
+			end
 			
 			tear:Update()
 			
