@@ -7,7 +7,7 @@
 Isaac_BenightedSoul = RegisterMod("Benighted Soul",1)
 
 local mod = Isaac_BenightedSoul
-mod.ModVersion = "0.2.4"
+mod.ModVersion = "0.2.5"
 
 
 --防止渲染崩溃
@@ -32,6 +32,7 @@ local Scripts = {
 	"ibs_items",
 	"ibs_players",
 	"ibs_entities",
+	"ibs_curses",
 	"ibs_debug_console",
 }
 LoadScripts(Scripts)

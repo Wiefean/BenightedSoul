@@ -12,5 +12,6 @@ local callbacks = {
 	"doubletap",
 	"tryuseitem",
 	"activerender",
+	"holditem",
 }
 LoadScripts(callbacks)

@@ -61,8 +61,8 @@ PICK_CARD = "IBS_CALLBACK_PICK_CARD",
 
 
 --双击按键
---[[
-提供参数:玩家(实体), 按键类型(整数), 按键ID或射击方向(整数)
+--[[提供参数:玩家(实体), 按键类型(整数), 按键ID或射击方向(整数)]]
+--[[说明:
 按键类型:
 	0 -- 行走
 	1 -- 射击
@@ -89,14 +89,14 @@ PLAYER_DOUBLE_TAP = "IBS_CALLBACK_PLAYER_DOUBLE_TAP",
 
 
 --尝试使用主动
---[[
-提供参数:道具ID, 玩家(实体), 主动槽(整数), 已充能数, 满充能数, 充能类型(整数)
-可输入参数:道具ID
+--[[可输入参数:道具ID]]
+--[[提供参数:道具ID, 玩家(实体), 主动槽(整数), 已充能数, 充能类型(整数)]]
+--[[说明:
 主动槽:
 	0 -- 第一主动
 	2 -- 副手主动
 
-主动槽:
+充能类型:
 	0 -- 普通
 	1 -- 自充
 	2 -- 特殊
@@ -105,7 +105,7 @@ PLAYER_DOUBLE_TAP = "IBS_CALLBACK_PLAYER_DOUBLE_TAP",
 	CanUse -- 是否可使用 [false]
 	UseFlags --添加使用标签 [默认已经添加标签"拥有"]
 
-可添加的使用标签(标签为位运算形式):
+可添加的使用标签(位面):
 	UseFlag.USE_NOANIM --不播放举起动画
 	UseFlag.USE_NOCOSTUME --不添加服装
 	UseFlag.USE_OWNED --拥有(已经自动添加)
@@ -117,7 +117,7 @@ PLAYER_DOUBLE_TAP = "IBS_CALLBACK_PLAYER_DOUBLE_TAP",
 已充能数包括了魂心和红心充能
 当充能类型为自充时,充能数的单位为逻辑帧数而不是格数
 
-这个回调主要是用来触发主动的,且对零充主动无效
+这个回调主要是在道具未满充能时,用来触发使用道具回调的,对零充主动和错误道具无效
 在相应使用道具回调(ModCallbacks.MC_USE_ITEM)中应返回{DisCharge = false}
 之后的充能消耗和魂火生成要自行添加
 ]]
@@ -125,9 +125,9 @@ TRY_USE_ITEM = "IBS_CALLBACK_TRY_USE_ITEM",
 
 
 --主动槽渲染
---[[
-提供参数:道具ID, 玩家(实体), 主动槽(整数), 主动槽位置(矢量), 主动槽缩放比例(矢量)
-可输入参数:道具ID
+--[[可输入参数:道具ID]]
+--[[提供参数:道具ID, 玩家(实体), 主动槽(整数), 主动槽位置(矢量), 主动槽缩放比例(矢量)]]
+--[[说明:
 主动槽:
 	0 -- 第一主动
 	1 -- 第二主动
@@ -136,9 +136,86 @@ TRY_USE_ITEM = "IBS_CALLBACK_TRY_USE_ITEM",
 第一主动和P1玩家副手主动的贴图缩放比例为Vector(1,1),也就是大小不变
 第二主动和非P1玩家副手主动的贴图是缩小一半的,缩放比例为Vector(0.5,0.5)
 
+对错误道具无效
+
 贴图通过该回调进行渲染会显示在HUD上层
 ]]
 ACTIVE_SLOT_RENDER = "IBS_CALLBACK_ACTIVE_SLOT_RENDER",
+
+
+--尝试握住主动(尚不完善)
+--[[可输入参数:道具ID]]
+--[[提供参数:道具ID, 玩家(实体), 使用标签(位面), 主动槽(整数)]]
+--[[说明:
+主动槽:
+   -1 -- 无
+	0 -- 第一主动
+	1 -- 第二主动
+	2 -- 副手主动
+
+使用标签:详见 https://moddingofisaac.com/docs/rep/enums/UseFlag.html?h=usefla
+		 (生肉)
+
+这个在使用道具回调(ModCallbacks.MC_USE_ITEM)触发的时候触发
+当然正在握住一个主动的时候不会触发
+
+添加的函数中返回包含以下内容的表,则可以决定是否握住主动(没有填入项时,将采用中括号内的默认值):
+	CanHold -- 是否可握住 [false]
+	NoAnim -- 不播放握住和收起道具的动画 [false]
+	TimeOut -- 限时 [-1] (60为一秒, -1代表不限时)
+	CanCancel -- 允许取消 [false] (在已经握住相同主动的情况下再尝试握住则取消握住)
+
+直接返回true或false时,只改变CanHold
+之后的结果会覆盖之前的结果
+
+对错误道具无效
+
+这个回调可以触发下面的"正在握住主动"回调
+]]
+TRY_HOLD_ITEM = "IBS_CALLBACK_TRY_HOLD_ITEM",
+
+
+--正在握住主动(尚不完善)
+--[[可输入参数:道具ID]]
+--[[提供参数:道具ID, 玩家(实体), 使用标签(位面), 主动槽(整数)]]
+--[[说明:
+主动槽:
+   -1 -- 无
+	0 -- 第一主动
+	1 -- 第二主动
+	2 -- 副手主动
+	
+使用标签:详见 https://moddingofisaac.com/docs/rep/enums/UseFlag.html?h=usefla
+		 (生肉)
+		 
+对错误道具无效
+
+一旦有一个函数返回false,就会结束握住状态
+
+受伤会结束掉握住状态
+在握住状态下不能攻击,丢弃键无效
+
+这个回调在握住主动时每秒触发60次,结束握住主动时触发下面的"结束握住主动"回调
+]]
+HOLDING_ITEM = "IBS_CALLBACK_HOLDING_ITEM",
+
+
+--结束握住主动(尚不完善)
+--[[可输入参数:道具ID]]
+--[[提供参数:道具ID, 玩家(实体), 使用标签(位面), 主动槽(整数)]]
+--[[说明:
+主动槽:
+   -1 -- 无
+	0 -- 第一主动
+	1 -- 第二主动
+	2 -- 副手主动
+	
+使用标签:详见 https://moddingofisaac.com/docs/rep/enums/UseFlag.html?h=usefla
+		 (生肉)
+		 
+对错误道具无效
+]]
+END_HOLD_ITEM = "IBS_CALLBACK_END_HOLD_ITEM",
 
 }
 
@@ -163,6 +240,7 @@ wisper = Isaac.GetItemIdByName("Wisper"),
 bone = Isaac.GetItemIdByName("Bone of Temperance"),
 guard = Isaac.GetItemIdByName("Guard of Fortitude"),
 v7 = Isaac.GetItemIdByName("V7"),
+tgoj = Isaac.GetItemIdByName("The Gospel Of Judas"),
 
 
 }
@@ -194,6 +272,15 @@ bmaggy = Isaac.GetPlayerTypeByName("Benighted Magdalene"),
 mod.IBS_Challenge = {
 bc1 = Isaac.GetChallengeIdByName("BC1 Rolling Destiny"),
 bc2 = Isaac.GetChallengeIdByName("BC2 The Fragile"),
+
+}
+
+--诅咒
+mod.IBS_Curse = {
+moving = 1 << (Isaac.GetCurseIdByName("Curse of the Moving!") - 1),
+forgotten = 1 << (Isaac.GetCurseIdByName("Curse of the Forgotten!") - 1),
+d7 = 1 << (Isaac.GetCurseIdByName("Curse of D7!") - 1),
+binding = 1 << (Isaac.GetCurseIdByName("Curse of the Binding!") - 1),
 
 }
 

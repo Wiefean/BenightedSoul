@@ -93,3 +93,15 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
 	end	
 end)
 
+--新贪婪波次获得机会
+mod:AddCallback(IBS_Callback.GREED_NEW_WAVE, function()
+	for i = 0, Game():GetNumPlayers() -1 do
+		local player = Isaac.GetPlayer(i)
+		if player:HasCollectible(IBS_Item.chocolate) then
+			local data = GetPlayerData(player)
+			data.Left = 2
+			player:SetColor(Color(92/255, 47/255, 22/255),20,2,true)
+			sfx:Play(SoundEffect.SOUND_BIRD_FLAP)
+		end
+	end
+end)

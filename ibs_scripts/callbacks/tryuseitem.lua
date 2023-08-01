@@ -56,7 +56,7 @@ end)
 在相应使用道具回调(ModCallbacks.MC_USE_ITEM)中应返回{DisCharge = false}
 之后的充能消耗和魂火生成要自行添加
 ]]
-local function TryUseItemCallback(mod, player)
+local function TryUseItemCallback(_, player)
 	if (not Game():IsPaused()) and (player:AreControlsEnabled()) then
 		for slot = ActiveSlot.SLOT_PRIMARY, ActiveSlot.SLOT_POCKET, 2 do --只考虑第一主动和副手主动槽
 			local item = player:GetActiveItem(slot)
@@ -76,15 +76,18 @@ local function TryUseItemCallback(mod, player)
 				
 				for _, callback in ipairs(Isaac.GetCallbacks(IBS_Callback.TRY_USE_ITEM)) do
 					if (not callback.Param) or (callback.Param == item) then
-						local result = callback.Function(mod, item, player, slot, charges, chargeType) or false
-						if type(result) == "table" then
-							canUse = result.CanUse or false
-							if (canUse) then
-								flags = (result.UseFlags and (flags | result.UseFlags)) or flags
+						local result = callback.Function(callback.Mod, item, player, slot, charges, chargeType)
+
+						if result ~= nil then
+							if type(result) == "table" then
+								canUse = result.CanUse or false
+								if (canUse) then
+									flags = (result.UseFlags and (flags | result.UseFlags)) or flags
+								end
+							elseif type(result) == "boolean" then
+								canUse = result
 							end
-						elseif type(result) == "boolean" then
-							canUse = result
-						end
+						end	
 					end
 				end
 							

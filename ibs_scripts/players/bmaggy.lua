@@ -605,7 +605,7 @@ local function IronHeart_Render()
 					spr:Render(Vector(X,Y))
 					fnt:DrawString(inum, X+7, Y-7, inumColor)
 					fnt:DrawString("/", X+7+fnt:GetStringWidth(inum), Y-7, KColor(1,1,1,1,0,0,0))
-					fnt:DrawString(imax, X+7+fnt:GetStringWidth("/"..inum), Y-7, imaxColor)				
+					fnt:DrawString(imax, X+7+fnt:GetStringWidth("/"..inum), Y-7, imaxColor)	
 					
 					
 					--EID显示位置稍微调下面一些

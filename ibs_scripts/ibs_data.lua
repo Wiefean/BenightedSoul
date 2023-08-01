@@ -64,6 +64,10 @@ local function Setting_Init() --此处可新增设置
 		--基础区开始--
 		["voidUp"] = false, --虚空增强
 		["abyssUp"] = false, --无底坑增强
+		["curse_moving"] = true, --动人诅咒
+		["curse_forgotten"] = true, --遗忘诅咒
+		["curse_d7"] = true, --D7诅咒
+		["curse_binding"] = true, --绑定诅咒
 		["moreCommands"] = false, --更多指令
 		--基础区结束--
 		
@@ -228,8 +232,6 @@ local function LoadWhenStart(_,isContinue)
 
 end
 mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.IMPORTANT, LoadWhenStart)
-
-
 
 
 --重置房间临时数据

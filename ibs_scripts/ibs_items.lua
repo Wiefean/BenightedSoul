@@ -26,6 +26,7 @@ local items = {
 	"items.bone_of_temperance",
 	"items.guard_of_fortitude",
 	"items.v7",
+	"items.the_gospel_of_judas",
 
 	"trinkets.bottleshard",
 	"trinkets.dadspromise",

@@ -10,7 +10,8 @@
 		<Item Name="Defined" weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
 		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Wisper" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
-		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="1" />	
+		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="The Gospel Of Judas" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</pool>
 	
@@ -24,7 +25,8 @@
 		<Item Name="Defined" weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
 		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Wisper" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
-		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="1" />	
+		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Gospel Of Judas" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</pool>
 	
@@ -51,8 +53,8 @@
 		<Item Name="Defined" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Valentinus Chocolate" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Bone of Temperance" weight="1" DecreaseBy="1" RemoveOn="1" />
-		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="1" />		
+		<Item Name="Bone of Temperance" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		
 	</pool>
 	
@@ -78,6 +80,7 @@
 		<Item Name="Hypercube" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Defined" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="The Gospel Of Judas" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</pool>
 
@@ -88,6 +91,7 @@
 		<Item Name="Hypercube" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Defined" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="The Gospel Of Judas" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</pool>	
 	
@@ -107,14 +111,14 @@
 	<Pool Name="devil">
 		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Cursed Mantle" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</pool>
 	
 	<Pool Name="greedDevil">
 		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Cursed Mantle" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</pool>	
 	
@@ -126,7 +130,7 @@
 		<Item Name="Valentinus Chocolate" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="Wisper" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Bone of Temperance" weight="1" DecreaseBy="1" RemoveOn="1" />
+		<Item Name="Bone of Temperance" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</pool>
 	<Pool Name="greedAngel">
@@ -136,12 +140,13 @@
 		<Item Name="Glowing Heart" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
 		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="Wisper" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
-		<Item Name="Bone of Temperance" weight="0.5" DecreaseBy="0.5" RemoveOn="1" />		
+		<Item Name="Bone of Temperance" weight="0.5" DecreaseBy="0.5" RemoveOn="1" />	
 	
 	</pool>
 
 	<Pool Name="library">
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="The Gospel Of Judas" weight="1" DecreaseBy="0.1" RemoveOn="0.1" />
 	
 	</pool>
 	

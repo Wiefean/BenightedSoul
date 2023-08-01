@@ -248,6 +248,24 @@ local itemEID={
 		 "Reduces explosive damage taken to half a heart"
 },
 
+[IBS_Item.v7]={
+	name="V7",
+	info="Spawns one of friendly bosses below："..
+		 "#Temperance"..
+		 "#Fortitude",
+	virtue="Common wisps",
+	belial="No special effect",		 
+},
+
+[IBS_Item.tgoj]={
+	name="The Gospel Of Judas",
+	info="Discharges gradually, and absorbs projectiles around"..
+		 "#Enough absorption, spawns crack of{{Collectible634}}",
+	virtue="Enough absorption, spawns a wisp",
+	belial="Grants{{Damage}}DMG up for a projectile absorbed",
+	trans={"BOOKWORM"}
+},
+
 }
 
 for id,item in pairs(itemEID) do

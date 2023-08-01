@@ -96,6 +96,16 @@ end
 
 mcm.AddSpace(ModName, BasicSettings) --添加空行
 
+do	--诅咒
+	mcm.AddTitle(ModName, BasicSettings, "Curses")
+	AddBool(BasicSettings, "curse_moving", "Move or die", "The Moving")
+	AddBool(BasicSettings, "curse_forgotten", "You may lose something when entering the same room again", "The Forgotten")
+	AddBool(BasicSettings, "curse_d7", "You may clear the same room", "D7")
+	AddBool(BasicSettings, "curse_binding", "The binding of Isaac", "The Binding")
+end
+
+mcm.AddSpace(ModName, BasicSettings)
+
 do	--测试
 	mcm.AddTitle(ModName, BasicSettings, "Debug")
 	AddBool(BasicSettings, "moreCommands", {"For debug console","(See the text file for more)"}, "More Commands")
@@ -180,17 +190,26 @@ if mcm.i18n == "Chinese" then
 		mcm.SetSubcategoryNameTranslate(ModName, BasicSettings,"基础")
 		mcm.TranslateOptionsDisplayTextWithTable(ModName, BasicSettings, {
 			["Future"] = "未来",
+			["Curses"] = "诅咒",
 			["Debug"] = "测试",
 		})		
 		mcm.TranslateOptionsDisplayWithTable(ModName, BasicSettings, { 
 			{"Void Up", "虚空增强"},
 			{"Abyss Up", "无底坑增强"},
+			{"The Moving", "动人诅咒"},
+			{"The Forgotten", "遗忘诅咒"},
+			{"D7", "七面骰诅咒"},
+			{"The Binding", "绑定诅咒"},
 			{"More Commands", "更多指令"},
 			{"On", "开"},
 			{"Off", "关"}			
 		})
 		mcm.TranslateOptionsInfoTextWithTable(ModName, BasicSettings, {
 			["Available to trinkets"] = "对饰品生效",
+			["Move or die"] = "不动会死",
+			["You may lose something when entering the same room again"] = "重新进入一个房间时 , 可能会失去某些东西",
+			["You may clear the same room"] = "可能需要清理同一个房间",
+			["The binding of Isaac"] = "以撒的绑定",
 			["For debug console"] = "用于控制台",
 			["(See the text file for more)"] = "(详见txt文件)"
 		})	
