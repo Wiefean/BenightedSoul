@@ -3,7 +3,6 @@
 local mod = Isaac_BenightedSoul
 local IBS_Trinket = mod.IBS_Trinket
 local Ents = mod.IBS_Lib.Ents
-local rng = mod:GetUniqueRNG("Trinket_DivineRetaliation")
 
 local sfx = SFXManager()
 
@@ -16,7 +15,7 @@ local function PreTakeDMG(_,ent, amount, flag, source)
 			local extra = 0.15*(player:GetTrinketMultiplier(IBS_Trinket.divineretaliation) - 1)
 			if extra > 0.45 then extra = 0.45 end
 			
-			if (rng:RandomFloat()) + extra >= 0.85 then
+			if player:GetTrinketRNG(IBS_Trinket.divineretaliation):RandomFloat() + extra >= 0.85 then
 				player:SetColor(Color(1, 1, 1, 1, 0, 0.7, 0.7),10,2,true)
 				return false
 			else

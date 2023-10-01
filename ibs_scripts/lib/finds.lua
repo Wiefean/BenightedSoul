@@ -1,16 +1,20 @@
 --查找实体相关函数
 
+local mod = Isaac_BenightedSoul
+local Ents = mod.IBS_Lib.Ents
+
 local Finds = {}
 
 
 --最近的敌人
-function Finds:ClosestEnemy(pos)
+--(可选是否包括无敌的敌人,友好敌人,忽略Boss)
+function Finds:ClosestEnemy(pos, includeInvulnerable, includeFriendly, ignoreBoss)
 	local entities = Isaac.GetRoomEntities()
 	local closestEnt = nil
 	local closestDist = 2^32
 
 	for i = 1, #entities do
-		if entities[i]:IsEnemy() and entities[i]:IsVulnerableEnemy() and entities[i]:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) == false then
+		if Ents:IsEnemy(entities[i], includeInvulnerable, includeFriendly, ignoreBoss) then
 			local dist = (entities[i].Position - pos):LengthSquared()
 			if dist < closestDist then
 				closestDist = dist
@@ -23,7 +27,7 @@ function Finds:ClosestEnemy(pos)
 end
 
 
---最近的道具
+--最近的道具(不包括空底座)
 function Finds:ClosestCollectible(pos)
 	local entities = Isaac.FindByType(5,100)
 	local closestEnt = nil
@@ -31,7 +35,7 @@ function Finds:ClosestCollectible(pos)
 
 	for i = 1, #entities do
 		local dist = (entities[i].Position - pos):LengthSquared()
-		if entities[i].SubType ~=0 and dist < closestDist then
+		if entities[i].SubType ~= 0 and dist < closestDist then
 			closestDist = dist
 			closestEnt = entities[i]
 		end
@@ -58,7 +62,22 @@ function Finds:ClosestPlayer(pos)
 	return closestEnt
 end
 
+--最近的实体(无限制条件)
+function Finds:ClosestEntity(pos, type, variant, subType)
+	local entities = Isaac.FindByType(type or -1, variant or -1, subType or -1)
+	local closestEnt = nil
+	local closestDist = 2^32
 
+	for i = 1, #entities do
+		local dist = (entities[i].Position - pos):LengthSquared()
+		if dist < closestDist then
+			closestDist = dist
+			closestEnt = entities[i]
+		end
+	end
+
+	return closestEnt
+end
 
 
 

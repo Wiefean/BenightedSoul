@@ -38,24 +38,32 @@ mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, function(_,tear)
 end)
 
 --冰冻判定
-mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_,target, dmg)
-	if target:IsEnemy() and target:IsVulnerableEnemy() and not target:IsBoss() then
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_,ent, dmg, flag)
+	if Ents:IsEnemy(ent, true, false, true) then
 		for i = 0, Game():GetNumPlayers() -1 do
 			local player = Isaac.GetPlayer(i)
 			if player:HasCollectible(IBS_Item.diamoond) then
-				if target:HasEntityFlags(EntityFlag.FLAG_SLOW) and target:HasEntityFlags(EntityFlag.FLAG_BURN) then 
-					target:AddEntityFlags(EntityFlag.FLAG_ICE)
-					target.HitPoints = 0
+				if ent:HasEntityFlags(EntityFlag.FLAG_SLOW) and ent:HasEntityFlags(EntityFlag.FLAG_BURN) then 
+					ent:AddEntityFlags(EntityFlag.FLAG_ICE)
+					ent.HitPoints = 0
 				end
 			end	
 		end
 	end
 end)
 
+--角色爆炸免疫
+mod:AddPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, -800, function(_,ent, dmg, flag)
+	local player = ent:ToPlayer()
+	if player and player:HasCollectible(IBS_Item.diamoond) and (flag & DamageFlag.DAMAGE_EXPLOSION > 0) then
+		return false
+	end
+end)
+
 --概率替换小石头或煤块
 mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, function(_,type, variant, subtype, pos, velocity, spawner, seed)
 	if IBS_Data.Setting["bmaggy"]["Beast"] then
-		if (type == 5) and (variant == 100) and (subtype == 90 or subtype == 132) and not spawner then
+		if (type == 5) and (variant == 100) and (subtype == 90 or subtype == 132) and (not spawner or spawner.Type ~= EntityType.ENTITY_PLAYER) then
 			for i = 0, Game():GetNumPlayers() -1 do
 				local player = Isaac.GetPlayer(i)
 				local rng = player:GetCollectibleRNG(IBS_Item.diamoond)

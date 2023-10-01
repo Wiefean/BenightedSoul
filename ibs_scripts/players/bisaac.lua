@@ -13,7 +13,6 @@ local IBS_RNG = mod:GetUniqueRNG("Player_BIsaac")
 local sfx = SFXManager()
 
 --装扮
-local costume = Isaac.GetCostumeIdByPath('gfx/ibs/characters/bisaac_cross.anm2')
 local costume_devilBonus = Isaac.GetCostumeIdByPath('gfx/ibs/characters/bisaac_devil.anm2')
 local costume_angelBonus = Isaac.GetCostumeIdByPath('gfx/ibs/characters/bisaac_angel.anm2')
 local costume_bothBonus = Isaac.GetCostumeIdByPath('gfx/ibs/characters/bisaac_both.anm2')
@@ -23,39 +22,43 @@ local function GetPlayerData(player)
 	local data = Ents:GetTempData(player)
 	data.BISAAC = data.BISAAC or {
 		PlayerMatched = false,
-		CostumeState = 0,
-		Costume2State = "none"
+		CostumeState = "none"
 	}
 
 	return data.BISAAC
 end
 
---开局7秒内使用D6以变身
-local function Henshin(_,col,rng,player,flags,slot)
-	if (flags & UseFlag.USE_OWNED > 0)  and (Isaac.GetChallenge() <= 0) then
-		if IBS_Data.Setting["bisaac"]["Unlocked"] then
-			if Game():GetFrameCount() <= 210 and Finds:ClosestCollectible(player.Position) == nil then
-				if player:GetPlayerType() == (PlayerType.PLAYER_ISAAC) then
-					player:ChangePlayerType(IBS_Player.bisaac)
-					player:RemoveCollectible(105, true, slot)
-					player:AddSoulHearts(6)
-					player:AddMaxHearts(-6)
-					player:SetPocketActiveItem((IBS_Item.ld6), ActiveSlot.SLOT_POCKET, false)
-					player:AddNullCostume(costume)
-					
-					--如果完成了对应挑战,生成一个骰子碎片
-					if IBS_Data.Setting["bc1"] then
-						sfx:Play(500, 0.7)
-						Isaac.Spawn(5, 300, 49, Game():GetRoom():FindFreePickupSpawnPosition(player.Position, 0, true), Vector.Zero, nil)
-					end
-					
-					Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, player.Position, Vector.Zero, nil)
-				end
-			end
+--变身
+local function Henshin(_,player)
+	local canHenshin = false 
+
+	--检测D6
+	for slot = 0,1 do
+		if player:GetActiveItem(slot) == 105 then
+			player:RemoveCollectible(105, true, slot)
+			canHenshin = true
+			break
+		end	
+	end
+	if player:GetActiveItem(2) == 105 then canHenshin = true end
+	
+	if canHenshin then
+		player:ChangePlayerType(IBS_Player.bisaac)
+		player:AddSoulHearts(6)
+		player:AddMaxHearts(-6)
+		player:SetPocketActiveItem(IBS_Item.ld6, ActiveSlot.SLOT_POCKET, false)
+		
+		--如果完成了对应挑战,生成一个骰子碎片
+		if IBS_Data.Setting["bc1"] then
+			sfx:Play(500, 0.7)
+			Isaac.Spawn(5, 300, 49, Game():GetRoom():FindFreePickupSpawnPosition(player.Position, 0, true), Vector.Zero, nil)
 		end
-	end	
+		
+		player:SetColor(Color(1,1,0,0.5,1,1,0), 30, 7, true, false)
+		Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, player.Position, Vector.Zero, nil)
+	end
 end
-mod:AddCallback(ModCallbacks.MC_USE_ITEM,Henshin,105)
+mod:AddCallback(IBS_Callback.BENIGHTED_HENSHIN, Henshin, PlayerType.PLAYER_ISAAC)
 
 --初始化角色
 local function Bisaac_Init(_, player)
@@ -68,35 +71,28 @@ local function Bisaac_Init(_, player)
 end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, Bisaac_Init)
 
-local function Bisaac_Costume(_,player)--更新装扮
+--更新装扮
+local function Bisaac_Costume(_,player)
     local data = GetPlayerData(player)	
     local state = 1
 
 	if player:GetPlayerType() == (IBS_Player.bisaac) then
-		data.PlayerMatched = true
-		if data.CostumeState ~= state then
-			data.CostumeState = state
-			player:TryRemoveNullCostume(costume)
-			
-			if costumeState == 1 then
-				player:AddNullCostume(costume)
-			end
-		end
+		if not data.PlayerMatched then data.PlayerMatched = true end
 		
 		--恶魔/天使奖励装扮
 		if IBS_Data.GameState.Temp.BenightedIsaac then		
 			local mode = IBS_Data.GameState.Temp.BenightedIsaac.BonusMode
-			if data.Costume2State ~= mode then
-				data.Costume2State = mode
+			if data.CostumeState ~= mode then
+				data.CostumeState = mode
 				player:TryRemoveNullCostume(costume_devilBonus)
 				player:TryRemoveNullCostume(costume_angelBonus)
 				player:TryRemoveNullCostume(costume_bothBonus)
 				
-				if data.Costume2State == "both" then
+				if data.CostumeState == "both" then
 					player:AddNullCostume(costume_bothBonus)
-				elseif data.Costume2State == "angel" then
+				elseif data.CostumeState == "angel" then
 					player:AddNullCostume(costume_angelBonus)
-				elseif data.Costume2State == "devil" then
+				elseif data.CostumeState == "devil" then
 					player:AddNullCostume(costume_devilBonus)					
 				end
 			end			
@@ -104,7 +100,6 @@ local function Bisaac_Costume(_,player)--更新装扮
 	else
 		if data.PlayerMatched then
 			data.PlayerMatched = false
-			player:TryRemoveNullCostume(costume)
 			player:TryRemoveNullCostume(costume_devilBonus)
 			player:TryRemoveNullCostume(costume_angelBonus)
 			player:TryRemoveNullCostume(costume_bothBonus)
@@ -116,10 +111,7 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, Bisaac_Costume)
 --记录初始化
 local function TryInit()
 	if not IBS_Data.GameState.Temp.BenightedIsaac then
-		IBS_Data.GameState.Temp.BenightedIsaac = {
-			["BonusMode"] = "none",
-			["LightD6PlusTimes"] = 0 --用于光D6
-		}
+		IBS_Data.GameState.Temp.BenightedIsaac = {["BonusMode"] = "none"}
 	end
 end
 
@@ -244,10 +236,11 @@ local function TryCompensation(num, isDevil)
 		for i = 1,(num - total) do
 			local pool = Pools:GetRoomPool(IBS_RNG:Next())
 			local id = Game():GetItemPool():GetCollectible(pool, true, IBS_RNG:Next())
-			local pos = Game():GetRoom():FindFreePickupSpawnPosition((Game():GetLevel():GetCurrentRoom():GetCenterPos()), 0, true)
+			local pos = Game():GetRoom():FindFreePickupSpawnPosition((Game():GetRoom():GetCenterPos()), 0, true)
 			local item = Isaac.Spawn(5, 100, id, pos, Vector(0,0), nil):ToPickup()
 
 			if isDevil then
+				item.ShopItemId = -2
 				item.Price = -1
 			end
 		end
@@ -282,7 +275,6 @@ local function EnterDARoom()
 							player:UseCard(81, UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER | UseFlag.USE_MIMIC)
 							sfx:Play(IBS_Sound.devilbonus, 0.7)
 							Change("BonusMode", "none")
-							Change("LightD6PlusTimes" , 1 + Check("LightD6PlusTimes"))
 							if devilBonus then
 								Change("LastBonus", "devil")
 							elseif bothBonus then
@@ -300,7 +292,6 @@ local function EnterDARoom()
 							player:UseCard(81, UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER | UseFlag.USE_MIMIC)
 							sfx:Play(IBS_Sound.angelbonus)
 							Change("BonusMode", "none")
-							Change("LightD6PlusTimes" , 1 + Check("LightD6PlusTimes"))
 							if angelBonus then
 								Change("LastBonus", "angel")
 							elseif bothBonus then
@@ -326,7 +317,7 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, EnterDARoom)
 
 --调整房率
 local function EvaluateADChance()
-	local level = Game():GetLevel()	
+	local level = Game():GetLevel()
 	for i = 0, Game():GetNumPlayers() -1 do
 		local player = Isaac.GetPlayer(i)
 		if player:GetPlayerType() == (IBS_Player.bisaac) then

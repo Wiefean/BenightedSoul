@@ -29,7 +29,7 @@ local function Conjure(_,item, rng, player)
 		variant = Fortitude.Variant
 	end
 	
-	local ent = Isaac.Spawn(type, variant, 0, pos, Vector.Zero, nil)
+	local ent = Isaac.Spawn(type, variant, 0, pos, Vector.Zero, player)
 	ent:AddCharmed(EntityRef(player), -1)
 	ent:AddEntityFlags(EntityFlag.FLAG_NO_REWARD)
 	ent:AddEntityFlags(EntityFlag.FLAG_NO_SPIKE_DAMAGE)

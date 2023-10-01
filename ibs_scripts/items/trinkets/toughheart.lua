@@ -3,7 +3,6 @@
 local mod = Isaac_BenightedSoul
 local IBS_Trinket = mod.IBS_Trinket
 local Ents = mod.IBS_Lib.Ents
-local rng = mod:GetUniqueRNG("Trinket_ToughHeart")
 
 local sfx = SFXManager()
 
@@ -48,7 +47,7 @@ local function PreTakeDMG(_,ent, amount, flag, source)
 		local extra = 10*(player:GetTrinketMultiplier(IBS_Trinket.toughheart) - 1)
 		if extra > 30 then extra = 30 end
 		
-		if (rng:RandomInt(99)+1) + extra >= data.chance then
+		if player:GetTrinketRNG(IBS_Trinket.toughheart):RandomInt(99)+1 + extra >= data.chance then
 			local effect = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.IMPACT, 0, player.Position+Vector(0,-20), Vector(0,0), nil):ToEffect()
 			effect.Timeout = 60
 			effect.SpriteScale = player.SpriteScale

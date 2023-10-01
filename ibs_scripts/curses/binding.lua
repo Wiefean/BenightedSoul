@@ -2,18 +2,9 @@
 
 local mod = Isaac_BenightedSoul
 local IBS_Curse = mod.IBS_Curse
-local Ents = mod.IBS_Lib.Ents
 local IBS_RNG = mod:GetUniqueRNG("Curse_Binding")
 
 local config = Isaac.GetItemConfig()
-
---尝试添加诅咒
-local function PreCurse(_,curse)
-	if IBS_Data.Setting["curse_binding"] and (IBS_RNG:RandomInt(99) <= 9) then
-		return IBS_Curse.binding
-	end
-end
-mod:AddPriorityCallback(ModCallbacks.MC_POST_CURSE_EVAL, CallbackPriority.IMPORTANT, PreCurse)
 
 --阻止拾取新的道具/口袋物品
 local function Occupation(_,pickup, other)

@@ -10,7 +10,6 @@ local entities = {
 	"bosses.fortitude",
 	
 	"effects.pickingup",
-	
-
+	"effects.benighting",
 }
 LoadScripts(entities)

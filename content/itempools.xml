@@ -12,6 +12,13 @@
 		<Item Name="Wisper" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
 		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="The Gospel Of Judas" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bony Knife" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
+		<Item Name="Re-death" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Dusty Bomb" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Needle Mushroom" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Mini Horn" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Forbidden Fruit" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sword of Siberite" weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
 		
 	</pool>
 	
@@ -27,6 +34,12 @@
 		<Item Name="Wisper" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="The Gospel Of Judas" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bony Knife" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
+		<Item Name="Dusty Bomb" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Needle Mushroom" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Mini Horn" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Forbidden Fruit" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sword of Siberite" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
 		
 	</pool>
 	
@@ -43,6 +56,12 @@
 		<Item Name="Defined" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
 		<Item Name="Valentinus Chocolate" weight="1" DecreaseBy="0.5" RemoveOn="0.1" />
 		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Reserved Nail" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Super B" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Dreggy Pie" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Circumcision" weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
+		<Item Name="Mom's Cheque" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sword of Siberite" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
 		
 	</pool>
 	
@@ -55,6 +74,14 @@
 		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Bone of Temperance" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="The Reserved Nail" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Super B" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Dreggy Pie" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Circumcision" weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
+		<Item Name="Re-death" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Mom's Cheque" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Forbidden Fruit" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
+		<Item Name="Sword of Siberite" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
 		
 	</pool>
 	
@@ -65,11 +92,13 @@
 	
 	<Pool Name="boss">
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Needle Mushroom" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</pool>
 	
 	<Pool Name="greedBoss">
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Needle Mushroom" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</pool>	
 	
@@ -81,6 +110,7 @@
 		<Item Name="Defined" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="The Gospel Of Judas" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Forbidden Fruit" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</pool>
 
@@ -92,6 +122,7 @@
 		<Item Name="Defined" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="The Gospel Of Judas" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Forbidden Fruit" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</pool>	
 	
@@ -99,12 +130,14 @@
 		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Cursed Mantle" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Weird Cranium" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Heart" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</pool>
 	
 	<Pool Name="greedCurse">
 		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Cursed Mantle" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Heart" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</pool>
 	
@@ -112,6 +145,9 @@
 		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Cursed Mantle" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bony Knife" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Heart" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Wings Of Apollyon" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</pool>
 	
@@ -119,6 +155,9 @@
 		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Cursed Mantle" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bony Knife" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Heart" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Wings Of Apollyon" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</pool>	
 	
@@ -131,6 +170,8 @@
 		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="Wisper" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Bone of Temperance" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Circumcision" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Wings Of Apollyon" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</pool>
 	<Pool Name="greedAngel">
@@ -141,6 +182,8 @@
 		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="Wisper" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
 		<Item Name="Bone of Temperance" weight="0.5" DecreaseBy="0.5" RemoveOn="1" />	
+		<Item Name="Circumcision" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Wings Of Apollyon" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</pool>
 
@@ -157,6 +200,8 @@
 	
 	<Pool Name="craneGame">	
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Mini Horn" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Wings Of Apollyon" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</pool>
 
@@ -177,7 +222,8 @@
 	<Pool Name="redChest">
 		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Weird Cranium" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-	
+		<Item Name="Cursed Heart" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		
 	</pool>
 	
 	<Pool Name="momsChest">	
@@ -202,6 +248,7 @@
 	
 	<Pool Name="demonBeggar">
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Cursed Heart" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</pool>
 	
@@ -212,11 +259,13 @@
 	
 	<Pool Name="batteryBum">
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-
+		<Item Name="Sword of Siberite" weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
+		
 	</pool>
 	
 	<Pool Name="bombBum">
 		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Dusty Bomb" weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</pool>
 	

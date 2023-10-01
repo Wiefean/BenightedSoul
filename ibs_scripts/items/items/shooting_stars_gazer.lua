@@ -200,7 +200,7 @@ mod:AddCallback(IBS_Callback.PLAYER_DOUBLE_TAP, ShootingStars)
 --生成流星泪
 local function SpawnStars(player, pos)
 	--local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, 18, 0, v.Pos, Vector.Zero, player):ToTear()
-	local tear = player:FireTear(pos, Vector.Zero, false, true, false)
+	local tear = player:FireTear(pos, Vector.Zero, false, true, false, player)
 	local dmg = math.max(7, player.Damage)
 	local scale = Maths:TearDamageToScale(dmg)
 	local fallingSpd = player.ShotSpeed * 2
@@ -252,11 +252,7 @@ end
 
 --妈刀等兼容
 mod:AddCallback(ModCallbacks.MC_POST_KNIFE_UPDATE, function(_,knife)
-	local player = nil
-
-	if knife.SpawnerEntity then
-		player = knife.SpawnerEntity:ToPlayer()
-	end
+	local player = Ents:IsSpawnerPlayer(knife, true)
 	
 	if player and player:HasCollectible(IBS_Item.ssg) then
 		local data = GetKnifeData(knife)

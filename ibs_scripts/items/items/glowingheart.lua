@@ -15,16 +15,9 @@ local function Charge()
 		for slot = 0,2 do
 			if player:GetActiveItem(slot) == (IBS_Item.gheart) then
 				local charges = Players:GetSlotCharges(player, slot, true, true)
-				if charges < 7 then
-					Players:ChargeSlot(player, slot, 1, true)
-					charges = charges + 1
-					Game():GetHUD():FlashChargeBar(player, slot)
-					
-					if charges < 7 then
-						sfx:Play(SoundEffect.SOUND_BEEP)
-					elseif charges == 7 then
-						sfx:Play(SoundEffect.SOUND_BATTERYCHARGE)
-					end
+				if charges < 14 then
+					Players:ChargeSlot(player, slot, 1, true, true, true)
+					sfx:Play(SoundEffect.SOUND_BEEP)
 				end					
 			end
 		end
@@ -42,7 +35,7 @@ local function OnUse(_,col, rng, player, flags)
 	if player:GetPlayerType() == (IBS_Player.bmaggy) then
 		local data = Players:GetData(player)
 		if data.IronHeart then 
-			data.IronHeart.Extra = data.IronHeart.Extra + 25
+			data.IronHeart.Extra = data.IronHeart.Extra + 20
 		end	
 	end
 

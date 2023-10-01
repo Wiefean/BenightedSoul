@@ -8,84 +8,28 @@ local IBS_Player = mod.IBS_Player
 
 local LANG = "en_us"
 
-local function EID_ContentForPlayer(name,content,T,V)
-	local function condition(desc)
-		local Type = desc.ObjType
-		local Variant = desc.ObjVariant
-		local SubType = desc.ObjSubType	
-	
-		if EID:getLanguage() ~= LANG then
-			return false
-		end
-		
-		if (Type == T) and (Variant == V) and content[SubType] then
-			if content[SubType].player then
-				return true
-			end	
-		end
-			
-		return false
-	end
-
-	local function callback(desc)
-		local SubType = desc.ObjSubType
-		
-		for i = 0, Game():GetNumPlayers(0) - 1 do
-			local playerType = Isaac.GetPlayer(i):GetPlayerType()
-			local text = content[SubType].player[playerType]
-			
-			if text then
-				local add = "#{{Player"..playerType.."}} "..text
-				EID:appendToDescription(desc, add)
-			end
-		end	
-
-		return desc
-	end
-	EID:addDescriptionModifier(name.."_"..LANG, condition, callback)
-end
-
-local function EID_ContentForGreed(name,content,T,V)
-	local function condition(desc)
-		local Type = desc.ObjType
-		local Variant = desc.ObjVariant
-		local SubType = desc.ObjSubType		
-	
-		if EID:getLanguage() ~= LANG then
-			return false
-		end
-
-		if Game():IsGreedMode() then
-			if (Type == T) and (Variant == V) and content[SubType] then
-				if content[SubType].greed then
-					return true
-				end	
-			end
-		end
-
-		return false
-	end
-
-	local function callback(desc)
-		local SubType = desc.ObjSubType
-		local text = content[SubType].greed
-		
-		if text then
-			local add = "#{{GreedMode}} "..text
-			EID:appendToDescription(desc, add)
-		end
-		
-		return desc
-	end
-	EID:addDescriptionModifier(name.."_"..LANG, condition, callback)
-end
-
 --------------------------------------------------------
 -----------------------Birthright-----------------------
 --------------------------------------------------------
-EID:addBirthright(IBS_Player.bisaac, "Grants flight#There are more options in devil/angel room", "Benighted Isaac", LANG)
-EID:addBirthright(IBS_Player.bmaggy, "Doubles iron heart recovery when entering a new room or a new greed wave", "Benighted Magdalene", LANG)
+local birthrightEID = {
 
+[IBS_Player.bisaac] = {
+	name = "Benighted Isaac",
+	info = "Grants flight#There are more options in devil/angel room"
+},
+
+[IBS_Player.bmaggy] = {
+	name = "Benighted Magdalene",
+	info = "Doubles natrual iron heart recovery"
+},
+
+[IBS_Player.bjudas] = {
+	name = "Benighted Judas",
+	info = "{{Collectible"..(IBS_Item.tgoj).."}} Returns tears when absoring projectiles"
+},
+
+
+}
 --------------------------------------------------------
 -------------------------Item---------------------------
 --------------------------------------------------------
@@ -98,21 +42,24 @@ local itemEID={
 		 "Costs charges:"..
 		 "#{{Quality0}} and below: 0"..
 		 "#{{Quality1}} : 1"..
-		 "#{{Quality2}} : 3"..
-		 "#{{Quality3}} : 4"..
+		 "#{{Quality2}} : 2"..
+		 "#{{Quality3}} : 3"..
 		 "#{{Quality4}} and above : 6",
-	virtue="Wisps that sometimes shoot holy tears#Spawns an extra wisp per rerolled item",
-	belial="The quality maybe changed a bit"
+	virtue="Wisps that sometimes shoot holy tears#Spawns an wisp per charge cost",
+	belial="The quality maybe changed a bit",
+	seijaNerf="Needs{{HalfSoulHeart}}or{{HalfBlackHeart}}, and the charge cost becomes 6",
+	player={[IBS_Player.bisaac]="{{HalfSoulHeart}}or{{HalfBlackHeart}}for each lacking charge"}	
 },
 
 [IBS_Item.nop]={
 	name="No Options",
 	info="No optional items",
+	seijaNerf="Curse of the forgotten",
 	player={
 		[PlayerType.PLAYER_THELOST]="If there's only {{Player10}}or{{Player31}},free devil deals",
 		[PlayerType.PLAYER_THELOST_B]="If there's only {{Player10}}or{{Player31}},free devil deals",
-		[PlayerType.PLAYER_JACOB] = "Grants{{Collectible249}}",
-		[PlayerType.PLAYER_ESAU] = "Grants{{Collectible414}}"		
+		[PlayerType.PLAYER_JACOB] = "Gains{{Collectible249}}",
+		[PlayerType.PLAYER_ESAU] = "Gains{{Collectible414}}"		
 	}	
 },
 
@@ -122,7 +69,8 @@ local itemEID={
 		 "#Left +1 ; Right -1;"..
 		 "Up x2 ; Down /2",
 	virtue="4 wisps that do not shoot tears",
-	belial="Replaces the item with{{Collectible51}} if no corresponding ID"
+	belial="Replaces the item with{{Collectible51}} if no corresponding ID",
+	seijaNerf="Random"
 },
 
 [IBS_Item.ssg]={
@@ -147,16 +95,16 @@ local itemEID={
 
 [IBS_Item.gheart]={
 	name="Glowing Heart",
-	info="Changed by cleaning rooms"..
+	info="Changed by cleaning rooms, unless fully charged twice"..
 		 "#-1{{BrokenHeart}}, if not, +1{{SoulHeart}}",
 	virtue="Wisps that sometimes shoot holy tears",
 	belial="if no{{BrokenHeart}}, instead, +1{{BlackHeart}}",
-	player={[IBS_Player.bmaggy]="+25 iron hearts"}
+	player={[IBS_Player.bmaggy]="+20 iron hearts"}
 },
 
 [IBS_Item.pb]={
 	name="Purple Bubbles",
-	info="Randomly grants:"..
+	info="Randomly gains:"..
 		 "#↓ {{Speed}} spd - 0.02"..
 		 "#↑ {{Tears}} tears + 0.06"..
 		 "#↑ {{Damage}} dmg + 0.1"..
@@ -169,11 +117,12 @@ local itemEID={
 
 [IBS_Item.cmantle]={
 	name="Cursed Mantle",
-	info="Occupies the first active slot，unless holding{{Collectible260}}or{{Collectible584}}"..
+	info="No effect when used directly"..
+		 "Occupies the first active slot，unless holding{{Collectible260}}or{{Collectible584}}"..
 		 "#Automatically used and costs 2 charges before taking damage, Isaac will negate it and then begin shadow running",
 	virtue="Single room wisp per enemy killed by shadow running#Prevents occupying",
 	belial="No special effect",
-	player={[PlayerType.PLAYER_JUDAS_B]="Shadow running also grants{{Damage}}"}
+	player={[PlayerType.PLAYER_JUDAS_B]="Shadow running also provides{{Damage}}"}
 
 },
 
@@ -193,6 +142,7 @@ local itemEID={
 		 "#Double-tap "..EID.ButtonToIconMap[ButtonAction.ACTION_MAP].." to select room type",
 	virtue="No wisps#Charge cost - 1",
 	belial="Charge cost - 1",
+	seijaNerf="25% chance to be{{Collectible324}}"
 },
 
 [IBS_Item.chocolate]={
@@ -207,13 +157,15 @@ local itemEID={
 	info="{{Burning}} 33%Burning tear"..
 		 "#{{Slow}} 33%Slowing tear"..
 		 "#{{Luck}} Luck has no effect on it"..
-		 "#{{Freezing}} Freezes a normal enemy that is both burning and slowing"
+		 "#{{Freezing}} Freezes a normal enemy that is both burning and slowing"..
+		 "#Grants immunity to explosions"
 },
 
 [IBS_Item.cranium]={
 	name="Weird Cranium",
 	info="Isaac gets lost curse in a new level"..
-		 "#After finishing{{BossRoom}}boss room, + 3 {{BlackHeart}} and then removes lost curse"
+		 "#Entering{{BossRoom}}boss room, + 1 {{BlackHeart}} and then removes lost curse",
+	seijaBuff="10 seconds shield for each room with enemies when the curss exists"
 },
 
 
@@ -259,139 +211,126 @@ local itemEID={
 
 [IBS_Item.tgoj]={
 	name="The Gospel Of Judas",
-	info="Discharges gradually, and absorbs projectiles around"..
-		 "#Enough absorption, spawns crack of{{Collectible634}}",
+	info="Throws a book that absorbs projectiles with collision dmg when flying"..
+		 "#Recycles the book if not fully charged"..
+		 "#Enough absorption, spawns a crack of{{Collectible634}}",
 	virtue="Enough absorption, spawns a wisp",
-	belial="Grants{{Damage}}DMG up for a projectile absorbed",
+	belial="Temporary{{Damage}}DMG up for a projectile absorbed",
+	player={[IBS_Player.bjudas]="Temporary{{Damage}}DMG up for a projectile absorbed"},
 	trans={"BOOKWORM"}
 },
 
-}
+[IBS_Item.nail]={
+	name="Reserved Nail",
+	info="Fires a nail that petrifies and weakens an enemy for 2.5 seconds"..
+		 "#DMG boosts charges",
+	virtue="Wisps that do not shoot tears#Exists only one room",
+	belial="Apply fire mind effect to the nail"		 
+},
 
-for id,item in pairs(itemEID) do
-	EID:addCollectible(id, item.info, item.name, LANG)
-	
-	if item.virtue and EID.descriptions[LANG].bookOfVirtuesWisps then
-		EID.descriptions[LANG].bookOfVirtuesWisps[id] = item.virtue
-	end
-	
-	if item.belial and EID.descriptions[LANG].bookOfBelialBuffs then
-		EID.descriptions[LANG].bookOfBelialBuffs[id] = item.belial
-	end
-	
-	if item.trans then
-		for _, t in pairs(item.trans) do
-			EID:assignTransformation("collectible", id, EID.TRANSFORMATION[t])
-		end
-	end
-	
-end
-EID_ContentForPlayer("ibsItemForPlayer", itemEID, 5,100)
+[IBS_Item.superb]={
+	name="Super B",
+	info="Enough DMG, charges active items, including the extra charge bar"..
+		 "#When hurt, keep costing charges from the extra charge bar with laser, gas, and creep"..
+		 "#If costs charges sufficiently, makes an explosion, or stops costing charges",
+	seijaNerf="The explosion may kill you"
+},
 
-do --D4D
-	local function Belial()
-		for i = 0, Game():GetNumPlayers(0) - 1 do
-			local player = Isaac.GetPlayer(i)
-			if player:HasCollectible(59) then
-				return true
-			end
-		end
-		return false
-	end
-	
-	local function ToIcon(id)
-		local MAX = Isaac.GetItemConfig():GetCollectibles().Size
-		local icon = id
-		
-		id = math.floor(id+0.5)
-		if id > 0 and id < MAX then
-			id = tostring(id)
-			icon = "{{Collectible"..id.."}}"
-		elseif Belial() then
-			icon = "{{Collectible51}}"
-		else
-			icon = "N/A"
-		end
-		
-		return icon
-	end
-	
-	local function condition(desc)
-		local Type = desc.ObjType
-		local Variant = desc.ObjVariant
-		local SubType = desc.ObjSubType	
-	
-		if EID:getLanguage() ~= LANG then
-			return false
-		end
-		
-		if (Type == 5) and (Variant == 100) and (SubType > 0) then
-			for i = 0, Game():GetNumPlayers(0) - 1 do
-				local player = Isaac.GetPlayer(i)
-				if player:HasCollectible(IBS_Item.d4d) then
-					return true
-				end
-			end
-		end
-			
-		return false
-	end
+[IBS_Item.dreggypie]={
+	name="Dreggy Pie",
+	info="{{Heart}} + 1 health up, heals 1 red heart"..
+		 "#↑ {{Tears}}tears + 5 temporarily"..
+		 "#Except{{Player20}}, {{Collectible"..(IBS_Item.dreggypie).."}} + {{Collectible621}} = {{Collectible619}}"
+},
 
-	local function callback(desc)
-		local id = desc.ObjSubType
-		local col1 = ToIcon(id+1)
-		local col2 = ToIcon(id-1)
-		local col3 = ToIcon(id*2)
-		local col4 = ToIcon(id/2)
-		local L = "{{ButtonDLeft}}"
-		local R = "{{ButtonDRight}}"
-		local U = "{{ButtonDUp}}"
-		local D = "{{ButtonDDown}}"
-		
-		local add = "#{{Collectible"..IBS_Item.d4d.."}} "..
-					L..col1..";"..R..col2..";"..U..col3..";"..D..col4
-					
-		EID:appendToDescription(desc, add)
-		
-		return desc
-	end
-	EID:addDescriptionModifier("ibsD4D".."_"..LANG, condition, callback)
-end	
+[IBS_Item.bonyknife]={
+	name="Bony Knife",
+	info="In the current room, {{Damage}}DMG * 75%(not stackable), gains{{Collectible114}}",
+	virtue="Triggers this item on kill",
+	belial="Fire mind"	
+},
 
-do --void/abyss up
-	local ToKey = {
-		[477] = "voidUp",
-		[706] = "abyssUp"
+[IBS_Item.circumcision]={
+	name="Circumcision",
+	info="↓ {{Speed}}spd - 0.7"..
+		 "#↑ {{Tears}}tears * 2"..
+		 "#↑ {{Luck}}luck + 2"	
+},
+
+[IBS_Item.cheart]={
+	name="Cursed Heart",
+	info="{{CurseRoom}} Spawns an extra item in curse room"
+},
+
+[IBS_Item.redeath]={
+	name="Re-death",
+	info="When Isaac dies:"..
+		 "#↑ {{Speed}}spd + 0.1"..
+		 "#↑ {{Tears}}tears + 0.35"..
+		 "#↑ {{Damage}}dmg + 1",
+	seijaBuff="{{Card89}} for each level"		 
+},
+
+[IBS_Item.dustybomb]={
+	name="Dusty Bomb",
+	info="+ 3{{Bomb}}Bombs"..
+		 "#Isaac's bombs explode when touching an ennemy"..
+		 "#When Isaac's bombs explode for the third time in a room, destroy normal enemies and bosses lose 15% health"
+},
+
+[IBS_Item.nm]={
+	name="Needle Mushroom",
+	info="↑ {{Speed}}spd + 0.3"..
+		 "#↑ {{Tears}}tear + 0.7"..
+		 "#↑ {{Range}}range + 1.25"..
+		 "#When attacking, 6% chance to drop this item and the item can not be picked up within 5 seconds",
+	trans={"MUSHROOM", "POOP"},
+	player={[PlayerType.PLAYER_BLUEBABY_B]="Spawns a poop pickup at the same time"}
+},
+
+[IBS_Item.minihorn]={
+	name="Mini Horn",
+	info="Keeping attacking 6~13 seconds, spawns a troll bomb with 60 dmg under Isaac",
+	seijaBuff="Instead, spawns a red bomb in 3 seconds"	
+},
+
+[IBS_Item.woa]={
+	name="Wings of Apollyon",
+	info="↑ {{Shotspeed}}sspd + 0.16"..
+		 "#Except{{Shotspeed}}sspd, all stats * ({{Shotspeed}}sspd - 1) (MIN:100%; MAX:150%)",
+	player={[PlayerType.PLAYER_APOLLYON] = "Grants flight",
+			[PlayerType.PLAYER_APOLLYON_B] = "Grants flight",
 	}
-	
-	local function condition(desc)
-		local Type = desc.ObjType
-		local Variant = desc.ObjVariant
-		local SubType = desc.ObjSubType	
-	
-		if EID:getLanguage() ~= LANG then
-			return false
-		end
-		
-		if (Type == 5) and (Variant == 100) and (SubType == 477 or SubType == 706) then
-			if IBS_Data.Setting[ToKey[SubType]] then
-				return true
-			end	
-		end
-			
-		return false
-	end
+},
 
-	local function callback(desc)
-		local id = desc.ObjSubType
-		local add = "#{{ColorGold}}Available to trinkets{{CR}}"
-					
-		EID:appendToDescription(desc, add)
-		
-		return desc
-	end
-	EID:addDescriptionModifier("ibsVoidAbyssUp".."_"..LANG, condition, callback)
-end
+[IBS_Item.momscheque]={
+	name="Mom's Cheque",
+	info="No effect when used directly"..
+		 "+ 3{{Coin}}"..
+		 "#↑ + 1{{Luck}}luck"..
+		 "#+ 7{{Coin}} when entering a new level",
+	trans={"MOM"}
+},
+
+[IBS_Item.ffruit]={
+	name="The Forbidden Fruit",
+	info="!!! {{ColorYellow}}SINGLE USE{{CR}}"..
+		 "#Removes {{Quality1}} or {{Quality3}} items form pools"..
+		 "#No {{CurseUnknown}} or {{CurseBlind}} this run",
+	virtue="Wisps that shoot poisonous tears",
+	belial="Removes {{Quality1}} or {{Quality3}} items form Isaac, providing {{Damage}}dmg up for each item removed"
+},
+
+[IBS_Item.sword]={
+	name="Sword of Siberite",
+	info="Automatical"..
+		 "#Blocks projectiles"..
+		 "#{{Collectible536}} No effect",
+	seijaNerf="Alse targets players"
+},
+
+
+}
 --------------------------------------------------------
 -------------------------Trinket------------------------
 --------------------------------------------------------
@@ -430,25 +369,30 @@ local trinketEID={
 	}	
 },
 
+[IBS_Trinket.chaoticbelief]={
+	name="Chaotic Belief",
+	info="When entering a new level, regarded this as a devil deal, and then angel room chance + 50%"..
+		 "#{{Heart}} No devil or angel room chance decrease when red hearts damaged",
+	mult={
+		numberToMultiply = 50,
+		maxMultiplier = 2,
+	}	
+},
+
+[IBS_Trinket.thronyring]={
+	name="Throny Ring",
+	info="When hurt, 9% chance to trigger:"..
+		 "#{{BrokenHeart}} 50% clear a broken heart, if not then trigger next one"..
+		 "#{{SoulHeart}} 25% soul heart + 1"..
+		 "#{{AngelRoom}} 15% angel room chance + 10%"..
+		 "#{{EternalHeart}} 10% eternal heart + 1",
+	mult={
+		numberToMultiply = 9,
+		maxMultiplier = 3,
+	}	
+},
 
 }
-
-for id,trinket in pairs(trinketEID) do
-	EID:addTrinket(id, trinket.info, trinket.name, LANG)
-	
-	if trinket.mult then
-		if trinket.mult.findReplace and (EID.GoldenTrinketData and EID.descriptions[LANG].goldenTrinketEffects) then
-			EID.GoldenTrinketData[id] = {findReplace = true}
-			EID.descriptions[LANG].goldenTrinketEffects[id] = trinket.mult.findReplace
-		else
-			local append = trinket.mult.append or nil
-			local numberToMultiply = trinket.mult.numberToMultiply or 1
-			local maxMultiplier = trinket.mult.maxMultiplier or 3
-			EID:addGoldenTrinketMetadata(id, append, numberToMultiply, maxMultiplier, LANG)
-		end
-	end
-	
-end
 --------------------------------------------------------
 --------------------------Card--------------------------
 --------------------------------------------------------
@@ -466,12 +410,12 @@ local cardEID={
 },
 
 }
+--------------------------------------------------------
 
 
-for id,card in pairs(cardEID) do
-	EID:addCard(id, card.info, card.name, LANG)
-	
-	if card.mimic then
-		EID:addCardMetadata(id, card.mimic.charge, card.mimic.isRune)
-	end	
-end
+return {
+	BirthrightEID = birthrightEID,
+	ItemEID = itemEID,
+	TrinketEID = trinketEID,
+	CardEID = cardEID
+}

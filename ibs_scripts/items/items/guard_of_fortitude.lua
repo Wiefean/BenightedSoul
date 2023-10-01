@@ -24,7 +24,7 @@ local function PreTakeDMG(_,ent, amount, flag, source)
 			end	
 		end
 
-		if (flag & DamageFlag.DAMAGE_EXPLOSION > 0) and (flag & DamageFlag.DAMAGE_CLONES <= 0) then
+		if (amount > 0) and (flag & DamageFlag.DAMAGE_EXPLOSION > 0) and (flag & DamageFlag.DAMAGE_CLONES <= 0) then
 			player:TakeDamage(1, flag | DamageFlag.DAMAGE_CLONES | DamageFlag.DAMAGE_NO_MODIFIERS, source, 0)
 			return false
 		end

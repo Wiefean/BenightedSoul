@@ -55,6 +55,7 @@ mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, function(_,tear)
 
 		tear:AddTearFlags(TearFlags.TEAR_SPECTRAL)
 		tear:AddTearFlags(TearFlags.TEAR_PIERCING)
+		tear:SetColor(Color(1,1,1,0.1), -1, 1)
 		
 		--突眼
 		if tear:HasTearFlags(TearFlags.TEAR_SHRINK) then
@@ -72,6 +73,7 @@ mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, function(_,tear)
 				local data = GetTearData(tear)
 				tear.FallingSpeed = 0
 				tear.FallingAcceleration = -0.1
+				tear:SetColor(Color(1,1,1,0.1), -1, 1)
 				
 				if data.Stop and not data.Recycle then
 					tear.Velocity = Vector.Zero
@@ -120,7 +122,8 @@ mod:AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, function(_,laser)
 				end
 				
 				tear.CollisionDamage = dmg
-				tear.Scale = Maths:TearDamageToScale(dmg)
+				tear.Scale = 0.7
+				tear:SetColor(Color(1,1,1,0.1), -1, 1)
 				tear.FallingSpeed = 0
 				tear.FallingAcceleration = -0.1	
 				tear:ChangeVariant(37)
@@ -136,8 +139,6 @@ mod:AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, function(_,laser)
 				end	
 				
 				tear:Update()
-				
-				sfx:Stop(153)
 			end			
 		end	
 	end
@@ -200,7 +201,8 @@ mod:AddCallback(ModCallbacks.MC_POST_KNIFE_UPDATE, function(_,knife)
 			end
 	
 			tear.CollisionDamage = dmg
-			tear.Scale = Maths:TearDamageToScale(dmg)
+			tear.Scale = 1
+			tear:SetColor(Color(1,1,1,0.1), -1, 1)
 			tear.FallingSpeed = 0
 			tear.FallingAcceleration = -0.1
 			
@@ -227,8 +229,6 @@ mod:AddCallback(ModCallbacks.MC_POST_KNIFE_UPDATE, function(_,knife)
 			end
 			
 			tear:Update()
-			
-			sfx:Stop(153)
 			end			
 		end
 	end

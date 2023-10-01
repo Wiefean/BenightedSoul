@@ -14,11 +14,14 @@ local achiev = {
 	
 	"challenges.1",
 	"challenges.2",
+	"challenges.4",
 	
 	"items.items.d4d_unlocking",
+	"items.items.dreggypie_unlocking",
 	
 	"players.bisaac_unlocking",
 	"players.bmaggy_unlocking",
+	"players.bjudas_unlocking",
 }
 LoadScripts(achiev)
 
@@ -37,6 +40,7 @@ local LANG = Options.Language
 local OtherItem = {
 
 ["d4dUnlocked"] = (IBS_Item.d4d),
+["dreggypieUnlocked"] = (IBS_Item.dreggypie),
 
 }
 
@@ -55,6 +59,13 @@ Beast = (IBS_Item.diamoond),
 Greed = (IBS_Item.chocolate),
 },
 
+
+["bjudas"] = {
+Delirium = (IBS_Item.tgoj),
+Beast = (IBS_Item.sword),
+Greed = (IBS_Item.nail),
+},
+
 }
 
 --通过打标解锁的饰品
@@ -68,6 +79,12 @@ local MarkTrinket = {
 ["bmaggy"] = {
 	IBSL = (IBS_Trinket.divineretaliation),
 	Witness = (IBS_Trinket.toughheart),
+},
+
+
+["bjudas"] = {
+	IBSL = (IBS_Trinket.chaoticbelief),
+	Witness = (IBS_Trinket.thronyring),
 },
 
 }
@@ -90,6 +107,8 @@ local MarkChallenge = {
 
 [IBS_Challenge.bc1] = "bisaac",
 [IBS_Challenge.bc2] = "bmaggy",
+
+[IBS_Challenge.bc4] = "bjudas",
 
 }
 
@@ -185,12 +204,19 @@ mod:AddPriorityCallback(ModCallbacks.MC_GET_TRINKET, CallbackPriority.EARLY, fun
 	for key,trinket in pairs(MarkTrinket) do
 		local mark = IBS_Data.Setting[key]
 		if trinket.IBSL and id == trinket.IBSL and not (mark.Isaac and mark.BlueBaby and mark.Satan and mark.Lamb) then
+			itemPool:RemoveTrinket(trinket.IBSL)
 			return itemPool:GetTrinket()
+		end
+		if trinket.MegaSatan and id == trinket.MegaSatan and not mark.MegaSatan then
+			itemPool:RemoveTrinket(trinket.MegaSatan)
+			return itemPool:GetCollectible(pool,decrease,seed)
 		end		
 		if trinket.Witness and id == trinket.Witness and not mark.Witness then
+			itemPool:RemoveTrinket(trinket.Witness)
 			return itemPool:GetTrinket()
 		end		
 		if trinket.Beast and id == trinket.Beast and not mark.Beast then
+			itemPool:RemoveTrinket(trinket.Beast)
 			return itemPool:GetTrinket()
 		end		
 	end

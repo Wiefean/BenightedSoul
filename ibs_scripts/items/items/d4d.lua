@@ -17,7 +17,7 @@ local D4D_Func = {
 
 
 --效果
-local function roll(_,col,rng,player,flags)
+local function roll(_,col, rng, player, flags)
 	if (flags & UseFlag.USE_CARBATTERY <= 0) and (flags & UseFlag.USE_VOID <= 0) then--拒绝车载电池和虚空
 		local itemPool = Game():GetItemPool()
 		local MAX = Isaac.GetItemConfig():GetCollectibles().Size - 1
@@ -29,6 +29,11 @@ local function roll(_,col,rng,player,flags)
 			local id = item.SubType
 			local dir = Maths:VectorToDirection((player.Position - item.Position):Normalized())
 			local func = D4D_Func[dir]
+			
+			--正邪削弱(东方mod)
+			if mod:THI_WillSeijaNerf(player) then
+				func = D4D_Func[rng:RandomInt(3)] or D4D_Func[dir]
+			end
 			
 			--根据离最近道具的方向改变id
 			id = func(id)

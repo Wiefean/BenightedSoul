@@ -23,7 +23,7 @@ local function GetActiveSlotRender(player, idx, slot)
 	local playerType = player:GetPlayerType()
 
 	if (idx == 0) then --P1
-		if (playerType == PlayerType.PLAYER_ESAU) then
+		if (playerType == PlayerType.PLAYER_ESAU) and player:GetOtherTwin() then
 			X = screenSize.X - 20 - 16*offset
 			Y = screenSize.Y - 23 - 6*offset
 		else
@@ -52,7 +52,7 @@ local function GetActiveSlotRender(player, idx, slot)
 			if (playerType == PlayerType.PLAYER_JACOB) then
 				X = 3 + 20*offset
 				Y = 39 + 12*offset		
-			elseif (playerType == PlayerType.PLAYER_ESAU) then
+			elseif (playerType == PlayerType.PLAYER_ESAU) and player:GetOtherTwin() then
 				X = screenSize.X - 15 - 16*offset
 				Y = screenSize.Y - 46 - 6*offset
 			else

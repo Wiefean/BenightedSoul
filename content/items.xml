@@ -1,7 +1,7 @@
 <items gfxroot="gfx/ibs/items/" deathanm2="gfx/ibsitem.anm2" version="1">
 
-	<active id="1" name="The Light D6" description="Balance your destiny" maxcharges="12" gfx="light d6.png" quality="4" tags="offensive nocantrip" />
-	<passive id="2" name="No Options" description="Minnnnnnne" gfx="nop.png" quality = "4" tags="offensive summonable nogreed" />
+	<active id="1" name="The Light D6" description="Balance your destiny" maxcharges="6" gfx="light d6.png" quality="4" tags="offensive nocantrip" />
+	<passive id="2" name="No Options" description="Minnnnnnne" gfx="nop.png" quality = "4" tags="offensive summonable nogreed nocantrip" />
 	<active id="3" name="D4D" description="Control your destiny" maxcharges="6" cooldown="60" gfx="d4d.png" devilprice = "2" shopprice="999" quality="4" tags="offensive nocantrip" />
 	<passive id="4" name="Shooting Stars Gazer" description="Double tap stars" gfx="ssg.png" devilprice = "2" quality="3" tags="offensive summonable stars" />
 	<passive id="5" name="The Waster" description="Damage resistance..." gfx="waster.png" quality="2" tags="summonable nokeeper" />
@@ -12,17 +12,34 @@
 	<active id="10" name="Hypercube" description="Copy your destiny" maxcharges="4" gfx="hypercube.png" quality="3" tags="offensive nocantrip" />
 	<active id="11" name="Defined" description="Good trip" maxcharges="12" initcharge="6" gfx="defined.png" quality="4" tags="offensive nocantrip" />
 	<passive id="12" name="Valentinus Chocolate" description="Double tap lovers, two shots for a room" gfx="chocolate.png" quality="2" soulhearts="4" tags="offensive summonable nocantrip" />
-	<passive id="13" name="Diamoond" description="Dia - moon - d" gfx="diamoond.png" quality="3" tags="offensive summonable nocantrip" />
-	<passive id="14" name="Weird Cranium" description="Semms to have met before" gfx="cranium.png" quality="0" tags="nolostbr dead nocantrip nogreed" />
-	<passive id="15" name="Ether" description="Revenge fly" gfx="ether.png" quality="2" tags="offensive summonable angel devil" />
+	<passive id="13" name="Diamoond" description="Dia - moon - d" gfx="diamoond.png" quality="3" tags="offensive summonable" />
+	<passive id="14" name="Weird Cranium" description="Semms to have met before" gfx="cranium.png" quality="0" tags="dead nolostbr nokeeper nocantrip nogreed" />
+	<passive id="15" name="Ether" description="Revenge fly" gfx="ether.png" quality="2" tags="offensive summonable angel devil nolostbr" />
 	<familiar id="16" cache="familiars" name="Wisper" description="Wisps" gfx="wisper.png" quality="3" tags="offensive summonable angel" />
 	<passive id="17" cache="all" name="Bone of Temperance" description="Wish you temperance" gfx="temperance_bone.png" quality="3" tags="offensive summonable" />
 	<passive id="18" name="Guard of Fortitude" description="Wish you fortitude" gfx="fortitude_guard.png" quality="3" tags="summonable" />
 	<active id="19" name="V7" description="Random virtues" maxcharges="3" gfx="v7.png" quality="2" tags="offensive" />
-	<active id="20" name="The Gospel Of Judas" description="The way of salvation, be in it" chargetype="timed" maxcharges="180" gfx="tgoj.png" quality="2" tags="offensive book nocantrip" />
+	<active id="20" name="The Gospel Of Judas" description="The way of salvation, be in it" chargetype="special" maxcharges="90" gfx="tgoj.png" quality="3" tags="offensive book nocantrip" />
+	<active id="21" cache="damage" name="The Reserved Nail" description="Reserve them" chargetype="timed" maxcharges="300" gfx="nail2.png" quality="2" tags="offensive nocantrip" />
+	<passive id="22" name="Super B" description="Dangerous charge, but who cares?" gfx="superb.png" quality="4" tags="summonable battery" />
+	<passive id="23" cache="firedelay" name="Dreggy Pie" description="HP up + temporary tears up, best match is red stew" gfx="dreggypie.png" maxhearts="2" hearts="4" quality="2" tags="offensive tearsup nocantrip" />
+	<active id="24" cache="all" name="Bony Knife" description="Knife and boning them" maxcharges="4" gfx="bonyknife.png" quality="3" tags="offensive dead" />
+	<passive id="25" cache="speed firedelay luck" name="Circumcision" description="Speed down + tears and luck up" gfx="circumcision.png" quality="4" tags="offensive summonable tearsup" />
+	<passive id="26" name="Cursed Heart" description="Curse up" gfx="cursedheart.png" quality="1" tags="summonable nocantrip" />
+	<passive id="27" name="Re-death" description="Killing you makes you stronger" gfx="redeath.png" quality="0" tags="offensive nocantrip" />
+	<passive id="28" name="Dusty Bombs" description="The third explosion..." gfx="dustybomb.png" bombs="3" quality="1" tags="offensive nocantrip" />
+	<passive id="29" cache="speed firedelay range" name="Needle Mushroom" description="See you tomorrow" gfx="nm.png" quality="1" tags="offensive tearsup nocantrip mushroom poop" />
+	<passive id="30" name="Mini Horn" description="Limited edition" gfx="minihorn.png" quality="0" tags="offensive summonable nolostbr" />
+	<passive id="31" cache="shotspeed" name="Wings Of Apollyon" description="Shot speed up = All stats up" gfx="woa.png" quality="3" tags="offensive summonable angel devil" />
+	<active id="32" cache="luck" passivecache="true" name="Mom's Cheque" description="Payment on terms" gfx="momscheque.png" coins="3" shopprice="10" quality="1" tags="mom nocantrip" />
+	<active id="33" name="The Forbidden Fruit" description="Original sin" gfx="ffruit.png" quality="2" tags="offensive nocantrip" />
+	<familiar id="34" cache="familiars" name="Sword of Siberite" description="See you again, old friend" gfx="sword.png" quality="4" tags="offensive summonable uniquefamiliar" />
+
 
 	<trinket name="Bottle Shard" description="He really did it" gfx="bottleshard.png" />
 	<trinket name="Dad's Promise" description="The old ends, The new comes" gfx="dadspromise.png" />
 	<trinket name="Divine Retaliation" description="Projectile to fire" gfx="devineretaliation.png" />
 	<trinket name="Tough Heart" description="Blocks damage... sometimes" gfx="toughheart.png" />
+	<trinket name="Chaotic Belief" description="Faith up?" gfx="chaoticbelief.png" />
+	<trinket name="Throny Ring" description="Last order" gfx="thronyring.png" />
 </items>

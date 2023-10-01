@@ -40,15 +40,15 @@ end
 
 
 --获取底座道具的上一个ID
-local function GetPickupLastID(pickup) 
+local function GetItemLastID(pickup) 
 	local data = Ents:GetTempData(pickup)
-	data.LastID = data.LastID or -1
+	data.LastItemID = data.LastItemID or -1
 	
-	return data.LastID
+	return data.LastItemID
 end
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_,pickup)
 	local data = Ents:GetTempData(pickup)
-	data.LastID = pickup.SubType
+	data.LastItemID = pickup.SubType
 end, PickupVariant.PICKUP_COLLECTIBLE)
 
 --更新被移除的饰品表
@@ -157,8 +157,8 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_,player)
                     end
                 else
                     for _, pickup in pairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)) do
-                        local matches = (GetPickupLastID(pickup) == id) --ID匹配
-                        local swapped = pickup.FrameCount <= 0 --被交换(主动道具和里以撒兼容)
+                        local matches = (GetItemLastID(pickup) == id) --ID匹配
+                        local swapped = pickup.FrameCount <= 0 --被交换(主动道具交换和道具轮换)
                         local taken = (pickup.SubType <= 0 and matches) or not pickup:Exists() --被拾取
                         if (swapped or taken) then
                             RunCallback_PickCollectible(player, id, touched)

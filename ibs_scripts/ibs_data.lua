@@ -2,7 +2,7 @@
 
 --[[说明书:
 新增设置,成就或角色索引都要做好兼容
-(关联文件: mod_config_menu, ibs_achievements, marks)
+(关联文件: mod_config_menu, ibs_achievements, marks等)
 
 在控制台使用luamod指令刷新该mod会重置数据,且模组配置菜单改变解锁状态不会自动保存
 所以请分开游戏档和测试档,以及刷新后用菜单更改解锁状态要小退一下
@@ -56,7 +56,7 @@ return {Unlocked = false,
 		}
 end
 
-local PlayerKey = {"bisaac", "bmaggy"} --此处可新增角色索引
+local PlayerKey = {"bisaac", "bmaggy", "bjudas"} --此处可新增角色索引
 
 local function Setting_Init() --此处可新增设置
 	local Setting = {
@@ -74,9 +74,11 @@ local function Setting_Init() --此处可新增设置
 		
 		--成就区开始--
 		["d4dUnlocked"] = false, --D4D解锁
+		["dreggypieUnlocked"] = false, --掉渣饼解锁
 		
 		["bc1"] = false,
 		["bc2"] = false,
+		["bc4"] = false,
 		
 		--["bisaac"] = Mark_Init(), --角色成就自动添加
 		--成就区结束--

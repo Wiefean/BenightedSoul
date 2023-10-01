@@ -34,12 +34,26 @@ local Paper = {
 	FINISHED = "fortitude_boss"
 },
 
+
+[IBS_Player.bjudas] = {
+	IBSL = "chaoticbelief",
+	MegaSatan = nil,
+	BRH = "bc4",
+	Delirium = "tgoj",
+	Witness = "thronyring",
+	Beast = "sword",
+	Greed = "nail",
+	FINISHED = nil
+},
+
 }
 
 --将角色ID转换为字符串索引
 local PlayerTypeToKey = {
 	[IBS_Player.bisaac] = "bisaac",
 	[IBS_Player.bmaggy] = "bmaggy",
+	
+	[IBS_Player.bjudas] = "bjudas",
 }
 local function ToKey(playerType)
 	local key = PlayerTypeToKey[playerType]

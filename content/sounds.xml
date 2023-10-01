@@ -15,4 +15,12 @@
 		<sample weight="1" path="ssg_fire.wav" />
 	</sound>
 
+	<sound name="能量剑音效1">
+		<sample weight="1" path="sword1.wav" />
+	</sound>
+	
+	<sound name="能量剑音效2">
+		<sample weight="1" path="sword2.wav" />
+	</sound>
+
 </sounds>

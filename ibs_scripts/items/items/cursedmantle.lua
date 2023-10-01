@@ -19,9 +19,11 @@ local function PreTakeDMG(_,ent, amount, flag, source)
 	if player then
 		for slot = 0,2 do
 			if player:GetActiveItem(slot) == (IBS_Item.cmantle) then
-			
+				local discharge = 2
+				if player:HasCollectible(116) then discharge = discharge - 1 end --9伏特
+				
 				--成功消耗充能才触发效果
-				if Players:DischargeSlot(player, slot, 2, false, false) then
+				if Players:DischargeSlot(player, slot, discharge, false, false) then
 					player:SetMinDamageCooldown(66)
 					player:UseActiveItem(705, false, false)
 					

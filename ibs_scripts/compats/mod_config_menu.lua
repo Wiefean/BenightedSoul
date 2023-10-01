@@ -118,6 +118,7 @@ end
 do	--物品
 	mcm.AddTitle(ModName, AchievSettings1, "Items")
 	AddBool(AchievSettings1, "d4dUnlocked", "Use D4 4 times in a level to unlock", "D4D", "Yep", "Nope")
+	AddBool(AchievSettings1, "dreggypieUnlocked", "You know how to do it, right?", "Dreggy Pie", "Yep", "Nope")
 end
 
 mcm.AddSpace(ModName, AchievSettings1)
@@ -126,6 +127,7 @@ do	--挑战
 	mcm.AddTitle(ModName, AchievSettings1, "Challenges")
 	AddBool(AchievSettings1, "bc1", "Finish it for Isaac up", "Rolling Destiny", "Yep", "Nope")
 	AddBool(AchievSettings1, "bc2", "Finish it for Magdalene up", "The Fragile", "Yep", "Nope")
+	AddBool(AchievSettings1, "bc4", "Finish it for Judas and The Gospel Of Judas up", "Passover", "Yep", "Nope")
 end
 --成就板块1结束--
 
@@ -168,7 +170,7 @@ do	--昧化抹大拉
 	AddCharacterBool(AchievSettings2, PlayerKey, "BlueBaby", IBSL_INFO)
 	AddCharacterBool(AchievSettings2, PlayerKey, "Satan", IBSL_INFO)
 	AddCharacterBool(AchievSettings2, PlayerKey, "Lamb", IBSL_INFO)
-	AddCharacterBool(AchievSettings2, PlayerKey, "MegaSatan", nil)
+	AddCharacterBool(AchievSettings2, PlayerKey, "MegaSatan", "Mark for Golden Prayer")
 	AddCharacterBool(AchievSettings2, PlayerKey, "BossRush", BRH_INFO)
 	AddCharacterBool(AchievSettings2, PlayerKey, "Hush", BRH_INFO)
 	AddCharacterBool(AchievSettings2, PlayerKey, "Delirium", "Mark for Glowing Heart")
@@ -177,6 +179,31 @@ do	--昧化抹大拉
 	AddCharacterBool(AchievSettings2, PlayerKey, "Greed", "Mark for Valentinus Chocolate")	
 	AddCharacterBool(AchievSettings2, PlayerKey, "FINISHED", {"For a mini boss","This only affects its single achievement"})			
 end	
+
+mcm.AddSpace(ModName, AchievSettings2)
+
+do	--昧化犹大
+	local PlayerKey = "bjudas"
+	local IBSL_INFO = "One of four marks for Chaotic Belief"
+	local BRH_INFO = "One of two marks for a challenge"
+	
+	mcm.AddTitle(ModName, AchievSettings2, "Benighted Judas")
+	AddCharacterBool(AchievSettings2, PlayerKey, "Unlocked", "Is this character unlocked")
+	AddCharacterBool(AchievSettings2, PlayerKey, "Heart", "Mark that does not has its own achievement")
+	AddCharacterBool(AchievSettings2, PlayerKey, "Isaac", IBSL_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "BlueBaby", IBSL_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "Satan", IBSL_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "Lamb", IBSL_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "MegaSatan", "No achievement yet")
+	AddCharacterBool(AchievSettings2, PlayerKey, "BossRush", BRH_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "Hush", BRH_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "Delirium", "Mark for The Gospel Of Judas")
+	AddCharacterBool(AchievSettings2, PlayerKey, "Witness", "Mark for Throny Ring")
+	AddCharacterBool(AchievSettings2, PlayerKey, "Beast", "Mark for Sword of Siberite")
+	AddCharacterBool(AchievSettings2, PlayerKey, "Greed", "Mark for Reserved Nail")	
+	AddCharacterBool(AchievSettings2, PlayerKey, "FINISHED", {"No achievement yet","This only affects its single achievement"})			
+end	
+
 --成就板块2结束--
 
 
@@ -226,15 +253,19 @@ if mcm.i18n == "Chinese" then
 		})		
 		mcm.TranslateOptionsDisplayWithTable(ModName, AchievSettings1, {
 			{"D4D", "四维骰"},
+			{"Dreggy Pie", "掉渣饼"},
 			{"Rolling Destiny", "乾坤十掷"},
 			{"The Fragile", "易碎品"},
+			{"Passover", "逾越节"},
 			{"Yep", "是"},
 			{"Nope", "否"},	
 		})
 		mcm.TranslateOptionsInfoTextWithTable(ModName, AchievSettings1, {
 			["Use D4 4 times in a level to unlock"] = "单层使用四面骰4次以解锁",
+			["You know how to do it, right?"] = "你懂的，对吧?",
 			["Finish it for Isaac up"] = "完成以强化以撒",
 			["Finish it for Magdalene up"] = "完成以强化抹大拉",
+			["Finish it for Judas and The Gospel Of Judas up"] = "完成以强化犹大和犹大福音",
 		})
 	end
 	--成就板块1结束--
@@ -246,6 +277,7 @@ if mcm.i18n == "Chinese" then
 		mcm.TranslateOptionsDisplayTextWithTable(ModName, AchievSettings2, {
 			["Benighted Isaac"] = "昧化以撒",
 			["Benighted Magdalene"] = "昧化抹大拉",
+			["Benighted Judas"] = "昧化犹大",
 		})		
 		mcm.TranslateOptionsDisplayWithTable(ModName, AchievSettings2, {
 			{"Unlocked", "人物解锁"},
@@ -282,9 +314,17 @@ if mcm.i18n == "Chinese" then
 			
 			["One of four marks for Divine Retaliation"] = "1/4解锁神圣反击",
 			["Mark for Tough Heart"] = "解锁硬的心",
+			["Mark for Golden Prayer"] = "解锁金色祈者",
 			["Mark for Glowing Heart"] = "解锁发光的心",
 			["Mark for Diamoond"] = "解锁钻石",
 			["Mark for Valentinus Chocolate"] = "解锁瓦伦丁巧克力",
+			
+			["One of four marks for Chaotic Belief"] = "1/4解锁混沌信仰",
+			["Mark for Throny Ring"] = "解锁荆棘指环",
+			["Mark for golden prayer"] = "解锁金色祈者",
+			["Mark for The Gospel Of Judas"] = "解锁犹大福音",
+			["Mark for Sword of Siberite"] = "解锁紫电护主之刃",
+			["Mark for Reserved Nail"] = "解锁备用钉子",
 		})
 	end	
 	--成就板块2结束--	

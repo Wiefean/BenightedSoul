@@ -1,5 +1,5 @@
 <AnimatedActor>
-	<Info CreatedBy="robot" CreatedOn="2023/7/27 12:14:06" Version="121" Fps="30"/>
+	<Info CreatedBy="robot" CreatedOn="2023/8/25 15:00:52" Version="122" Fps="30"/>
 	<Content>
 		<Spritesheets>
 			<Spritesheet Path="costumes\envy_body.png" Id="0"/>
@@ -10,10 +10,7 @@
 			<Layer Name="head" Id="1" SpritesheetId="1"/>
 		</Layers>
 		<Nulls/>
-		<Events>
-			<Event Name="sparkle" Id="0"/>
-			<Event Name="blah" Id="1"/>
-		</Events>
+		<Events/>
 	</Content>
 	<Animations DefaultAnimation="WalkDown">
 		<Animation Name="WalkLeft" FrameNum="20" Loop="true">

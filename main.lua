@@ -7,8 +7,9 @@
 Isaac_BenightedSoul = RegisterMod("Benighted Soul",1)
 
 local mod = Isaac_BenightedSoul
-mod.ModVersion = "0.2.5"
-
+mod.ModVersion = "0.4.0"
+mod.Language = Options.Language
+if mod.Language ~= "zh" then mod.Language = "en" end
 
 --防止渲染崩溃
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function()
@@ -55,6 +56,35 @@ end
 --模组配置菜单
 if ModConfigMenu then
 	require("ibs_scripts.compats.mod_config_menu")
+end
+
+--东方幻想曲
+do
+
+--检查东方mod和前置mod的开启情况
+function mod:CheckTHI()
+	if CuerLib and THI then
+		return true
+	end
+	return false
+end
+
+--玩家是否使用正邪的增强道具方案
+function mod:THI_WillSeijaBuff(player)
+	if mod:CheckTHI() then
+		return THI.Players.Seija:WillPlayerBuff(player)
+	end
+	return false
+end
+
+--玩家是否使用正邪的削弱道具方案
+function mod:THI_WillSeijaNerf(player)
+	if mod:CheckTHI() then
+		return THI.Players.Seija:WillPlayerNerf(player)
+	end
+	return false
+end
+
 end
 ----------------
 

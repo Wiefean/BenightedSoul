@@ -3,7 +3,6 @@
 local mod = Isaac_BenightedSoul
 local IBS_Trinket = mod.IBS_Trinket
 local Ents = mod.IBS_Lib.Ents
-local rng = mod:GetUniqueRNG("Trinket_BottleShard")
 
 local sfx = SFXManager()
 
@@ -18,7 +17,7 @@ local function bleed(_,ent, amount, flag, source)
 					local extra = 0.1*(player:GetTrinketMultiplier(IBS_Trinket.bottleshard) - 1)
 					if extra > 0.4 then extra = 0.4 end
 					
-					if (rng:RandomFloat()) + extra >= 0.9 then
+					if player:GetTrinketRNG(IBS_Trinket.bottleshard):RandomFloat() + extra >= 0.9 then
 						Ents:AddBleed(ent, 60)
 						ent:TakeDamage(3, DamageFlag.DAMAGE_IGNORE_ARMOR |DamageFlag.DAMAGE_CLONES , EntityRef(player), 2)
 						sfx:Play(540,0.8,15)

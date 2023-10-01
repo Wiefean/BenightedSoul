@@ -1,6 +1,7 @@
 --机制
 
 local mod = Isaac_BenightedSoul
+local IBS_Callback = mod.IBS_Callback
 local Translations = mod.IBS_Lib.Translations
 
 local LANG = Options.Language
@@ -16,6 +17,8 @@ local function ShowMirrorTip()
 		KEY = "Isaac"
 	elseif (playerType == 1) or (playerType == 22) then --抹大拉
 		KEY = "Magdalene"
+	elseif (playerType == 3) or (playerType == 12) or (playerType == 24) then --犹大
+		KEY = "Judas"
 	end
 	
 	if KEY then
@@ -23,32 +26,7 @@ local function ShowMirrorTip()
 		Game():GetHUD():ShowItemText(info.Title, info.Sub)
 	end
 end
-
---检查镜子状态记录
-local function CheckMirrorRecord()
-	local data = mod:GetIBSData("Level")
-	data.MirrorBroken = data.MirrorBroken or false
-	
-	return data.MirrorBroken
-end
-
---炸镜子给人物解锁提示
-local function TheMirrorTip()
-	local room = Game():GetRoom()
-	local level = Game():GetLevel()
-	
-	local mirror = level:GetStateFlag(LevelStateFlag.STATE_MIRROR_BROKEN)
-	local mirror_record = CheckMirrorRecord()
-	
-	--当前记录与镜子状态不同时触发
-	if mirror_record ~= mirror then
-		if mirror == true then
-			ShowMirrorTip()
-		end
-		mod:GetIBSData("Level").MirrorBroken = mirror
-	end
-end
-mod:AddCallback(ModCallbacks.MC_POST_UPDATE, TheMirrorTip)
+mod:AddCallback(IBS_Callback.MIRROR_BROKEN, ShowMirrorTip)
 
 --虚空增强(吸收饰品)
 local function VoidUp(_,col,rng,player,flags)

@@ -21,6 +21,7 @@ Item = {
 		["Name"]="长子名分",
 		[IBS_Player.bisaac]="飞升",
 		[IBS_Player.bmaggy]="更快变硬",
+		[IBS_Player.bjudas]="返还",
 	},
 	[IBS_Item.ld6]={
 		Name="光辉六面骰",
@@ -121,6 +122,81 @@ Item = {
 		Name="犹大福音",
 		Desc="救赎之道 , 自在其中"
 	},
+	
+	[IBS_Item.nail]={
+		Name="备用钉子",
+		Desc="钉好他们"
+	},
+	
+	[IBS_Item.superb]={
+		Name="核能电罐",
+		Desc="充能有风险 , 但是管他呢"
+	},
+	
+	[IBS_Item.dreggypie]={
+		Name="掉渣饼",
+		Desc="体力上升 + 暂时性射速上升 , 搭配红豆汤风味更佳"
+	},
+	
+	[IBS_Item.bonyknife]={
+		Name="骨刀",
+		Desc="刀他们的骨"
+	},
+	
+	[IBS_Item.circumcision]={
+		Name="割礼",
+		Desc="移速下降 + 射速和幸运上升"
+	},
+	
+	[IBS_Item.cheart]={
+		Name="诅咒之心",
+		Desc="诅咒提升"
+	},
+	
+	[IBS_Item.redeath]={
+		Name="死亡回放",
+		Desc="杀死你会让你更强大"
+	},
+	
+	[IBS_Item.redeath]={
+		Name="死亡回放",
+		Desc="杀死你会让你更强大"
+	},
+	
+	[IBS_Item.dustybomb]={
+		Name="尘埃炸弹",
+		Desc="第三次爆炸..."
+	},
+	
+	[IBS_Item.nm]={
+		Name="金针菇",
+		Desc="明天见"
+	},
+	
+	[IBS_Item.minihorn]={
+		Name="小小角恶魔",
+		Desc="限量款"
+	},
+	
+	[IBS_Item.woa]={
+		Name="亚波伦之翼",
+		Desc="弹速上升 = 全属性上升"
+	},
+	
+	[IBS_Item.momscheque]={
+		Name="妈妈的支票",
+		Desc="分期付款"
+	},
+	
+	[IBS_Item.ffruit]={
+		Name="禁断之果",
+		Desc="原罪"
+	},
+	
+	[IBS_Item.sword]={
+		Name="紫电护主之刃",
+		Desc="又见面了 , 老伙计"
+	},
 
 },
 
@@ -144,6 +220,16 @@ Trinket = {
 	[IBS_Trinket.toughheart]={
 		Name="硬的心",
 		Desc="抵挡伤害...总会有效"
+	},
+	
+	[IBS_Trinket.chaoticbelief]={
+		Name="混沌信仰",
+		Desc="信仰提升 ?"
+	},
+	
+	[IBS_Trinket.thronyring]={
+		Name="荆棘指环",
+		Desc="最后之作"
 	},
 
 },
@@ -187,6 +273,13 @@ MirrorTip = {
 		Title="给抹大拉的秘语",
 		Sub="不惜生命为上帝献祭 , 之后不断磨炼自己的意志"
 	},
+	
+	["Judas"]={
+		Title="给犹大的秘语",
+		Sub="终结玻璃里的伪装者"
+	},
+	
+	
 },
 
 }
@@ -195,6 +288,7 @@ MirrorTip = {
 --英文
 Translations["en"] = {
 
+--Boss替换提醒
 BossReplaced = {
 	["Temperance"]={
 		Title="Gluttony ?",
@@ -219,6 +313,12 @@ MirrorTip = {
 		Title="For Magdalene",
 		Sub="Sacrifice your life for God, then keep honing your will"
 	},
+	
+	["Judas"]={
+		Title="For Judas",
+		Sub="End the personator in the glass"
+	},
+	
 },
 
 }

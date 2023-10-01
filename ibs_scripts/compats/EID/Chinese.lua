@@ -12,98 +12,28 @@ local IBS_Player = mod.IBS_Player
 
 local LANG = "zh_cn"
 
---为特定角色展示实体的额外内容--
---[[输入:名称(字符串),内容(表),实体大类,实体类]]
-local function EID_ContentForPlayer(name,content,T,V)
-
-	--触发条件
-	local function condition(desc)
-		local Type = desc.ObjType
-		local Variant = desc.ObjVariant
-		local SubType = desc.ObjSubType	
-	
-		--检查语言
-		if EID:getLanguage() ~= LANG then
-			return false
-		end
-		
-		if (Type == T) and (Variant == V) and content[SubType] then
-			if content[SubType].player then
-				return true
-			end	
-		end
-			
-		return false
-	end
-
-	--添加额外内容
-	local function callback(desc)
-		local SubType = desc.ObjSubType
-		
-		for i = 0, Game():GetNumPlayers(0) - 1 do
-			local playerType = Isaac.GetPlayer(i):GetPlayerType()
-			local text = content[SubType].player[playerType]
-			
-			if text then
-				local add = "#{{Player"..playerType.."}} "..text
-				EID:appendToDescription(desc, add)
-			end
-		end	
-
-		return desc
-	end
-	EID:addDescriptionModifier(name.."_"..LANG, condition, callback)
-end
-----
-
---为贪婪模式展示实体的额外内容--
---[[输入:名称(字符串),内容(表),实体大类,实体类]]
-local function EID_ContentForGreed(name,content,T,V)
-
-	--触发条件
-	local function condition(desc)
-		local Type = desc.ObjType
-		local Variant = desc.ObjVariant
-		local SubType = desc.ObjSubType		
-	
-		--检查语言
-		if EID:getLanguage() ~= LANG then
-			return false
-		end
-
-		if Game():IsGreedMode() then
-			if (Type == T) and (Variant == V) and content[SubType] then
-				if content[SubType].greed then
-					return true
-				end	
-			end
-		end
-
-		return false
-	end
-	
-	--添加额外内容
-	local function callback(desc)
-		local SubType = desc.ObjSubType
-		local text = content[SubType].greed
-		
-		if text then
-			local add = "#{{GreedMode}} "..text
-			EID:appendToDescription(desc, add)
-		end
-		
-		return desc
-	end
-	EID:addDescriptionModifier(name.."_"..LANG, condition, callback)
-end
-----
-
 --------------------------------------------------------
 -----------------------角色长子权-----------------------
 --------------------------------------------------------
-EID:addBirthright(IBS_Player.bisaac, "飞行#恶魔/天使房中道具选择 + 1", "昧化以撒", LANG)
-EID:addBirthright(IBS_Player.bmaggy, "进入新房间或贪婪新波次，坚贞之心恢复量翻倍", "昧化抹大拉", LANG)
+local birthrightEID = {
 
+[IBS_Player.bisaac] = {
+	name = "昧化以撒",
+	info = "飞行#恶魔/天使房中道具选择 + 1"
+},
+
+[IBS_Player.bmaggy] = {
+	name = "昧化抹大拉",
+	info = "坚贞之心自然恢复量翻倍"
+},
+
+[IBS_Player.bjudas] = {
+	name = "昧化犹大",
+	info = "{{Collectible"..(IBS_Item.tgoj).."}} 吸收敌弹时返还泪弹"
+},
+
+
+}
 --------------------------------------------------------
 --------------------------道具--------------------------
 --------------------------------------------------------
@@ -116,16 +46,19 @@ local itemEID={
 		 "#消耗的充能由平均品质决定:"..
 		 "#{{Quality0}} 及以下: 0"..
 		 "#{{Quality1}} : 1"..
-		 "#{{Quality2}} : 3"..
-		 "#{{Quality3}} : 4"..
+		 "#{{Quality2}} : 2"..
+		 "#{{Quality3}} : 3"..
 		 "#{{Quality4}} 及以上 : 6",
-	virtue="内层魂火，概率发射圣光眼泪#每重置1个道具额外生成1魂火",
-	belial="品质可能上下浮动"	
+	virtue="内层魂火，概率发射圣光眼泪#每消耗1充能生成1魂火",
+	belial="品质可能上下浮动",
+	seijaNerf="使用需要消耗{{HalfSoulHeart}}半魂心或{{HalfBlackHeart}}半黑心，且充能消耗变为6",
+	player={[IBS_Player.bisaac]="以{{HalfSoulHeart}}半魂心或{{HalfBlackHeart}}半黑心代替缺少的充能1格"}
 },
 
 [IBS_Item.nop]={
 	name="拒绝选择",
 	info="不再单选物品",
+	seijaNerf="获得遗忘诅咒",
 	player={
 		[PlayerType.PLAYER_THELOST]="若场上只有{{Player10}}或{{Player31}}，恶魔交易免费",
 		[PlayerType.PLAYER_THELOST_B]="若场上只有{{Player10}}或{{Player31}}，恶魔交易免费",
@@ -138,7 +71,8 @@ local itemEID={
 	name="四维骰",
 	info="以相对方位改变离角色最近道具的ID#左加;右减;上翻倍;下减半",
 	virtue="4个外层魂火，不发射眼泪",
-	belial="没有对应道具时，以{{Collectible51}}五芒星代替"
+	belial="没有对应道具时，以{{Collectible51}}五芒星代替",
+	seijaNerf="按随机方位重置",
 },
 
 [IBS_Item.ssg]={
@@ -162,12 +96,12 @@ local itemEID={
 
 [IBS_Item.gheart]={
 	name="发光的心",
-	info="在清理房间后充能"..
+	info="在清理房间后充能，可充满两次"..
 		 "#移除1个{{BrokenHeart}}碎心，若没有，获得1{{SoulHeart}}魂心",
 	virtue="内层魂火，概率发射圣光眼泪",
 	greed="贪婪模式:波次开始时也会充能",
 	belial="无{{BrokenHeart}}碎心时，效果改为获得1{{BlackHeart}}黑心",
-	player={[IBS_Player.bmaggy]="同时恢复25可超上限的坚贞之心(切换房间后移除超出上限部分)"}
+	player={[IBS_Player.bmaggy]="同时恢复20可超上限的坚贞之心(切换房间后移除超出上限部分)"}
 },
 
 [IBS_Item.pb]={
@@ -177,7 +111,7 @@ local itemEID={
 		 "#↑ {{Tears}}射速修正 + 0.06"..
 		 "#↑ {{Damage}}伤害 + 0.1"..
 		 "#↑ {{Range}}射程 + 0.15"..
-		 "#↓ {{Shotspeed}}弹速 -0.03"..
+		 "#↓ {{Shotspeed}}弹速 - 0.03"..
 		 "#丢弃该道具后，在下一层重置属性变动"..
 		 "#使用24次之后，不会重置",
 	virtue="内层魂火，概率发射眩晕眼泪",
@@ -211,6 +145,7 @@ local itemEID={
 		 "#双击 "..EID.ButtonToIconMap[ButtonAction.ACTION_MAP].." 地图键以切换类型",
 	virtue="无魂火#充能消耗 - 1",
 	belial="充能消耗 - 1",
+	seijaNerf="25%变为{{Collectible324}}未定义"
 },
 
 [IBS_Item.chocolate]={
@@ -225,13 +160,15 @@ local itemEID={
 	info="{{Burning}} 33%火焰眼泪"..
 		 "#{{Slow}} 33%减速眼泪"..
 		 "#{{Luck}} 幸运不会影响概率"..
-		 "#{{Freezing}} 冰冻同时被点燃和减速的非Boss敌人"
+		 "#{{Freezing}} 冰冻同时被点燃和减速的非Boss敌人"..
+		 "#免疫爆炸伤害"
 },
 
 [IBS_Item.cranium]={
 	name="奇怪的头骨",
 	info="进入新层时，角色获得{{Player10}}游魂诅咒"..
-		 "#完成{{BossRoom}}Boss房后，获得3{{BlackHeart}}黑心，并在下一个房间恢复"
+		 "#进入{{BossRoom}}Boss房后恢复，并获得1{{BlackHeart}}黑心",
+	seijaBuff="诅咒持续期间，进入有敌人的房间获得10秒护盾"
 },
 
 [IBS_Item.ether]={
@@ -277,152 +214,125 @@ local itemEID={
 
 [IBS_Item.tgoj]={
 	name="犹大福音",
-	info="逐渐消耗充能，吸收周围的敌弹"..
-		 "#吸收一定敌弹后，生成{{Collectible634}}炼狱恶鬼的裂缝"..
-		 "#使用期间再次使用该道具可取消使用",
+	info="扔出一本能吸收敌弹的书，飞行期间具有碰撞伤害"..
+		 "#充能未满时使用则回收书"..
+		 "#吸收一定敌弹后，生成{{Collectible634}}炼狱恶鬼的裂缝",
 	virtue="吸收一定敌弹后，生成魂火",
 	belial="吸收敌弹将提供临时{{Damage}}伤害提升",
+	player={[IBS_Player.bjudas]="吸收敌弹将提供临时{{Damage}}伤害提升"},
 	trans={"BOOKWORM"}
 },
 
-}
+[IBS_Item.nail]={
+	name="备用钉子",
+	info="发射一枚钉子，对命中的目标造成2.5秒的石化和虚弱效果"..
+		 "#造成伤害可以加快充能",
+	virtue="不发射眼泪的中层魂火#单房间魂火",
+	belial="钉子附带火焰效果"
+},
 
-for id,item in pairs(itemEID) do
-	EID:addCollectible(id, item.info, item.name, LANG)
-	
-	if item.virtue and EID.descriptions[LANG].bookOfVirtuesWisps then
-		EID.descriptions[LANG].bookOfVirtuesWisps[id] = item.virtue
-	end
-	
-	if item.belial and EID.descriptions[LANG].bookOfBelialBuffs then
-		EID.descriptions[LANG].bookOfBelialBuffs[id] = item.belial
-	end
-	
-	if item.trans then
-		for _, t in pairs(item.trans) do
-			EID:assignTransformation("collectible", id, EID.TRANSFORMATION[t])
-		end
-	end
-	
-end
-EID_ContentForPlayer("ibsItemForPlayer", itemEID, 5,100)
-EID_ContentForGreed("ibsItemForGreed", itemEID, 5,100)
+[IBS_Item.superb]={
+	name="核能电罐",
+	info="造成一定伤害后，为主动道具充能，可为额外充能条充能"..
+		 "#受伤后，进入蓄力状态，不断消耗额外充能条的充能"..
+		 "#蓄力伴随激光、毒气、水迹，完成后爆炸，没完成则取消",
+	seijaNerf="爆炸会伤害自己"
+},
 
-do --D4D
-	
-	--比列书
-	local function Belial()
-		for i = 0, Game():GetNumPlayers(0) - 1 do
-			local player = Isaac.GetPlayer(i)
-			if player:HasCollectible(59) then
-				return true
-			end
-		end
-		return false
-	end
-	
-	--ID转EID贴图
-	local function ToIcon(id)
-		local MAX = Isaac.GetItemConfig():GetCollectibles().Size
-		local icon = id
-		
-		id = math.floor(id+0.5) --四舍五入
-		if id > 0 and id < MAX then
-			id = tostring(id)
-			icon = "{{Collectible"..id.."}}"
-		elseif Belial() then
-			icon = "{{Collectible51}}"
-		else
-			icon = "无"
-		end
-		
-		return icon
-	end
-	
-	--触发条件
-	local function condition(desc)
-		local Type = desc.ObjType
-		local Variant = desc.ObjVariant
-		local SubType = desc.ObjSubType	
-	
-		--检查语言
-		if EID:getLanguage() ~= LANG then
-			return false
-		end
-		
-		if (Type == 5) and (Variant == 100) and (SubType > 0) then
-			for i = 0, Game():GetNumPlayers(0) - 1 do
-				local player = Isaac.GetPlayer(i)
-				if player:HasCollectible(IBS_Item.d4d) then
-					return true
-				end
-			end
-		end
-			
-		return false
-	end
+[IBS_Item.dreggypie]={
+	name="掉渣饼",
+	info="{{Heart}} 获得1心之容器，治疗1红心"..
+		 "#↑ {{Tears}}射速修正 + 5，并不断衰减"..
+		 "#除了{{Player20}}以扫，{{Collectible"..(IBS_Item.dreggypie).."}} + {{Collectible621}} = {{Collectible619}}"
+},
 
-	--添加额外内容
-	local function callback(desc)
-		local id = desc.ObjSubType
-		local col1 = ToIcon(id+1)
-		local col2 = ToIcon(id-1)
-		local col3 = ToIcon(id*2)
-		local col4 = ToIcon(id/2)
-		local L = "{{ButtonDLeft}}"
-		local R = "{{ButtonDRight}}"
-		local U = "{{ButtonDUp}}"
-		local D = "{{ButtonDDown}}"
-		
-		local add = "#{{Collectible"..IBS_Item.d4d.."}} "..
-					L..col1..";"..R..col2..";"..U..col3..";"..D..col4
-					
-		EID:appendToDescription(desc, add)
-		
-		return desc
-	end
-	EID:addDescriptionModifier("ibsD4D".."_"..LANG, condition, callback)
-end	
+[IBS_Item.bonyknife]={
+	name="骨刀",
+	info="在当前房间中，{{Damage}}攻击力降低25%(不叠加)，获得{{Collectible114}}妈妈的菜刀效果",
+	virtue="不发射眼泪的内层魂火#熄灭时，触发该道具的效果",
+	belial="刀附带火焰"	
+},
 
-do --虚空/无底坑增强
-	
-	--索引
-	local ToKey = {
-		[477] = "voidUp",
-		[706] = "abyssUp"
+[IBS_Item.circumcision]={
+	name="割礼",
+	info="↓ {{Speed}}移速 - 0.7"..
+		 "#↑ {{Tears}}射速翻倍"..
+		 "#↑ {{Luck}}幸运 + 2"	
+},
+
+[IBS_Item.cheart]={
+	name="诅咒之心",
+	info="{{CurseRoom}} 诅咒房中额外生成一个血量代价的道具"
+},
+
+[IBS_Item.redeath]={
+	name="死亡回放",
+	info="角色每次死亡都会获得:"..
+		 "#↑ {{Speed}}移速 + 0.1"..
+		 "#↑ {{Tears}}射速 + 0.35"..
+		 "#↑ {{Damage}}伤害 + 1",
+	seijaBuff="每层获得一个{{Card89}} 拉萨路的魂石"
+},
+
+[IBS_Item.dustybomb]={
+	name="尘埃炸弹",
+	info="+ 3{{Bomb}}炸弹"..
+		 "#角色炸弹一触即发"..
+		 "#当前房间，角色炸弹第三次爆炸时，消灭房间内的所有非Boss敌人，Boss失去15%生命"
+},
+
+[IBS_Item.nm]={
+	name="金针菇",
+	info="↑ {{Speed}}速度 + 0.3"..
+		 "#↑ {{Tears}}射速 + 0.7"..
+		 "#↑ {{Range}}射程 + 1.25"..
+		 "#攻击时，每秒有6%概率({{Luck}}幸运5:1%)丢弃该道具，且5秒内不能拾取",
+	trans={"MUSHROOM", "POOP"},
+	player={[PlayerType.PLAYER_BLUEBABY_B]="丢弃的同时生成一个便便掉落物"}
+},
+
+[IBS_Item.minihorn]={
+	name="小小角恶魔",
+	info="攻击6~13秒后，在角色位置生成一个伤害为60的小即爆炸弹",
+	seijaBuff="改为生成红炸弹，生成所需时间固定为3秒"
+},
+
+[IBS_Item.woa]={
+	name="亚波伦之翼",
+	info="↑ {{Shotspeed}}弹速 + 0.16"..
+		 "#除{{Shotspeed}}弹速外，所有属性获得{{Shotspeed}}弹速 - 1 的倍率，最低100%，最高150%",
+	player={[PlayerType.PLAYER_APOLLYON] = "飞行",
+			[PlayerType.PLAYER_APOLLYON_B] = "飞行",
 	}
-	
-	--触发条件
-	local function condition(desc)
-		local Type = desc.ObjType
-		local Variant = desc.ObjVariant
-		local SubType = desc.ObjSubType	
-	
-		--检查语言
-		if EID:getLanguage() ~= LANG then
-			return false
-		end
-		
-		if (Type == 5) and (Variant == 100) and (SubType == 477 or SubType == 706) then
-			if IBS_Data.Setting[ToKey[SubType]] then
-				return true
-			end	
-		end
-			
-		return false
-	end
+},
 
-	--添加额外内容
-	local function callback(desc)
-		local id = desc.ObjSubType
-		local add = "#{{ColorGold}}对饰品生效{{CR}}"
-					
-		EID:appendToDescription(desc, add)
-		
-		return desc
-	end
-	EID:addDescriptionModifier("ibsVoidAbyssUp".."_"..LANG, condition, callback)
-end
+[IBS_Item.momscheque]={
+	name="妈妈的支票",
+	info="直接使用无效果"..
+		 "#+ 3{{Coin}}硬币"..
+		 "#↑ + 1{{Luck}}幸运"..	
+		 "#每层获得7{{Coin}}硬币",
+	trans={"MOM"}
+},
+
+[IBS_Item.ffruit]={
+	name="禁断之果",
+	info="!!! {{ColorYellow}}一次性{{CR}}"..
+		 "#将品质{{Quality1}}或{{Quality3}}的道具移出道具池"..
+		 "#本局不再遇到{{CurseUnknown}}未知诅咒和{{CurseBlind}}致盲诅咒",
+	virtue="内层魂火，发射毒性眼泪",
+	belial="移除角色身上品质{{Quality1}}或{{Quality3}}的道具，每移除一个提升一定{{Damage}}伤害"
+},
+
+[IBS_Item.sword]={
+	name="紫电护主之刃",
+	info="自动攻击"..
+		 "#抵挡敌弹"..
+		 "#{{Collectible536}} 不可献祭",
+	seijaNerf="没有目标时，攻击角色"
+},
+
+}
 --------------------------------------------------------
 --------------------------饰品--------------------------
 --------------------------------------------------------
@@ -461,24 +371,30 @@ local trinketEID={
 	}	
 },
 
-}
+[IBS_Trinket.chaoticbelief]={
+	name="混沌信仰",
+	info="进入新层时，视为一次恶魔交易，天使房转换率 + 50%"..
+		 "#{{Heart}} 红心受伤不再影响恶魔/天使房开启率",
+	mult={
+		numberToMultiply = 50,
+		maxMultiplier = 2,
+	}	
+},
 
-for id,trinket in pairs(trinketEID) do
-	EID:addTrinket(id, trinket.info, trinket.name, LANG)
-	
-	if trinket.mult then
-		if trinket.mult.findReplace and (EID.GoldenTrinketData and EID.descriptions[LANG].goldenTrinketEffects) then
-			EID.GoldenTrinketData[id] = {findReplace = true}
-			EID.descriptions[LANG].goldenTrinketEffects[id] = trinket.mult.findReplace
-		else
-			local append = trinket.mult.append or nil
-			local numberToMultiply = trinket.mult.numberToMultiply or 1
-			local maxMultiplier = trinket.mult.maxMultiplier or 3
-			EID:addGoldenTrinketMetadata(id, append, numberToMultiply, maxMultiplier, LANG)
-		end
-	end
-	
-end
+[IBS_Trinket.thronyring]={
+	name="荆棘指环",
+	info="受伤时，9%概率触发以下的一项"..
+		 "#{{BrokenHeart}} 50%消除一个碎心，没有则触发下一项"..
+		 "#{{SoulHeart}} 25%获得一个魂心"..
+		 "#{{AngelRoom}} 15%天使房转换率 + 10%"..
+		 "#{{EternalHeart}} 10%获得一个永恒之心",
+	mult={
+		numberToMultiply = 9,
+		maxMultiplier = 3,
+	}	
+},
+
+}
 --------------------------------------------------------
 --------------------------卡牌--------------------------
 --------------------------------------------------------
@@ -497,14 +413,13 @@ local cardEID={
 },
 
 }
+--------------------------------------------------------
 
 
-for id,card in pairs(cardEID) do
-	EID:addCard(id, card.info, card.name, LANG)
-	
-	if card.mimic then
-		EID:addCardMetadata(id, card.mimic.charge, card.mimic.isRune)
-	end	
-end
-EID_ContentForPlayer("ibsCardForPlayer", cardEID, 5,300)
-
+--返回表
+return {
+	BirthrightEID = birthrightEID,
+	ItemEID = itemEID,
+	TrinketEID = trinketEID,
+	CardEID = cardEID
+}

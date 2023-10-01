@@ -7,6 +7,7 @@ local function LoadScripts(scripts)
 end
 
 local callbacks = {
+	"mirrorbroken",
 	"greed",
 	"item",
 	"doubletap",

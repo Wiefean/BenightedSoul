@@ -64,6 +64,9 @@ end)
 
 local function IBS_CMD(_,cmd,sth)
 if IBS_Data.Setting["moreCommands"] then
+	local game = Game()
+	local room = game:GetRoom()
+	local level = game:GetLevel()
 
 	local number = tonumber(sth) --数字
 	
@@ -73,7 +76,7 @@ if IBS_Data.Setting["moreCommands"] then
 	end
 	
 	--房间中心位置
-	local centerPos = Game():GetRoom():FindFreePickupSpawnPosition((Game():GetLevel():GetCurrentRoom():GetCenterPos()), 0, true)
+	local centerPos = room:FindFreePickupSpawnPosition(room:GetCenterPos(), 0, true)
 
 
 
@@ -182,7 +185,7 @@ if IBS_Data.Setting["moreCommands"] then
 			end	
 					
 			--刷新角色属性
-			for i = 0, Game():GetNumPlayers() -1 do
+			for i = 0, game:GetNumPlayers() -1 do
 				local player = Isaac.GetPlayer(i)
 				player:AddCacheFlags(CacheFlag.CACHE_ALL)
 				player:EvaluateItems()
@@ -216,7 +219,7 @@ if IBS_Data.Setting["moreCommands"] then
 	
 	--隐藏/显示HUD
 	if cmd == "hud" then
-		local hud = Game():GetHUD()
+		local hud = game:GetHUD()
 		if hud:IsVisible() then
 			hud:SetVisible(false)
 		else

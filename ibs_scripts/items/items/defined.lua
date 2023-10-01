@@ -64,9 +64,32 @@ local function ModeChange(_,player, type, action)
 end
 mod:AddCallback(IBS_Callback.PLAYER_DOUBLE_TAP, ModeChange)
 
+--计算充能消耗
+local function GetDischarge(player)
+	local data = GetTeleportData(player)
+	local where = nil
+	if Game():IsGreedMode() then
+		where = GreedDestination[data.Mode]
+	else
+		where = Destination[data.Mode]
+	end
+	
+	local discharge = where.Charge
+	if player:HasCollectible(584) then discharge = discharge - 1 end
+	if player:HasCollectible(59) then discharge = discharge - 1 end
+	if player:HasCollectible(116) then discharge = discharge - 1 end
+	if discharge < 0 then discharge = 0 end
+	
+	return discharge
+end
+
 --允许尝试使用
-mod:AddCallback(IBS_Callback.TRY_USE_ITEM, function(_,item, player, slot, charges)
-	return (charges >= 0) and (charges < 12)
+mod:AddCallback(IBS_Callback.TRY_USE_ITEM, function(_,item, player, slot, charges, maxCharges)
+	local discharge = GetDischarge(player)
+	return {
+		CanUse = (charges >= discharge) and (charges < maxCharges),
+		IgnoreSharpPlug = (charges >= discharge)
+	}
 end, IBS_Item.defined)
 
 local function Teleport(_,item, rng, player, flags, slot)
@@ -74,18 +97,14 @@ local function Teleport(_,item, rng, player, flags, slot)
 		local game = Game()
 		local level = game:GetLevel()
 		local data = GetTeleportData(player)
+		local discharge = GetDischarge(player)
+		
 		local where = nil
 		if game:IsGreedMode() then
 			where = GreedDestination[data.Mode]
 		else
 			where = Destination[data.Mode]
 		end
-		
-		local discharge = where.Charge
-		if player:HasCollectible(584) then discharge = discharge - 1 end
-		if player:HasCollectible(59) then discharge = discharge - 1 end
-		if player:HasCollectible(116) then discharge = discharge - 1 end
-		if discharge < 0 then discharge = 0 end
 		
 		if Players:DischargeSlot(player, slot, discharge, true, false) or (flags & UseFlag.USE_OWNED <= 0) then
 			local idx = level:QueryRoomTypeIndex(where.Type, false, rng, true)
@@ -98,6 +117,14 @@ local function Teleport(_,item, rng, player, flags, slot)
 			end
 
 			game:StartRoomTransition(idx, Direction.NO_DIRECTION, RoomTransitionAnim.TELEPORT, player)
+			
+			--正邪削弱(东方mod)
+			if (flags & UseFlag.USE_OWNED > 0) and mod:THI_WillSeijaNerf(player) then	
+				if rng:RandomInt(3) == 0 then
+					player:RemoveCollectible(IBS_Item.defined)
+					player:AddCollectible(324, 6, false, slot)
+				end
+			end	
 		end
 		
 		return {ShowAnim = false, Discharge = false}
@@ -120,24 +147,12 @@ local function RenderMode(_,item, player, slot, pos)
 		local data = GetTeleportData(player)
 		
 		if data then
-			local discharge = 0
+			local discharge = GetDischarge(player)
 			if Game():IsGreedMode() then
-				discharge = GreedDestination[data.Mode].Charge
-				if player:HasCollectible(584) then discharge = discharge - 1 end
-				if player:HasCollectible(59) then discharge = discharge - 1 end
-				if player:HasCollectible(116) then discharge = discharge - 1 end
-				if discharge < 0 then discharge = 0 end
-				
 				spr_greed:Play(data.Mode)
 				spr_greed:Render(pos)
 				fnt:DrawString(discharge, (pos.X)-18, (pos.Y)-22, KColor(1,1,1,1,0,0,0))
-			else
-				discharge = Destination[data.Mode].Charge
-				if player:HasCollectible(584) then discharge = discharge - 1 end
-				if player:HasCollectible(59) then discharge = discharge - 1 end
-				if player:HasCollectible(116) then discharge = discharge - 1 end
-				if discharge < 0 then discharge = 0 end
-				
+			else			
 				spr:Play(data.Mode)
 				spr:Render(pos)
 				fnt:DrawString(discharge, (pos.X)-18, (pos.Y)-22, KColor(1,1,1,1,0,0,0))

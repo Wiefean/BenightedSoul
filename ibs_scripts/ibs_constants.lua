@@ -16,6 +16,17 @@ mod.EggBlackList = {11,13,16,17,18,19,20,21,24,25,32,33,38,55,57,63,64,65,66,67,
 --回调函数及其提供的参数
 mod.IBS_Callback = {
 
+
+--镜子被破坏
+MIRROR_BROKEN = "IBS_CALLBACK_MIRROR_BROKEN",
+
+
+--变身昧化角色
+--[[可输入参数:角色ID]]
+--[[提供参数:玩家(实体), 角色ID]]
+BENIGHTED_HENSHIN = "IBS_CALLBACK_BENIGHED_HENSHIN",
+
+
 --贪婪模式新波次
 --[[提供参数:波次(整数)]]
 GREED_NEW_WAVE = "IBS_CALLBACK_GREED_NEW_WAVE",
@@ -30,6 +41,15 @@ GREED_NEW_WAVE = "IBS_CALLBACK_GREED_NEW_WAVE",
 	3 -- 额外Boss波次完成
 ]]
 GREED_WAVE_END_STATE = "IBS_CALLBACK_GREED_WAVE_END_STATE",
+
+
+--从道具池中抽取道具之前
+--[[提供参数:道具池ID, 是否减少在道具池的权重(是否), 种子(整数), 之前是否有结果(是否)]]
+--[[说明:
+返回道具ID以改变抽取结果,之后的结果会覆盖之前的结果
+有函数返回过结果后,"之前是否有结果"为true,否则为false
+]]
+PRE_GET_COLLECTIBLE = "IBS_CALLBACK_PRE_GET_COLLECTIBLE",
 
 
 --拾取道具
@@ -90,7 +110,7 @@ PLAYER_DOUBLE_TAP = "IBS_CALLBACK_PLAYER_DOUBLE_TAP",
 
 --尝试使用主动
 --[[可输入参数:道具ID]]
---[[提供参数:道具ID, 玩家(实体), 主动槽(整数), 已充能数, 充能类型(整数)]]
+--[[提供参数:道具ID, 玩家(实体), 主动槽(整数), 已充能数, 满充能数, 充能类型(整数)]]
 --[[说明:
 主动槽:
 	0 -- 第一主动
@@ -104,6 +124,7 @@ PLAYER_DOUBLE_TAP = "IBS_CALLBACK_PLAYER_DOUBLE_TAP",
 添加的函数中返回包含以下内容的表,则可以尝试在充能未满时使用主动(没有填入项时,将采用中括号内的默认值):
 	CanUse -- 是否可使用 [false]
 	UseFlags --添加使用标签 [默认已经添加标签"拥有"]
+	IgnoreSharpPlug --是否无视锋利插头 [false] (按太快还是会触发)
 
 可添加的使用标签(位面):
 	UseFlag.USE_NOANIM --不播放举起动画
@@ -143,9 +164,9 @@ TRY_USE_ITEM = "IBS_CALLBACK_TRY_USE_ITEM",
 ACTIVE_SLOT_RENDER = "IBS_CALLBACK_ACTIVE_SLOT_RENDER",
 
 
---尝试握住主动(尚不完善)
+--尝试握住主动
 --[[可输入参数:道具ID]]
---[[提供参数:道具ID, 玩家(实体), 使用标签(位面), 主动槽(整数)]]
+--[[提供参数:道具ID, 玩家(实体), 使用标签(位面), 主动槽(整数), 正在握住的道具ID]]
 --[[说明:
 主动槽:
    -1 -- 无
@@ -175,7 +196,7 @@ ACTIVE_SLOT_RENDER = "IBS_CALLBACK_ACTIVE_SLOT_RENDER",
 TRY_HOLD_ITEM = "IBS_CALLBACK_TRY_HOLD_ITEM",
 
 
---正在握住主动(尚不完善)
+--正在握住主动
 --[[可输入参数:道具ID]]
 --[[提供参数:道具ID, 玩家(实体), 使用标签(位面), 主动槽(整数)]]
 --[[说明:
@@ -200,9 +221,12 @@ TRY_HOLD_ITEM = "IBS_CALLBACK_TRY_HOLD_ITEM",
 HOLDING_ITEM = "IBS_CALLBACK_HOLDING_ITEM",
 
 
---结束握住主动(尚不完善)
+--结束握住主动
 --[[可输入参数:道具ID]]
---[[提供参数:道具ID, 玩家(实体), 使用标签(位面), 主动槽(整数)]]
+--[[提供参数:
+道具ID, 玩家(实体), 使用标签(位面), 主动槽(整数),
+因受伤而结束(是否), 因主动取消而结束(是否), 因进入新房间而结束(是否)
+]]
 --[[说明:
 主动槽:
    -1 -- 无
@@ -241,7 +265,20 @@ bone = Isaac.GetItemIdByName("Bone of Temperance"),
 guard = Isaac.GetItemIdByName("Guard of Fortitude"),
 v7 = Isaac.GetItemIdByName("V7"),
 tgoj = Isaac.GetItemIdByName("The Gospel Of Judas"),
-
+nail = Isaac.GetItemIdByName("The Reserved Nail"),
+superb = Isaac.GetItemIdByName("Super B"),
+dreggypie = Isaac.GetItemIdByName("Dreggy Pie"),
+bonyknife = Isaac.GetItemIdByName("Bony Knife"),
+circumcision = Isaac.GetItemIdByName("Circumcision"),
+cheart = Isaac.GetItemIdByName("Cursed Heart"),
+redeath = Isaac.GetItemIdByName("Re-death"),
+dustybomb = Isaac.GetItemIdByName("Dusty Bombs"),
+nm = Isaac.GetItemIdByName("Needle Mushroom"),
+minihorn = Isaac.GetItemIdByName("Mini Horn"),
+woa = Isaac.GetItemIdByName("Wings Of Apollyon"),
+momscheque = Isaac.GetItemIdByName("Mom's Cheque"),
+ffruit = Isaac.GetItemIdByName("The Forbidden Fruit"),
+sword = Isaac.GetItemIdByName("Sword of Siberite"),
 
 }
 
@@ -251,6 +288,8 @@ bottleshard = Isaac.GetTrinketIdByName("Bottle Shard"),
 dadspromise = Isaac.GetTrinketIdByName("Dad's Promise"),
 divineretaliation = Isaac.GetTrinketIdByName("Divine Retaliation"),
 toughheart = Isaac.GetTrinketIdByName("Tough Heart"),
+chaoticbelief = Isaac.GetTrinketIdByName("Chaotic Belief"),
+thronyring = Isaac.GetTrinketIdByName("Throny Ring"),
 
 }
 
@@ -265,6 +304,9 @@ goldenprayer = Isaac.GetCardIdByName("ibs_goldenprayer"),
 mod.IBS_Player = {
 bisaac = Isaac.GetPlayerTypeByName("Benighted Isaac"),
 bmaggy = Isaac.GetPlayerTypeByName("Benighted Magdalene"),
+bcain = Isaac.GetPlayerTypeByName("Benighted Cain"),
+babel = Isaac.GetPlayerTypeByName("Benighted Abel"),
+bjudas = Isaac.GetPlayerTypeByName("Benighted Judas"),
 
 }
 
@@ -272,6 +314,8 @@ bmaggy = Isaac.GetPlayerTypeByName("Benighted Magdalene"),
 mod.IBS_Challenge = {
 bc1 = Isaac.GetChallengeIdByName("BC1 Rolling Destiny"),
 bc2 = Isaac.GetChallengeIdByName("BC2 The Fragile"),
+
+bc4 = Isaac.GetChallengeIdByName("BC4 Passover"),
 
 }
 
@@ -290,6 +334,8 @@ devilbonus = Isaac.GetSoundIdByName("恶魔奖励"),
 angelbonus = Isaac.GetSoundIdByName("天使奖励"),
 ssg_ready = Isaac.GetSoundIdByName("仰望星空冷却完毕"),
 ssg_fire = Isaac.GetSoundIdByName("仰望星空发射"),
+sword1 = Isaac.GetSoundIdByName("能量剑音效1"),
+sword2 = Isaac.GetSoundIdByName("能量剑音效2"),
 
 }
 
@@ -341,14 +387,29 @@ function mod:GetUniqueRNG(key)
 	return IBS_RNG[key]
 end
 mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.IMPORTANT, function(_,isContinue)
-	if not isContinue then
-		local seed = Game():GetSeeds():GetStartSeed()	
-		for k,_ in pairs(IBS_RNG) do
-			IBS_RNG[k]:SetSeed(seed, 35)
-		end
+	local seed = Game():GetSeeds():GetStartSeed()
+	for k,_ in pairs(IBS_RNG) do
+		IBS_RNG[k]:SetSeed(seed, 35)
 	end
 end)
 
+--延迟触发函数(单位为逻辑帧,30逻辑帧为1秒)
+local DelayedFunctions = {}
+function mod:DelayFunction(func, frames)
+	table.insert(DelayedFunctions, {Function = func, TimeOut = frames})
+end
+mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
+    for k,v in pairs(DelayedFunctions) do
+        if (v.TimeOut > 0) then
+            v.TimeOut = v.TimeOut - 1
+        else
+			v.Function()
+            DelayedFunctions[k] = nil
+        end 
+    end
+end)
+	
+	
 end
 
 --函数库
@@ -362,8 +423,8 @@ end
 SetLib("Translations", "translations")
 SetLib("Maths", "maths")
 SetLib("Pools", "pools")
-SetLib("Finds", "finds")
 SetLib("Ents", "ents")
+SetLib("Finds", "finds")
 SetLib("Players", "players")
 SetLib("Stats", "stats")
 SetLib("BigBooks", "bigbooks")

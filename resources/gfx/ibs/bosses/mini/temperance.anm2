@@ -1,5 +1,5 @@
 <AnimatedActor>
-	<Info CreatedBy="robot" CreatedOn="2023/5/2 23:23:21" Version="118" Fps="30"/>
+	<Info CreatedBy="robot" CreatedOn="2023/8/26 11:54:15" Version="125" Fps="30"/>
 	<Content>
 		<Spritesheets>
 			<Spritesheet Path="temperance.png" Id="0"/>
@@ -206,11 +206,8 @@
 				</NullAnimation>
 			</NullAnimations>
 			<Triggers>
-				<Trigger EventId="1" AtFrame="17"/>
-				<Trigger EventId="1" AtFrame="21"/>
-				<Trigger EventId="1" AtFrame="25"/>
-				<Trigger EventId="1" AtFrame="29"/>
-				<Trigger EventId="1" AtFrame="33"/>
+				<Trigger EventId="1" AtFrame="20"/>
+				<Trigger EventId="1" AtFrame="27"/>
 			</Triggers>
 		</Animation>
 		<Animation Name="Attack2" FrameNum="45" Loop="false">
@@ -260,9 +257,7 @@
 				</NullAnimation>
 			</NullAnimations>
 			<Triggers>
-				<Trigger EventId="1" AtFrame="17"/>
 				<Trigger EventId="2" AtFrame="22"/>
-				<Trigger EventId="2" AtFrame="27"/>
 			</Triggers>
 		</Animation>
 		<Animation Name="Attack3" FrameNum="30" Loop="false">

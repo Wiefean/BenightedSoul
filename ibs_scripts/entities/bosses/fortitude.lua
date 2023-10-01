@@ -41,7 +41,7 @@ end
 
 --是否半血
 local function IsHalfHp(npc)
-	return npc.HitPoints <= ((npc.MaxHitPoints) / 2)
+	return npc.HitPoints <= ((npc.MaxHitPoints) / 2) or (npc.State == BossState.HalfHp)
 end
 
 --替换愤怒
@@ -81,27 +81,29 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, function(_,pickup)
 	end
 end)
 mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_,npc)
-	if (npc.Variant == Fortitude.Variant) and not npc:HasEntityFlags(EntityFlag.FLAG_NO_REWARD) then
-		local chance = IBS_RNG:RandomInt(99) + 1
-		
-		--1%金色祈者
-		local V = 300
-		local S = IBS_Pocket.goldenprayer
-		
-		if chance <= 33 then --33%神圣反击
-			V = 350
-			S = IBS_Trinket.divineretaliation
-		elseif chance > 33 and chance <= 66 then --33%硬心
-			V = 350
-			S = IBS_Trinket.toughheart
-		elseif chance > 66 and chance <= 99 then --33%坚韧面具
-			V = 100
-			S = IBS_Item.guard
+	if not Game():IsGreedMode() then
+		if (npc.Variant == Fortitude.Variant) and (not npc:HasEntityFlags(EntityFlag.FLAG_NO_REWARD)) and (not npc.SpawnerEntity or npc.SpawnerType ~= EntityType.ENTITY_PLAYER) then
+			local chance = IBS_RNG:RandomInt(99) + 1
+			
+			--1%金色祈者
+			local V = 300
+			local S = IBS_Pocket.goldenprayer
+			
+			if chance <= 33 then --33%神圣反击
+				V = 350
+				S = IBS_Trinket.divineretaliation
+			elseif chance > 33 and chance <= 66 then --33%硬心
+				V = 350
+				S = IBS_Trinket.toughheart
+			elseif chance > 66 and chance <= 98 then --33%坚韧面具
+				V = 100
+				S = IBS_Item.guard
+			end
+			
+			local pickup = Isaac.Spawn(5, V, S, Game():GetRoom():FindFreePickupSpawnPosition(npc.Position), Vector.Zero, nil)
+			pickup.Velocity = RandomVector() / 2
 		end
-		
-		local pickup = Isaac.Spawn(5, V, S, Game():GetRoom():FindFreePickupSpawnPosition(npc.Position), Vector.Zero, nil)
-		pickup.Velocity = RandomVector() / 2
-	end
+	end	
 end, Fortitude.Type)
 
 --坚韧初始化
@@ -133,7 +135,7 @@ local function OnUpdate(_,npc)
 		end		
 		
 		local dir = -1
-		local dashSpd = 90
+		local dashSpd = 70
 		
 		vec = target.Position - npc.Position
 		A =  vec:Resized(math.min(1, (vec:Length()) / 40))
@@ -155,7 +157,7 @@ local function OnUpdate(_,npc)
 		if IsHalfHp(npc) then
 			spr:PlayOverlay("Head2", false)
 			npc.Velocity = npc.Velocity - 1.5*A
-			dashSpd = 170
+			dashSpd = 140
 			
 			if npc.State == BossState.Normal then
 				npc.State = BossState.HalfHp
@@ -166,7 +168,7 @@ local function OnUpdate(_,npc)
 			npc.Velocity = npc.Velocity + A
 		end
 		
-		if data.DashCD == 10 then
+		if data.DashCD == 15 then
 			npc:SetColor(Color(1, 1, 1, 1, 1,1,1),10,7,true)
 			sfx:Play(171)
 		end
@@ -182,7 +184,7 @@ local function OnUpdate(_,npc)
 		if data.DashLeft > 0 then
 			data.DashLeft = data.DashLeft - 1
 			local shockwave = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SHOCKWAVE, 0, npc.Position, Vector.Zero, npc):ToEffect()
-			shockwave:SetRadii(0, 14)
+			shockwave:SetRadii(0, 10)
 			shockwave:SetTimeout(1)
 			shockwave.Parent = npc
 		end

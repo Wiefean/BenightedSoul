@@ -52,6 +52,7 @@ mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, Wisper_Update, WisperVariant)
 --碰撞判定
 local function Wisper_Collision(_,familiar, other)
 	local player = familiar.Player
+	if not player then return end
 	
 	--对敌人造成伤害
 	if other:IsEnemy() and other:IsVulnerableEnemy() and not other:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then

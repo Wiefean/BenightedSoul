@@ -12,12 +12,6 @@ local Players = mod.IBS_Lib.Players
 local Ents = mod.IBS_Lib.Ents
 
 
---角色贴图动画路径
-costume = Isaac.GetCostumeIdByPath("gfx/ibs/characters/bmaggy_hair.anm2")
-spritePath = "gfx/ibs/characters/player_bmaggy.anm2"
-spriteFlightPath = "gfx/ibs/characters/player_bmaggy_flight.anm2"
-spriteDefaultPath = "gfx/001.000_player.anm2"
-
 --基础数值
 local Init = {
 	IronHeart_Max = 25, --铁心上限
@@ -79,8 +73,6 @@ local function GetPlayerTempData(player)
 				
 		data.BMAGGY = {
 			PlayerMatched = false,
-			CostumeState = 0,
-			SpriteState = 0,
 			IronHeart_Sprite = spr,
 			IronHeart_Font = fnt,
 		}
@@ -101,103 +93,45 @@ local function GetIronHeartData(player)
 	}
 
 	return data.IronHeart
-end	
-
---更新角色贴图
-local function UpdatePlayerSprite(player)
-    local data = GetPlayerTempData(player)
-    local sprState = 1
-    local costumeState = 1
-    local path = spritePath
-    if player.CanFly then path = spriteFlightPath sprState = 2 end --飞行
-	
-	--超大蘑菇
-	if player:GetEffects():HasCollectibleEffect(CollectibleType.COLLECTIBLE_MEGA_MUSH) then
-		path = spriteDefaultPath
-		sprState = 0
-	end
-	
-	if player:GetPlayerType() == (IBS_Player.bmaggy) then
-		data.PlayerMatched = true
-		if data.SpriteState ~= sprState then
-			data.SpriteState = sprState
-			local spr = player:GetSprite()
-			local animation = spr:GetAnimation()
-			local frame = spr:GetFrame()
-			local overlayAnimation = spr:GetOverlayAnimation()
-			local overlayFrame = spr:GetOverlayFrame()
-			spr:Load(path, true)
-			spr:SetFrame(animation, frame)
-			spr:SetOverlayFrame(overlayAnimation, overlayFrame)
-		end	
-		if data.CostumeState ~= costumeState then
-			data.CostumeState = costumeState
-			player:TryRemoveNullCostume(costume)
-			
-			if data.CostumeState == 1 then
-				player:AddNullCostume(costume)
-			end
-		end
-	else
-		if data.PlayerMatched then
-			data.PlayerMatched = false
-			player:TryRemoveNullCostume(costume)
-		end
-	end
 end
 
 --变身
-local function Henshin(_,ent, dmg, flag, source)
-	local player = ent:ToPlayer()
-	
-	if player and (player:GetPlayerType() == PlayerType.PLAYER_MAGDALENE) and player:HasCollectible(45) and (Isaac.GetChallenge() <= 0) then
-		if IBS_Data.Setting["bmaggy"]["Unlocked"] then
-			local ready = false
-		
-			--愚蠢的写法，但确实有用(魂心已包含黑心)
-			local health = (player:GetBoneHearts())+(player:GetEternalHearts())+(player:GetSoulHearts())+(player:GetHearts())
-			if health <= dmg then
-				if Game():GetFrameCount() <= (30*30) then
-					ready = true
-				end
-				if (not ready) and Game():GetLevel():GetStage() == 2 then
-					if (flag & DamageFlag.DAMAGE_EXPLOSION > 0) then
-						ready = true
-					end
-				end
-				if ready then
-					local data = GetIronHeartData(player)
-					player:ChangePlayerType(IBS_Player.bmaggy)
-					data.Num = Init.IronHeart_Max
-					player:RemoveCollectible(45, true)
-					player:AddSoulHearts(8)
-					player:AddMaxHearts(-8)
-					player:AddBrokenHearts(4)
-					player:SetPocketActiveItem((IBS_Item.gheart), ActiveSlot.SLOT_POCKET, false)
-					player:SetActiveCharge(0, ActiveSlot.SLOT_POCKET)
-					player:AddNullCostume(costume)
-					
-					--我释放震荡波
-					local wave = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SHOCKWAVE, 0, player.Position, Vector.Zero, player):ToEffect()
-					wave.Parent = player
-					wave:SetTimeout(15)
-					wave:SetRadii(0,120)
-					
-					local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF02, 1, player.Position, Vector.Zero, player)				
-					poof.SpriteScale = Vector(1.5,1.5)
-					poof.Color = Color(0.5,0.5,0.5)
+local function Henshin(_,player)
+	local canHenshin = false 
 
-					Game():ShakeScreen(40)
-					SFXManager():Play(SoundEffect.SOUND_BLACK_POOF, 4)
-					
-					player:SetMinDamageCooldown(127)
-					return false
-				end
-			end
+	--检测美心
+	for slot = 0,1 do
+		if player:GetActiveItem(slot) == 45 then
+			player:RemoveCollectible(45, true, slot)
+			canHenshin = true
+			break
 		end	
 	end
+	if player:GetActiveItem(2) == 45 then canHenshin = true end
+	
+	if canHenshin then
+		player:ChangePlayerType(IBS_Player.bmaggy)
+		player:AddSoulHearts(8)
+		player:AddMaxHearts(-8)
+		player:AddBrokenHearts(4)
+		player:SetPocketActiveItem(IBS_Item.gheart, ActiveSlot.SLOT_POCKET, false)
+		player:SetActiveCharge(0, ActiveSlot.SLOT_POCKET)
+		GetIronHeartData(player).Num = Init.IronHeart_Max
+		
+		--我释放震荡波
+		local wave = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SHOCKWAVE, 0, player.Position, Vector.Zero, player):ToEffect()
+		wave.Parent = player
+		wave:SetTimeout(15)
+		wave:SetRadii(0,120)
+		local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF02, 1, player.Position, Vector.Zero, player)				
+		poof.SpriteScale = Vector(1.5,1.5)
+		poof.Color = Color(0.5,0.5,0.5)
+		Game():ShakeScreen(40)
+		SFXManager():Play(SoundEffect.SOUND_BLACK_POOF, 4)
+		player:SetMinDamageCooldown(127)
+	end
 end
-mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Henshin)
+mod:AddCallback(IBS_Callback.BENIGHTED_HENSHIN, Henshin, PlayerType.PLAYER_MAGDALENE)
 
 --是否应该保护
 local function ShouldProtect(flag, source)
@@ -473,7 +407,6 @@ end
 --角色更新
 local function OnUpdate(_,player)
 	if (player:GetPlayerType() == (IBS_Player.bmaggy) or IBSChallenge()) then
-		UpdatePlayerSprite(player) --更新角色贴图
 		
 		--更新铁心上限
 		local IronHeart = GetIronHeartData(player)

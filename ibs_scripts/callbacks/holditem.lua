@@ -16,6 +16,10 @@ local function GetHoldData(player)
 		NoAnim = false,
 		Slot = -1,
 		TimeOut = -1,
+		CanCancel = false,
+		Hurt = false,
+		Cancel = false,
+		Cancel_NewRoom = false,
 		Holding = false
 	}
 	
@@ -32,7 +36,7 @@ local function TryHoldItemCallback(_,item, rng, player, flag, slot)
 	
 	for _, callback in ipairs(Isaac.GetCallbacks(IBS_Callback.TRY_HOLD_ITEM)) do
 		if (not callback.Param) or (callback.Param == item) then
-			local result = callback.Function(callback.Mod, item, player, flag, slot)
+			local result = callback.Function(callback.Mod, item, player, flag, slot, data.Item)
 			
 			if result ~= nil then
 				if type(result) == "table" then
@@ -49,8 +53,9 @@ local function TryHoldItemCallback(_,item, rng, player, flag, slot)
 	
 	if canHold then
 		if data.Holding then
-			if canCancel and (data.Item == item) and (data.Slot == slot) then
-				data.Holding = false
+			if canCancel and (data.Item == item) and (data.Slot == slot) then 
+				data.Holding = false --满充能时的取消
+				data.Cancel = true
 			end	
 		elseif (data.Item <= 0) then
 			data.Item = item
@@ -58,53 +63,66 @@ local function TryHoldItemCallback(_,item, rng, player, flag, slot)
 			data.NoAnim = noAnim
 			data.Slot = slot
 			data.TimeOut = timeOut
+			data.CanCancel = canCancel
 			data.Holding = true
 		end	
 	end	 
 end
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, TryHoldItemCallback)
 
+--未满充能时的取消
+local function TryCancel(_,item, player, slot, charges, maxCharges)
+	if charges < maxCharges then
+		local data = Ents:GetTempData(player).HoldItemCallback
+		if data and data.CanCancel and data.Holding and (data.Item == item) and (data.Slot == slot) then
+			data.Holding = false
+			data.Cancel = true
+		end
+	end	
+end
+mod:AddCallback(IBS_Callback.TRY_USE_ITEM, TryCancel)
+
 --正在握住主动回调和结束握住主动回调
 local function HoldingAndEndHoldCallback(_,player)
-    local data = GetHoldData(player)
-
-	--限时
-	if data.TimeOut > 0 then
-		data.TimeOut = data.TimeOut - 1
-	elseif data.TimeOut ~= -1 then
-		data.TimeOut = -1
-		data.Holding = false
-	end
-
-	if (data.Item > 0) then
-		local item = data.Item
-		if data.Holding then	
-			if (not data.NoAnim) and player:IsExtraAnimationFinished() then
-				player:AnimateCollectible(item, "LiftItem")
-			end		
-			
-			for _, callback in ipairs(Isaac.GetCallbacks(IBS_Callback.HOLDING_ITEM)) do
-				if (not callback.Param) or (callback.Param == item) then
-					local result = callback.Function(callback.Mod, item, player, data.UseFlags, data.Slot)
-					if (result ~= nil) and (result == false) then
-						data.Holding = false
-						break
-					end
-				end				
-			end				
-		else
-			Isaac.RunCallbackWithParam(IBS_Callback.END_HOLD_ITEM, item, item, player, data.UseFlags, data.Slot)
-			if not data.NoAnim then
-				player:PlayExtraAnimation("HideItem")
-			end
-			data.Item = 0
-			data.UseFlags = 0
-			data.NoAnim = false
-			data.Slot = -1
+    local data = Ents:GetTempData(player).HoldItemCallback
+	if data then
+	
+		--限时
+		if data.TimeOut > 0 then
+			data.TimeOut = data.TimeOut - 1
+		elseif data.TimeOut ~= -1 then
+			data.TimeOut = -1
+			data.Holding = false
 		end
-	else
-		data.Holding = false
-	end
+
+		if (data.Item > 0) then
+			local item = data.Item
+			if data.Holding then	
+				if (not data.NoAnim) and player:IsExtraAnimationFinished() then
+					player:AnimateCollectible(item, "LiftItem")
+				end		
+				
+				for _, callback in ipairs(Isaac.GetCallbacks(IBS_Callback.HOLDING_ITEM)) do
+					if (not callback.Param) or (callback.Param == item) then
+						local result = callback.Function(callback.Mod, item, player, data.UseFlags, data.Slot)
+						if (result ~= nil) and (result == false) then
+							data.Holding = false
+							break
+						end
+					end				
+				end				
+			else
+				if not data.NoAnim then
+					player:PlayExtraAnimation("HideItem")
+				end
+				
+				Isaac.RunCallbackWithParam(IBS_Callback.END_HOLD_ITEM, item, item, player, data.UseFlags, data.Slot, data.Hurt, data.Cancel, data.Cancel_NewRoom)
+				Ents:GetTempData(player).HoldItemCallback = nil
+			end
+		else
+			Ents:GetTempData(player).HoldItemCallback = nil
+		end
+	end	
 end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, HoldingAndEndHoldCallback)
 
@@ -114,7 +132,11 @@ local function OnTakeDMG(_,ent)
 	
     if player then
         local player = ent:ToPlayer()
-		Ents:GetTempData(player).HoldItemCallback = nil
+		local data = Ents:GetTempData(player).HoldItemCallback
+		if data then
+			data.Hurt = true
+			data.Holding = false
+		end
     end
 end
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, OnTakeDMG)
@@ -123,7 +145,11 @@ mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, OnTakeDMG)
 local function OnNewRoom()
  	for i = 0, Game():GetNumPlayers() -1 do
 		local player = Isaac.GetPlayer(i)
-		Ents:GetTempData(player).HoldItemCallback = nil
+		local data = Ents:GetTempData(player).HoldItemCallback
+		if data then
+			data.Holding = false
+			data.Cancel_NewRoom = true
+		end
     end
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, OnNewRoom)
@@ -133,8 +159,8 @@ local function BanDropKey(_,ent, hook, action)
 	local player = (ent and ent:ToPlayer())
 	
     if player then
-		local data = GetHoldData(player)
-        if data.Holding and (action == ButtonAction.ACTION_DROP) and (hook == InputHook.IS_ACTION_TRIGGERED) then
+		local data = Ents:GetTempData(player).HoldItemCallback
+        if data and data.Holding and (action == ButtonAction.ACTION_DROP) and (hook == InputHook.IS_ACTION_TRIGGERED) then
 			return false
         end
     end

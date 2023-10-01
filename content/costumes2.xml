@@ -9,15 +9,25 @@
 	<costume id="17" anm2path="bone_of_temperance.anm2" priority="2" type="passive" skinColor="2" />
 	<!-- guard_of_fortitude -->
 	<costume id="18" anm2path="guard_of_fortitude_head.anm2" priority="5" type="passive" />
+	<!-- superb -->
+	<costume id="22" anm2path="superb_head.anm2" type="passive" hasOverlay="true" priority="1" />
+	<!-- circumcision -->
+	<costume id="25" anm2path="circumcision.anm2" type="passive" hasSkinAlt="true" />	
+	<!-- minihorn -->
+	<costume id="30" anm2path="minihorn_body.anm2" type="passive" />	
+	<!-- wings of apollyon -->
+	<costume id="31" anm2path="wings_of_apollyon_body.anm2" type="passive" />	
 
 <!-- players -->
-	<!-- bisaac-->
+	<!-- bisaac -->
 	<costume anm2path="bisaac_cross.anm2" type="none" priority="2" />
 	<costume anm2path="bisaac_devil.anm2" type="none" priority="6" hasOverlay="true" />	
 	<costume anm2path="bisaac_angel.anm2" type="none" priority="7" hasOverlay="true" />
 	<costume anm2path="bisaac_both.anm2" type="none" priority="8" hasOverlay="true" />
-	<!-- bmaggy-->
+	<!-- bmaggy -->
 	<costume anm2path="bmaggy_hair.anm2" type="none" priority="2" />
-
 	
+	<!-- bjudas -->
+	<costume anm2path="bjudas_mitre_and_mantle.anm2" type="none" priority="3" />
+
 </costumes>
