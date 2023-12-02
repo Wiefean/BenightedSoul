@@ -8,6 +8,9 @@ local Players = mod.IBS_Lib.Players
 local config = Isaac.GetItemConfig()
 local sfx = SFXManager()
 
+--用于昧化该隐&亚伯
+mod.IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.cmantle)
+
 --直接使用无效
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, function()
 	return {ShowAnim = false, Discharge = false}	

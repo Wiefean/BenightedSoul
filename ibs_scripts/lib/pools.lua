@@ -1,7 +1,5 @@
 --池相关函数
 
-local mod = Isaac_BenightedSoul
-
 local config = Isaac.GetItemConfig()
 
 local Pools = {}
@@ -102,25 +100,6 @@ function Pools:GetCollectibles(condition)
     end
 	
     return results
-end
-
---获取单选掉落物参数
-function Pools:GetUniqueOptionsIndex()
-    local idx = 1
-    local pickups = Isaac.FindByType(5)
-    local unique = false
-    while (not unique) do
-        unique = true
-        for i = 1, #pickups do
-            local pickup = pickups[i]:ToPickup()
-            if pickup.OptionsPickupIndex == idx then
-                idx = idx + 1
-                unique = false
-                break
-            end
-        end
-    end
-    return idx
 end
 
 

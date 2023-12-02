@@ -18,16 +18,26 @@
 	<!-- wings of apollyon -->
 	<costume id="31" anm2path="wings_of_apollyon_body.anm2" type="passive" />	
 
-<!-- players -->
+<!-- null costumes -->
 	<!-- bisaac -->
 	<costume anm2path="bisaac_cross.anm2" type="none" priority="2" />
 	<costume anm2path="bisaac_devil.anm2" type="none" priority="6" hasOverlay="true" />	
 	<costume anm2path="bisaac_angel.anm2" type="none" priority="7" hasOverlay="true" />
 	<costume anm2path="bisaac_both.anm2" type="none" priority="8" hasOverlay="true" />
+	
 	<!-- bmaggy -->
 	<costume anm2path="bmaggy_hair.anm2" type="none" priority="2" />
+	
+	<!-- bcain -->
+	<costume anm2path="bcain_hat.anm2" type="none" priority="2" />
+	
+	<!-- babel -->
+	<costume anm2path="babel_hair.anm2" type="none" priority="2" />
 	
 	<!-- bjudas -->
 	<costume anm2path="bjudas_mitre_and_mantle.anm2" type="none" priority="3" />
 
+	<!-- falsehood -->
+	<costume anm2path="falsehood_bmaggy.anm2" type="none" priority="2" />
+	
 </costumes>

@@ -27,7 +27,8 @@ end
 local function Persis_Init() --此处可新增永久数据
 return {isaacSatanDeath = false,
 		maggySacrifice = false,
-		maggyTimes = 0
+		maggyTimes = 0,
+		cainTimes = 0
 		}
 end
 
@@ -56,7 +57,7 @@ return {Unlocked = false,
 		}
 end
 
-local PlayerKey = {"bisaac", "bmaggy", "bjudas"} --此处可新增角色索引
+local PlayerKey = {"bisaac", "bmaggy", "bjudas", "bcain_and_babel"} --此处可新增角色索引
 
 local function Setting_Init() --此处可新增设置
 	local Setting = {
@@ -64,6 +65,7 @@ local function Setting_Init() --此处可新增设置
 		--基础区开始--
 		["voidUp"] = false, --虚空增强
 		["abyssUp"] = false, --无底坑增强
+		["correctedData"] = false, --存档修正
 		["curse_moving"] = true, --动人诅咒
 		["curse_forgotten"] = true, --遗忘诅咒
 		["curse_d7"] = true, --D7诅咒

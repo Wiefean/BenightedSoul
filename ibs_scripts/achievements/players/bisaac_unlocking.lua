@@ -9,20 +9,23 @@ local BigBooks = mod.IBS_Lib.BigBooks
 
 local sfx = SFXManager()
 
-local LANG = Options.Language
+local LANG = mod.Language
 
 
 --播放成就纸张动画
 local function ShowPaper()
-	local paper = "bisaac_unlock"
+	for i = 1,2 do
+		local paper = "bisaac_unlock"
+		if i == 2 then paper = "bc1" end
 
-	--检测语言
-	if LANG == "zh" then
-		paper = paper.."_zh"
+		--检测语言
+		if LANG == "zh" then
+			paper = paper.."_zh"
+		end
+		
+		paper = paper..".png"	
+		BigBooks:PlayPaper(paper)
 	end
-	
-	paper = paper..".png"	
-	BigBooks:PlayPaper(paper)
 end
 
 --检测解锁条件
@@ -50,7 +53,7 @@ end
 
 --以撒死在撒但房间判定
 local function TIsaacDeathInSatanRoom(_,isLose)
-	if isLose then
+	if isLose and not IBS_Data.Setting["bisaac"]["Unlocked"] then
 		if Game():GetRoom():GetBossID() == 24 then
 			for i = 0, Game():GetNumPlayers() -1 do
 				local playerType = Isaac.GetPlayer(i):GetPlayerType()
@@ -67,15 +70,17 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_END, TIsaacDeathInSatanRoom)
 
 --检测下一局玩家一是否为以撒
 local function IsIsaac(_,player)
-	if IBS_Data.GameState.Persis.isaacSatanDeath then
-		if IsUnlockable() then
-			local playerType = Isaac.GetPlayer(0):GetPlayerType()
-			if (playerType ~= 0) and (playerType ~= 21) then
-				IBS_Data.GameState.Persis.isaacSatanDeath = false
-				mod:SaveIBSData() --保存,以防万一
-			else
-				sfx:Play(IBS_Sound.angelbonus)
-			end
+	if not IBS_Data.Setting["bisaac"]["Unlocked"] then
+		if IBS_Data.GameState.Persis.isaacSatanDeath then
+			if IsUnlockable() then
+				local playerType = Isaac.GetPlayer(0):GetPlayerType()
+				if (playerType ~= 0) and (playerType ~= 21) then
+					IBS_Data.GameState.Persis.isaacSatanDeath = false
+					mod:SaveIBSData() --保存,以防万一
+				else
+					sfx:Play(IBS_Sound.secretfound)
+				end
+			end	
 		end	
 	end	
 end

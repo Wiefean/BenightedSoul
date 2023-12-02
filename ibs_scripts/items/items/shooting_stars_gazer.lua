@@ -1,6 +1,7 @@
 --仰望星空
 
 local mod = Isaac_BenightedSoul
+local IBS_API = mod.IBS_API
 local IBS_Callback = mod.IBS_Callback
 local IBS_Item = mod.IBS_Item
 local IBS_Sound = mod.IBS_Sound
@@ -10,6 +11,64 @@ local Stats = mod.IBS_Lib.Stats
 
 local sfx = SFXManager()
 
+local ErrorTipName = "IBS_API.SSG"
+IBS_API.SSG = {}
+
+---是否为眼泪/激光引物
+function IBS_API.SSG:IsFirstTearOrLaser(ent)
+	local err,mes = mod:CheckArgType(ent, "userdata", "tear or laser", 1, ErrorTipName)
+	if err then error(mes, 2) end
+
+	local data = Ents:GetTempData(ent).SHOOTINGSTARS_TEAR
+	if data and data.First then
+		return true
+	end
+
+	return false
+end
+
+--是否为掉落的眼泪
+function IBS_API.SSG:IsFallingTear(tear)
+	local err,mes = mod:CheckArgType(tear, "userdata", "tear", 1, ErrorTipName)
+	if err then error(mes, 2) end
+
+	local data = Ents:GetTempData(tear).SHOOTINGSTARS_TEAR
+	if data and data.Other then
+		return true
+	end
+	
+	return false
+end
+
+--是否为仰望星空硫磺火柱
+function IBS_API.SSG:IsBrimestonePillar(effect)
+	local err,mes = mod:CheckArgType(effect, "userdata", "effect", 1, ErrorTipName)
+	if err then error(mes, 2) end
+
+	local data = Ents:GetTempData(effect).SHOOTINGSTARS_TEAR
+	if data and data.Other then
+		return true
+	end
+	
+	return false
+end
+
+--查找仰望星空硫磺火柱
+function IBS_API.SSG:FindBrimestonePillars(player)
+	local err,mes = mod:CheckArgType(ent, "userdata", "player", 1, ErrorTipName)
+	if err then error(mes, 2) end
+
+	local result = {}
+	
+	for _,effect in pairs(Isaac.FindByType(1000, 101, 0)) do
+		local data = Ents:GetTempData(effect).SHOOTINGSTARS_TEAR
+		if data and data.Other and Ents:IsTheSame(effect.SpawnerEntity, player) then
+			table.insert(result, effect)
+		end	
+	end
+	
+	return result
+end
 
 --临时眼泪数据
 local function GetTearData(tear)
@@ -133,13 +192,6 @@ mod:AddPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, -300, function(_,target
 				end	
 			end
 		end
-	end
-end)
-
---特殊激光引发流星雨
-mod:AddPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, -300, function(_,npc)
-	if npc:IsEnemy() and npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) == false then
-	
 	end
 end)
 

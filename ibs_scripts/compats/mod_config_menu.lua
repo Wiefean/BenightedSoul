@@ -92,6 +92,7 @@ do	--未来
 	mcm.AddTitle(ModName, BasicSettings, "Future")
 	AddBool(BasicSettings, "voidUp", "Available to trinkets", "Void Up")
 	AddBool(BasicSettings, "abyssUp", "Available to trinkets", "Abyss Up")
+	AddBool(BasicSettings, "correctedData", "Remove Ennnnnnvyyyyyy from pools", "Kick Envy")
 end
 
 mcm.AddSpace(ModName, BasicSettings) --添加空行
@@ -132,16 +133,33 @@ end
 --成就板块1结束--
 
 
-
+do
 --成就板块2开始--
+
+
+--暂无成就说明
+local NONE = "No achievement yet"
+
+--人物及其挑战解锁说明
+local UNLOCKED_INFO = "Is this character and relevant challenge unlocked"
+
+--妈心标记说明
+local HEART_INFO = "Mark that does not has its own achievement"
+
+--BR和死寂标记说明
+local BRH_INFO = "One of two marks for a falsehood"
+
+--全红说明
+local FINISHED_INFO = {"For a mini boss","This only affects its single achievement"}
+
+
 do	--昧化以撒
 	local PlayerKey = "bisaac" --角色索引
 	local IBSL_INFO = "One of four marks for Bottle Shard" --以撒蓝人撒旦羔羊标记说明
-	local BRH_INFO = "One of two marks for a challenge" --BR和死寂标记说明
 	
 	mcm.AddTitle(ModName, AchievSettings2, "Benighted Isaac")
-	AddCharacterBool(AchievSettings2, PlayerKey, "Unlocked", "Is this character unlocked")
-	AddCharacterBool(AchievSettings2, PlayerKey, "Heart", "Mark that does not has its own achievement")
+	AddCharacterBool(AchievSettings2, PlayerKey, "Unlocked", UNLOCKED_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "Heart", HEART_INFO)
 	AddCharacterBool(AchievSettings2, PlayerKey, "Isaac", IBSL_INFO)
 	AddCharacterBool(AchievSettings2, PlayerKey, "BlueBaby", IBSL_INFO)
 	AddCharacterBool(AchievSettings2, PlayerKey, "Satan", IBSL_INFO)
@@ -153,7 +171,7 @@ do	--昧化以撒
 	AddCharacterBool(AchievSettings2, PlayerKey, "Witness", "Mark for Dad's Promise")
 	AddCharacterBool(AchievSettings2, PlayerKey, "Beast", "Mark for No Options")
 	AddCharacterBool(AchievSettings2, PlayerKey, "Greed", "Mark for Shooting Stars Gazer")	
-	AddCharacterBool(AchievSettings2, PlayerKey, "FINISHED", {"For a mini boss","This only affects its single achievement"})
+	AddCharacterBool(AchievSettings2, PlayerKey, "FINISHED", FINISHED_INFO)
 end	
 
 mcm.AddSpace(ModName, AchievSettings2) --添加空行
@@ -161,11 +179,10 @@ mcm.AddSpace(ModName, AchievSettings2) --添加空行
 do	--昧化抹大拉
 	local PlayerKey = "bmaggy"
 	local IBSL_INFO = "One of four marks for Divine Retaliation"
-	local BRH_INFO = "One of two marks for a challenge"
 	
 	mcm.AddTitle(ModName, AchievSettings2, "Benighted Magdalene")
-	AddCharacterBool(AchievSettings2, PlayerKey, "Unlocked", "Is this character unlocked")
-	AddCharacterBool(AchievSettings2, PlayerKey, "Heart", "Mark that does not has its own achievement")
+	AddCharacterBool(AchievSettings2, PlayerKey, "Unlocked", UNLOCKED_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "Heart", HEART_INFO)
 	AddCharacterBool(AchievSettings2, PlayerKey, "Isaac", IBSL_INFO)
 	AddCharacterBool(AchievSettings2, PlayerKey, "BlueBaby", IBSL_INFO)
 	AddCharacterBool(AchievSettings2, PlayerKey, "Satan", IBSL_INFO)
@@ -177,7 +194,30 @@ do	--昧化抹大拉
 	AddCharacterBool(AchievSettings2, PlayerKey, "Witness", "Mark for Tough Heart")
 	AddCharacterBool(AchievSettings2, PlayerKey, "Beast", "Mark for Diamoond")
 	AddCharacterBool(AchievSettings2, PlayerKey, "Greed", "Mark for Valentinus Chocolate")	
-	AddCharacterBool(AchievSettings2, PlayerKey, "FINISHED", {"For a mini boss","This only affects its single achievement"})			
+	AddCharacterBool(AchievSettings2, PlayerKey, "FINISHED", FINISHED_INFO)			
+end	
+
+mcm.AddSpace(ModName, AchievSettings2)
+
+do	--昧化该隐&亚伯
+	local PlayerKey = "bcain_and_babel"
+	local IBSL_INFO = NONE
+	
+	mcm.AddTitle(ModName, AchievSettings2, "Benighted Cain & Abel")
+	AddCharacterBool(AchievSettings2, PlayerKey, "Unlocked", UNLOCKED_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "Heart", HEART_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "Isaac", IBSL_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "BlueBaby", IBSL_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "Satan", IBSL_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "Lamb", IBSL_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "MegaSatan", NONE)
+	AddCharacterBool(AchievSettings2, PlayerKey, "BossRush", BRH_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "Hush", BRH_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "Delirium", NONE)
+	AddCharacterBool(AchievSettings2, PlayerKey, "Witness", NONE)
+	AddCharacterBool(AchievSettings2, PlayerKey, "Beast", NONE)
+	AddCharacterBool(AchievSettings2, PlayerKey, "Greed", NONE)	
+	AddCharacterBool(AchievSettings2, PlayerKey, "FINISHED", NONE)			
 end	
 
 mcm.AddSpace(ModName, AchievSettings2)
@@ -185,27 +225,27 @@ mcm.AddSpace(ModName, AchievSettings2)
 do	--昧化犹大
 	local PlayerKey = "bjudas"
 	local IBSL_INFO = "One of four marks for Chaotic Belief"
-	local BRH_INFO = "One of two marks for a challenge"
 	
 	mcm.AddTitle(ModName, AchievSettings2, "Benighted Judas")
-	AddCharacterBool(AchievSettings2, PlayerKey, "Unlocked", "Is this character unlocked")
-	AddCharacterBool(AchievSettings2, PlayerKey, "Heart", "Mark that does not has its own achievement")
+	AddCharacterBool(AchievSettings2, PlayerKey, "Unlocked", UNLOCKED_INFO)
+	AddCharacterBool(AchievSettings2, PlayerKey, "Heart", HEART_INFO)
 	AddCharacterBool(AchievSettings2, PlayerKey, "Isaac", IBSL_INFO)
 	AddCharacterBool(AchievSettings2, PlayerKey, "BlueBaby", IBSL_INFO)
 	AddCharacterBool(AchievSettings2, PlayerKey, "Satan", IBSL_INFO)
 	AddCharacterBool(AchievSettings2, PlayerKey, "Lamb", IBSL_INFO)
-	AddCharacterBool(AchievSettings2, PlayerKey, "MegaSatan", "No achievement yet")
+	AddCharacterBool(AchievSettings2, PlayerKey, "MegaSatan", NONE)
 	AddCharacterBool(AchievSettings2, PlayerKey, "BossRush", BRH_INFO)
 	AddCharacterBool(AchievSettings2, PlayerKey, "Hush", BRH_INFO)
 	AddCharacterBool(AchievSettings2, PlayerKey, "Delirium", "Mark for The Gospel Of Judas")
 	AddCharacterBool(AchievSettings2, PlayerKey, "Witness", "Mark for Throny Ring")
 	AddCharacterBool(AchievSettings2, PlayerKey, "Beast", "Mark for Sword of Siberite")
 	AddCharacterBool(AchievSettings2, PlayerKey, "Greed", "Mark for Reserved Nail")	
-	AddCharacterBool(AchievSettings2, PlayerKey, "FINISHED", {"No achievement yet","This only affects its single achievement"})			
+	AddCharacterBool(AchievSettings2, PlayerKey, "FINISHED", NONE)			
 end	
 
---成就板块2结束--
 
+--成就板块2结束--
+end
 
 --汉化
 if mcm.i18n == "Chinese" then
@@ -223,6 +263,7 @@ if mcm.i18n == "Chinese" then
 		mcm.TranslateOptionsDisplayWithTable(ModName, BasicSettings, { 
 			{"Void Up", "虚空增强"},
 			{"Abyss Up", "无底坑增强"},
+			{"Kick Envy", "制裁嫉妒"},
 			{"The Moving", "动人诅咒"},
 			{"The Forgotten", "遗忘诅咒"},
 			{"D7", "七面骰诅咒"},
@@ -233,6 +274,7 @@ if mcm.i18n == "Chinese" then
 		})
 		mcm.TranslateOptionsInfoTextWithTable(ModName, BasicSettings, {
 			["Available to trinkets"] = "对饰品生效",
+			["Remove Ennnnnnvyyyyyy from pools"] = "将女疾女户移出所有道具池",
 			["Move or die"] = "不动会死",
 			["You may lose something when entering the same room again"] = "重新进入一个房间时 , 可能会失去某些东西",
 			["You may clear the same room"] = "可能需要清理同一个房间",
@@ -277,10 +319,11 @@ if mcm.i18n == "Chinese" then
 		mcm.TranslateOptionsDisplayTextWithTable(ModName, AchievSettings2, {
 			["Benighted Isaac"] = "昧化以撒",
 			["Benighted Magdalene"] = "昧化抹大拉",
+			["Benighted Cain & Abel"] = "昧化该隐&亚伯",
 			["Benighted Judas"] = "昧化犹大",
 		})		
 		mcm.TranslateOptionsDisplayWithTable(ModName, AchievSettings2, {
-			{"Unlocked", "人物解锁"},
+			{"Unlocked", "解锁状态"},
 			{"Heart", "妈心"},
 			{"Isaac", "以撒"},
 			{"BlueBaby", "蓝宝"},
@@ -298,10 +341,10 @@ if mcm.i18n == "Chinese" then
 			{"Nope", "否"},	
 		})
 		mcm.TranslateOptionsInfoTextWithTable(ModName, AchievSettings2, {
-			["Is this character unlocked"] = "该人物的解锁状态",
+			["Is this character and relevant challenge unlocked"] = "该人物及其挑战的解锁状态",
 			["Mark that does not has its own achievement"] = "无专属成就",
 			["No achievement yet"] = "暂无成就",
-			["One of two marks for a challenge"] = "1/2解锁一个挑战",
+			["One of two marks for a falsehood"] = "1/2解锁一个伪忆",
 			["For a mini boss"] = "解锁一个小头目",
 			["This only affects its single achievement"] = "改动此项仅影响对应的单个成就",
 			

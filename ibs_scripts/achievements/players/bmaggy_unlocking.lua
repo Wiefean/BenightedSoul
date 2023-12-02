@@ -14,15 +14,18 @@ local LANG = Options.Language
 
 --播放成就纸张动画
 local function ShowPaper()
-	local paper = "bmaggy_unlock"
+	for i = 1,2 do
+		local paper = "bmaggy_unlock"
+		if i == 2 then paper = "bc2" end
 
-	--检测语言
-	if LANG == "zh" then
-		paper = paper.."_zh"
+		--检测语言
+		if LANG == "zh" then
+			paper = paper.."_zh"
+		end
+		
+		paper = paper..".png"	
+		BigBooks:PlayPaper(paper)
 	end
-	
-	paper = paper..".png"	
-	BigBooks:PlayPaper(paper)
 end
 
 --检测解锁条件
@@ -48,7 +51,7 @@ end
 
 --抹大拉死在献祭房判定
 local function TMaggyDeath(_,isLose)
-	if isLose then
+	if isLose and not IBS_Data.Setting["bmaggy"]["Unlocked"] then
 		if Game():GetRoom():GetType() == RoomType.ROOM_SACRIFICE then
 			for i = 0, Game():GetNumPlayers() -1 do
 				local playerType = Isaac.GetPlayer(i):GetPlayerType()
@@ -64,7 +67,7 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_END, TMaggyDeath)
 
 --检测下一局玩家一是否为抹大拉
 local function IsMaggy(_,player)
-	if IBS_Data.GameState.Persis.maggySacrifice then
+	if (not IBS_Data.Setting["bmaggy"]["Unlocked"]) and IBS_Data.GameState.Persis.maggySacrifice then
 		if IsUnlockable() then
 			local playerType = Isaac.GetPlayer(0):GetPlayerType()
 			if (playerType ~= 1) and (playerType ~= 22) then
@@ -72,7 +75,7 @@ local function IsMaggy(_,player)
 				IBS_Data.GameState.Persis.maggyTimes = 0
 				mod:SaveIBSData() --保存,以防万一
 			else
-				sfx:Play(IBS_Sound.angelbonus)
+				sfx:Play(IBS_Sound.secretfound)
 			end
 		end	
 	end	

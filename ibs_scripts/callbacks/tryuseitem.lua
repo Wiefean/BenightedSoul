@@ -71,14 +71,14 @@ end)
 ]]
 local function TryUseItemCallback(_, ent)
     local player = ent and ent:ToPlayer()
-	if (TryUseTimeOut <= 0) and player then
+	if (TryUseTimeOut <= 0) and player and not player.Parent then
 		if (not Game():IsPaused()) and (player:AreControlsEnabled()) then
 			for slot = ActiveSlot.SLOT_PRIMARY, ActiveSlot.SLOT_POCKET, 2 do --只考虑第一主动和副手主动槽
 				local item = player:GetActiveItem(slot)
 				local itemConfig = config:GetCollectible(item)
 				
-				--非错误道具,非零充主动,主动按键触发
-				if (item > 0) and (itemConfig.MaxCharges > 0) and IsActiveButtonTriggered(player, slot) then
+				--非错误道具,主动按键触发
+				if (item > 0) and IsActiveButtonTriggered(player, slot) then
 					local canUse = false
 					local flags = UseFlag.USE_OWNED --已经自动添加使用标签"拥有"
 					local ignoreSharpPlug = false --是否无视锋利插头
@@ -113,7 +113,7 @@ local function TryUseItemCallback(_, ent)
 						player:UseActiveItem(item, flags, slot)
 						TryUseTimeOut = TryUseTimeOut + 2
 						
-						--利用先充满主动,再设置原有充能,以此无视锋利插头(按太快还是会触发)
+						--先充满主动,再设置原有充能,以此无视锋利插头(按太快还是会触发)
 						if ignoreSharpPlug and player:HasCollectible(CollectibleType.COLLECTIBLE_SHARP_PLUG) then
 							player:SetActiveCharge(math.max(0, maxCharges), slot)
 							Players:SetChargeData(player, slot, charges)

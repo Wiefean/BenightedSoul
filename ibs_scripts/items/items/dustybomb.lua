@@ -1,9 +1,14 @@
 --尘埃炸弹
 
 local mod = Isaac_BenightedSoul
+local IBS_API = mod.IBS_API
 local IBS_Item = mod.IBS_Item
 local Ents = mod.IBS_Lib.Ents
 local Finds = mod.IBS_Lib.Finds
+
+local ErrorTipName = "IBS_API.DB"
+IBS_API.DB = {}
+
 
 --不替换贴图的炸弹效果
 local ExcludedFlags = {
@@ -74,12 +79,12 @@ local function ApplyBombCostume(bomb)
     end
 
     local spr = bomb:GetSprite()
-    local filename = spr:GetFilename()
-	
+    local name = tonumber(string.sub(string.reverse(spr:GetFilename()), 6, 6))
+
 	--检查尺寸(硬核)
     local size = 2
     for i = 0, 3 do
-        if (string.reverse(filename)[1] == i) then
+        if (name == i) then
             size = i
             break
         end
@@ -140,3 +145,36 @@ local function AlsoEpicFetus(_,effect)
 end
 mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, AlsoEpicFetus, EffectVariant.ROCKET)
 
+
+
+--是否有尘埃炸弹效果
+function IBS_API.DB:IsDustyBomb(bomb)
+	local err,mes = mod:CheckArgType(bomb, "userdata", "bomb", 1, ErrorTipName)
+	if err then error(mes, 2) end
+
+	if Ents:GetTempData(bomb).DustyBomb then
+		return true
+	end
+	
+	return false
+end
+
+--设置尘埃炸弹效果
+function IBS_API.DB:ApplyEffect(bomb, noCostume)
+	local err,mes = mod:CheckArgType(bomb, "userdata", "bomb", 1, ErrorTipName)
+	if err then error(mes, 2) end
+	err,mes = mod:CheckArgType(noCostume, "boolean", nil, 2, ErrorTipName)
+	if err then error(mes, 2) end
+
+	data = GetDustyBombData(bomb)
+	
+	if not noCostume then ApplyBombCostume(bomb) end
+end
+
+--移除尘埃炸弹效果
+function IBS_API.DB:RemoveEffect(bomb)
+	local err,mes = mod:CheckArgType(bomb, "userdata", "bomb", 1, ErrorTipName)
+	if err then error(mes, 2) end
+
+	Ents:GetTempData(bomb).DustyBomb = nil
+end

@@ -3,4 +3,11 @@
 	<card type="object" hud="ibs_czd6" pickup="7250" description="Cu + Zn" name="The Great Golden Collectible -- D6"/>
 	<card type="special" hud="ibs_goldenprayer" pickup="7251" description="Pray for people and peace" name="Golden Prayer" mimiccharge="6"/>
 
+
+	<!-- rune -->
+    <rune type="rune" pickup="7777" hud="ibs_falsehood_bisaac" description="Dice Sign 「Dualistic Equilibrium」" name="Falsehood of Isaac" mimiccharge="4" />
+    <rune type="rune" pickup="7778" hud="ibs_falsehood_bmaggy" description="Holy Sign 「Charge Under Stone」" name="Falsehood of Magdalene" mimiccharge="6" />
+
+    <rune type="rune" pickup="7780" hud="ibs_falsehood_bjudas" description="Death Sign 「Night Shot」" name="Falsehood of Judas" mimiccharge="1" />
+	
 </pocketitems>

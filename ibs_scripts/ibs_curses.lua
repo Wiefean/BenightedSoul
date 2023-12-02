@@ -1,4 +1,5 @@
 --诅咒
+
 local function LoadScripts(scripts)
     for _, v in ipairs(scripts) do
         include("ibs_scripts.curses."..v)
@@ -22,29 +23,7 @@ local IBS_RNG2 = mod:GetUniqueRNG("ChooseIBSCurse")
 
 local config = Isaac.GetItemConfig()
 
-local function GetCurseSprite(animName)
-	local spr = Sprite()
-	spr:Load("gfx/ibs/ui/curses.anm2", true)
-	spr:Play(animName)
-	return spr
-end
-
-local CurseList = {
-	[1] = {ID = LevelCurse.CURSE_OF_DARKNESS},
-	[2] = {ID = LevelCurse.CURSE_OF_LABYRINTH},
-	[3] = {ID = LevelCurse.CURSE_OF_THE_LOST},
-	[4] = {ID = LevelCurse.CURSE_OF_THE_UNKNOWN},
-	[5] = {ID = LevelCurse.CURSE_OF_THE_CURSED},
-	[6] = {ID = LevelCurse.CURSE_OF_MAZE},
-	[7] = {ID = LevelCurse.CURSE_OF_BLIND},
-	[8] = {ID = LevelCurse.CURSE_OF_GIANT},
-	[9] = {ID = IBS_Curse.moving, Sprite = GetCurseSprite("moving")},
-	[10] = {ID = IBS_Curse.forgotten, Sprite = GetCurseSprite("forgotten")},
-	[11] = {ID = IBS_Curse.d7, Sprite = GetCurseSprite("d7")},
-	[12] = {ID = IBS_Curse.binding, Sprite = GetCurseSprite("binding")},
-}
-
---
+--尝试添加诅咒
 local function ApplyCurse(_,curse)
 	if IBS_RNG1:RandomInt(99) < 19 then
 		local game = Game()
@@ -69,66 +48,77 @@ local function ApplyCurse(_,curse)
 end
 mod:AddPriorityCallback(ModCallbacks.MC_POST_CURSE_EVAL, CallbackPriority.IMPORTANT, ApplyCurse)
 
---
--- local function CurseRender()
-	-- if Game():GetHUD():IsVisible() then
-		-- local X = Isaac.GetScreenWidth()
-		-- local Y = Isaac.GetScreenHeight()
+--获取诅咒贴图
+local function GetCurseSprite(frame)
+	local spr = Sprite()
+	spr:Load("gfx/ibs/ui/curses.anm2", true)
+	spr:Play("Idle")
+	spr:SetFrame(frame)
+	
+	return spr
+end
+
+--诅咒列表
+local CurseList = {
+	[1] = {Curse = IBS_Curse.moving, Sprite = GetCurseSprite(0)},
+	[2] = {Curse = IBS_Curse.forgotten, Sprite = GetCurseSprite(1)},
+	[3] = {Curse = IBS_Curse.d7, Sprite = GetCurseSprite(2)},
+	[4] = {Curse = IBS_Curse.binding, Sprite = GetCurseSprite(3)},
+}
+
+--获取诅咒
+local function GetCursesToRender()
+	local result = {}
+	local curses = Game():GetLevel():GetCurses() 
+	
+	for k,v in ipairs(CurseList) do
+		if (curses & v.Curse > 0) then
+			table.insert(result, v)
+		end	
+	end
+	
+	return result
+end
+
+--是否按住地图键
+local function IsMapPressed()
+	for i = 0, Game():GetNumPlayers() -1 do
+		local player = Isaac.GetPlayer(i)
+		if Input.IsActionPressed(ButtonAction.ACTION_MAP, player.ControllerIndex) then
+			return true
+		end
+	end
+	return false
+end
+
+--不透明度
+local alpha = 0
+
+--诅咒图标渲染
+local function CurseRender(_,shaderName)
+	if shaderName ~= "IBS_Empty" then return end
+	local game = Game()
+	if game:GetHUD():IsVisible() then
+		local X = Isaac.GetScreenWidth() / 2
+		local Y = Isaac.GetScreenHeight() / 3.5
+		local curses = GetCursesToRender()
+		X = X - 8*(#curses - 1)
 		
-		-- local controllers = {} --
-		-- local index = 0
+		--调整透明度
+		if not game:IsPaused() then
+			if IsMapPressed() then
+				if alpha < 1 then alpha = alpha + 0.05 end
+			else
+				if alpha > 0 then alpha = alpha - 0.05 end
+			end
+		end	
 		
-		-- for i = 0, Game():GetNumPlayers() -1 do
-			-- local player = Isaac.GetPlayer(i)
-			-- local cid = player.ControllerIndex
-			-- if (player.Variant == 0) and not player:IsCoopGhost()  and not controllers[cid] then
-				-- if (player:GetPlayerType() == (IBS_Player.bmaggy) or IBSChallenge()) then
-					-- local IronHeart = GetIronHeartData(player)
-					-- local data = GetPlayerTempData(player)
-					-- IronHeart.Num = math.floor(IronHeart.Num)
-					-- IronHeart.Max = math.floor(IronHeart.Max)
-					-- IronHeart.Extra = math.floor(IronHeart.Extra)
-					
-					-- local X,Y = GetIronHeartRenderPosition(index)
-					-- local spr = data.IronHeart_Sprite
-					-- local fnt = data.IronHeart_Font
-					-- local inum = tostring(IronHeart.Num + IronHeart.Extra)
-					-- local imax = tostring(IronHeart.Max)
-					-- if IronHeart.Num < 10 then inum = " "..inum end
-					
-					--未知诅咒兼容
-					-- if (Game():GetLevel():GetCurses() & LevelCurse.CURSE_OF_THE_UNKNOWN > 0) then
-						-- inum = " ?"
-						-- imax = "?"
-					-- end
-					
-					-- local inumColor = KColor(1,1,1,1,0,0,0)
-					-- if (IronHeart.Num + IronHeart.Extra) > IronHeart.Max then inumColor = KColor(1,1,0,1,0,0,0) end
-					
-					-- local imaxColor = KColor(1,1,1,1,0,0,0)
-					-- if IronHeart.Max < Init.IronHeart_Max then imaxColor = KColor(1,0,0,1,0,0,0) end
-					-- if IronHeart.Max > Init.IronHeart_Max then imaxColor = KColor(0.5,1,1,1,0,0,0) end
-					
-					-- spr:Render(Vector(X,Y))
-					-- fnt:DrawString(inum, X+7, Y-7, inumColor)
-					-- fnt:DrawString("/", X+7+fnt:GetStringWidth(inum), Y-7, KColor(1,1,1,1,0,0,0))
-					-- fnt:DrawString(imax, X+7+fnt:GetStringWidth("/"..inum), Y-7, imaxColor)	
-					
-					
-					
-					-- if EID then
-						-- if EID.player then
-							-- EID:addTextPosModifier("IBS_BMAGGY", Vector(0,20))
-						-- else
-							-- EID:removeTextPosModifier("IBS_BMAGGY")
-						-- end
-					-- end
-				-- end	
-				-- controllers[cid] = true
-				-- index = index + 1
-			-- end
-		-- end
-	-- end
--- end
--- mod:AddCallback(ModCallbacks.MC_POST_RENDER, CurseRender)
+		for k,v in ipairs(curses) do
+			v.Sprite.Color = Color(1,1,1,alpha)
+			v.Sprite:Render(Vector(X,Y))
+			X = X + 16
+		end
+	end
+end
+mod:AddCallback(ModCallbacks.MC_GET_SHADER_PARAMS, CurseRender)
 

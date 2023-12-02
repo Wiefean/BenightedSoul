@@ -402,7 +402,7 @@ end
 
 --攻击力
 --[[输入:玩家(实体), 数值, 是否忽略原版倍率(是否)]]
-function Stats:Damage(player, value, ignoreMultiples)
+function Stats:Damage(player, value, ignoreMultiples, balance)
 	if not ignoreMultiples then
 	
 		--角色倍率

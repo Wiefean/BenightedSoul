@@ -11,18 +11,15 @@ local Ents = mod.IBS_Lib.Ents
 local Translations = mod.IBS_Lib.Translations
 local IBS_RNG = mod:GetUniqueRNG("Boss_Fortitude")
 
-local LANG = Options.Language
-if LANG ~= "zh" then LANG = "en" end
+local Fortitude = mod.IBS_Boss.Fortitude
+
+local LANG = mod.Language
 
 local sfx = SFXManager()
 
 
 
 --基础属性
-local Fortitude = {
-	Type = Isaac.GetEntityTypeByName("IBS_Fortitude"),
-	Variant = Isaac.GetEntityVariantByName("IBS_Fortitude")
-}
 
 local BossState = {
 	Normal = 20,
@@ -32,11 +29,11 @@ local BossState = {
 --临时数据
 local function GetNpcData(npc)
 	local data = Ents:GetTempData(npc)
-	data.Fortitude = data.Fortitude or {
+	data.Fortitude_Boss = data.Fortitude_Boss or {
 		DashCD = 60,
 		DashLeft = 0
 	}
-	return data.Fortitude
+	return data.Fortitude_Boss
 end
 
 --是否半血

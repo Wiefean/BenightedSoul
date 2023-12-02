@@ -6,6 +6,9 @@ local IBS_Item = mod.IBS_Item
 local Pools = mod.IBS_Lib.Pools
 local Players = mod.IBS_Lib.Players
 
+--用于昧化该隐&亚伯
+mod.IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.ffruit)
+
 --品质1或3
 local function Quality1Or3(itemConfig)
 	local quality = itemConfig.Quality

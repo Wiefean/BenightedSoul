@@ -9,17 +9,18 @@ end
 local players = {
 	"bisaac",
 	"bmaggy",
-	
+	"bcain_and_babel",
 	"bjudas",
 }
-
 LoadScripts(players)
+
 
 local mod = Isaac_BenightedSoul
 local IBS_Player = mod.IBS_Player
 local Ents = mod.IBS_Lib.Ents
 local SpriteDefaultPath = "gfx/001.000_player.anm2"
 
+--角色信息
 local IBS_Player_Info = {
 
 [IBS_Player.bisaac] = {
@@ -32,6 +33,18 @@ local IBS_Player_Info = {
 	SpriteFlightPath = "gfx/ibs/characters/player_bmaggy_flight.anm2"
 },
 
+[IBS_Player.bcain] ={
+	Costume = Isaac.GetCostumeIdByPath("gfx/ibs/characters/bcain_hat.anm2"),
+	SpritePath = "gfx/ibs/characters/player_bcain.anm2",
+	SpriteFlightPath = "gfx/ibs/characters/player_bcain.anm2"
+},
+
+[IBS_Player.babel] ={
+	Costume = Isaac.GetCostumeIdByPath("gfx/ibs/characters/babel_hair.anm2"),
+	SpritePath = "gfx/ibs/characters/player_babel.anm2",
+	SpriteFlightPath = "gfx/ibs/characters/player_babel.anm2"
+},
+
 [IBS_Player.bjudas] ={
 	Costume = Isaac.GetCostumeIdByPath("gfx/ibs/characters/bjudas_mitre_and_mantle.anm2"),
 	SpritePath = "gfx/ibs/characters/player_bjudas.anm2",
@@ -40,6 +53,7 @@ local IBS_Player_Info = {
 
 }
 
+--临时数据
 local function GetPlayerCostumeData(player)
 	local data = Ents:GetTempData(player)
 	
@@ -54,6 +68,7 @@ local function GetPlayerCostumeData(player)
 	return data.IBSPlayerCostume
 end
 
+--更换角色动画文件
 local function ChangeSprite(player, anm2path)
 	local spr = player:GetSprite()
 	local animation = spr:GetAnimation()
@@ -65,6 +80,7 @@ local function ChangeSprite(player, anm2path)
 	spr:SetOverlayFrame(overlayAnimation, overlayFrame)
 end
 
+--更新贴图
 local function UpdatePlayerSprite(_,player)
 	local playerType = player:GetPlayerType()
 	local TheCostume = IBS_Player_Info[playerType]
@@ -72,7 +88,7 @@ local function UpdatePlayerSprite(_,player)
 	if TheCostume then
 		local data = GetPlayerCostumeData(player)
 		
-		--
+		--检测装扮和动画文件是否正确
 		if data.PlayerType ~= playerType then
 			local FalseCostume = IBS_Player_Info[data.PlayerType]
 			if FalseCostume then
@@ -88,15 +104,15 @@ local function UpdatePlayerSprite(_,player)
 			data.CostumeState = 0
 		end	
 		
-		--
+		--更换角色动画文件
 		if TheCostume.SpritePath and TheCostume.SpriteFlightPath then
 			local sprState = 1
 			local spritePath = TheCostume.SpritePath
 			local spriteFlightPath = TheCostume.SpriteFlightPath
 			local path = spritePath
-			if player.CanFly then path = spriteFlightPath sprState = 2 end --
+			if player.CanFly then path = spriteFlightPath sprState = 2 end --飞行
 			
-			--
+			--超大蘑菇
 			if player:GetEffects():HasCollectibleEffect(CollectibleType.COLLECTIBLE_MEGA_MUSH) then
 				path = SpriteDefaultPath
 				sprState = 0
@@ -108,6 +124,7 @@ local function UpdatePlayerSprite(_,player)
 			end	
 		end
 		
+		--装扮
 		if TheCostume.Costume then
 			local costumeState = 1
 			local costume = TheCostume.Costume

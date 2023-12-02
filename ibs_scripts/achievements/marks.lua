@@ -15,7 +15,7 @@ local Paper = {
 [IBS_Player.bisaac] = {
 	IBSL = "bottleshard",
 	MegaSatan = "czd6",
-	BRH = "bc1",
+	BRH = "bisaac_falsehood",
 	Delirium = "lightd6",
 	Witness = "dadspromise",
 	Beast = "nop",
@@ -26,7 +26,7 @@ local Paper = {
 [IBS_Player.bmaggy] = {
 	IBSL = "divineretaliation",
 	MegaSatan = "goldenprayer",
-	BRH = "bc2",
+	BRH = "bmaggy_falsehood",
 	Delirium = "gheart",
 	Witness = "toughheart",
 	Beast = "diamoond",
@@ -38,7 +38,7 @@ local Paper = {
 [IBS_Player.bjudas] = {
 	IBSL = "chaoticbelief",
 	MegaSatan = nil,
-	BRH = "bc4",
+	BRH = "bjudas_falsehood",
 	Delirium = "tgoj",
 	Witness = "thronyring",
 	Beast = "sword",
@@ -52,7 +52,8 @@ local Paper = {
 local PlayerTypeToKey = {
 	[IBS_Player.bisaac] = "bisaac",
 	[IBS_Player.bmaggy] = "bmaggy",
-	
+	[IBS_Player.bcain] = "bcain_and_babel",
+	[IBS_Player.babel] = "bcain_and_babel",
 	[IBS_Player.bjudas] = "bjudas",
 }
 local function ToKey(playerType)

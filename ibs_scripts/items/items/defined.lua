@@ -9,6 +9,9 @@ local Players = mod.IBS_Lib.Players
 
 local sfx = SFXManager()
 
+--用于昧化该隐&亚伯
+mod.IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.defined)
+
 local Destination = {
 	[0] = {Type = RoomType.ROOM_DEFAULT, Charge = 0},
 	[1] = {Type = RoomType.ROOM_BOSS, Charge = 5},
@@ -121,7 +124,7 @@ local function Teleport(_,item, rng, player, flags, slot)
 			--正邪削弱(东方mod)
 			if (flags & UseFlag.USE_OWNED > 0) and mod:THI_WillSeijaNerf(player) then	
 				if rng:RandomInt(3) == 0 then
-					player:RemoveCollectible(IBS_Item.defined)
+					player:RemoveCollectible(IBS_Item.defined, true, slot)
 					player:AddCollectible(324, 6, false, slot)
 				end
 			end	

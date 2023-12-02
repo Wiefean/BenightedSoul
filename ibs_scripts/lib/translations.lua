@@ -22,6 +22,8 @@ Item = {
 		[IBS_Player.bisaac]="飞升",
 		[IBS_Player.bmaggy]="更快变硬",
 		[IBS_Player.bjudas]="返还",
+		[IBS_Player.bcain]="你在哪 ?",
+		[IBS_Player.babel]="在你那",
 	},
 	[IBS_Item.ld6]={
 		Name="光辉六面骰",
@@ -155,12 +157,7 @@ Item = {
 	
 	[IBS_Item.redeath]={
 		Name="死亡回放",
-		Desc="杀死你会让你更强大"
-	},
-	
-	[IBS_Item.redeath]={
-		Name="死亡回放",
-		Desc="杀死你会让你更强大"
+		Desc="重置已逝...暂时"
 	},
 	
 	[IBS_Item.dustybomb]={
@@ -196,6 +193,21 @@ Item = {
 	[IBS_Item.sword]={
 		Name="紫电护主之刃",
 		Desc="又见面了 , 老伙计"
+	},
+
+	[IBS_Item.regret]={
+		Name="死不瞑目",
+		Desc="杀死你也会让你更强大"
+	},
+	
+	[IBS_Item.sacrifice]={
+		Name="不受欢迎的祭品",
+		Desc="事实证明 , 上帝不是吃素的"
+	},
+	
+	[IBS_Item.sacrifice2]={
+		Name="受欢迎的祭品",
+		Desc="致命盛宴"
 	},
 
 },
@@ -237,15 +249,31 @@ Trinket = {
 --口袋物品(不包含药丸)
 Pocket = {
 	[IBS_Pocket.czd6]={
-		Name=" 六面骰黄金典藏版",
+		Name="六面骰黄金典藏版",
 		Desc="Cu + Zn"
 	},
 	[IBS_Pocket.goldenprayer]={
-		Name=" 金色祈者",
+		Name="金色祈者",
 		Desc="祈祷 , 为人与和平"
 	},
 
 
+	[IBS_Pocket.falsehood_bisaac]={
+		Name="以撒的伪忆",
+		Desc="骰符 「二元平衡」"
+	},
+	[IBS_Pocket.falsehood_bmaggy]={
+		Name="抹大拉的伪忆",
+		Desc="圣符 「石破天惊」"
+	},
+	
+	[IBS_Pocket.falsehood_bjudas]={
+		Name="犹大的伪忆",
+		Desc="死符 「灯熄枪响」"
+	},
+
+	
+	
 },
 
 --Boss替换提醒
@@ -272,6 +300,11 @@ MirrorTip = {
 	["Magdalene"]={
 		Title="给抹大拉的秘语",
 		Sub="不惜生命为上帝献祭 , 之后不断磨炼自己的意志"
+	},
+	
+	["Cain"]={
+		Title="给该隐的秘语",
+		Sub="以你为祭 , 墓地 , 以兄为弟"
 	},
 	
 	["Judas"]={
@@ -312,6 +345,11 @@ MirrorTip = {
 	["Magdalene"]={
 		Title="For Magdalene",
 		Sub="Sacrifice your life for God, then keep honing your will"
+	},
+	
+	["Cain"]={
+		Title="For Cain",
+		Sub="Be in sacrifice , be in graveyard , be in brother"
 	},
 	
 	["Judas"]={

@@ -23,6 +23,16 @@ local birthrightEID = {
 	info = "Doubles natrual iron heart recovery"
 },
 
+[IBS_Player.bcain] = {
+	name = "Benighted Cain",
+	info = "No control reverse on the second"
+},
+
+[IBS_Player.babel] = {
+	name = "Benighted Abel",
+	info = "No control reverse on the second"
+},
+
 [IBS_Player.bjudas] = {
 	name = "Benighted Judas",
 	info = "{{Collectible"..(IBS_Item.tgoj).."}} Returns tears when absoring projectiles"
@@ -39,7 +49,7 @@ local itemEID={
 	name="The Light D6",
 	info="Can be used without full charge"..
 		 "#Rerolls items with their average quality in the current room"..
-		 "Costs charges:"..
+		 "#Costs charges:"..
 		 "#{{Quality0}} and below: 0"..
 		 "#{{Quality1}} : 1"..
 		 "#{{Quality2}} : 2"..
@@ -202,7 +212,7 @@ local itemEID={
 
 [IBS_Item.v7]={
 	name="V7",
-	info="Spawns one of friendly bosses below："..
+	info="Spawns one of the friendly bosses below："..
 		 "#Temperance"..
 		 "#Fortitude",
 	virtue="Common wisps",
@@ -222,16 +232,16 @@ local itemEID={
 
 [IBS_Item.nail]={
 	name="Reserved Nail",
-	info="Fires a nail that petrifies and weakens an enemy for 2.5 seconds"..
+	info="Fires a nail that petrifies and weakens an enemy for 3 seconds"..
 		 "#DMG boosts charges",
-	virtue="Wisps that do not shoot tears#Exists only one room",
+	virtue="Wisps that do not shoot tears but petrifies and weakens enemies around for 1.5 seconds when killed#Exists only one room",
 	belial="Apply fire mind effect to the nail"		 
 },
 
 [IBS_Item.superb]={
 	name="Super B",
 	info="Enough DMG, charges active items, including the extra charge bar"..
-		 "#When hurt, keep costing charges from the extra charge bar with laser, gas, and creep"..
+		 "#When hurt, keep costing charges from the extra charge bar"..
 		 "#If costs charges sufficiently, makes an explosion, or stops costing charges",
 	seijaNerf="The explosion may kill you"
 },
@@ -264,11 +274,11 @@ local itemEID={
 
 [IBS_Item.redeath]={
 	name="Re-death",
-	info="When Isaac dies:"..
-		 "#↑ {{Speed}}spd + 0.1"..
-		 "#↑ {{Tears}}tears + 0.35"..
-		 "#↑ {{Damage}}dmg + 1",
-	seijaBuff="{{Card89}} for each level"		 
+	info="Rerolls empty pedestals into one of the pickups below:"..
+		 "#Chests, grab bags, pocket items, trinkets, collectibles"..
+		 "#Pickups rerolled disappear in 6 seconds and are surrounded by spikes",
+	virtue="No Wisps#The pickups won't disappear",
+	belial="No spikes surround the pickups"	
 },
 
 [IBS_Item.dustybomb]={
@@ -329,6 +339,34 @@ local itemEID={
 	seijaNerf="Alse targets players"
 },
 
+[IBS_Item.regret]={
+	name="Everlasting Regret",
+	info="When Isaac dies:"..
+		 "#↑ {{Speed}}spd + 0.1"..
+		 "#↑ {{Tears}}tears + 0.35"..
+		 "#↑ {{Damage}}dmg + 1",
+	seijaBuff="{{Collectible11}} for each level if not held"		 
+},
+
+[IBS_Item.sacrifice]={
+	name="Unwelcome Sacrifice",
+	info="In 1.7 seconds, lower a big light pillar the spot, and make an explosion"..
+		 "#The pillar deals 70% Isaac's {{Damage}} damage per frame, and destroy surrounding obstacles, lasting 3.5 seconds"..
+		 "#!!! The pillar can also hurt Isaac"..
+		 "#If {{Collectible"..(IBS_Item.sacrifice2).."}} have been used, then the pillar won't hurt Isaac and will follow enemies",
+	virtue="No wisps#The pillar won't hurt Isaac and will follow enemies",
+	belial="A bigger pillar following Isaac"
+},
+
+[IBS_Item.sacrifice2]={
+	name="Welcome Sacrifice",
+	info="Changed by entering devil/angel room"..
+		 "#If {{Collectible"..(IBS_Item.sacrifice).."}} have been used, charge at once"..
+		 "#!!! {{ColorYellow}}SINGLE USE{{CR}}"..
+		 "#After used, when entering a new room with any pedestal item, additionally spawns one form devil room and one from angel room as options",
+	virtue="No wisps#Charge at once",
+	belial="Charge at once"
+},
 
 }
 --------------------------------------------------------
@@ -384,7 +422,7 @@ local trinketEID={
 	info="When hurt, 9% chance to trigger:"..
 		 "#{{BrokenHeart}} 50% clear a broken heart, if not then trigger next one"..
 		 "#{{SoulHeart}} 25% soul heart + 1"..
-		 "#{{AngelRoom}} 15% angel room chance + 10%"..
+		 "#{{AngelRoom}} 15% angel room chance + 10%, and remove curses"..
 		 "#{{EternalHeart}} 10% eternal heart + 1",
 	mult={
 		numberToMultiply = 9,
@@ -407,6 +445,25 @@ local cardEID={
 	name="Golden Prayer",
 	info="+ 30 iron hearts#{{BossRoom}} After consumed, it will be spawned whten next boss room is cleared",
 	mimic={charge = 6, isRune = false},
+},
+
+[IBS_Pocket.falsehood_bisaac] = {
+	name="Falsehood of Isaac",
+	info="Rerolls items to devil/angel items with their average quality in the current room",
+	mimic={charge = 4, isRune = true}
+},
+
+[IBS_Pocket.falsehood_bmaggy] = {
+	name="Falsehood of Magdalene",
+	info="↑ Lasting 7 seconds, Isaac becomes invincible, + 0.7{{Speed}}spd, constantly spawns holy light and shockwave",
+	mimic={charge = 6, isRune = true}
+},
+
+[IBS_Pocket.falsehood_bjudas] = {
+	name="Falsehood of Judas",
+	info="Darken surroundings for 3 seconds, during which next attact will fire a spectral, piercing and burning tear with 670% Isaac's{{Damage}}dmg"..
+		 "#If the tear successfully hits the first enemy, gain another one {{Card"..(IBS_Pocket.falsehood_bjudas).."}}",
+	mimic={charge = 1, isRune = true}
 },
 
 }

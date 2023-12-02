@@ -7,7 +7,7 @@
 Isaac_BenightedSoul = RegisterMod("Benighted Soul",1)
 
 local mod = Isaac_BenightedSoul
-mod.ModVersion = "0.4.0"
+mod.ModVersion = "0.5.0"
 mod.Language = Options.Language
 if mod.Language ~= "zh" then mod.Language = "en" end
 
@@ -30,9 +30,9 @@ local Scripts = {
 	"ibs_constants",
 	"ibs_callbacks",
 	"ibs_achievements",
-	"ibs_items",
-	"ibs_players",
 	"ibs_entities",
+	"ibs_players",
+	"ibs_items",
 	"ibs_curses",
 	"ibs_debug_console",
 }
@@ -89,4 +89,4 @@ end
 ----------------
 
 --成功加载提示
-print("[Benighted Soul] Loaded (v"..(mod.ModVersion)..")")
+print("[Benighted Soul] Loaded (v"..(mod.ModVersion)..").")

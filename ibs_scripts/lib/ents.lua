@@ -3,12 +3,14 @@
 local mod = Isaac_BenightedSoul
 local ModName = mod.Name
 
-
 local Ents = {}
-
+local ErrorTipName = "IBS_Lib.Ents"
 
 --临时数据
 function Ents:GetTempData(ent)
+	local err,mes = mod:CheckArgType(ent, "userdata", "entity", 1, ErrorTipName)
+	if err then error(mes, 2) end
+
     local data = ent:GetData()
     data[ModName] = data[ModName] or {}
 	
@@ -18,6 +20,15 @@ end
 --是否为敌人
 --[[输入: 实体, 是否包括不能受伤的敌人, 是否包括友好的敌人, 是否忽略Boss]]
 function Ents:IsEnemy(ent, includeInvulnerable, includeFriendly, ignoreBoss)
+	local err,mes = mod:CheckArgType(ent, "userdata", "entity", 1, ErrorTipName)
+	if err then error(mes, 2) end
+	err,mes = mod:CheckArgType(includeInvulnerable, "boolean", nil, 2, ErrorTipName, true)
+	if err then error(mes, 2) end
+	err,mes = mod:CheckArgType(includeFriendly, "boolean", nil, 3, ErrorTipName, true)
+	if err then error(mes, 2) end
+	err,mes = mod:CheckArgType(ignoreBoss, "boolean", nil, 4, ErrorTipName, true)
+	if err then error(mes, 2) end
+	
 	return ent:IsEnemy() and (ent:IsVulnerableEnemy() or includeInvulnerable) and (not ent:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) or includeFriendly) and (not ignoreBoss or not ent:IsBoss())
 end
 

@@ -9,6 +9,9 @@ local Maths = mod.IBS_Lib.Maths
 
 local sfx = SFXManager()
 
+--用于昧化该隐&亚伯
+mod.IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.nail)
+
 --方向转向量
 local DirectionToVector = {
 	[Direction.LEFT] = Vector(-1, 0),
@@ -79,8 +82,8 @@ mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, ExtraCharge)
 --魂火熄灭
 local function WispKilled(_,familiar)
     if (familiar.Variant == FamiliarVariant.WISP and familiar.SubType == (IBS_Item.nail)) then
-		for _,ent in pairs(Isaac.FindInRadius(familiar.Position, 70, EntityPartition.ENEMY)) do
-			target:AddFreeze(EntityRef(familiar), 45)
+		for _,ent in pairs(Isaac.FindInRadius(familiar.Position, 40, EntityPartition.ENEMY)) do
+			ent:AddFreeze(EntityRef(familiar), 45)
 			Ents:AddWeakness(ent, 45)
 		end
     end

@@ -6,7 +6,7 @@ local Ents = mod.IBS_Lib.Ents
 
 local sfx = SFXManager()
 
-local WisperVariant = Isaac.GetEntityVariantByName("IBS_Wisper")
+local WisperVariant = mod.IBS_Familiar.Wisper.Variant
 
 --缝纫机mod介绍
 if Sewn_API then	
@@ -46,6 +46,7 @@ local function Wisper_Update(_,familiar)
 	familiar.OrbitDistance = Vector(80,80)
     familiar.OrbitSpeed = 0.02
     familiar.Velocity = (familiar:GetOrbitPosition(player.Position + player.Velocity) - familiar.Position)
+	familiar.SpriteScale = Vector(1.2,1.2)
 end
 mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, Wisper_Update, WisperVariant)
 
@@ -157,7 +158,7 @@ local function Wisper_Spawn(_,player, flag)
     if flag == CacheFlag.CACHE_FAMILIARS then
 		local boxUse = player:GetEffects():GetCollectibleEffectNum(357) --朋友盒
 		local num = player:GetCollectibleNum(IBS_Item.wisper)
-		local numFamiliars = (num > 0 and (num + boxUse) or 0)
+		local numFamiliars = (num > 0 and num + boxUse) or 0
 		
 		player:CheckFamiliar(WisperVariant, numFamiliars, player:GetCollectibleRNG(IBS_Item.wisper), Isaac.GetItemConfig():GetCollectible(IBS_Item.wisper))
 	end

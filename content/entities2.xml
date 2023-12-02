@@ -3,32 +3,41 @@
     <entity name="IBS_Temperance" anm2path="bosses/mini/temperance.anm2" baseHP="49" boss="1" champion="0" collisionDamage="2" collisionMass="30" collisionRadius="13" friction="1" id="49" variant="7250" numGridCollisionPoints="12" shadowSize="12" stageHP="7" portrait="0" >
         <gibs amount="10" blood="0" bone="1" eye="0" gut="0" large="0" sound_bone="1" dust="1" />
     </entity>
-
     <entity name="IBS_Fortitude" anm2path="bosses/mini/fortitude.anm2" baseHP="100" boss="1" champion="0" collisionDamage="0" collisionMass="30" collisionRadius="13" friction="1" id="48" variant="7250" numGridCollisionPoints="12" shadowSize="13" stageHP="20" shieldStrength="70" portrait="1" >
         <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0" />
     </entity>
 
 
 	<!-- familiars -->
-    <entity name="IBS_Wisper" anm2path="familiar/wisper.anm2" id="3" variant="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="12" shadowSize="7" stageHP="0" tags="cansacrifice"/>
+    <entity name="IBS_Wisper" anm2path="familiar/wisper.anm2" id="3" variant="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="16" friction="1" numGridCollisionPoints="12" shadowSize="7" stageHP="0" tags="cansacrifice"/>
     <entity name="IBS_Sword" anm2path="familiar/sword.anm2" id="3" variant="7251" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="30" friction="1" numGridCollisionPoints="12" shadowSize="0" stageHP="0" />
 
 
 	<!-- pickups -->
-	<entity  name="IBS_CuZnD6" 	anm2path="items/pick ups/CuZnD6.anm2" id="5" variant="300" subtype="7250" baseHP="0" boss="0" champion="0" 	collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0">
+	<entity name="IBS_CuZnD6" anm2path="items/pick ups/CuZnD6.anm2" id="5" variant="300" subtype="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0">
 		<preload-snd id="252" /> 
     </entity>
-	
 	<entity name="IBS_GoldenPrayer" anm2path="items/pick ups/goldenprayer.anm2" id="5" variant="300" subtype="7251" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="21" stageHP="0" />
+	<entity name="IBS_FalsehoodOfIsaac" anm2path="items/pick ups/falsehood_bisaac.anm2" id="5" variant="300" subtype="7777" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	<entity name="IBS_FalsehoodOfMagdalene" anm2path="items/pick ups/falsehood_bmaggy.anm2" id="5" variant="300" subtype="7778" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	
+	<entity name="IBS_FalsehoodOfJudas" anm2path="items/pick ups/falsehood_bjudas.anm2" id="5" variant="300" subtype="7780" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	
+	<!-- slots -->
+    <!-- <entity name="IBS_DonationBox" anm2path="items/slots/donationbox.anm2" id="6" variant="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="33" stageHP="0" > -->
+        <!-- <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0"/> -->
+    <!-- </entity> -->
+	
 	
 	<!-- effects -->
     <entity name="IBS_Benighting" anm2path="effects/benighting.anm2" id="1000" variant="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
-	
     <entity name="IBS_TheGospelOfJudas" anm2path="effects/tgoj.anm2" id="1000" variant="7251" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="24" stageHP="0" >
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
-	
+    <entity name="IBS_BigLight" anm2path="effects/biglight.anm2" id="1000" variant="7252" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
 	<entity name="IBS_Empty" id="1000" variant="7777" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="0" collisionRadius="0" friction="0" numGridCollisionPoints="0" shadowSize="0" stageHP="0"/>	
 </entities>

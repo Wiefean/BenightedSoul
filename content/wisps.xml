@@ -200,8 +200,14 @@
 	<!-- purple bubbles -->
 	<wisp id="8" layer="0" flameColor="flame_purple" coreColor="core_purple" tearColor="tear_purple" tearFlags2="14" procChance="0.35" coreGfx="core.png" />
 
+	<!-- cursed mantle -->
+	<wisp id="9" count="0" />
+
 	<!-- hypercube -->
 	<wisp id="10" damage="5" hp="5" layer="1" flameColor="1 1 1 0" coreColor="1 1 1 0" tearColor="1 1 1 0" tearColor2="1 1 1 0" tearFlags="2" coreGfx="ibs/air.png" />
+
+	<!-- defined -->
+	<wisp id="11" count="0" />
 
 	<!-- reserved nail -->
 	<wisp id="21" layer="1" flameColor="flame_black" coreColor="core_brown" canShoot="false" />
@@ -209,7 +215,17 @@
 	<!-- bony knife -->
 	<wisp id="24" layer="0" hp="6" flameColor="flame_beige" coreColor="core_beige" canShoot="false" />
 	
+	<!-- redeath -->
+	<wisp id="27" count="0" />
+
 	<!-- the forbidden fruit -->
 	<wisp id="33" count="2" layer="0" hp="5" damage="4" fireDelay="15" flameColor="core_beige" coreColor="core_green" tearColor="tear_green" tearFlags="4" coreGfx="core.png" />
+
+	<!-- unwelcome sacrifice -->
+	<wisp id="36" count="0" />
+	
+	<!-- welcome sacrifice -->
+	<wisp id="37" count="0" />
+
 
 </wisps>

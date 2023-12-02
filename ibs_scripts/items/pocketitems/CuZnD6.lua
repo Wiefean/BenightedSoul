@@ -3,7 +3,6 @@
 local mod = Isaac_BenightedSoul
 local IBS_Callback = mod.IBS_Callback
 local IBS_Pocket = mod.IBS_Pocket
-local rng = mod:GetUniqueRNG("Pocket_CuZnD6")
 
 local sfx = SFXManager()
 
@@ -23,7 +22,7 @@ local function Roll(_,card,player,flag)
 	
 	--尝试再给予骰子
 	if (flag & UseFlag.USE_MIMIC <= 0) then		
-		if (rng:RandomInt(100) + 1) <= GetChance() then
+		if player:GetCardRNG(IBS_Pocket.czd6):RandomInt(100) + 1 <= GetChance() then
 			player:AddCard(IBS_Pocket.czd6)
 		end
 	end	

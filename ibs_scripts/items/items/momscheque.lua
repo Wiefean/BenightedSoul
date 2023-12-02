@@ -4,6 +4,9 @@ local mod = Isaac_BenightedSoul
 local IBS_Item = mod.IBS_Item
 local Stats = mod.IBS_Lib.Stats
 
+--用于昧化该隐&亚伯
+mod.IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.momscheque)
+
 --直接使用无效
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, function()
 	return {ShowAnim = false, Discharge = false}	

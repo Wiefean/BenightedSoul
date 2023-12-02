@@ -1,4 +1,4 @@
---
+--紫色泡泡水
 
 local mod = Isaac_BenightedSoul
 local IBS_Item = mod.IBS_Item
@@ -7,6 +7,10 @@ local Stats = mod.IBS_Lib.Stats
 
 local sfx = SFXManager()
 
+--用于昧化该隐&亚伯
+mod.IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.pb)
+
+--长久数据
 local function GetDrunkData(player)
 	local data = Players:GetData(player)
 	data.PurpleBubbles = data.PurpleBubbles or {
@@ -21,6 +25,7 @@ local function GetDrunkData(player)
 	return data.PurpleBubbles	
 end	
 
+--使用
 local function Drink(_,col, rng, player, flags)
 	local data = GetDrunkData(player)
 	local chance = rng:RandomInt(99) + 1
@@ -51,6 +56,7 @@ local function Drink(_,col, rng, player, flags)
 end
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, Drink, IBS_Item.pb)
 
+--重置
 local function Reset()
 	for i = 0, Game():GetNumPlayers() -1 do
 		local player = Isaac.GetPlayer(i)
@@ -67,6 +73,7 @@ local function Reset()
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, Reset)
 
+--属性改动
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_,player, flag)
 	local pdata = Players:GetData(player)
 	if pdata.PurpleBubbles then

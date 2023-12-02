@@ -26,14 +26,17 @@
 	<active id="24" cache="all" name="Bony Knife" description="Knife and boning them" maxcharges="4" gfx="bonyknife.png" quality="3" tags="offensive dead" />
 	<passive id="25" cache="speed firedelay luck" name="Circumcision" description="Speed down + tears and luck up" gfx="circumcision.png" quality="4" tags="offensive summonable tearsup" />
 	<passive id="26" name="Cursed Heart" description="Curse up" gfx="cursedheart.png" quality="1" tags="summonable nocantrip" />
-	<passive id="27" name="Re-death" description="Killing you makes you stronger" gfx="redeath.png" quality="0" tags="offensive nocantrip" />
+	<active id="27" name="Re-death" description="Reroll goners...temporarily" gfx="redeath.png" quality="2" tags="offensive nocantrip" />
 	<passive id="28" name="Dusty Bombs" description="The third explosion..." gfx="dustybomb.png" bombs="3" quality="1" tags="offensive nocantrip" />
 	<passive id="29" cache="speed firedelay range" name="Needle Mushroom" description="See you tomorrow" gfx="nm.png" quality="1" tags="offensive tearsup nocantrip mushroom poop" />
 	<passive id="30" name="Mini Horn" description="Limited edition" gfx="minihorn.png" quality="0" tags="offensive summonable nolostbr" />
 	<passive id="31" cache="shotspeed" name="Wings Of Apollyon" description="Shot speed up = All stats up" gfx="woa.png" quality="3" tags="offensive summonable angel devil" />
 	<active id="32" cache="luck" passivecache="true" name="Mom's Cheque" description="Payment on terms" gfx="momscheque.png" coins="3" shopprice="10" quality="1" tags="mom nocantrip" />
 	<active id="33" name="The Forbidden Fruit" description="Original sin" gfx="ffruit.png" quality="2" tags="offensive nocantrip" />
-	<familiar id="34" cache="familiars" name="Sword of Siberite" description="See you again, old friend" gfx="sword.png" quality="4" tags="offensive summonable uniquefamiliar" />
+	<familiar id="34" cache="familiars" name="Sword of Siberite" description="See you again, old friend" gfx="sword.png" quality="4" tags="offensive summonable" />
+	<passive id="35" name="Everlasting Regret" description="Killing you also makes you stronger" gfx="regret.png" quality="0" tags="offensive nocantrip" />
+	<active id="36" name="Unwelcome Sacrifice" description="So, he is not vegetarian" maxcharges="1" gfx="sacrifice.png" quality="1" tags="offensive" />
+	<active id="37" name="Welcome Sacrifice" description="Deadly feast" chargetype="special" maxcharges="1" initcharge="0" gfx="sacrifice2.png" quality="3" tags="offensive nocantrip" />
 
 
 	<trinket name="Bottle Shard" description="He really did it" gfx="bottleshard.png" />

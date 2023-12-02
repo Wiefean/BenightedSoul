@@ -15,15 +15,18 @@ local LANG = Options.Language
 
 --播放成就纸张动画
 local function ShowPaper()
-	local paper = "bjudas_unlock"
+	for i = 1,2 do
+		local paper = "bjudas_unlock"
+		if i == 2 then paper = "bc4" end
 
-	--检测语言
-	if LANG == "zh" then
-		paper = paper.."_zh"
+		--检测语言
+		if LANG == "zh" then
+			paper = paper.."_zh"
+		end
+		
+		paper = paper..".png"	
+		BigBooks:PlayPaper(paper)
 	end
-	
-	paper = paper..".png"	
-	BigBooks:PlayPaper(paper)
 end
 
 --是否为犹大
@@ -32,14 +35,13 @@ local function IsJudas(player)
 	return (playerType == 3) or (playerType == 12) or (playerType == 24)
 end
 
---摧毁镜子进入解锁流程
+--摧毁镜子进入解锁流程及提示音效
 local function EndPersonator()
 	if not IBS_Data.Setting["bjudas"]["Unlocked"] then
 		for i = 0, Game():GetNumPlayers() -1 do
 			local player = Isaac.GetPlayer(i)
 			if IsJudas(player) then
-				local data = mod:GetIBSData("Temp")
-				data.BjudasUnlocking = true
+				sfx:Play(IBS_Sound.secretfound)
 				break
 			end	
 		end		
@@ -61,7 +63,7 @@ local function IsUnlockable(bossLevel)
 		end
 	end
 	
-	--非自定种子,非挑战,非跑圈,困难
+	--非自定种子,非挑战,非跑圈
 	if notCustomSeed and notInChallenge and notInLap then
 		if bossLevel then --楼层判定
 			if level == bossLevel then
@@ -82,7 +84,7 @@ local function EndPersonator2(_,ent)
 			for i = 0, Game():GetNumPlayers() -1 do
 				local player = Isaac.GetPlayer(i)
 				if IsJudas(player) then
-					if mod:GetIBSData("Temp").BjudasUnlocking then
+					if mod:GetIBSData("Temp").MirrorBroken then
 						if not IBS_Data.Setting["bjudas"]["Unlocked"] then
 							ShowPaper()
 						end

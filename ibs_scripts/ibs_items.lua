@@ -41,6 +41,9 @@ local items = {
 	"items.momscheque",
 	"items.ffruit",
 	"items.sword",
+	"items.regret",
+	"items.sacrifice",
+	"items.sacrifice2",
 
 	"trinkets.bottleshard",
 	"trinkets.dadspromise",
@@ -51,6 +54,11 @@ local items = {
 	
 	"pocketitems.CuZnD6",
 	"pocketitems.goldenprayer",
+	
+	"pocketitems.falsehoods.falsehood_bisaac",
+	"pocketitems.falsehoods.falsehood_bmaggy",
+	"pocketitems.falsehoods.falsehood_bjudas",
+
 }
 LoadScripts(items)
 

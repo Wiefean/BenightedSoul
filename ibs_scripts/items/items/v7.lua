@@ -5,6 +5,9 @@ local IBS_Item = mod.IBS_Item
 local Finds = mod.IBS_Lib.Finds
 local Maths = mod.IBS_Lib.Maths
 
+--用于昧化该隐&亚伯
+mod.IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.v7)
+
 --节制
 local Temperance = {
 	Type = Isaac.GetEntityTypeByName("IBS_Temperance"),

@@ -4,6 +4,7 @@ local mod = Isaac_BenightedSoul
 local IBS_Player = mod.IBS_Player
 local IBS_Item = mod.IBS_Item
 local IBS_Pocket = mod.IBS_Pocket
+local Players = mod.IBS_Lib.Players
 
 --------加载--------
 
@@ -12,7 +13,9 @@ do --角色
 	player_spr:Load("ibsEIDicons/players.anm2", true)
 	EID:addIcon("Player"..(IBS_Player.bisaac), "player", 0, 32, 32, 5, 5, player_spr)
 	EID:addIcon("Player"..(IBS_Player.bmaggy), "player", 1, 32, 32, 5, 5, player_spr)
-	EID:addIcon("Player"..(IBS_Player.bjudas), "player", 3, 32, 32, 5, 5, player_spr)
+	EID:addIcon("Player"..(IBS_Player.bcain), "player", 2, 32, 32, 5, 5, player_spr)
+	EID:addIcon("Player"..(IBS_Player.babel), "player", 3, 32, 32, 5, 5, player_spr)
+	EID:addIcon("Player"..(IBS_Player.bjudas), "player", 4, 32, 32, 5, 5, player_spr)
 end
 
 --铜锌合金骰
@@ -27,6 +30,15 @@ do
 	local spr = Sprite()
 	spr:Load("ibsEIDicons/pickups.anm2", true)
 	EID:addIcon("Card"..(IBS_Pocket.goldenprayer), "object", 1, 8, 8, 7, 7, spr)
+end
+
+--伪忆
+do
+	local falsehood_spr = Sprite()
+	falsehood_spr:Load("ibsEIDicons/pickups.anm2", true)
+	EID:addIcon("Card"..(IBS_Pocket.falsehood_bisaac), "soul", 0, 8, 8, 7, 7, falsehood_spr)
+	EID:addIcon("Card"..(IBS_Pocket.falsehood_bmaggy), "soul", 1, 8, 8, 7, 7, falsehood_spr)
+	EID:addIcon("Card"..(IBS_Pocket.falsehood_bjudas), "soul", 2, 8, 8, 7, 7, falsehood_spr)
 end
 
 
@@ -248,17 +260,6 @@ for LANG,Table in pairs(IBS_EID) do
 
 	do --D4D
 		
-		--比列书
-		local function Belial()
-			for i = 0, Game():GetNumPlayers(0) - 1 do
-				local player = Isaac.GetPlayer(i)
-				if player:HasCollectible(59) then
-					return true
-				end
-			end
-			return false
-		end
-		
 		--ID转EID贴图
 		local function ToIcon(id)
 			local MAX = Isaac.GetItemConfig():GetCollectibles().Size
@@ -268,7 +269,7 @@ for LANG,Table in pairs(IBS_EID) do
 			if id > 0 and id < MAX then
 				id = tostring(id)
 				icon = "{{Collectible"..id.."}}"
-			elseif Belial() then
+			elseif Players:AnyHasCollectible(59) then --彼列书
 				icon = "{{Collectible51}}"
 			else
 				icon = Translate("无", "N/A", LANG)
@@ -289,12 +290,7 @@ for LANG,Table in pairs(IBS_EID) do
 			end
 			
 			if (Type == 5) and (Variant == 100) and (SubType > 0) then
-				for i = 0, Game():GetNumPlayers(0) - 1 do
-					local player = Isaac.GetPlayer(i)
-					if player:HasCollectible(IBS_Item.d4d) then
-						return true
-					end
-				end
+				return Players:AnyHasCollectible(IBS_Item.d4d)
 			end
 				
 			return false
@@ -344,7 +340,7 @@ for LANG,Table in pairs(IBS_EID) do
 			if (Type == 5) and (Variant == 100) and (SubType == 477 or SubType == 706) then
 				if IBS_Data.Setting[ToKey[SubType]] then
 					return true
-				end	
+				end
 			end
 				
 			return false
@@ -363,7 +359,7 @@ for LANG,Table in pairs(IBS_EID) do
 		EID:addDescriptionModifier("ibsVoidAbyssUp".."_"..LANG, condition, callback)
 	end
 	
-	do --虚空/无底坑增强	
+	do --犹大福音增强
 	
 		--触发条件
 		local function condition(desc)
@@ -396,6 +392,6 @@ for LANG,Table in pairs(IBS_EID) do
 			return desc
 		end
 		EID:addDescriptionModifier("ibsTGOJUp".."_"..LANG, condition, callback)
-	end	
+	end
 end
 

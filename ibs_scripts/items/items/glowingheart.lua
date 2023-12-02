@@ -8,6 +8,9 @@ local Players = mod.IBS_Lib.Players
 
 local sfx = SFXManager()
 
+--用于昧化该隐&亚伯
+mod.IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.gheart)
+
 --清理房间充能
 local function Charge()
 	for i = 0, Game():GetNumPlayers() -1 do

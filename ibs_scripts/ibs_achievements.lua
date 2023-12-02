@@ -21,6 +21,7 @@ local achiev = {
 	
 	"players.bisaac_unlocking",
 	"players.bmaggy_unlocking",
+	"players.bcain_and_babel_unlocking",
 	"players.bjudas_unlocking",
 }
 LoadScripts(achiev)
@@ -94,10 +95,17 @@ local MarkPocket = {
 
 ["bisaac"] = {
 	MegaSatan = (IBS_Pocket.czd6),
+	BRH = (IBS_Pocket.falsehood_bisaac),
 },
 
 ["bmaggy"] = {
 	MegaSatan = (IBS_Pocket.goldenprayer),
+	BRH = (IBS_Pocket.falsehood_bmaggy),
+},
+
+
+["bjudas"] = {
+	BRH = (IBS_Pocket.falsehood_bjudas),
 },
 
 }
@@ -165,78 +173,105 @@ mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.EARL
 end)
 
 --避免从池中抽取未解锁道具
-mod:AddPriorityCallback(ModCallbacks.MC_POST_GET_COLLECTIBLE, CallbackPriority.EARLY, function(_,id,pool,decrease,seed)
+mod:AddPriorityCallback(ModCallbacks.MC_POST_GET_COLLECTIBLE, CallbackPriority.EARLY, function(_,id, pool, decrease, seed)
 	local itemPool = Game():GetItemPool()
+	local SKIP = false
 
 	for key,item in pairs(MarkItem) do
 		local mark = IBS_Data.Setting[key]
-		if item.IBSL and id == item.IBSL and not (mark.Isaac and mark.BlueBaby and mark.Satan and mark.Lamb) then
-			itemPool:RemoveCollectible(item.IBSL)
-			return itemPool:GetCollectible(pool,decrease,seed)
+		
+		if item.IBSL and (id == item.IBSL) and not (mark.Isaac and mark.BlueBaby and mark.Satan and mark.Lamb) then
+			SKIP = true
+			break
 		end	
-		if item.MegaSatan and id == item.MegaSatan and not mark.MegaSatan then
-			itemPool:RemoveCollectible(item.MegaSatan)
-			return itemPool:GetCollectible(pool,decrease,seed)
+		if item.MegaSatan and (id == item.MegaSatan) and not mark.MegaSatan then
+			SKIP = true
+			break
 		end		
-		if item.Delirium and id == item.Delirium and not mark.Delirium then
-			itemPool:RemoveCollectible(item.Delirium)
-			return itemPool:GetCollectible(pool,decrease,seed)
+		if item.Delirium and (id == item.Delirium) and not mark.Delirium then
+			SKIP = true
+			break
 		end
-		if item.Witness and id == item.Witness and not mark.Witness then
-			itemPool:RemoveCollectible(item.Witness)
-			return itemPool:GetCollectible(pool,decrease,seed)
+		if item.Witness and (id == item.Witness) and not mark.Witness then
+			SKIP = true
+			break
 		end		
-		if item.Beast and id == item.Beast and not mark.Beast then
-			itemPool:RemoveCollectible(item.Beast)
-			return itemPool:GetCollectible(pool,decrease,seed)
+		if item.Beast and (id == item.Beast) and not mark.Beast then
+			SKIP = true
+			break
 		end	
-		if item.Greed and id == item.Greed and not mark.Greed then
-			itemPool:RemoveCollectible(item.Greed)
-			return itemPool:GetCollectible(pool,decrease,seed)
+		if item.Greed and (id == item.Greed) and not mark.Greed then
+			SKIP = true
+			break
 		end		
+	end
+	
+	if SKIP then
+		itemPool:RemoveCollectible(id)
+		return itemPool:GetCollectible(pool, decrease, seed)
 	end
 end)
 
 --避免从池中抽取未解锁饰品
 mod:AddPriorityCallback(ModCallbacks.MC_GET_TRINKET, CallbackPriority.EARLY, function(_,id)
 	local itemPool = Game():GetItemPool()
+	local SKIP = false
 
 	for key,trinket in pairs(MarkTrinket) do
 		local mark = IBS_Data.Setting[key]
-		if trinket.IBSL and id == trinket.IBSL and not (mark.Isaac and mark.BlueBaby and mark.Satan and mark.Lamb) then
-			itemPool:RemoveTrinket(trinket.IBSL)
-			return itemPool:GetTrinket()
+		
+		if trinket.IBSL and (id == trinket.IBSL) and not (mark.Isaac and mark.BlueBaby and mark.Satan and mark.Lamb) then
+			SKIP = true
+			break
 		end
-		if trinket.MegaSatan and id == trinket.MegaSatan and not mark.MegaSatan then
-			itemPool:RemoveTrinket(trinket.MegaSatan)
-			return itemPool:GetCollectible(pool,decrease,seed)
+		if trinket.MegaSatan and (id == trinket.MegaSatan) and not mark.MegaSatan then
+			SKIP = true
+			break
 		end		
-		if trinket.Witness and id == trinket.Witness and not mark.Witness then
-			itemPool:RemoveTrinket(trinket.Witness)
-			return itemPool:GetTrinket()
+		if trinket.Witness and (id == trinket.Witness) and not mark.Witness then
+			SKIP = true
+			break
 		end		
-		if trinket.Beast and id == trinket.Beast and not mark.Beast then
-			itemPool:RemoveTrinket(trinket.Beast)
-			return itemPool:GetTrinket()
+		if trinket.Beast and (id == trinket.Beast) and not mark.Beast then
+			SKIP = true
+			break
 		end		
+	end
+	
+	if SKIP then
+		itemPool:RemoveTrinket(id)
+		return itemPool:GetTrinket()
 	end
 end)
 
 --避免从池中抽取未解锁口袋物品
 mod:AddPriorityCallback(ModCallbacks.MC_GET_CARD, CallbackPriority.EARLY, function(_,rng,id,IncludePlayingCards,IncludeRunes,OnlyRunes)
 	local itemPool = Game():GetItemPool()
+	local SKIP = false
 
 	for key,card in pairs(MarkPocket) do
 		local mark = IBS_Data.Setting[key]
-		if card.MegaSatan and id == card.MegaSatan and not mark.MegaSatan then
-			return itemPool:GetCard(rng:Next(), IncludePlayingCards, IncludeRunes, OnlyRunes)
-		end		
-		if card.Delirium and id == card.Delirium and not mark.Delirium then
-			return itemPool:GetCard(rng:Next(), IncludePlayingCards, IncludeRunes, OnlyRunes)
+		
+		if card.MegaSatan and (id == card.MegaSatan) and not mark.MegaSatan then
+			SKIP = true
+			break
+		end
+		if card.BRH and (id == card.BRH) and not (mark.BossRush and mark.Hush) then
+			SKIP = true
+			break		
+		end
+		if card.Delirium and (id == card.Delirium) and not mark.Delirium then
+			SKIP = true
+			break			
 		end			
-		if card.Greed and id == card.Greed and not mark.Greed then
-			return itemPool:GetCard(rng:Next(), IncludePlayingCards, IncludeRunes, OnlyRunes)
+		if card.Greed and (id == card.Greed) and not mark.Greed then
+			SKIP = true
+			break
 		end		
+	end
+	
+	if SKIP then
+		return itemPool:GetCard(rng:Next(), IncludePlayingCards, IncludeRunes, OnlyRunes)
 	end
 end)
 
@@ -296,7 +331,7 @@ local function IsLocked()
 	local mark = nil
 	if MarkChallenge[challenge] then
 		mark = IBS_Data.Setting[MarkChallenge[challenge]]
-		if not (mark.BossRush and mark.Hush) then
+		if not mark.Unlocked then
 			return true
 		end
 	end	

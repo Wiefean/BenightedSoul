@@ -9,28 +9,24 @@ local Ents = mod.IBS_Lib.Ents
 local Translations = mod.IBS_Lib.Translations
 local DropRNG = mod:GetUniqueRNG("Boss_Temperance")
 
-local LANG = Options.Language
-if LANG ~= "zh" then LANG = "en" end
+local LANG = mod.Language
 
 local sfx = SFXManager()
 
+local Temperance = mod.IBS_Boss.Temperance
 
+--子弹属性
+local ProjParams = ProjectileParams()
+local ProjParams2 = ProjectileParams()
 
---基础属性
-local Temperance = {
-	Type = Isaac.GetEntityTypeByName("IBS_Temperance"),
-	Variant = Isaac.GetEntityVariantByName("IBS_Temperance"),
-	ProjParams = ProjectileParams(),
-	ProjParams2 = ProjectileParams()
-}
-Temperance.ProjParams.Variant = ProjectileVariant.PROJECTILE_BONE
-Temperance.ProjParams.Spread = 1.2
-Temperance.ProjParams.BulletFlags = ProjectileFlags.BOUNCE
-Temperance.ProjParams.Color = Color(0.3,0.5,1)
+ProjParams.Variant = ProjectileVariant.PROJECTILE_BONE
+ProjParams.Spread = 1.2
+ProjParams.BulletFlags = ProjectileFlags.BOUNCE
+ProjParams.Color = Color(0.3,0.5,1)
 
-Temperance.ProjParams2.Variant = ProjectileVariant.PROJECTILE_BONE
-Temperance.ProjParams2.BulletFlags = ProjectileFlags.BOUNCE
-Temperance.ProjParams2.Color = Color(0.3,0.5,1)
+ProjParams2.Variant = ProjectileVariant.PROJECTILE_BONE
+ProjParams2.BulletFlags = ProjectileFlags.BOUNCE
+ProjParams2.Color = Color(0.3,0.5,1)
 
 local BossState = {
 	Walk = 20,
@@ -42,17 +38,17 @@ local BossState = {
 
 local function GetNpcData(npc)
 	local data = Ents:GetTempData(npc)
-	data.Temperance = data.Temperance or {
+	data.Temperance_Boss = data.Temperance_Boss or {
 		Recycle = false,
 		Attack1Left = math.random(0,4)
 	}
-	return data.Temperance
+	return data.Temperance_Boss
 end
 
 local function GetProjData(proj)
 	local data = Ents:GetTempData(proj)
-	data.TemperanceProj = data.TemperanceProj or {Stop = false, FrameToStop = 30}
-	return data.TemperanceProj
+	data.Temperance_Proj = data.Temperance_Proj or {Stop = false, FrameToStop = 30}
+	return data.Temperance_Proj
 end
 
 local function SetStop(proj)
@@ -66,7 +62,7 @@ local function SetRecycle(proj)
 	data.Recycle = true
 end
 
---特殊眼泪
+--特殊子弹
 mod:AddCallback(ModCallbacks.MC_POST_PROJECTILE_INIT, function(_,proj)
 	local ent = proj.SpawnerEntity
 	if ent then
@@ -179,6 +175,7 @@ local function OnInit(_,npc)
 	if npc.Variant == Temperance.Variant then
 		npc:GetSprite():Play("Appear", true)
 		npc.State = BossState.Walk
+		npc.SplatColor = Color(0.3,0.5,1)
 	end
 end
 mod:AddCallback(ModCallbacks.MC_POST_NPC_INIT, OnInit, Temperance.Type)
@@ -261,7 +258,7 @@ local function OnUpdate(_,npc)
 				if spr:IsPlaying("Attack1") then
 					if spr:IsEventTriggered("FireProj") then
 						sfx:Play(249, 0.5)
-						npc:FireProjectiles(npc.Position, (vec:Normalized()*7) + RandomVector(), 1, Temperance.ProjParams)					
+						npc:FireProjectiles(npc.Position, (vec:Normalized()*7) + RandomVector(), 1, ProjParams)					
 					end
 				end
 				npc.Velocity = Vector.Zero
@@ -289,7 +286,7 @@ local function OnUpdate(_,npc)
 				if spr:IsPlaying("Attack2") then
 					if spr:IsEventTriggered("FireProj2") then
 						sfx:Play(249)
-						npc:FireProjectiles(npc.Position, Vector(16,0), 8, Temperance.ProjParams2)					
+						npc:FireProjectiles(npc.Position, Vector(16,0), 8, ProjParams2)					
 					end						
 				end
 				npc.Velocity = Vector.Zero

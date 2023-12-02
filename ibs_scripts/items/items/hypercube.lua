@@ -10,6 +10,9 @@ local Finds = mod.IBS_Lib.Finds
 
 local config = Isaac.GetItemConfig()
 
+--用于昧化该隐&亚伯
+mod.IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.hypercube)
+
 --获取记录
 local function GetRecord()
 	local data = mod:GetIBSData("Temp")

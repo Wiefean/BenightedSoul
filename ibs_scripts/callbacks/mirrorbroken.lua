@@ -23,6 +23,7 @@ local function MirrorBrokenCallback()
 	if mirror_record ~= mirror then
 		if mirror == true then
 			Isaac.RunCallback(IBS_Callback.MIRROR_BROKEN)
+			mod:GetIBSData("Temp").MirrorBroken = true
 		end
 		mod:GetIBSData("Level").MirrorBroken = mirror
 	end

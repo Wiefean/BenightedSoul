@@ -27,6 +27,16 @@ local birthrightEID = {
 	info = "坚贞之心自然恢复量翻倍"
 },
 
+[IBS_Player.bcain] = {
+	name = "昧化该隐",
+	info = "副角色操作不再反转"
+},
+
+[IBS_Player.babel] = {
+	name = "昧化亚伯",
+	info = "副角色操作不再反转"
+},
+
 [IBS_Player.bjudas] = {
 	name = "昧化犹大",
 	info = "{{Collectible"..(IBS_Item.tgoj).."}} 吸收敌弹时返还泪弹"
@@ -225,9 +235,9 @@ local itemEID={
 
 [IBS_Item.nail]={
 	name="备用钉子",
-	info="发射一枚钉子，对命中的目标造成2.5秒的石化和虚弱效果"..
+	info="发射一枚钉子，对命中的目标造成3秒的石化和虚弱效果"..
 		 "#造成伤害可以加快充能",
-	virtue="不发射眼泪的中层魂火#单房间魂火",
+	virtue="不发射眼泪的中层魂火，熄灭后对附近的敌人施加1.5秒的石化和虚弱效果#单房间魂火",
 	belial="钉子附带火焰效果"
 },
 
@@ -235,7 +245,7 @@ local itemEID={
 	name="核能电罐",
 	info="造成一定伤害后，为主动道具充能，可为额外充能条充能"..
 		 "#受伤后，进入蓄力状态，不断消耗额外充能条的充能"..
-		 "#蓄力伴随激光、毒气、水迹，完成后爆炸，没完成则取消",
+		 "#蓄力完成后爆炸，没完成则取消",
 	seijaNerf="爆炸会伤害自己"
 },
 
@@ -267,11 +277,11 @@ local itemEID={
 
 [IBS_Item.redeath]={
 	name="死亡回放",
-	info="角色每次死亡都会获得:"..
-		 "#↑ {{Speed}}移速 + 0.1"..
-		 "#↑ {{Tears}}射速 + 0.35"..
-		 "#↑ {{Damage}}伤害 + 1",
-	seijaBuff="每层获得一个{{Card89}} 拉萨路的魂石"
+	info="将空底座道具重置为一个以下掉落物:"..
+		 "#箱子，福袋，口袋物品，饰品，道具"..
+		 "#重置出的掉落物在6秒后消失，且有尖刺环绕",
+	virtue="无魂火#掉落物不消失",
+	belial="掉落物无尖刺环绕"
 },
 
 [IBS_Item.dustybomb]={
@@ -332,6 +342,35 @@ local itemEID={
 	seijaNerf="没有目标时，攻击角色"
 },
 
+[IBS_Item.regret]={
+	name="死不瞑目",
+	info="角色每次死亡都会获得:"..
+		 "#↑ {{Speed}}移速 + 0.1"..
+		 "#↑ {{Tears}}射速 + 0.35"..
+		 "#↑ {{Damage}}伤害 + 1",
+	seijaBuff="若未持有，每层获得一个{{Collectible11}}"
+},
+
+[IBS_Item.sacrifice]={
+	name="不受欢迎的祭品",
+	info="1.7秒后，在使用位置降下一道大光柱，并产生爆炸"..
+		 "#光柱造成每帧70%{{Damage}}角色伤害，并摧毁周围的障碍物，持续3.5秒"..
+		 "#!!! 光柱也会伤害角色"..
+		 "#若使用过{{Collectible"..(IBS_Item.sacrifice2).."}}受欢迎的祭品，则光柱不再伤害角色，且追踪敌人",
+	virtue="无魂火#光柱不再伤害角色，且追踪敌人",
+	belial="光柱更大，还会追踪角色"
+},
+
+[IBS_Item.sacrifice2]={
+	name="受欢迎的祭品",
+	info="进入恶魔/天使房以充能"..
+		 "#若使用过{{Collectible"..(IBS_Item.sacrifice).."}}不受欢迎的祭品，立刻充能"..
+		 "#!!! {{ColorYellow}}一次性{{CR}}"..
+		 "#使用后，进入有道具的新房间时，生成一个恶魔房道具和一个天使房道具作为选择",
+	virtue="无魂火#立刻充能",
+	belial="立刻充能"
+},
+
 }
 --------------------------------------------------------
 --------------------------饰品--------------------------
@@ -386,7 +425,7 @@ local trinketEID={
 	info="受伤时，9%概率触发以下的一项"..
 		 "#{{BrokenHeart}} 50%消除一个碎心，没有则触发下一项"..
 		 "#{{SoulHeart}} 25%获得一个魂心"..
-		 "#{{AngelRoom}} 15%天使房转换率 + 10%"..
+		 "#{{AngelRoom}} 15%天使房转换率 + 10%，并清除诅咒"..
 		 "#{{EternalHeart}} 10%获得一个永恒之心",
 	mult={
 		numberToMultiply = 9,
@@ -410,6 +449,26 @@ local cardEID={
 	info="获得30不会自动恢复的坚贞之心#消耗后，完成下一个{{BossRoom}}Boss房会再次生成该卡牌",
 	mimic={charge = 6, isRune = false},
 	player={[IBS_Player.bmaggy]="效果改为恢复30可超上限的坚贞之心(切换房间后移除超出上限部分)"}
+},
+
+
+[IBS_Pocket.falsehood_bisaac] = {
+	name="以撒的伪忆",
+	info="以房间内道具平均品质重置道具为恶魔/天使房道具",
+	mimic={charge = 4, isRune = true}
+},
+
+[IBS_Pocket.falsehood_bmaggy] = {
+	name="抹大拉的伪忆",
+	info="↑ 7秒内角色无敌，+ 0.7{{Speed}}移速，不断生成圣光和震荡波",
+	mimic={charge = 6, isRune = true}
+},
+
+[IBS_Pocket.falsehood_bjudas] = {
+	name="犹大的伪忆",
+	info="环境变暗3秒，期间下次攻击将发射一颗穿透幽灵燃烧眼泪，具有670%{{Damage}}角色伤害"..
+		 "#成功命中第一个敌人后，再获得一个{{Card"..(IBS_Pocket.falsehood_bjudas).."}}犹大的伪忆",
+	mimic={charge = 1, isRune = true}
 },
 
 }

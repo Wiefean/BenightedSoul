@@ -8,6 +8,9 @@ local Players = mod.IBS_Lib.Players
 local Pools = mod.IBS_Lib.Pools
 local Finds = mod.IBS_Lib.Finds
 
+--用于昧化该隐&亚伯
+mod.IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.ld6)
+
 --获取房间道具平均品质
 local function GetAverageQuality()
 	local Q = 0

@@ -22,5 +22,13 @@
 	<sound name="能量剑音效2">
 		<sample weight="1" path="sword2.wav" />
 	</sound>
+	
+	<sound name="秘密发现">
+		<sample weight="1" path="secretfound.wav" />
+	</sound>
+	
+	<sound name="犹大伪忆准备">
+		<sample weight="1" path="falsehood_bjudas_ready.wav" />
+	</sound>
 
 </sounds>

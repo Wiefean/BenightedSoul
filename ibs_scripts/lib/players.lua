@@ -31,6 +31,17 @@ function Players:GetData(player)
 end
 
 
+--获取玩家的射击瞄准方向向量
+function Players:GetAimingVector(player, ignoreMouse, mouseCenter)
+	mouseCenter = mouseCenter or player.Position --鼠标中心位置,默认为角色位置
+	if (not ignoreMouse) and (player.ControllerIndex == 0) and Input.IsMouseBtnPressed(0) then 
+		return (Input.GetMousePosition(true) - mouseCenter):Normalized()
+	end
+
+    return player:GetShootingJoystick()
+end
+
+
 --传送至特定位置
 function Players:TeleportToPosition(player, pos, showAnim, playSound, dmgCD)
 	if showAnim then
@@ -92,7 +103,67 @@ function Players:GetPlayerCollectibles(player, condition)
 end
 
 
---添加吞下的饰品(较硬核)
+--获取所有玩家拥有指定道具的数量
+function Players:GetTotalCollectibleNum(item, ignoreEffect)
+	ignoreEffect = ignoreEffect or false
+	local num = 0
+
+	for i = 0, Game():GetNumPlayers(0) - 1 do
+		local player= Isaac.GetPlayer(i)
+		num = num + player:GetCollectibleNum(item, ignoreEffect)
+	end
+	
+	return num
+end
+
+
+--任意玩家拥有指定道具
+function Players:AnyHasCollectible(item, ignoreEffect)
+	ignoreEffect = ignoreEffect or false
+	for i = 0, Game():GetNumPlayers(0) - 1 do
+		local player= Isaac.GetPlayer(i)
+		if player:HasCollectible(item, ignoreEffect) then
+			return true
+		end
+	end
+	
+	return false
+end
+
+
+--获取所有玩家拥有指定饰品的倍率
+--[[倍率解释:
+普通饰品 + 1
+金饰品 + 2
+持有妈妈的盒子 + 1 (不叠加)
+]]
+function Players:GetTotalTrinketMult(trinket)
+	local mult = 0
+
+	for i = 0, Game():GetNumPlayers(0) - 1 do
+		local player= Isaac.GetPlayer(i)
+		mult = mult + player:GetTrinketMultiplier(trinket)
+	end
+	
+	return mult
+end
+
+
+--任意玩家拥有指定饰品
+function Players:AnyHasTrinket(trinket, ignoreEffect)
+	ignoreEffect = ignoreEffect or false
+	for i = 0, Game():GetNumPlayers(0) - 1 do
+		local player= Isaac.GetPlayer(i)
+		if player:HasTrinket(trinket, ignoreEffect) then
+			return true
+		end
+	end
+	
+	return false
+end
+
+
+--添加吞下的饰品(硬核)
 function Players:AddMeltedTrinket(player, trinket, num, touched)
 	local GoodPosition = Vector(-7250,-7250)
 	local mainSlot = player:GetTrinket(0)
@@ -120,7 +191,7 @@ function Players:AddMeltedTrinket(player, trinket, num, touched)
 end
 
 
---吞下选定饰品(较硬核)
+--吞下选定饰品(硬核)
 --(成功吞下返回true,否则返回false)
 function Players:MeltTrinket(player, trinket)
 	local SUCCESS = false
@@ -161,6 +232,62 @@ function Players:MeltTrinket(player, trinket)
 	end
 	
 	return SUCCESS
+end
+
+
+--无视雪花盒添加魂心(硬核)
+function Players:AddRawSoulHearts(player, num)
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_ALABASTER_BOX, true) then
+        local alabasterCharges = {}
+        for slot = ActiveSlot.SLOT_PRIMARY, ActiveSlot.SLOT_POCKET do   
+            if (player:GetActiveItem(slot) == CollectibleType.COLLECTIBLE_ALABASTER_BOX) then
+                alabasterCharges[slot] = player:GetActiveCharge(slot) + player:GetBatteryCharge(slot)
+                if (num > 0) then
+                    player:SetActiveCharge(12, slot)
+                else
+                    player:SetActiveCharge(0, slot)
+                end
+            end
+        end
+
+        player:AddSoulHearts(num)
+
+        for slot = ActiveSlot.SLOT_PRIMARY, ActiveSlot.SLOT_POCKET do   
+            if (player:GetActiveItem(slot) == CollectibleType.COLLECTIBLE_ALABASTER_BOX) then
+                player:SetActiveCharge(alabasterCharges[slot], slot)
+            end
+        end
+    else
+        player:AddSoulHearts(num)
+    end
+end
+
+
+--无视雪花盒添加黑心(硬核)
+function Players:AddRawBlackHearts(player, num)
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_ALABASTER_BOX, true) then
+        local alabasterCharges = {}
+        for slot = ActiveSlot.SLOT_PRIMARY, ActiveSlot.SLOT_POCKET do   
+            if (player:GetActiveItem(slot) == CollectibleType.COLLECTIBLE_ALABASTER_BOX) then
+                alabasterCharges[slot] = player:GetActiveCharge(slot) + player:GetBatteryCharge(slot)
+                if (num > 0) then
+                    player:SetActiveCharge(12, slot)
+                else
+                    player:SetActiveCharge(0, slot)        
+                end
+            end
+        end
+
+        player:AddBlackHearts(num)
+
+        for slot = ActiveSlot.SLOT_PRIMARY, ActiveSlot.SLOT_POCKET do   
+            if (player:GetActiveItem(slot) == CollectibleType.COLLECTIBLE_ALABASTER_BOX) then
+                player:SetActiveCharge(alabasterCharges[slot], slot)
+            end
+        end
+    else
+        player:AddBlackHearts(num)
+    end
 end
 
 
@@ -434,6 +561,8 @@ end
 
 
 end
+
+
 
 
 --[[

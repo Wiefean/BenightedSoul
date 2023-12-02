@@ -6,15 +6,9 @@ local sfx = SFXManager()
 local BigBooks = {}
 
 
---获取屏幕尺寸
-local function GetScreenSize()
-    local room = Game():GetRoom()
-    local pos = Isaac.WorldToScreen(Vector(0,0)) - room:GetRenderScrollOffset() - Game().ScreenShakeOffset
-    
-    local rx = pos.X + 60 * 26 / 40
-    local ry = pos.Y + 140 * (26 / 40)
-    
-    return rx*2 + 13*26, ry*2 + 7*26
+--获取屏幕中心
+local function GetScreenCenter()
+	 return Vector(Isaac.GetScreenWidth() / 2, Isaac.GetScreenHeight() / 2)
 end
 
 --利用桦树符文硬核暂停
@@ -72,11 +66,9 @@ local function BookRender()
 			bigBook:Update()
 			bookLength = bookLength - 1
 		end
-		for i=5, 0, -1 do
+		for i = 5, 0, -1 do
 			bigBook.Color = bookColors[i]
-			local screenCenterX, screenCenterY = GetScreenSize()
-			local screenCenter = Vector(screenCenterX/2, screenCenterY/2)
-			bigBook:RenderLayer(i, screenCenter, Vector(0,0), Vector(0,0))
+			bigBook:RenderLayer(i, GetScreenCenter())
 		end
 	end
 	if bookLength == 0 and bookHideBerkano then
@@ -117,9 +109,7 @@ local function CustomBookRender()
 			bigCustomAnim:Update()
 			customAnimLength = customAnimLength - 1
 		end
-		local screenCenterX, screenCenterY = GetScreenSize()
-		local screenCenter = Vector(screenCenterX/2, screenCenterY/2)
-		bigCustomAnim:Render(screenCenter, Vector(0,0), Vector(0,0))
+		bigCustomAnim:Render(GetScreenCenter())
 	end
 end
 mod:AddCallback(ModCallbacks.MC_POST_RENDER, CustomBookRender)
@@ -156,14 +146,16 @@ local function PaperRender()
 			HackyPause()			
 		end
 	else
-		if (Isaac.GetFrameCount() % 2 == 0) then
+		local num = 3
+		if paperFrames < 10 then
+			num = 2
+		end
+		if (Isaac.GetFrameCount() % num == 0) then
 			bigPaper:Update()
 			paperFrames = paperFrames - 1
 		end
-		for i=0, 3, 1 do
-			local screenCenterX, screenCenterY = GetScreenSize()
-			local screenCenter = Vector(screenCenterX/2, screenCenterY/2)
-			bigPaper:RenderLayer(i, screenCenter, Vector(0,0), Vector(0,0))
+		for i = 0, 3, 1 do
+			bigPaper:RenderLayer(i, GetScreenCenter())
 		end
 	end
 	

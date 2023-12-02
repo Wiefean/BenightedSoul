@@ -11,7 +11,7 @@ local Ents = mod.IBS_Lib.Ents
 
 local sfx = SFXManager()
 
-local SwordVariant = Isaac.GetEntityVariantByName("IBS_Sword")
+local SwordVariant = mod.IBS_Familiar.Sword.Variant
 
 --缝纫机mod
 if Sewn_API then	
@@ -19,12 +19,12 @@ if Sewn_API then
 	Sewn_API:AddFamiliarDescription(
 		 SwordVariant,
 		 "额外造成4点伤害和流血效果",
-		 "+25%伤害#优先攻击敌弹", nil, "紫电","zh_cn"
+		 "伤害 x 1.25#优先攻击角色附近的敌弹", nil, "紫电","zh_cn"
 	 )
 	Sewn_API:AddFamiliarDescription(
 		 SwordVariant,
 		 "4 extra dmg with bleeding effect",
-		 "+ 20% DMG#Targets projectiles first", nil, "Wisper","en_us"
+		 "DMG x 1.25#Targets projectiles near Isaac first", nil, "Sword of Siberite","en_us"
 	 )
 end
 
@@ -59,76 +59,148 @@ local function OnCollision(_,familiar, other)
 	local stage = game:GetLevel():GetStage()
 	local player = familiar.Player
 	local spr = familiar:GetSprite()
-	local dmg = stage * 1.5
+	local dmg = stage * 1.3
 	local extra = 1
 
 	if player:HasTrinket(141) then --摇篮曲饰品
 		dmg = dmg * 1.2
 	end
 	
-	if (player:HasCollectible(247)) then --大宝
-		dmg = dmg * 2
-	end
+	-- if player:HasCollectible(247) then --大宝
+		-- dmg = dmg * 2
+	-- end
 	
-	--缝纫机mod
-	if Sewn_API then 
-		if Sewn_API:IsUltra(familiar:GetData()) then
-			dmg = dmg * 1.25
-		end		
+	if Sewn_API and Sewn_API:IsUltra(familiar:GetData()) then
+		dmg = dmg * 1.25
 	end
 	
 	if dmg < 6 then dmg = 6 end
-	
-	--抵挡敌弹
-	if other.Type == EntityType.ENTITY_PROJECTILE then
-		local proj = other:ToProjectile()
-		if not proj:HasProjectileFlags(ProjectileFlags.CANT_HIT_PLAYER) then
-			proj:Die()
-		end
-	elseif Ents:IsEnemy(other) then --造成伤害
-		if spr:IsEventTriggered("DMG") or spr:IsEventTriggered("DMG2") then
-			other:TakeDamage(dmg, 0, EntityRef(familiar), 0)
-			sfx:Play(540, 0.2, 0, false, 0.8)
-			
-			if Sewn_API then--缝纫机mod
+
+	if spr:IsEventTriggered("DMG") or spr:IsEventTriggered("DMG2") then
+		if (other.Type == EntityType.ENTITY_PROJECTILE) then --抵挡敌弹
+			local proj = other:ToProjectile()
+			if not proj:HasProjectileFlags(ProjectileFlags.CANT_HIT_PLAYER) then
+				proj:Die()
+			end
+		elseif Ents:IsEnemy(other) then --造成伤害
+			if Sewn_API then --缝纫机mod
 				if Sewn_API:IsSuper(familiar:GetData()) then
 					other:TakeDamage(4, DamageFlag.DAMAGE_IGNORE_ARMOR, EntityRef(familiar), 0)
 					Ents:AddBleed(other, 90)
 				end
 			end
-		end
-	elseif other:ToPlayer() and mod:THI_WillSeijaNerf(other:ToPlayer()) then --正邪削弱(东方mod)
-		if spr:IsEventTriggered("DMG") or spr:IsEventTriggered("DMG2") then
+			
+			other:TakeDamage(dmg, 0, EntityRef(familiar), 0)
+			sfx:Play(540, 0.2, 0, false, 0.8)
+			
+		elseif other:ToPlayer() and mod:THI_WillSeijaNerf(other:ToPlayer()) then --正邪削弱(东方mod)
 			other:TakeDamage(1, 0, EntityRef(other), 0)
 		end	
 	end
 end
 mod:AddCallback(ModCallbacks.MC_PRE_FAMILIAR_COLLISION, OnCollision, SwordVariant)
 
+--目标数据
+local function GetTargetData(ent)
+	local data = Ents:GetTempData(ent)
+	data.SwordTarget = data.SwordTarget or {
+		SwordPtr = 0,
+		TimeOut = 1
+	}
+
+	return data.SwordTarget
+end
+
+--更新目标数据
+local function UpdateTargetData(_,ent)
+	local data = Ents:GetTempData(ent).SwordTarget
+	
+	if data then
+		if data.TimeOut > 0 then
+			data.TimeOut = data.TimeOut - 1
+		elseif (data.SwordPtr ~= 0) then
+			data.SwordPtr = 0
+		end
+	end
+end
+mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, UpdateTargetData)
+mod:AddCallback(ModCallbacks.MC_POST_PROJECTILE_UPDATE, UpdateTargetData)
+
+--是否应该分散攻击
+local function ShouldDispersion(pos, ptr)
+	local num = 0
+
+	for _,ent in pairs(Isaac.GetRoomEntities()) do
+		if Ents:IsEnemy(ent) and (ent.Position:Distance(pos) <= 300) then
+			local data = Ents:GetTempData(ent).SwordTarget
+			if data then
+				if (data.SwordPtr == 0) or (data.SwordPtr == ptr) then
+					num = num + 1
+				end
+			else
+				num = num + 1
+			end
+		end
+	end
+
+	return num > 0
+end
+
+--查找目标
+local function FindTarget(centerPos, familiar)
+	local closestEnt = nil
+	local closestDist = 114514
+	local ptr = GetPtrHash(familiar)
+	local player = familiar.Player
+	
+	--是否可以瞄准敌弹(宝宝弯勺或缝纫机mod蓝冠)
+	local canTargetProj = player:HasTrinket(127) or (Sewn_API and Sewn_API:IsUltra(familiar:GetData()))
+
+	for _,ent in pairs(Isaac.GetRoomEntities()) do
+		local dist = ent.Position:Distance(centerPos)
+		local proj = ent:ToProjectile()
+		
+		if canTargetProj and (dist <= 200) and proj and not proj:HasProjectileFlags(ProjectileFlags.CANT_HIT_PLAYER) then
+			local data = GetTargetData(proj)
+			if (data.SwordPtr == 0) or (data.SwordPtr == ptr) then
+				if dist < closestDist then
+					closestDist = dist
+					closestEnt = proj
+					data.TimeOut = 2
+					if (data.SwordPtr == 0) then data.SwordPtr = ptr end
+				end
+			end
+		elseif (dist <= 300) and ((not closestEnt) or closestEnt.Type ~= 9) and Ents:IsEnemy(ent) then
+			if ShouldDispersion(centerPos, ptr) then
+				local data = GetTargetData(ent)
+				
+				if (data.SwordPtr == 0) or (data.SwordPtr == ptr) then
+					if dist < closestDist then
+						closestDist = dist
+						closestEnt = ent
+						data.TimeOut = 2
+						if (data.SwordPtr == 0) then data.SwordPtr = ptr end
+					end
+				end
+			elseif dist < closestDist then
+				closestDist = dist
+				closestEnt = ent
+			end
+		end
+	end
+
+	return closestEnt
+end
+
 --更新
 local function OnUpdate(_,familiar)
 	local player = familiar.Player
 	local spr = familiar:GetSprite()
 	local move_dir = player:GetMovementDirection()
-	local target = nil
-
-	--缝纫机mod
-	if Sewn_API then
-		if Sewn_API:IsUltra(familiar:GetData()) then
-			target = Finds:ClosestEntity(player.Position, 9)
-			
-			if (target == nil) or target:ToProjectile():HasProjectileFlags(ProjectileFlags.CANT_HIT_PLAYER) or (target.Position:Distance(player.Position) > 200) then
-				target = Finds:ClosestEnemy(player.Position)
-			end
-		else
-			target = Finds:ClosestEnemy(player.Position)
-		end
-	else
-		target = Finds:ClosestEnemy(player.Position)
-	end
+	local target = FindTarget(player.Position, familiar)
 	
 	--有目标时
-    if (target ~= nil) and (target.Position:Distance(player.Position) <= 300) then
+    if (target ~= nil) then
 		familiar:FollowPosition(target.Position)
 		familiar.Velocity = familiar.Velocity * 3
 		
@@ -140,7 +212,7 @@ local function OnUpdate(_,familiar)
 	else --无目标时
 		familiar:FollowPosition(player.Position)
 		
-		--正邪削弱
+		--正邪削弱,追击玩家(东方mod)
 		if mod:THI_WillSeijaNerf(player) then
 			local vec = (player.Position - familiar.Position):Normalized()
 			local dir = Maths:VectorToDirection(vec)
@@ -166,13 +238,30 @@ local function OnUpdate(_,familiar)
 	else
 		familiar.DepthOffset = 0
 	end
+	
+	--大宝
+	if player:HasCollectible(247) then 
+		spr.Scale = Vector(0.8, 0.8) --贴图修正
+		
+		--攻速翻倍
+		if (spr:GetFrame() % 2 == 0) then
+			spr:Update()
+		end	
+	end
+	
+	--缝纫机mod皇冠位置修正
+	if Sewn_API then
+		familiar:GetData().Sewn_crownPositionOffset = Vector(0,-20)
+	end	
 end
 mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, OnUpdate, SwordVariant)
 
+--生成
 local function OnSpawn(_,player, flag)
     if flag == CacheFlag.CACHE_FAMILIARS then
+		local boxUse = player:GetEffects():GetCollectibleEffectNum(357) --朋友盒
 		local num = player:GetCollectibleNum(IBS_Item.sword)
-		local numFamiliars = (num > 0 and 1) or 0
+		local numFamiliars = (num > 0 and num + boxUse) or 0
 		
 		player:CheckFamiliar(SwordVariant, numFamiliars, player:GetCollectibleRNG(IBS_Item.sword), Isaac.GetItemConfig():GetCollectible(IBS_Item.sword))
 	end
@@ -184,7 +273,7 @@ local function NewRoomTrail()
 	for _,familiar in pairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR, SwordVariant)) do
 		local player = familiar:ToFamiliar().Player
 
-		--防止直接出现在玩家面前
+		--防止直接出现在具有正邪效果的玩家面前(东方mod)
 		if mod:THI_WillSeijaNerf(player) then
 			familiar.Position = Game():GetRoom():ScreenWrapPosition(player.Position, 25)
 		end

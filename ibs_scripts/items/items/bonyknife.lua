@@ -7,6 +7,9 @@ local Ents = mod.IBS_Lib.Ents
 
 local sfx = SFXManager()
 
+--用于昧化该隐&亚伯
+mod.IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.bonyknife)
+
 --使用
 local function OnUse(_,item, rng, player, flag, slot)
 	local effect = player:GetEffects()

@@ -6,6 +6,8 @@ local Pools = mod.IBS_Lib.Pools
 local Finds = mod.IBS_Lib.Finds
 local Maths = mod.IBS_Lib.Maths
 
+--用于昧化该隐&亚伯
+mod.IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.d4d)
 
 --功能表
 local D4D_Func = {
