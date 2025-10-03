@@ -1,43 +1,56 @@
 --美德七面骰
 
 local mod = Isaac_BenightedSoul
-local IBS_Item = mod.IBS_Item
-local Finds = mod.IBS_Lib.Finds
-local Maths = mod.IBS_Lib.Maths
+local IBS_Boss = mod.IBS_Boss
 
---用于昧化该隐&亚伯
-mod.IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.v7)
+local game = Game()
 
---节制
-local Temperance = {
-	Type = Isaac.GetEntityTypeByName("IBS_Temperance"),
-	Variant = Isaac.GetEntityVariantByName("IBS_Temperance")
+local V7 = mod.IBS_Class.Item(mod.IBS_ItemID.V7)
+
+--召唤列表
+V7.SpawnList = {
+	IBS_Boss.Diligence, --勤劳
+	IBS_Boss.Fortitude, --坚韧
+	IBS_Boss.Temperance, --节制
+	IBS_Boss.Generosity, --慷慨
+	IBS_Boss.Humility, --谦逊
 }
 
---坚韧
-local Fortitude = {
-	Type = Isaac.GetEntityTypeByName("IBS_Fortitude"),
-	Variant = Isaac.GetEntityVariantByName("IBS_Fortitude")
-}
 
 --效果
-local function Conjure(_,item, rng, player)
-	local int = math.random(1,2)
-	local pos = Game():GetRoom():FindFreePickupSpawnPosition(player.Position, 0, true)
-	local type = Temperance.Type
-	local variant = Temperance.Variant
+function V7:OnUse(item, rng, player)
+	local key = rng:RandomInt(1, #self.SpawnList)
+
+	--暗室/玩具箱不出谦逊
+	if key == 4 and game:GetLevel():GetStage() == 11 then key = 3 end
+
+	local virtue = self.SpawnList[key] or IBS_Boss.Temperance
+	--local virtue = IBS_Boss.Diligence
 	
-	if int == 2 then
-		type = Fortitude.Type
-		variant = Fortitude.Variant
+	local SubType = {}
+	if type(virtue.SubType) == "number" then
+		table.insert(SubType, virtue.SubType)
+	elseif type(virtue.SubType) == "table" then
+		for _,v in pairs(virtue.SubType) do
+			table.insert(SubType, v)
+		end
 	end
 	
-	local ent = Isaac.Spawn(type, variant, 0, pos, Vector.Zero, player)
-	ent:AddCharmed(EntityRef(player), -1)
-	ent:AddEntityFlags(EntityFlag.FLAG_NO_REWARD)
-	ent:AddEntityFlags(EntityFlag.FLAG_NO_SPIKE_DAMAGE)
-	
+	for _,subType in ipairs(SubType) do
+		local pos = game:GetRoom():FindFreePickupSpawnPosition(player.Position, 0, true)
+		local ent = Isaac.Spawn(virtue.Type, virtue.Variant, subType, pos, Vector.Zero, player)
+		ent:AddCharmed(EntityRef(player), -1)
+		ent:AddEntityFlags(EntityFlag.FLAG_NO_REWARD)
+		ent:AddEntityFlags(EntityFlag.FLAG_NO_SPIKE_DAMAGE)
+		ent.MaxHitPoints = ent.MaxHitPoints * 2
+		ent.HitPoints = ent.HitPoints * 2
+		
+		--烟雾
+		Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, ent.Position, Vector.Zero, nil)	
+	end
+
 	return true	
 end
-mod:AddCallback(ModCallbacks.MC_USE_ITEM, Conjure, IBS_Item.v7)
+V7:AddCallback(ModCallbacks.MC_USE_ITEM, 'OnUse', V7.ID)
 
+return V7

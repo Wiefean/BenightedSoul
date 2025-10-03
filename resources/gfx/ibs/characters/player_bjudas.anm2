@@ -1,5 +1,5 @@
 <AnimatedActor>
-	<Info CreatedBy="robot" CreatedOn="2023/8/25 15:40:43" Version="178" Fps="30"/>
+	<Info CreatedBy="robot" CreatedOn="2024/7/1 17:33:00" Version="181" Fps="30"/>
 	<Content>
 		<Spritesheets>
 			<Spritesheet Path="costumes\players\bjudas\bjudas.png" Id="0"/>

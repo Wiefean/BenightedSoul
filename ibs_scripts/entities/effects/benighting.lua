@@ -1,126 +1,145 @@
---用于切换至昧化角色的光柱
+--用于切换至昧化角色的光柱,现仅用于多人模式
 
 local mod = Isaac_BenightedSoul
-local IBS_API = mod.IBS_API
-local IBS_Callback = mod.IBS_Callback
-local Finds = mod.IBS_Lib.Finds
-local Ents = mod.IBS_Lib.Ents
+local IBS_EffectID = mod.IBS_EffectID
 
-local BenightingVariant = mod.IBS_Effect.Benighting.Variant
-local ErrorTipName = "IBS_API"
+local game = Game()
+local sfx = SFXManager()
 
---将角色ID转换为字符串索引
-local PlayerTypeToKey = {
-	[PlayerType.PLAYER_ISAAC] = "bisaac",
-	[PlayerType.PLAYER_MAGDALENE] = "bmaggy",
-	[PlayerType.PLAYER_CAIN] = "bcain_and_babel",
-	[PlayerType.PLAYER_JUDAS] = "bjudas",
+local Benighting = mod.IBS_Class.Effect{
+	Variant = IBS_EffectID.Benighting.Variant,
+	SubType = IBS_EffectID.Benighting.SubType,
+	Name = {zh = '愚光', en = 'Benighting'}
 }
-local function ToKey(playerType)
-	local key = PlayerTypeToKey[playerType]
 
-	return key or "NILLLLLLLLLLLLLLLLLL"
-end
-
---用于模组角色兼容
-local ModPlayer = {}
-
-function IBS_API:RegisterBenightableCharacter(id, gfxPath, condition)
-	local err,mes = mod:CheckArgType(id, "number", nil, 1, ErrorTipName)
-	if err then error(mes, 2) end
-	err,mes = mod:CheckArgType(gfxPath, "string", nil, 2, ErrorTipName, true)
-	if err then error(mes, 2) end
-	err,mes = mod:CheckArgType(condition, "function", nil, 3, ErrorTipName, true)
-	if err then error(mes, 2) end
-	
-	gfxPath = gfxPath or ""
-	
-	ModPlayer[id] = {Gfx = gfxPath, Condition = condition}
-end
+--角色列表
+Benighting.List = {
+	[PlayerType.PLAYER_ISAAC] = 'BIsaac',
+	[PlayerType.PLAYER_MAGDALENE] = 'BMaggy',
+	[PlayerType.PLAYER_CAIN] = 'BCBA',
+	[PlayerType.PLAYER_JUDAS] = 'BJudas',
+	[PlayerType.PLAYER_BLUEBABY] = 'BXXX',
+	[PlayerType.PLAYER_EDEN] = 'BEden',
+	[PlayerType.PLAYER_KEEPER] = 'BKeeper',
+}
 
 --临时数据
-local function GetEffectData(effect)
-	local data = Ents:GetTempData(effect)
-	data.Benighting_Effect = data.Benighting_Effect or {
-		TimeOut = 21,
-		LastModPlayer = 0
-	}
+function Benighting:GetData(effect)
+	local data = self._Ents:GetTempData(effect)
+	data.Benighting_Effect = data.Benighting_Effect or {Timeout = 21}
 	return data.Benighting_Effect
 end
 
---变身条件
-local function CanHenshin()
-	local notInChallenge = Isaac.GetChallenge() <= 0
-	local notInLap = Game():GetVictoryLap() <= 0
-	
-	--非挑战,非跑圈
-	return notInChallenge and notInLap 
+--检测联机模式
+function Benighting:IsCoopMode()
+	if Isaac.GetChallenge() > 0 then return false end --挑战
+	if game:GetVictoryLap() > 0 then return false end --跑圈
+	local playerNum = 0
+	local controllers = {}
+
+	--计算玩家数
+	for i = 0, game:GetNumPlayers() -1 do
+		local player = Isaac.GetPlayer(i)
+		local cid = player.ControllerIndex
+
+		if (not controllers[cid]) and (player.Variant == 0) and not player:IsCoopGhost() and not player.Parent then
+			playerNum = playerNum + 1
+		end
+
+		controllers[cid] = true
+	end
+
+	--需要至少两个玩家
+	return (playerNum >= 2)
 end
 
---初始房间生成光柱
-mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
-	local game = Game()
-	if (game:GetFrameCount() == 30) and CanHenshin() then --开局1秒
-		local level = game:GetLevel()
-		local offset = Vector(0,0)
-		if game:IsGreedMode() then
-			offset = Vector(0,-100)
-		end
-		
-		if level:GetStartingRoomIndex() == level:GetCurrentRoomIndex() then
-			local room = game:GetRoom()
-			local pos = room:FindFreePickupSpawnPosition(room:GetCenterPos() + offset, 0, true)
-			Isaac.Spawn(1000, BenightingVariant, 0, pos, Vector.Zero, nil)
+--检测变身条件
+function Benighting:CanBenight(playerType)
+	--检测角色是否解锁
+	local mark = self:GetIBSData('persis')[self.List[playerType] or '']
+	if mark and mark.Unlocked then
+		return true
+	end
+	return false
+end
+
+--是否有角色能变身
+function Benighting:AnyCanBenight()
+	for i = 0, game:GetNumPlayers() -1 do
+		if self:CanBenight(Isaac.GetPlayer(i):GetPlayerType()) then
+			return true
 		end
 	end
-end)
+	return false
+end
 
---更新动画,触发回调
-mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_,effect)
+
+--更新
+function Benighting:OnUpdate(effect)
+	local data = self:GetData(effect)
 	local spr = effect:GetSprite()
-	if spr:IsFinished("Appear") or not spr:IsPlaying("Appear") then
-		local data = GetEffectData(effect)
-		local player = Finds:ClosestPlayer(effect.Position):ToPlayer()
-		local playerType = player:GetPlayerType()
-		local KEY = ToKey(playerType)
-		local mark = IBS_Data.Setting[KEY]
-		local modPlayer = ModPlayer[playerType]
-		local ready = false
-		
-		if CanHenshin() then
-			if mark and mark.Unlocked then
-				spr:Play(KEY, false)
-				ready = true
-			elseif modPlayer and (not modPlayer.Condition or modPlayer.Condition(player)) then
-				if data.LastModPlayer ~= playerType then
-					data.LastModPlayer = playerType
-					spr:ReplaceSpritesheet(3, modPlayer.Gfx)
-					spr:LoadGraphics()
-				end
-				spr:Play("Mod", false)
-				ready = true
-			else
-				spr:Play("Disappear", false)
-			end
-			
-			if ready then
-				local dist = (effect.Position - player.Position):Length()
 
-				if dist <= 17 then
-					if data.TimeOut == nil then data.TimeOut = 0 end
-					
-					if data.TimeOut > 0 then
-						data.TimeOut = data.TimeOut - 1
-					else
-						data.TimeOut = 21
-						Isaac.RunCallbackWithParam(IBS_Callback.BENIGHTED_HENSHIN, playerType, player, playerType)
-					end
-				elseif data.TimeOut ~= 21 then
-					data.TimeOut = 21
-				end
+	--非联机模式收起光柱
+	if not self:IsCoopMode() then
+		data.Timeout = 21
+		spr:Play("Disappear")
+		return		
+	end
+
+	--房间未清理时收起光柱,主要用于贪婪模式
+	if not game:GetRoom():IsClear() then
+		data.Timeout = 21
+		spr:Play("Disappear")
+		return
+	end
+
+	local player = self._Finds:ClosestPlayer(effect.Position):ToPlayer()
+	
+	if player and self:CanBenight(player:GetPlayerType()) then
+		local playerType = player:GetPlayerType()
+
+		if not spr:IsPlaying("Appear") then
+			spr:Play("Appear", false)
+		end
+
+		if effect.Position:Distance(player.Position) <= 17 then
+			if data.Timeout > 0 then
+				data.Timeout = data.Timeout - 1
+			else
+				data.Timeout = 21
+				Isaac.RunCallbackWithParam(mod.IBS_CallbackID.BENIGHTED, playerType, player, false)
 			end
 		else
-			spr:Play("Disappear", false)
+			data.Timeout = 21
+		end
+	else
+		data.Timeout = 21
+		spr:Play("Disappear", false)
+	end
+end
+Benighting:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, 'OnUpdate', Benighting.Variant)
+
+
+
+--开局生成光柱
+function Benighting:OnGameStarted()
+	local level = game:GetLevel()
+	local offset = Vector(0,0)
+	if game:IsGreedMode() then
+		offset = Vector(0,-100)
+	end
+
+	if level:GetStartingRoomIndex() == level:GetCurrentRoomIndex() then
+		local room = game:GetRoom()
+		local pos = room:FindFreePickupSpawnPosition(room:GetCenterPos() + offset, 0, true)
+		local effect = Isaac.Spawn(1000, Benighting.Variant, 0, pos, Vector.Zero, nil)
+
+		if not self:IsCoopMode() or not self:AnyCanBenight() then
+			effect:GetSprite():SetFrame("Disappear", 700)
 		end
 	end
-end, BenightingVariant)
+end
+Benighting:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, 'OnGameStarted')
+
+
+return Benighting

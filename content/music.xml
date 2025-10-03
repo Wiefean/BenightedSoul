@@ -1,0 +1,5 @@
+<music root="music/ibs/">
+	<track name="愚昧角色菜单" intro="mainmenu_intro.ogg" path="mainmenu_loop.ogg" layerintro="Diptera Layer Intro.ogg" layer="Diptera Layer.ogg" loop="true" />
+	<track name="悼歌之冬商店" intro="elegiast_intro.ogg" path="elegiast_loop.ogg" layerintro="Diptera Layer Intro.ogg" loop="true" />
+
+</music>

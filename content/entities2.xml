@@ -1,34 +1,192 @@
 <entities anm2root="gfx/ibs/" deathanm2="gfx/death enemies.anm2" version="5">
 	<!-- bosses -->
-    <entity name="IBS_Temperance" anm2path="bosses/mini/temperance.anm2" baseHP="49" boss="1" champion="0" collisionDamage="2" collisionMass="30" collisionRadius="13" friction="1" id="49" variant="7250" numGridCollisionPoints="12" shadowSize="12" stageHP="7" portrait="0" >
-        <gibs amount="10" blood="0" bone="1" eye="0" gut="0" large="0" sound_bone="1" dust="1" />
+    <entity name="IBS_Deligence" anm2path="bosses/mini/deligence.anm2" baseHP="35" shieldStrength="10" boss="1" champion="0" collisionDamage="0" collisionMass="1" collisionRadius="9" friction="1" id="46" variant="7250" subtype="0" numGridCollisionPoints="12" shadowSize="12" stageHP="5" tags="nodelirium" portrait="0" >
+        <gibs amount="5" blood="1" bone="0" eye="0" gut="0" large="0" dust="0" />
     </entity>
-    <entity name="IBS_Fortitude" anm2path="bosses/mini/fortitude.anm2" baseHP="100" boss="1" champion="0" collisionDamage="0" collisionMass="30" collisionRadius="13" friction="1" id="48" variant="7250" numGridCollisionPoints="12" shadowSize="13" stageHP="20" shieldStrength="70" portrait="1" >
+    <entity name="IBS_Diligence" anm2path="bosses/mini/diligence.anm2" baseHP="35" shieldStrength="10" boss="1" champion="0" collisionDamage="2" collisionMass="1" collisionRadius="9" friction="1" id="46" variant="7250" subtype="1" numGridCollisionPoints="12" shadowSize="12" stageHP="5" tags="nodelirium" portrait="0" >
+        <gibs amount="5" blood="1" bone="0" eye="0" gut="0" large="0" dust="0" />
+    </entity>
+    <entity name="IBS_Fortitude" anm2path="bosses/mini/fortitude.anm2" baseHP="90" boss="1" champion="0" collisionDamage="0" collisionMass="70" collisionRadius="16" friction="1" id="48" variant="7251" subtype="0" numGridCollisionPoints="12" shadowSize="13" stageHP="15" shieldStrength="35" tags="nodelirium" portrait="1" >
         <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0" />
     </entity>
+    <entity name="IBS_Temperance" anm2path="bosses/mini/temperance.anm2" baseHP="49" boss="1" champion="0" collisionDamage="2" collisionMass="15" collisionRadius="13" friction="1" id="49" variant="7252" subtype="0" numGridCollisionPoints="12" shadowSize="12" stageHP="7" tags="nodelirium" portrait="2" >
+        <gibs amount="10" blood="0" bone="1" eye="0" gut="0" large="0" sound_bone="1" dust="1" />
+    </entity>
+    <entity name="IBS_Generosity" anm2path="bosses/mini/generosity.anm2" baseHP="700" boss="1" champion="0" collisionDamage="0" collisionMass="15" collisionRadius="13" friction="1" id="50" variant="7253" subtype="0" numGridCollisionPoints="12" shadowSize="16" stageHP="0" tags="nodelirium" portrait="3" >
+        <gibs amount="6" blood="1" bone="1" eye="0" gut="1" large="0"/>
+    </entity>
+    <entity name="IBS_GenerosityBum" anm2path="bosses/mini/generosity_bum.anm2" baseHP="14" boss="1" champion="0" collisionDamage="2" collisionMass="15" collisionRadius="13" friction="1" id="50" variant="7253" subtype="1" numGridCollisionPoints="12" shadowSize="16" stageHP="7" tags="nodelirium" portrait="3" >
+        <gibs amount="6" blood="1" bone="1" eye="0" gut="1" large="0"/>
+    </entity>
+    <entity name="IBS_Humility" anm2path="bosses/mini/humility.anm2" baseHP="70" boss="1" champion="0" collisionDamage="2" collisionMass="7" collisionRadius="13" friction="1" id="52" variant="7254" subtype="0" numGridCollisionPoints="12" shadowSize="0" stageHP="10" tags="nodelirium" portrait="4" >
+        <gibs amount="10" blood="0" bone="0" eye="0" gut="0" large="0" dust="1" />
+    </entity>
 
+
+    <!-- tears -->
+    <entity name="IBS_DiligenceHammerTear" anm2path="tears/diligence_hammer.anm2" id="2" variant="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="50" collisionRadius="16" friction="1" numGridCollisionPoints="16" shadowSize="16" stageHP="0" />
+    	
 
 	<!-- familiars -->
-    <entity name="IBS_Wisper" anm2path="familiar/wisper.anm2" id="3" variant="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="16" friction="1" numGridCollisionPoints="12" shadowSize="7" stageHP="0" tags="cansacrifice"/>
-    <entity name="IBS_Sword" anm2path="familiar/sword.anm2" id="3" variant="7251" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="30" friction="1" numGridCollisionPoints="12" shadowSize="0" stageHP="0" />
-
-
+    <entity name="IBS_Wisper" anm2path="familiar/wisper.anm2" id="3" variant="7248" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="16" friction="1" numGridCollisionPoints="12" shadowSize="7" stageHP="0" tags="cansacrifice"/>
+    <entity name="IBS_Sword" anm2path="familiar/sword.anm2" id="3" variant="7249" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="30" friction="1" numGridCollisionPoints="12" shadowSize="0" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" />
+    <entity name="IBS_BXXXOrbIsaac" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="0" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_BXXXOrbMagdalene" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="1" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_BXXXOrbCain" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_BXXXOrbAbel" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="3" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_BXXXOrbJudas" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="4" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_BXXXOrbEve" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="5" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>	
+    <entity name="IBS_BXXXOrbSamson" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="6" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_BXXXOrbAzazel" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="7" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_BXXXOrbLazarus" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="8" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>		
+    <entity name="IBS_BXXXOrbEden" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="9" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_BXXXOrbLost" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="10" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_BXXXOrbLilith" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="11" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>	
+    <entity name="IBS_BXXXOrbKeeper" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="12" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_BXXXOrbAppollyon" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="13" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_BXXXOrbForgotten" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="14" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>		
+    <entity name="IBS_BXXXOrbBethany" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="15" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_BXXXOrbJE" anm2path="familiar/bxxx_orb.anm2" id="3" variant="7252" subtype="16" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="20" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+	<entity name="IBS_018" anm2path="familiar/018.anm2" id="3" variant="7253" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="6" friction="1" numGridCollisionPoints="6" shadowSize="0" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" />
+    <entity name="IBS_BLostFloatCommon" anm2path="familiar/blost_mecha/float/common.anm2" id="3" variant="7254" subtype="0" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
+        <gibs amount="1" dust="1" />
+    </entity>
+    <entity name="IBS_BLostFloatStone" anm2path="familiar/blost_mecha/float/stone.anm2" id="3" variant="7254" subtype="1" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="20" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="1" dust="1" />
+    </entity>
+    <entity name="IBS_BLostFloatSpike" anm2path="familiar/blost_mecha/float/spike.anm2" id="3" variant="7254" subtype="2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs familiarblockprojectiles" >
+        <gibs amount="1" dust="1" />
+    </entity>
+    <entity name="IBS_BLostFloatEternal" anm2path="familiar/blost_mecha/float/eternal.anm2" id="3" variant="7254" subtype="3" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
+        <gibs amount="1" dust="1" />
+    </entity>
+    <entity name="IBS_BLostFloatOld" anm2path="familiar/blost_mecha/float/old.anm2" id="3" variant="7254" subtype="4" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
+        <gibs amount="1" dust="1" />
+    </entity>
+    <entity name="IBS_BLostFloatWooden" anm2path="familiar/blost_mecha/float/wooden.anm2" id="3" variant="7254" subtype="5" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="24" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
+        <gibs amount="1" dust="1" />
+    </entity>
+    <entity name="IBS_BLostFloatHaunted" anm2path="familiar/blost_mecha/float/haunted.anm2" id="3" variant="7254" subtype="6" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
+        <gibs amount="1" dust="1" />
+    </entity>
+    <entity name="IBS_BLostFloatGolden" anm2path="familiar/blost_mecha/float/golden.anm2" id="3" variant="7254" subtype="7" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
+        <gibs amount="1" dust="1" />
+    </entity>
+    <entity name="IBS_BLostFloatRed" anm2path="familiar/blost_mecha/float/red.anm2" id="3" variant="7254" subtype="8" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
+        <gibs amount="1" dust="1" />
+    </entity>
+    <entity name="IBS_BLostWeaponCommon" anm2path="familiar/blost_mecha/weapon/common.anm2" id="3" variant="7255" subtype="0" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
+        <gibs amount="2" dust="1" />
+    </entity>
+	<entity name="IBS_BLostWeaponStone" anm2path="familiar/blost_mecha/weapon/stone.anm2" id="3" variant="7255" subtype="1" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
+        <gibs amount="2" dust="1" />
+    </entity>
+	<entity name="IBS_BLostWeaponSpike" anm2path="familiar/blost_mecha/weapon/spike.anm2" id="3" variant="7255" subtype="2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="20" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
+        <gibs amount="2" dust="1" />
+    </entity>
+	<entity name="IBS_BLostWeaponEternal" anm2path="familiar/blost_mecha/weapon/eternal.anm2" id="3" variant="7255" subtype="3" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
+        <gibs amount="2" dust="1" />
+    </entity>
+	<entity name="IBS_BLostWeaponOld" anm2path="familiar/blost_mecha/weapon/old.anm2" id="3" variant="7255" subtype="4" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
+        <gibs amount="2" dust="1" />
+    </entity>
+	<entity name="IBS_BLostWeaponWooden" anm2path="familiar/blost_mecha/weapon/wooden.anm2" id="3" variant="7255" subtype="5" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
+        <gibs amount="2" dust="1" />
+    </entity>
+	<entity name="IBS_BLostWeaponHaunted" anm2path="familiar/blost_mecha/weapon/haunted.anm2" id="3" variant="7255" subtype="6" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
+        <gibs amount="2" dust="1" />
+    </entity>
+	<entity name="IBS_BLostWeaponGolden" anm2path="familiar/blost_mecha/weapon/golden.anm2" id="3" variant="7255" subtype="7" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
+        <gibs amount="2" dust="1" />
+    </entity>
+	<entity name="IBS_BLostWeaponRed" anm2path="familiar/blost_mecha/weapon/red.anm2" id="3" variant="7255" subtype="8" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
+        <gibs amount="2" dust="1" />
+    </entity>
+	<entity name="IBS_AKEY47" anm2path="familiar/akey47.anm2" id="3" variant="7256" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="16" friction="1" numGridCollisionPoints="12" shadowSize="12" stageHP="0" tags="familiarignorebffs"/>
+	
+	
 	<!-- pickups -->
 	<entity name="IBS_CuZnD6" anm2path="items/pick ups/CuZnD6.anm2" id="5" variant="300" subtype="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0">
 		<preload-snd id="252" /> 
     </entity>
-	<entity name="IBS_GoldenPrayer" anm2path="items/pick ups/goldenprayer.anm2" id="5" variant="300" subtype="7251" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="21" stageHP="0" />
+	<entity name="IBS_GoldenPrayer" anm2path="items/pick ups/goldenprayer.anm2" id="5" variant="300" subtype="7251" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="20" stageHP="0" />
+	<entity name="IBS_StolenYear" anm2path="items/pick ups/stolen_year.anm2" id="5" variant="300" subtype="7252" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
 	<entity name="IBS_FalsehoodOfIsaac" anm2path="items/pick ups/falsehood_bisaac.anm2" id="5" variant="300" subtype="7777" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
 	<entity name="IBS_FalsehoodOfMagdalene" anm2path="items/pick ups/falsehood_bmaggy.anm2" id="5" variant="300" subtype="7778" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
-	
-	<entity name="IBS_FalsehoodOfJudas" anm2path="items/pick ups/falsehood_bjudas.anm2" id="5" variant="300" subtype="7780" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
-	
+	<entity name="IBS_FalsehoodOfCain" anm2path="items/pick ups/falsehood_bcain.anm2" id="5" variant="300" subtype="7779" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	<entity name="IBS_FalsehoodOfAbel" anm2path="items/pick ups/falsehood_babel.anm2" id="5" variant="300" subtype="7780" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	<entity name="IBS_FalsehoodOfJudas" anm2path="items/pick ups/falsehood_bjudas.anm2" id="5" variant="300" subtype="7781" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	<entity name="IBS_FalsehoodOfEve" anm2path="items/pick ups/falsehood_beve.anm2" id="5" variant="300" subtype="7782" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	<entity name="IBS_FalsehoodOfSamson" anm2path="items/pick ups/falsehood_bsamson.anm2" id="5" variant="300" subtype="7783" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	<entity name="IBS_FalsehoodOfAzazel" anm2path="items/pick ups/falsehood_bazazel.anm2" id="5" variant="300" subtype="7784" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	<entity name="IBS_FalsehoodOfLazarus" anm2path="items/pick ups/falsehood_blazarus.anm2" id="5" variant="300" subtype="7785" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	<entity name="IBS_FalsehoodOfEden" anm2path="items/pick ups/falsehood_beden.anm2" id="5" variant="300" subtype="7786" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	<entity name="IBS_FalsehoodOfLost" anm2path="items/pick ups/falsehood_blost.anm2" id="5" variant="300" subtype="7787" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	<entity name="IBS_FalsehoodOfLilith" anm2path="items/pick ups/falsehood_blilith.anm2" id="5" variant="300" subtype="7788" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	<entity name="IBS_FalsehoodOfKeeper" anm2path="items/pick ups/falsehood_bkeeper.anm2" id="5" variant="300" subtype="7789" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	<entity name="IBS_FalsehoodOfApollyon" anm2path="items/pick ups/falsehood_bapollyon.anm2" id="5" variant="300" subtype="7790" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	<entity name="IBS_FalsehoodOfForgotten" anm2path="items/pick ups/falsehood_bforgotten.anm2" id="5" variant="300" subtype="7791" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	<entity name="IBS_FalsehoodOfBethany" anm2path="items/pick ups/falsehood_bbeth.anm2" id="5" variant="300" subtype="7792" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	<entity name="IBS_FalsehoodOfJE" anm2path="items/pick ups/falsehood_bjbe.anm2" id="5" variant="300" subtype="7793" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+	<entity name="IBS_SeedBag" anm2path="items/pick ups/seed_bag.anm2" id="5" variant="7250" subtype="0" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="18" stageHP="0" />
+	<entity name="IBS_Memory" anm2path="items/pick ups/memory.anm2" id="5" variant="7251" subtype="0" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="2" collisionRadius="6" friction="1" numGridCollisionPoints="12" shadowSize="22" stageHP="0" />
+	<entity name="IBS_MemoryBig" anm2path="items/pick ups/memory.anm2" id="5" variant="7251" subtype="1" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="18" stageHP="0" />
+	<entity name="IBS_Relic" anm2path="items/pick ups/relic.anm2" id="5" variant="7252" subtype="0" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="4" collisionRadius="8" friction="1" numGridCollisionPoints="24" shadowSize="0" stageHP="0" />
+	<entity name="IBS_DeligenceWheat" anm2path="items/pick ups/red_wheat.anm2" id="5" variant="7253" subtype="0" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="4" collisionRadius="8" friction="1" numGridCollisionPoints="24" shadowSize="16" stageHP="0" />
+
 	<!-- slots -->
-    <!-- <entity name="IBS_DonationBox" anm2path="items/slots/donationbox.anm2" id="6" variant="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="33" stageHP="0" > -->
-        <!-- <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0"/> -->
-    <!-- </entity> -->
+    <entity name="IBS_CollectionBox" anm2path="items/slots/collectionbox.anm2" id="6" variant="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="4" collisionRadius="16" collisionRadiusYMulti="0.5" friction="1" numGridCollisionPoints="24" shadowSize="40" stageHP="0" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0"/>
+    </entity>
+    <entity name="IBS_Albern" anm2path="items/slots/albern.anm2" id="6" variant="7251" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="4" collisionRadius="16" friction="1" numGridCollisionPoints="24" shadowSize="24" stageHP="0" >
+        <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="1"/>
+    </entity>
+    <entity name="IBS_Facer" anm2path="items/slots/facer.anm2" id="6" variant="7252" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0" >
+        <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="1"/>
+    </entity>
+    <entity name="IBS_Envoy" anm2path="items/slots/envoy.anm2" id="6" variant="7253" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0" >
+        <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="1"/>
+    </entity>
 	
 	
+    <!-- projectiles -->
+    <entity name="IBS_DiligenceHammer" anm2path="tears/diligence_hammer.anm2" id="9" variant="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="50" collisionRadius="16" friction="1" numGridCollisionPoints="16" shadowSize="16" stageHP="0" />
+    	
+
 	<!-- effects -->
     <entity name="IBS_Benighting" anm2path="effects/benighting.anm2" id="1000" variant="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
@@ -36,7 +194,28 @@
     <entity name="IBS_TheGospelOfJudas" anm2path="effects/tgoj.anm2" id="1000" variant="7251" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="24" stageHP="0" >
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
-    <entity name="IBS_BigLight" anm2path="effects/biglight.anm2" id="1000" variant="7252" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
+    <entity name="IBS_TGOJDash" anm2path="effects/tgoj_dash.anm2" id="1000" variant="7252" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_BigLight" anm2path="effects/biglight.anm2" id="1000" variant="7253" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>	
+    <entity name="IBS_Swing" anm2path="effects/swing.anm2" id="1000" variant="7254" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_DeligenceSwing" anm2path="effects/deligence_swing.anm2" id="1000" variant="7255" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_AbandonedItem" anm2path="effects/abandoned_item.anm2" id="1000" variant="7256" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_DiligenceLamp" anm2path="effects/diligence_lamp.anm2" id="1000" variant="7257" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="16" stageHP="0" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_ChestMantle" anm2path="effects/chest_mantle.anm2" id="1000" variant="7258" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+   <entity name="IBS_ShockWave" anm2path="effects/shock_wave.anm2" id="1000" variant="7259" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
 	<entity name="IBS_Empty" id="1000" variant="7777" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="0" collisionRadius="0" friction="0" numGridCollisionPoints="0" shadowSize="0" stageHP="0"/>	

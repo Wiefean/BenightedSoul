@@ -1,14 +1,13 @@
 --死亡回放
 
 local mod = Isaac_BenightedSoul
-local IBS_Item = mod.IBS_Item
-local Pools = mod.IBS_Lib.Pools
-local Players = mod.IBS_Lib.Players
 
---用于昧化该隐&亚伯
-mod.IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.redeath)
+local game = Game()
+local sfx = SFXManager()
 
-local ChestVariant = {
+local Redeath = mod.IBS_Class.Item(mod.IBS_ItemID.Redeath)
+
+Redeath.ChestVariant = {
 	PickupVariant.PICKUP_CHEST,
 	PickupVariant.PICKUP_CHEST,
 	PickupVariant.PICKUP_CHEST,
@@ -29,7 +28,7 @@ local ChestVariant = {
 	PickupVariant.PICKUP_REDCHEST
 }
 
-local ReadyToRoll = {
+Redeath.ReadyToRoll = {
 	114514, --箱子
 	PickupVariant.PICKUP_GRAB_BAG,
 	PickupVariant.PICKUP_GRAB_BAG,
@@ -42,18 +41,17 @@ local ReadyToRoll = {
 }
 
 --使用效果
-local function Roll(_,item, rng, player, flags, slot)
+function Redeath:OnUse(item, rng, player, flags, slot)
 	if (flags & UseFlag.USE_CARBATTERY <= 0) then --拒绝车载电池
-		
 		for _,ent in pairs(Isaac.FindByType(5,100,0)) do
 			local itemPool = Game():GetItemPool()
 			local variant = 100
 			local subType = 0
-			local result = ReadyToRoll[rng:RandomInt(10) + 1] or 114514
+			local result = self.ReadyToRoll[rng:RandomInt(10) + 1] or 114514
 			
 			--箱子
 			if (result == 114514) then
-				variant = ChestVariant[rng:RandomInt(18) + 1] or PickupVariant.PICKUP_CHEST
+				variant = self.ChestVariant[rng:RandomInt(18) + 1] or PickupVariant.PICKUP_CHEST
 			else
 				variant = result
 			end
@@ -67,8 +65,9 @@ local function Roll(_,item, rng, player, flags, slot)
 				subType = itemPool:GetPill(rng:Next())
 			
 			elseif (variant == PickupVariant.PICKUP_COLLECTIBLE) then
-				local pool = Pools:GetRoomPool(rng:GetSeed())
-				subType = itemPool:GetCollectible(pool, true, rng:Next(), 25)
+				local seed = self._Levels:GetRoomUniqueSeed()
+				local pool = self._Pools:GetRoomPool(seed)
+				subType = itemPool:GetCollectible(pool, true, seed)
 				
 			elseif (variant == PickupVariant.PICKUP_TAROTCARD) then
 				subType = itemPool:GetCard(rng:Next(), true, true, false)
@@ -78,28 +77,30 @@ local function Roll(_,item, rng, player, flags, slot)
 			end
 			
 			local pickup = Isaac.Spawn(5, variant, subType, ent.Position, Vector.Zero, nil):ToPickup()
-			pickup.AutoUpdatePrice = false
 			ent:Remove()
-			
-			--无美德书6秒后消失
+
+			--无美德书20秒后消失
 			local virtue = player:HasCollectible(584) and (flags & UseFlag.USE_NOANIM <= 0 or flags & UseFlag.USE_ALLOWWISPSPAWN > 0)
 			if not virtue then
-				pickup.Timeout = 180
+				pickup.Timeout = 600
 				pickup:SetColor(Color(0.5,0.5,0.5,0.5), -1, 3, false, true)
 			end
-			
+
 			--无彼列书加尖刺
 			if not player:HasCollectible(59) then
-				pickup.Price = PickupPrice.PRICE_SPIKES
+				self._Pickups:SetSpikePrice(pickup)
 			end
 
 			--特效
 			Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF02, 0, pickup.Position, Vector.Zero, nil)
-			Game():ShakeScreen(30)
-			SFXManager():Play(SoundEffect.SOUND_DEATH_CARD)
+			game:ShakeScreen(15)
+			sfx:Play(SoundEffect.SOUND_DEATH_CARD)
 		end
 		
 		return {ShowAnim = false, Discharge = true}
 	end	
 end
-mod:AddCallback(ModCallbacks.MC_USE_ITEM, Roll, IBS_Item.redeath)
+Redeath:AddCallback(ModCallbacks.MC_USE_ITEM, 'OnUse', Redeath.ID)
+
+
+return Redeath

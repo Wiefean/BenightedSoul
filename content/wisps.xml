@@ -219,7 +219,7 @@
 	<wisp id="27" count="0" />
 
 	<!-- the forbidden fruit -->
-	<wisp id="33" count="2" layer="0" hp="5" damage="4" fireDelay="15" flameColor="core_beige" coreColor="core_green" tearColor="tear_green" tearFlags="4" coreGfx="core.png" />
+	<wisp id="33" count="2" layer="0" hp="20" damage="4" fireDelay="15" flameColor="core_beige" coreColor="core_green" tearColor="tear_green" tearFlags="4" coreGfx="core.png" />
 
 	<!-- unwelcome sacrifice -->
 	<wisp id="36" count="0" />
@@ -227,5 +227,89 @@
 	<!-- welcome sacrifice -->
 	<wisp id="37" count="0" />
 
+	<!-- falowerse -->
+	<wisp id="42" count="0" />
 
+	<!-- chubby cookbook -->
+	<wisp id="45" hp="4" layer="2" flameColor="flame_beige" coreColor="core_beige" canShoot="false" />
+
+	<!-- rules book -->
+	<wisp id="47" damage="4" layer="0" flameColor="flame_white" coreColor="core_grey" tearColor="tear_white" coreGfx="card.png" />
+
+	<!-- silver bracelet -->
+	<wisp id="51" layer="1" flameColor="flame_grey" coreColor="flame_grey" canShoot="false" />
+
+	<!-- stolen decade -->
+	<wisp id="55" layer="2" hp="12" flameColor="flame_beige" coreColor="flame_black" canShoot="false" priority="3" />
+
+	<!-- super panic button -->
+	<wisp id="59" count="6" layer="0" hp="16" flameColor="flame_grey" coreColor="flame_red" canShoot="false" />
+
+	<!-- sketch -->
+	<wisp id="61" count="0" />
+
+	<!-- book of seen -->
+	<wisp id="64" count="0" />
+	
+	<!-- portable farm -->
+	<wisp id="65" layer="1" hp="4" flameColor="flame_brown" coreColor="flame_green" canShoot="false"/>
+	
+	<!-- goatify -->
+	<wisp id="74" layer="1" hp="6" flameColor="flame_black" coreColor="flame_brown" canShoot="false"/>
+
+	<!-- another karma -->
+	<wisp id="84" count="0" />
+
+	<!-- lamp of diligence -->
+	<wisp id="89" count="0" canShoot="false" layer="-1" hp="7" flameColor="flame_yellow" coreColor="core_yellow"/>
+	
+	<!-- maxx c -->
+	<wisp id="91" count="0" />
+
+	<!-- multiply -->
+	<wisp id="92" count="4" layer="1" hp="6" flameColor="flame_grey" coreColor="core_black" tearColor="tear_grey" priority="2"/>
+	
+	<!-- 018 -->
+	<wisp id="93" count="0" layer="2" hp="18" stageDamage="3" fireDelay="15" flameColor="flame_red" coreColor="core_red" tearColor="tear_red" priority="2"/>
+	
+	<!-- panacea -->
+	<wisp id="100" count="0" />
+
+	<!-- three wishes -->
+	<wisp id="106" count="3" layer="1" hp="10" stageDamage="3" flameColor="flame_pink" coreColor="core_pink" tearColor="tear_pink" tearFlags="2" priority="1"/>
+	
+	<!-- chest chest -->
+	<wisp id="107" count="0" />
+	
+	<!-- treasure key -->
+	<wisp id="110" layer="0" hp="8" canShoot="false" flameColor="flame_orange" coreColor="core_grey" coreGfx="key.png" />
+	
+	<!-- the silver key -->
+	<wisp id="112" count="0" />
+	
+	<!-- broken wildering mirror -->
+	<wisp id="116" count="0" />
+	
+	<!-- turbine -->
+	<wisp id="125" layer="0" hp="4" damage="5" flameColor="flame_grey" coreColor="core_grey" tearColor="tear_grey" tearFlags="55" coreGfx="core_bright.png" />
+	
+	<!-- danish gambit -->
+	<wisp id="128" count="0" />	
+	
+	<!-- hyper block -->
+	<wisp id="129" count="0" />	
+	
+	<!-- peace pipe -->
+	<wisp id="132" count="0" />	
+	
+	<!-- yongle -->
+	<wisp id="133" count="0" />	
+	
+	<!-- hexa vessel -->
+	<wisp id="134" count="0" layer="0" hp="1" damage="1" stageDamage="1" flameColor="flame_green" coreColor="core_green" tearColor="tear_green" priority="6" />
+	
+	<!-- diecry -->
+	<wisp id="144" layer="0" hp="1" flameColor="flame_blue" coreColor="core_blue" tearColor="default" fireDelay="7" coreGfx="isaac.png" />
+		
+	
 </wisps>

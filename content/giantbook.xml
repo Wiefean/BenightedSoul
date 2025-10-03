@@ -1,0 +1,4 @@
+<giantbook anm2root="gfx/ibs/ui/giantbook/">
+	<entry name="IBS_Paper" anm2="achievement.anm2" anim="Idle" />
+	<entry name="IBS_Envy" anm2="envy.anm2" anim="Idle" />
+</giantbook>

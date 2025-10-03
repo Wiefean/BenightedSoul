@@ -1,7 +1,5 @@
 <curses>
 	<curse name="ThisIsUsedToDeleteTheGiantIcon" />
 	<curse name="Curse of the Moving!" />
-	<curse name="Curse of the Forgotten!" />
 	<curse name="Curse of D7!" />
-	<curse name="Curse of the Binding!" />
 </curses>

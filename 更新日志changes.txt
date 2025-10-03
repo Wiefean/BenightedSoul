@@ -1,0 +1,1715 @@
+-----------------------------------
+2025.9
+v0.10.3
+
+新道具：
+ 剥落古老肉
+ 诅咒针剂
+ 星际芦荟
+
+调整：
+ <角色>
+ 昧化犹大：可用攻击打断冲刺
+ <道具>
+ 尘埃炸弹：品质2；免疫来自角色炸弹的爆炸
+ 钻石：从商店道具池移除；防爆
+ 死不瞑目：移除攻击性标签
+ 盛装教父：不会获得屁股硬币
+ 丹麦弃兵：4充能
+
+模组兼容：
+ <幻想曲>
+ 新增伪忆与符文佩剑的兼容
+
+BUG修复：
+ 修复全知之书在没有美德之书时仍然生成魂火的问题
+
+
+New Items:
+ Deciduous Meat
+ Curse Syringe
+ Astro Vera
+
+Adjustments:
+ <Character>
+ Benighted Judas: Shooting stops dashing
+ <Items>
+ Dusty Bombs: Quality 2; Immune explosion from player bombs
+ Diamoond: Removed from Shop Pool; Explosion immunity
+ Everlasting Regret: Remove Offensive tag 
+ Pageant Father: Butt Penny banned
+ Danish Gambit: Charge 4
+ 
+Compats:
+ <Reverie>
+ Rune Sword: Falsehood compatibility
+ 
+BUG Patches:
+ Fixed an issue that Book of Seen spawns wisps without Book of Virtues
+-----------------------------------
+2025.9
+v0.10.2
+
+在菜单中加入更多可配置项
+
+新道具：
+ 套作
+ 索斯星
+ 盛装教父
+ 
+调整：
+ <道具>
+ 发光的心：8充能；改为常规充能
+ 洞开之启：削弱
+ 慷慨之魂：削弱
+ 
+ <角色>
+ 昧化抹大拉：
+  现在是魂心角色
+  坚贞之心机制改动
+  击杀七宗罪以获取增强效果
+  
+  
+Add more options to menu 
+ 
+New Items: 
+ Reused Story
+ Zoth
+ Pageant Father
+
+Adjustments:
+ <Items>
+ Glowing Heart: Charge 8; Normal charge type
+ Soul of Generosity: Droop
+ Knock: Droop
+ <Character>
+ Benighted Magdalene:
+  Soul Heart Character
+  Iron Heart changes
+  Kill sins to gain boosts
+-----------------------------------
+2025.8
+v0.10.1
+
+新道具：
+ 杯水
+ 促销炸弹
+ 日寄
+
+新可互动实体：使者
+
+调整：
+ <道具>
+ 教堂玻璃窗：允许隐藏房的天使掉落钥匙碎片
+ 018：使用时加速
+ R剑：数值调整
+ 洞开之启：移除攻击性和可召唤标签
+ 亚波伦之翼：数值调整；拾起时生成弹速上升胶囊
+ 招牌技：强化
+
+New Items: 
+ PUC
+ Sale Bomb
+ Diecry
+ 
+New Slot: Envoy
+
+Adjustments:
+ <Items>
+ Cathedral Window: Make angel boss drop Key Piece in Secret Room
+ 018: Speed up when used
+ Kille R: Value adjustments
+ Knock: Remove Offensive and Summonable tags
+ Wings of Apollon: Value adjustments; Spawn a Shot Speed Up pill when gained
+ Signature Move: Boost
+-----------------------------------
+2025.8
+v0.10.0
+
+新道具：
+ 双倍剂量
+ 注射型圣水
+ R剑
+ 连锁挖掘
+ 帘锁挖掘
+
+新饰品：截图用具
+
+调整：
+ <道具>
+ 骨刀：属于妈妈套装
+ 宁静烟斗：数值提升；非挑战
+ 节制之骨：移除了部分兼容 
+ 勤奋偶像：强化 
+ 018：充能时间减半 
+ 丹麦弃兵：3充能 
+ 真实之眼：移出隐藏房池
+ 增殖：清理头目房后充能
+ 免茶：移出商店道具池
+ 白日之铸：概率降低
+ 银之钥：允许充满两次
+ 犹大福音：品质2
+ 月下异巷：第六层忽略头目房
+ 活动肌肉: 至少加成0.5伤害
+ 永乐大典: 12充能
+ 招牌技：初始伤害提升至30
+ <饰品>
+ 战地医院：加快治疗速度
+ <角色>
+ 昧化该隐&亚伯：副角色不再放置炸弹
+ <可互动实体>
+ 换脸商：优先扣除红心
+
+BUG修复：
+ 修复慷慨之魂对恶魔乞丐失效的问题
+ 修复宁静烟斗只在主动一号位增加计数的问题
+
+
+New Items:
+ Double Dosage
+ Holy Injection
+ Kille R
+ Vein Miner
+ Vain Miner
+
+New Trinket: For Screenshot
+
+Adjustments:
+ <Items>
+ Bony Knife: Mom transformation
+ Peace Pipe: Value up; No challenge
+ Bone of Temperance: Some synergies are removed
+ Model of Deligence: Boost
+ 018: Half recharge time
+ Danish Gambit: Charge 3
+ The Eye of Truth: Removed from Secret Room Pool
+ Multiply: Recharge when Boss Room is cleared
+ Lown Tea: Removed from Shop Pool
+ Forge: Chance Down
+ The Silver Key: Can be charged twice
+ The Gospel Of Judas: Quality 2
+ Moon Streets: Ignore Boss Room at Stage 6
+ Flex: +0.5 damage at least
+ Yongle: Discharge 12
+ Signature Move: Base damage increases to 30
+ <Trinkets>
+ War Hospital: Healing speed up 
+ <Character>
+ Benighted Cain & Abel: The second can not place bombs anymore
+ <Slot>
+ Facer: Take Red Heart first
+
+BUG Patches:
+ Fixed an issue that Soul of Generosity has no effect on Devil Beggar
+ Fixed an issue that Peace Pipe does not get charged if not on the main active slot
+-----------------------------------
+2025.6
+v0.9.9
+
+成就菜单现在可以预览解锁动画
+
+新可互动实体：换脸商
+
+新道具：
+ 永乐大典
+ 六魂容器
+ 活动肌肉
+ 招牌技
+
+新饰品：孢子云
+
+调整：
+ <道具>
+ 筵宴之杯：血量价格2
+ <饰品>
+ 蛇的头：由获得硬币改为生成硬币
+
+
+Achievements menu now can preview unlocking animation
+
+New Slot: Facer
+
+New Items:
+ Yongle
+ Hexa Vessel
+ Flex
+ Signature Move
+
+New Trinket: Spore Cloud
+
+Adjustments:
+ <Items>
+ Grail: Health price 2
+ <Trinkets>
+ Ssserpent Head: Spawn coins instead of gaining coins
+-----------------------------------
+2025.5
+v0.9.8
+
+新道具：
+ 融合之锤
+ 杯满的灿幻庄
+ 宁静烟斗
+ 
+新饰品:
+ 黑魔咒
+ 战地医院
+ 
+调整：
+ <角色>
+ 昧化抹大拉：震荡波增强
+ <道具>
+ 美德七面骰：3充能
+ 冷静头脑：品质1；新增神秘兼容
+ OvO：伤害降低
+
+New Items:
+ Fusion Hammer
+ Sangen Summoning
+ Peace Pipe
+ 
+New Trinkets:
+ Black Charm
+ War Hospital 
+ 
+Adjustments:
+ <Character>
+ Benighted Magdalene: Shockwave up
+ <Items>
+ V7: 3 charge
+ Chill Mind: Quality 1; Add a secret compat
+ OvO: Damage down
+-----------------------------------
+2025.5
+v0.9.7
+
+新道具：
+ 免茶
+ 全知之眼
+ 涡轮
+ 红钩
+ OvO
+ 丹麦弃兵
+ 超能格挡
+
+调整：
+ <角色>
+ 昧化抹大拉：强化
+ <道具>
+ 冷静头脑：品质2
+
+BUG修复：
+ 修复了北落师门会阻止触碰白火的问题
+
+
+New Items:
+ Lown Tea
+ The Eye of Truth
+ Turbine
+ Red Hook
+ OvO
+ Danish Gambit
+ Hyper Block
+
+Adjustments:
+ <Character>
+ Benighted Magdalene: Boost
+ <Item>
+ Chill Mind: Quality 2
+ 
+BUG Patches:
+ Fixed an issue that Fomalhunt prevents Isaac from white campfire
+-----------------------------------
+2025.5
+v0.9.6
+
+新道具：
+ 光之结界
+ 冷静头脑
+
+调整：
+ <道具>
+ 潜伏的G：削弱
+ <角色>
+ 昧化游魂：数值调整
+ 
+New Items: 
+ Light Barrier
+ Chill Mind
+ 
+Adjustments:
+ <Items>
+ Sneaky C: Droop
+ <Characters>
+ Benighted Lost: Value adjustments
+-----------------------------------
+2025.4
+v0.9.5
+
+新道具：
+ 迷途之镜
+ 破损的迷途之镜
+ 月下异巷
+ 北落师门
+ 幸运附魔
+ 双角斧
+
+新饰品：猛牛牛奶
+
+调整：
+ <道具>
+ 浪游秘史：只影响消耗的星星；添加洞开之启
+ <敌人>
+ 勤勤&劳劳：不能再叠加免伤
+
+New Items: 
+ Wildering Mirror
+ Broken Wildering Mirror
+ Moon Streets
+ Fomalhunt
+ Luck Enchantment
+ The Horned-Axe
+ 
+New Trinket: Wild Milk
+ 
+Adjustments:
+ <Items>
+ Secret Histories: Only affects consumed The Stars; Knock added
+ <Enemies>
+ Deligence & Diligence: No stackable mantle now
+-----------------------------------
+2025.4
+v0.9.4
+
+昧化抹大拉的解锁流程中，
+献祭房不再替换超级隐藏房，
+而是会尽可能生成一个
+
+新道具：
+ 银之钥
+ 真理宝箱
+ 洞开之启
+
+新饰品：
+ 怪异钥匙
+ 三色杯
+
+新可互动实体：真理小子
+
+调整：
+ <角色>
+ 昧化游魂：解锁树更新
+ <可互动实体>
+ 募捐箱：削弱
+ 
+ 
+When unlocking Benighted Magdalene, 
+Sacrifice Room won't replace Super Secret Room, 
+but generate one as possible
+
+New Items:
+ The Silver Key
+ Truth Chest
+ Knock
+ 
+New Trinkets: 
+ Odd Key
+ Neopolitan
+
+New Slot: Brother Albern
+
+Adjustments:
+ <Character>
+ Benighted Lost: Unlcok-tree update
+ <Slot>
+ Collection Box: Droop
+-----------------------------------
+2025.3
+v0.9.3
+
+新道具：
+ 宝库钥匙
+ AKEY-47
+
+新饰品：怪异钥匙
+
+新挑战：钥匙变炸弹
+
+调整：
+ <角色>
+ 昧化游魂：能力更新；解锁树更新
+
+New Items:
+ Treasure Key
+ AKEY-47
+
+New Trinket: Odd Key
+
+New Challenge: Keys are Bomb
+
+Adjustments:
+ <Character>
+ Benighted Lost: Abilities update; Unlcok-tree update
+-----------------------------------
+2025.3
+v0.9.2
+
+新道具：内核加速
+
+调整：
+ <角色>
+ 昧化游魂：能力更新；解锁树更新；现在需要解锁
+ <道具>
+ 紫电护主之刃：伤害提升；不攻击时也能阻挡敌弹
+ 伤疤之秘：只在射击时发射眼泪
+ <口袋物品>
+ 莉莉丝的伪忆：只对被动道具有效
+
+
+New Itemj: Turbo
+
+Adjustments:
+ <Character>
+ Benighted Lost: Abilities update; Unlcok-tree update; Needs to be unlocked now
+ <Items>
+ Sword of Siberite: DMG up; Always block projectiles
+ Colonel Edge: Fire tears only when shooting
+ <Pocket>
+ Falsehood of Lilith: Only valid to passive items
+-----------------------------------
+2025.3
+v0.9.1
+
+新道具：奶酪切片器
+
+调整：
+ <角色>
+ 昧化游魂：能力更新
+
+New Item: Cheese Cutter
+
+Adjustments:
+ <Character>
+ Benighted Lost: Abilities update
+-----------------------------------
+2025.3
+v0.9.0
+
+十字准星兼容
+
+新角色：昧化游魂(未完成)
+新道具：箱中箱宝库
+新饰品：杜弗尔的头
+
+调整：
+ <道具>
+ 女疾女户：数值提升
+ 核能电罐：自伤不再触发爆炸
+ 白日之铸：强化
+ 21点：清理房间后有10%概率生成正塔罗牌
+ 已定义：从商店道具池移除(贪婪商店仍存在)
+ 增殖：品质2
+ 勤奋偶像：数值提升
+ 伪造地质学博士证：数值提升
+ 交锋：数值下降
+
+Now compatible with Marked
+
+New Character: Benighted Lost (Unfinished)
+New Item: Chest Chest
+New Trinket: Foe
+
+Adjustments:
+ <Items>
+ Ennnnnnvyyyyy: Value up
+ Super B: Self-damage won't cause explosion now
+ Forge: Boost
+ Blackjack: When a room is cleaned, 10% chance to spawn a common tarot card
+ Defined: Removed from Shop pool (still exists in Greed Shop pool)
+ Multiply: Quality 2
+ Model of Diligence: Value up
+ False GHD: Value up
+ Clash: Value down
+-----------------------------------
+2025.2
+v0.8.9
+
+添加了一些装扮
+
+新道具：
+ 交锋
+ 全村最好的剑
+ 三个愿望
+
+新饰品：踩背腿
+
+Added some new costumes
+
+New Items:
+ Clash
+ The Best Weapon
+ Three Wishes
+ 
+New Trinket: Crack Callback
+-----------------------------------
+2025.2
+v0.8.8
+
+新道具：
+ 伪造地质学博士证
+ 慷慨之魂
+
+新卡牌：挽歌儿小姐
+
+新怪物：慷慨
+
+新挑战：慷慨模式
+
+调整：
+ <道具>
+ 异业：充能变为3
+ 铅制心脏：强化
+ 伤疤之秘：削弱
+ 破碎之秘：强化
+ <饰品>
+ 古老硬币：概率降低
+ <角色>
+ 昧化店主：心币可抵挡自伤
+
+New Items:
+ False GHD
+ Soul of Generosity
+
+New Card: Nenia Dea
+
+New Enemy: Generosity
+
+New Challenge: Generosity Mode
+
+Adjustments:
+ <Items>
+ Another Karma: Charge 4
+ Leaden Heart: Boost
+ Colonel Edge: Droop
+ Lionsmith Edge: Boost
+ <Trinkets>
+ Old Penny: Chance down
+ <Character>
+ Benighted Keeper: Heart Tokens are available to self-damage
+-----------------------------------
+2025.2
+v0.8.7
+
+新道具：
+ 富饶矿脉
+ 万能药
+ 微笑世界
+
+新饰品：古老硬币
+
+调整：
+ <道具>
+ 残损之剑：品质4；伤害提升
+ <敌人>
+ 勤勤&劳劳：
+  存在时间缩短为40秒
+  红小麦被玩家拾取时扣除血量
+ 劳劳：
+  锤子范围缩减
+  攻击预警
+
+BUG修复：
+ 修复了施粥处不断触发的问题
+ 修复了炖蛇羹单杀店主的问题
+
+模组兼容：
+ <EID> 
+ 新增角色介绍
+ 优化昧化店主的乞丐道具池描述
+ <幻想曲>
+ 为部分物品新增兼容
+
+New Items:
+ Rich Mines
+ Panacea
+ Smile World
+
+New Trinket: Old Penny
+
+Adjustments:
+ <Items>
+ Notched Sword: Quality 4; DMG up
+ <Enemies>
+ Deligence & Diligence: 
+  Existence time decreases to 40s
+  Lose Hp when the red wheat is picked up by players
+ Diligence:
+  Hammer range down
+  Tip for Attack
+  
+BUG Patches:
+ Fixed an issue that Alms can be continually triggered
+ Fixed an issue that Ssstew can kill Keepers
+ 
+Compats:
+ <EID>
+ Character descriptions support
+ Benighted Keeper beggar pool descriptions +
+ <Reverie>
+ Compatible with more items
+-----------------------------------
+2025.1
+v0.8.6
+
+新道具：
+ 潜伏的G
+ 对峙的G
+ 应战的G
+ 胜者之弹
+ 大师组合包
+
+新饰品：
+ 邪教徒头套
+ 蛇的头
+ 牧师的脸
+ 恩洛斯的脸
+ 地精容貌
+
+调整：
+ <道具>
+ 女疾女户：移除"可召唤"标签
+ 增殖：削弱
+
+New Items:
+ Sneaky C
+ Confronting C
+ Retaliating C
+ Master Round
+ Master Pack
+ 
+New Trinkets:
+ Cultist Mask
+ Ssserpent Head
+ Cleric Face
+ Nloths Mask
+ Gremlin Mask
+ 
+Adjustments:
+ <Items>
+ Ennnnnnvyyyyy: Remove tag "Summonable"
+ Multiply: Droop
+-----------------------------------
+2025.1
+v0.8.5
+
+新道具：
+ 勤奋偶像
+ 劳动明灯
+ 接触的G
+ 增殖
+ 018
+ 
+调整：
+ <道具>
+ 蝗虫领主：强化
+ 小麦：房间内存在3及以上面包时不再生成面包
+ 妈妈的支票：被虚空吸收后仍有效果
+ 嗝屁猫砂盆：削弱
+ <敌人>
+ 勤勤&劳劳：无敌时间缩短至2秒
+ 坚韧：护甲减半
+ 
+New Items:
+ Model of Deligence
+ Lamp of Diligence
+ Contact C
+ Multiply
+ 018
+ 
+Adjustments:
+ <Items>
+ Lord of Locusts: Boost
+ Wheat: Won't spawn Bread if there were 3 or more Bread in the curret room
+ Mom's Cheque: Valid even after absorbed by Void
+ Guppy's Potty: Droop
+ <Enemies>
+ Deligence & Diligence: Invincible time decreases to 2s
+ Fortitude: Half shield
+-----------------------------------
+2024.12
+v0.8.4
+
+新道具：
+ 施粥处
+ 残损之剑
+ 对流层
+
+新饰品：
+ 错误硬币
+ 星空硬币
+ 纸质硬币
+ 
+调整：
+ <角色>
+ 昧化以撒：长子名分强化
+ 昧化店主：能力更新；解锁树更新 
+ 
+ 
+New Items:
+ Alms
+ Notched Sword
+ Troposphere 
+
+New Trinkets:
+ Glitched Penny 
+ Starry Penny 
+ Paper Penny 
+ 
+Adjustments:
+ <Characters>
+ Benighted Isaac: Birthright boost
+ Benighted Keeper: Abilities update; Unlcok-tree update
+-----------------------------------
+2024.12
+v0.8.3
+
+成就菜单现在可以显示角色解锁方式
+
+调整：
+ <道具>
+ 已定义：强化
+ 成套收集：强化；品质2；更名为"收集癖"
+ 写生：现在是非贪婪道具
+ 异业：可互动实体数量达到7时不再生成乞丐
+ <角色>
+ 昧化店主：现在需要解锁；能力更新
+ 
+
+Achievements menu now can show how to unlock the characters
+ 
+<Adjustments>
+ <Item>
+ Defined: Boost
+ Hoarding: Boost; Quality 2
+ Sketch: No Greed Mode now
+ Another Karma: Won't spawn beggars if there were 7 slots and beggars or more
+ <Character>
+ Benighted Keeper: Needs to be unlocked now; Abilities update
+-----------------------------------
+2024.12
+v0.8.2
+
+调整：
+ <道具>
+ 异业：价格变为1；充能变为2
+ <角色>
+ 昧化店主：能力更新
+ 
+<Adjustments>
+ <Item>
+ Another Karma: Price 1; Charge 2
+ <Character>
+ Benighted Keeper: Abilities update
+-----------------------------------
+2024.12
+v0.8.1
+
+新道具：异业
+新角色：昧化店主(未完成)
+
+
+New Item: Another Karma
+New Character: Benighted Keeper (Unfinished)
+-----------------------------------
+2024.12
+v0.8.0
+
+支持用手柄打开昧化角色界面(按下右摇杆)
+
+新怪物：勤勤&劳劳
+新道具：浪游秘史
+
+调整：
+ <道具>
+ 白日之铸：概率提升
+ 破碎之秘：数值提升
+ 悼歌之冬：现在特殊商店不能补货
+ <口袋物品>
+ 亚波伦的伪忆：对收获符文无效
+ <角色>
+ 昧化???：不能再分解大记忆碎片；解锁树更新
+
+BUG修复：
+ 修复了光辉六面骰无视混沌的问题
+ 修复了地狱厨房的道具在重置后尖刺消失的问题
+ 
+ 
+Now controllers can open the Benighted Character Menu (Tap Right Stick)
+
+New Enemies: Deligence & Diligence
+New Item: Secret Histories
+
+Adjustments:
+ <Items>
+ Force: Chance up
+ Lionsmith Edge: Value Up
+ Elegiast Winter: Now the speical shop can not be restocked
+ <Pockets>
+ Falsehood of Apollon: No effect on Jera
+ <Characters>
+ Benighted ???: Can not decompose big memories now; Unlcok-tree update
+
+BUG Patches:
+ Fixed an issue that the Light D6 ignores the effect of Chaos
+ Fixed an issue that spikes of items from Hell Kitchen disapear when the items are rerolled
+-----------------------------------
+2024.11
+v0.7.9
+
+新道具：
+ 筵宴之杯
+ 蜕变之蛾
+ 流亡之刃
+ 伤疤之秘
+ 破碎之秘
+ 白日之铸
+ 
+调整：
+ <道具>
+ 钻石：移除防爆
+ <挑战>
+ 双重释放：初始道具调整；现在可以拾取道具
+ 
+New Items:
+ Grail
+ Moth
+ Edge
+ Colonel Edge
+ Lionsmith Edge
+ Force
+
+Adjustments:
+ <Items>
+ Diamoond: Remove explosion immunity
+ <Challenge>
+ Dualcast: Initial items are changed; Isaac can pick item up now
+-----------------------------------
+2024.11
+v0.7.8
+
+新挑战：
+ 牧地!
+ 双重释放
+
+调整：
+ <角色>
+ 昧化伊甸：击碎命运技能调整
+ 
+BUG修复：
+ 修复了爸爸的便条可以被昧化???分解的问题 
+ 
+模组兼容：
+ <幻想曲> 
+ D2147483647全面兼容
+ 
+New Challenge: 
+ Graze !
+ Dualcast
+ 
+Adjustments:
+ <Character>
+ Benighted Eden: Crack The Destiny adjustments
+ 
+BUG Patches
+ Fiexd an issue that Dad's Note can be decomposed by Benighted ???
+ 
+Compats:
+ <Reverie>
+ D2147483647 complete compatibility
+-----------------------------------
+2024.10
+v0.7.7
+
+提升部分伪忆重复使用的价值
+
+新道具：地质学博士证书
+新饰品：腐蚀套牌
+ 
+
+调整：
+ <角色>
+ 昧化???：亚波伦球削弱
+ <口袋物品>
+ 参孙的伪忆：削弱
+
+
+Increase the value of repeatedly using some falsehoods
+
+New Item: GHD
+New Trinket: Corrupted Deck
+ 
+Adjustments:
+ <Character>
+ Benighted ???: Apollon Orb Droop
+ <Pocket>
+ Falsehood of Samson: Droop
+-----------------------------------
+2024.10
+v0.7.6
+
+部分贴图更新
+昧化???本地联机模式兼容
+
+调整：
+ <角色>
+ 昧化???：数值调整；不能分解死亡证明房间内的道具
+ <口袋物品>
+ 遗骸的伪忆：强化
+ 伯大尼的伪忆：削弱
+ 
+BUG修复：
+ 修复了游魂伪忆球失效的问题
+ 
+模组兼容：
+ <幻想曲>
+ 堕化正邪联动 
+ 
+Some sprites are renewed
+Benighted ??? is compatible with Local Coop now
+ 
+Adjustments:
+ <Characters>
+ Benighted ???: Value Adjustments; Can not decompose collectibles in Death Certificate Room
+ <Pockets>
+ Falsehood of the Forgotten: Boost
+ Falsehood of Bethany: Droop
+ 
+BUG Patches:
+ Fixed an issue about disability of Falsehood Orb of the Lost
+ 
+Compats:
+ <Reverie>
+ Now compatible with Tainted Seija
+-----------------------------------
+2024.10
+v0.7.5
+
+为女疾女户新增两个选项
+昧化角色菜单按键提示现在可以隐藏
+新增9个伪忆
+ 
+调整：
+ <角色>
+ 昧化???：能力更新；不能分解创世纪房间内的道具
+ <道具>
+ 麦苗：不再生成底座道具小麦，而是改为获得
+ 小麦：不再获得面包，而是改为生成底座道具
+ <口袋物品>
+ 抹大拉的伪忆：削弱
+ 伯大尼的伪忆：强化
+ <机制>
+ 临时坚贞之心：耗尽时移除无敌时间
+
+BUG修复：
+ 修复了悼歌之冬在贪婪模式崩溃的问题
+ 修复了晦涩之心与堆肥兼容的问题
+
+Two options are added for Ennnnnnvyyyyyy
+The control tip of benighted character menu can be hidden now
+New 9 falsehoods
+
+Adjustments:
+ <Character>
+ Benighted ???: Abilities update; Can not decompose collectibles in Genesis Room
+ <Items>
+ Growing Wheat: Not spawn Wheat now, but grant directly
+ Wheat: Not gain Bread now, but spawn
+ <Pocket Items>
+ Falsehood of Magdalene: Droop 
+ Falsehood of Bethany: Boost 
+ <Logic>
+ Temp Iron Heart: Remove invincible time when run out
+ 
+BUG Patches:
+ Fixed an issue that Elegiast Winter crashes in Greed Mode
+ Fixed an issue about the compatibility between Tenebrosity and Compost
+-----------------------------------
+2024.10
+v0.7.4
+
+现在该模组部分4级道具的商店价格变为30
+ 
+新道具：薇艺
+ 
+调整：
+ <角色>
+ 昧化???：现在需要解锁：解锁树更新
+ <道具>
+ 以太之云：移除标签"攻击性"
+
+Now some mod items with quality 4 are priced 30 in shop
+
+New Item: Falowerse
+
+Adjustments:
+ <Characters>
+ Benighted ???: Needs to be unlocked now; Unlcok-tree update
+ <Items>
+ Ether: The tag "offensive" is removed
+-----------------------------------
+2024.9
+v0.7.3
+
+新道具：悼歌之冬
+
+调整：
+ <口袋物品>
+ 伯大尼的伪忆：强化
+
+BUG修复：
+ 修复了犹大福音与车载电池兼容性的问题
+ 修复了昧化抹大拉坚贞之心在切换角色时保留的问题
+
+模组兼容：
+ <幻想曲>
+ 晦涩之心与正邪的兼容改动
+
+New Item: Elegiast Winter
+
+Adjustments:
+ <Pocket Items>
+ Falsehood of Bethany: Boost
+ 
+BUG Patches:
+ Fixed an issue about compatibility between TGOJ and Car Battery
+ Fiexd an issue that Benighted Magdalene's Iron Heart remains even not the character
+ 
+Compats:
+ <Reverie>
+ Compatibility between Seija and Tenebrosity is changed
+-----------------------------------
+2024.9
+v0.7.2
+
+中文显示优化
+昧化伊甸UI改动
+
+新符文：
+ 店主的伪忆
+ 伯大尼的伪忆
+
+调整：
+ <道具>
+ 女疾女户：暴露后移出道具池
+ 麦苗：品质1
+
+
+Benighted Eden's UI is changed
+
+New Runes: 
+ Falsehood of Keeper
+ Falsehood of Bethany 
+
+Adjustments:
+ <Items>
+ Ennnnnnvyyyyyy: Remove itself when exposed
+ Growing Wheat: Quality 1
+-----------------------------------
+2024.8
+v0.7.1
+
+调整：
+ <角色>
+ 昧化???：能力更新
+ <口袋物品>
+ 该隐的伪忆：7 => 4
+
+BUG修复：
+ 修复了昧化该隐&亚伯穿透夹层的问题
+
+
+Adjustments:
+ <Characters>
+ Benighted ???: Abilities update
+ <Pocket Items>
+ Falsehood of Cain: 7 => 4
+
+BUG Patches:
+ Fixed an issue that Benighted Cain & Abel can strike through Dungeon
+-----------------------------------
+2024.8
+v0.7.0
+
+新角色：昧化??? (未完成)
+
+调整：
+ <角色>
+ 昧化以撒：地图内的恶魔/天使房不再影响状态
+ <道具>
+ 黄金体验：一次最多恢复一个硬币心
+ <掉落物>
+ 种子袋：半魂心 => 咕噜!
+ 
+
+BUG修复：
+ 修复了炖蛇羹和全知之书失效的问题
+ 修复了黄金体验在硬币达上限时不能恢复硬币心的问题
+
+New Character: Benighted ???
+
+Adjustments:
+ <Characters>
+ Benighted Isaac: Devil/Angel Room in the map won't affect bonus mode
+ <Items>
+ Gold Experience: Can only heal one Coin Heart once
+ <Pickups>
+ Seed Bag: Half Soul Heart => Gulp!
+
+BUG Patches:
+ Fixed an issue about disability of Ssstew and Book of Seen
+ Fixed an issue that Gold Experience doesn't heal Coin Heart if coins are full
+-----------------------------------
+2024.8
+v0.6.9
+
+新掉落物：种子袋
+
+新符文：
+ 该隐的伪忆
+ 亚伯的伪忆
+
+调整：
+ <道具>
+ 移动农场：充能改为3
+ 变羊术：山羊强化
+ <饰品>
+ 小麦种子：新层自动吞下
+
+New Pickup: Seed Bag
+
+New Runes:
+ Falsehood of Cain
+ Falsehood of Abel
+
+Adjustments:
+ <Items>
+ Portable Farm: 3 charges
+ Goatify: Goats boosts
+ <Trinkets>
+ Wheat Seeds: Gulp in a new level
+-----------------------------------
+2024.8
+v0.6.8
+
+新道具：
+ 移动农场
+ 麦苗
+ 小麦
+ 面包
+ 变羊术
+
+调整：
+ <道具>
+ 死亡回放：限时延长至20秒
+ 写生：不能生成合成袋不能生成的道具
+<角色>
+昧化该隐&亚伯：能力更新
+
+BUG修复：
+ 修复了副手道具算作获得道具的问题
+ 修复了合成品质的问题
+
+
+New Items:
+ Portable Farm
+ Growing Wheat
+ Wheat
+ Bread
+ Goatify
+
+ <Items>
+ Re-death: Duration increase to 20 seconds
+ Sketch: Can not spawn items that Bag of Crafting can not spawn
+ <Characters>
+ Benighted Cain&Abel: Abilities update
+
+BUG Patches:
+ Fixed an issue that pocket active items can trigger effect of gaining items
+ Fixed an issue about crafting quality
+-----------------------------------
+2024.8
+v0.6.7
+
+新角色：昧化该隐&亚伯 (未完成)
+
+新饰品：
+ 天谴报应
+ 贫瘠
+
+
+New Character: Benighted Cain & Abel (Unfinished)
+
+New Trinkets:
+ Nemesis
+ Barren
+-----------------------------------
+2024.8
+v0.6.6
+
+新道具：全知之书
+
+调整：
+ <道具>
+ ???的伪忆：  品质3；获得时生成一个伪忆
+ 写生：堕化该隐将获得画出的道具，而不是生成
+
+ <饰品>
+ 赌徒之眼：对任务道具无效
+
+
+New Item: Book of Seen
+
+Adjustments:
+ <Items>
+ Falsehood of ???: Quality 3; Spawn a falsehood 
+ Sketch: Tainted Cain will gain drawn item instead
+
+ <Trinkets>
+ Gambler's Eye: No effect to quest items
+-----------------------------------
+2024.8
+v0.6.5
+
+新道具：炖蛇羹
+
+调整：
+ <道具>
+ 分子植物：削弱
+
+BUG修复：
+ 修复了道具池问题
+
+New Item: Ssstew
+
+Adjustments:
+ <Items>
+ Molekale: Weakened
+
+BUG Patches:
+ Fixed an issue with itempools
+-----------------------------------
+2024.8
+v0.6.4
+
+由七面骰诅咒生成的敌人在刚刚出现时不造成碰撞
+
+新道具：分子植物
+新符文：伊甸的伪忆
+
+调整：
+ <角色>
+ 昧化伊甸：技能调整
+
+BUG修复：
+ 修复了昧化伊甸欠费的问题
+
+
+
+Enemies spawned by Curse of D7 do not collide while appearing
+
+New Item: Molekale
+New rune: Falsehood of Eden
+
+Adjustments:
+ <Characters>
+ Benighted Eden：Skills adjustments
+
+BUG Patches:
+ Fixed an issue about Benighted Eden's debts
+-----------------------------------
+2024.8
+v0.6.3
+
+新饰品：源数之力
+
+添加了一些房间
+
+调整：
+ <道具>
+ 女疾女户：从星象房和书房道具池中移除
+ 犹大福音：充能时间延长至4.5秒
+ 写生：充能消耗改为4；只会生成被动道具；美德之书兼容
+ <角色>
+ 昧化犹大：冲刺伤害不再递增；冲刺与部分道具具有联动效果
+ 昧化伊甸：解锁树更新
+
+BUG修复：
+ 修复了黄金体验解锁异常的问题
+
+
+New Trinket: Numeron Force
+
+Added some rooms
+
+Adjustments:
+ <Items>
+ Ennnnnnvyyyyyy: Removed from planetarium pool and library pool
+ The Gospel Of Judas: Faster; Charge time increase to 4.5s: Compats with some items
+ Sketch: Discharge4: Only passive items: Book of Virtues compatibility
+ <Characters>
+ Benighted Judas:  Dash damage won't  increase progressively
+ Benighted Eden：Unlcok-tree update
+
+BUG Patches:
+ Fixed an issue taht Gold Experience can be unlocked abnormally
+-----------------------------------
+2024.8
+v0.6.2
+
+新道具：
+ 黄金体验
+ 写生
+
+调整：
+ <道具>
+ 受欢迎的祭品：在死亡证明世界中不生效
+ 犹大福音：更快：充能时间延长至4秒
+ 骰影仪：在死亡证明世界中不生效
+
+ <角色>
+ 昧化伊甸：可以转换错误道具
+ 昧化犹大：
+  冲刺无敌帧缩短
+  犹大福音飞行时也可冲刺
+
+BUG修复：
+ 修复了光辉六面骰可以重置爸爸的便条的问题
+
+
+New Items:
+ Gold Experience
+ Sketch
+
+Adjustments:
+ <Items>
+ Welcome Ssacrifice: Invalid in Death Certificate world
+ The Gospel Of Judas: Faster; Charge time increase to 4s
+ Dice Projector: Invalid in Death Certificate world
+
+ <Characters>
+ Benighted Eden: Error items to points
+ Benighted Judas: 
+  Invincible frames from dashing decreases:
+  Dash even when TGOJ is flying
+
+BUG Patches:
+ Fixed an issue that Light D6 can reroll Dad's Note
+-----------------------------------
+2024.8
+v0.6.1
+
+增加了一些房间
+
+调整：
+ <角色>
+ 昧化伊甸： 技能调整
+
+Added some rooms
+
+Adjustments:
+ <Charactesr>
+ Benighted Eden: Skills adjustments
+-----------------------------------
+2024.8
+v0.6.0
+
+补充了一些装扮
+
+新道具：
+超紧急按钮
+21点
+
+新饰品：区间
+
+调整：
+ <角色>
+ 昧化伊甸：技能更新(完整)
+ <可互动实体>
+ 募捐箱：出现频率降低；不再出现在高级商店
+ <道具>
+ 四维骰：解锁方式更改
+ 核能电罐：也消耗普通充能条的充能
+ 妈妈的支票：效果增强
+
+Costumes Patches
+
+New Items:
+ Super Panic Button
+ Blackjack
+
+New Trinket:  Interval
+
+Adjustments:
+ <Charactesr>
+ Benighted Eden: Skills update(completely)
+ <Slots>
+ Collection Box: Frequency down: Won't appear at secret shop
+ <Items>
+ D4D: The way to unlock is changed
+ Super B: Also discharge the normal charge bar
+ Mom's Cheque: Boost
+-----------------------------------
+2024.7
+v0.5.9
+
+新挑战：天妒英才
+
+调整：
+<道具>
+蝗虫领主：伤害需求降至75
+超立方：现在需要解锁
+已定义：现在需要解锁
+
+ <角色>
+ 昧化伊甸：技能更新；解锁树更新；长子名分更新
+
+New Challenge: Envery
+
+Adjustments:
+ <Items>
+Lord of Locust: Damage requirement decrease to 75
+Hyercube: Needs to be unlocked now
+Defined: Needs to be unlocked now
+
+ <Charactesr>
+ Benighted Eden: Skills update; Unlcok-tree update: Birthright update
+-----------------------------------
+2024.7
+v0.5.8
+
+调整：
+ <角色>
+ 昧化伊甸：技能更新；解锁树更新
+
+Adjustments:
+ <Charactesr>
+ Benighted Eden: Skills update; Unlcok-tree update
+-----------------------------------
+2024.7
+v0.5.8
+
+调整：
+ <角色>
+ 昧化伊甸：技能更新
+
+Adjustments:
+ <Charactesr>
+ Benighted Eden: Skills update
+-----------------------------------
+2024.7
+v0.5.7
+
+女疾女户跳脸现在可以关闭
+
+调整：
+ <角色>
+ 昧化伊甸：新增一些技能
+ 昧化犹大：长子名分效果增强
+ <道具>
+偷来的十年：只能使最近的掉落物免费
+
+BUG修复：
+ 修复犹大福音不能主动扔出的问题
+
+模组兼容：
+ <好道具跳舞>
+ 女疾女户 !
+
+
+
+ Ennnnnnvyyyyy's JS can be set to off now
+
+Adjustments:
+ <Charactesr>
+ Benighted Eden: New skills
+ Benighted Judas: Birthright boost
+ <Items>
+ Stolen Decade: Only make closest pickup free
+
+BUG Patches:
+ Fixed an issue with TGOJ
+
+Compats:
+<Specialist Dance for Good Items>
+ Ennnnnnvyyyyyy !
+-----------------------------------
+2024.7
+v0.5.6
+
+角色界面优化
+能否进入本模组挑战的判定优化
+
+新角色：昧化伊甸(未完成)
+
+调整：
+ <道具>
+ 瓷：给予的坚贞之心改为1
+ <可互动实体>
+ 募捐箱：
+ 升级所需硬币减少(3,7,14,28)
+ 若天梯奖励已经触发，所有存在募捐箱的房间都会生成天梯
+ 奖励概率公式更改为：(7x等级 + 已投入硬币)  ‰
+ 最高奖励概率提升至25%
+<机制>
+ 临时坚贞之心：下层时清零
+
+模组兼容：
+ <幻想曲>
+ 镜像骰子：
+  圣饼 <=>剩饼
+  钉子<=>备用钉子
+  不受欢迎的祭品 <=> 受欢迎的祭品
+ <EID>
+ 修复混乱皇冠轮换描述与女疾女户的兼容性问题
+
+BUG修复：
+ 修复募捐箱奖励不受限制的问题
+ 修复贪婪模式下募捐箱生成天梯位置出错的问题
+ 修复金针菇掉落会触发达摩剑的问题
+ 修复不懂节制?失效的问题
+-----------------------------------
+2024.7
+v0.5.5
+
+新可互动实体：募捐箱
+
+新道具：
+ 偷来的十年
+ 骰影仪
+ 成套收集
+
+新饰品：
+ 赌徒之眼
+ 骨猪一掷
+
+调整：
+ <饰品>
+ 兔头：幸运加成只在普通房间内有效
+ 月桂枝：给予的临时坚贞之心改为1
+ 
+ <道具>
+ 犹大福音：光标位置不会超出房间 
+
+ <角色>
+ 昧化犹大：冲刺最多持续7秒(防止卡住)；犹大福音不再提供伤害加成
+
+ <机制>
+ 临时坚贞之心：取消了累伤给于无敌时间的设定
+
+BUG修复：
+ 修复魂火之灵光效丢失的问题
+ 修复昧化犹大在超级撒旦房间中冲刺时卡住的问题
+ 修复女疾女户的镜世界贴图错位问题
+ 修复受欢迎的祭品会在开局时触发的问题
+-----------------------------------
+2024.7
+v0.5.4
+
+允许一键解锁或清空全成就
+
+新道具：
+ 嗝屁猫砂盆
+ 晦涩之心
+ 地狱厨房
+
+新饰品：
+ 表观思维
+ 出口产品
+
+调整：
+ 不懂节制?：不再出现在贪婪模式
+ 节制之骨：不再改变眼泪透明度
+ 诅咒之心：获得时如果在诅咒房,，立刻触发一次效果
+
+模组兼容：
+ <幻想曲>
+ 镜像骰子：
+  圣饼 <=>剩饼
+  钉子<=>备用钉子
+  不受欢迎的祭品 <=> 受欢迎的祭品
+
+ <EID>
+ 修复一些兼容性问题
+
+
+BUG修复：
+ 修复坚贞之心会挡下白火伤害的问题
+-----------------------------------
+2024.7
+v0.5.3
+
+新道具：
+ 蝗虫领主
+ ???的伪忆
+ 谦逊之径
+
+新怪物：谦逊
+
+调整：
+ 教堂玻璃窗：提供的魂心改为2个；提供0.7射速
+ 受欢迎的祭品：除了自身和虚空，其他方式不能再有效触发效果
+ 铅制心脏：为昧化抹大拉提供7点坚贞之心上限
+ 四维骰：商店价格由999降低为99
+ 紫色泡泡水：商店价格改为10
+ 银色手镯：商店价格改为10
+ 割礼：商店价格改为30
+ 犹大福音：碰撞范围提升
+ 犹大的伪忆：眼泪大小更大
+ 美德七面骰：品质改为3
+-----------------------------------
+2024.7
+v0.5.2
+
+新道具：
+ 不懂节制?
+ 规则书
+ 教堂玻璃窗
+ 铅制心脏
+ 瓷
+ 银色手镯
+
+新饰品：
+ 左断脚
+ 兔头
+ 月桂枝
+
+调整：
+ 诅咒屏障：不再阻挡自伤
+ 犹大福音：飞行时可对火堆、店主等造成伤害
+ 拒绝选择：品质改为3 
+
+BUG修复：
+ 修复坚贞之心会挡下友好怪物伤害的问题
+-----------------------------------
+2024.7
+v0.5.1
+
+本地联机模式兼容
+
+新道具：
+ 蛆虫食谱
+ 俗世的武器
+
+调整：
+ 亚波伦之翼：
+  属性增益由  弹速-0.5倍 改为 弹速-0.25倍
+  最低倍率由100%改为90%
+
+BUG修复：
+ 修复美德书与光辉六面骰的兼容性问题
+-----------------------------------
+2024.7
+v0.5.0 
+
+支持忏悔龙
+-----------------------------------

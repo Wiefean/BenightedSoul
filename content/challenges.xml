@@ -30,7 +30,14 @@
 -->
 <challenges version="1">
 	<challenge name="BC1 Rolling Destiny" playertype="0" endstage="6" cursefilter="8" roomfilter="7,8" difficulty="1"/>
-	<challenge name="BC2 The Fragile" playertype="22" startingitems="352,694" endstage="8" getcurse="1" roomfilter="4,7,8,21" difficulty="1"/>
-	<challenge name="BC4 Passover" playertype="0" endstage="9" difficulty="1"/>
+	<challenge name="BC2 The Fragile" playertype="22" startingitems="352,694" endstage="8" getcurse="1" roomfilter="4,21" difficulty="1"/>
+	<challenge name="BC3 Graze !" playertype="2" startingitems="260,403,416,517" endstage="6" difficulty="1"/>
+	<challenge name="BC4 Passover" playertype="3" canshoot='false' startingitems="20,567,641" endstage="11" megasatan="true" roomfilter="4,21" difficulty="1"/>
+	<challenge name="BC5 Dualcast" playertype="Benighted ???" canshoot='false' startingitems="8" endstage="11" altpath="true" difficulty="1"/>
 	
+	<challenge name="BC10 Envery" playertype="0" endstage="10" altpath="true" difficulty="1"/>
+	<challenge name="BC11 Keys are Bomb" playertype="Benighted Lost" endstage="11" altpath="true" difficulty="1"/>
+	
+	<challenge name="BC13 Generosity Mode" playertype="Benighted Keeper" startingitems="144,260,278,388" endstage="7" difficulty="3"/>
+
 </challenges>

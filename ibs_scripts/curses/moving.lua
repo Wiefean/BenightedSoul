@@ -1,58 +1,58 @@
 --动人诅咒
 
 local mod = Isaac_BenightedSoul
-local IBS_Curse = mod.IBS_Curse
-local Ents = mod.IBS_Lib.Ents
+
+local Moving = mod.IBS_Class.Curse(mod.IBS_CurseID.Moving)
+
+local game = Game()
+
+--读秒
+function Moving:Tick(player)
+	if self:IsApplied() and not (game:IsPaused() or game:GetRoom():GetBossID() == BossType.MEGA_SATAN) then
+		local data = self._Ents:GetTempData(player)
+		data.CurseMovingTimeout = data.CurseMovingTimeout or 180
+
+		if player.Velocity:Length() > 1 then
+			data.CurseMovingTimeout = 180
+		else
+			if data.CurseMovingTimeout > 0 then
+				data.CurseMovingTimeout = data.CurseMovingTimeout - 1
+			else
+				data.CurseMovingTimeout = 180
+				
+				--昧化伊甸耸肩无视1级免疫伤害
+				local BEden = mod.IBS_Player and mod.IBS_Player.BEden
+				if (not BEden) or player:GetPlayerType() ~= mod.IBS_PlayerID.BEden or BEden:GetData(player).shrug_it_off <= 0 then
+					player:TakeDamage(1, DamageFlag.DAMAGE_NO_PENALTIES | DamageFlag.DAMAGE_INVINCIBLE | DamageFlag.DAMAGE_CLONES, EntityRef(player), 0)
+				end
+			end
+		end
+	else
+		self._Ents:GetTempData(player).CurseMovingTimeout = nil
+	end	
+end
+Moving:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, 'Tick', 0)
+
 
 local fnt = Font()
 fnt:Load("font/pftempestasevencondensed.fnt")
 
---读秒
-local function TimeOut(_,player)
-	local game = Game()
-	if (game:GetLevel():GetCurses() & IBS_Curse.moving > 0) and not game:IsPaused() then
-		local data = Ents:GetTempData(player)
-		data.CurseMovingTimeOut = data.CurseMovingTimeOut or 180
-		
-		if player.Velocity:Length() > 1 then
-			data.CurseMovingTimeOut = 180
-		else
-			if data.CurseMovingTimeOut > 0 then
-				data.CurseMovingTimeOut = data.CurseMovingTimeOut - 1
-			else
-				data.CurseMovingTimeOut = 180
-				player:TakeDamage(1, DamageFlag.DAMAGE_NO_PENALTIES | DamageFlag.DAMAGE_IV_BAG | DamageFlag.DAMAGE_INVINCIBLE | DamageFlag.DAMAGE_CLONES, EntityRef(player), 0)
-			end
-		end
-		
-	else
-		Ents:GetTempData(player).CurseMovingTimeOut = nil
-	end	
-end
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, TimeOut, 0)
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-	for i = 0, Game():GetNumPlayers() -1 do
-		local player = Isaac.GetPlayer(i)
-		local data = Ents:GetTempData(player)
-		if data.CurseMovingTimeOut then
-			data.CurseMovingTimeOut = nil
-		end
-	end
-end)
-
 --显示秒数
-local function OnRender(_,player, offset)
-	local game = Game()
-	if (game:GetLevel():GetCurses() & IBS_Curse.moving > 0) and (game:GetRoom():GetRenderMode() ~= RenderMode.RENDER_WATER_REFLECT) then
-		local data = Ents:GetTempData(player)
-		if data.CurseMovingTimeOut and data.CurseMovingTimeOut then
-			local timeOut = data.CurseMovingTimeOut
-			local color = KColor(1, timeOut/180, timeOut/180,1,0,0,0)
-		
-			local pos = Isaac.WorldToScreen(Vector(-4,-50) + player.Position + player.PositionOffset) + offset - game:GetRoom():GetRenderScrollOffset() - game.ScreenShakeOffset			
-			fnt:DrawString(math.floor(timeOut / 60), pos.X, pos.Y, color)
+function Moving:OnPlayerRender(player, offset)
+	local room = game:GetRoom()
+
+	if self:IsApplied() and (room:GetRenderMode() ~= RenderMode.RENDER_WATER_REFLECT) and room:GetBossID() ~= BossType.MEGA_SATAN then
+		local data = self._Ents:GetTempData(player)
+
+		if data.CurseMovingTimeout then
+			local timeout = data.CurseMovingTimeout
+			local color = KColor(1, timeout/180, timeout/180,1,0,0,0)
+			local pos =  self._Screens:GetEntityRenderPosition(player, Vector(-7,-50) + offset)
+			fnt:DrawString(self._Maths:Cut(timeout/60, 1), pos.X, pos.Y, color)
 		end
 	end	
 end
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, OnRender, 0)
+Moving:AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, 'OnPlayerRender', 0)
 
+
+return Moving

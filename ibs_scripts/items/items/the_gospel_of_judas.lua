@@ -1,60 +1,43 @@
 --犹大福音
 
 local mod = Isaac_BenightedSoul
-local IBS_API = mod.IBS_API
-local IBS_Callback = mod.IBS_Callback
-local IBS_Challenge = mod.IBS_Challenge
-local IBS_Item = mod.IBS_Item
-local IBS_Player = mod.IBS_Player
-local Ents = mod.IBS_Lib.Ents
-local Players = mod.IBS_Lib.Players
-local Screens = mod.IBS_Lib.Screens
-local Finds = mod.IBS_Lib.Finds
-local Stats = mod.IBS_Lib.Stats
+local IBS_CallbackID = mod.IBS_CallbackID
+local IBS_PlayerID = mod.IBS_PlayerID
 
-local BookVariant = mod.IBS_Effect.TGOJ.Variant
-local ErrorTipName = "IBS_API.TGOJ"
-IBS_API.TGOJ = {}
+local game = Game()
+local sfx = SFXManager()
 
---用于昧化该隐&亚伯
-IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.tgoj)
+local TGOJ_Book = mod.IBS_Effect.TGOJ
+local TGOJ = mod.IBS_Class.Item(mod.IBS_ItemID.TGOJ)
 
---临时玩家数据
-local function GetPlayerData(player)
-	local data = Ents:GetTempData(player)
+TGOJ.BookVariant = TGOJ_Book.Variant
+TGOJ.DashVariant = mod.IBS_Effect.TGOJDash.Variant
+
+--获取书本数据
+function TGOJ:GetBookData(effect)
+	return TGOJ_Book:GetBookData(effect)
+end
+
+--玩家数据
+function TGOJ:GetPlayerData(player)
+	local data = self._Ents:GetTempData(player)
 	data.TGOJ_PLAYER = data.TGOJ_PLAYER or {
 		Points = 0,
-		DMGUp = 0,
-		TargetPosition = player.Position
+		TargetPosition = player.Position,
+		DashFrame = 0,
+		DashPosition = nil,
+		DashEffect = nil
 	}
 	
 	return data.TGOJ_PLAYER
 end
 
---临时书本数据
-local function GetBookData(effect)
-	local data = Ents:GetTempData(effect)
-	data.TGOJ_EFFECT = data.TGOJ_EFFECT or {
-		State = "Go",
-		TimeOut = 240,
-		Slot = nil,
-		TargetPosition = Vector.Zero
-	}
-	
-	return data.TGOJ_EFFECT
-end
-
 --查找书本
-function IBS_API.TGOJ:FindBooks(player, slot)
-	local err,mes = mod:CheckArgType(player, "userdata", "player", 1, ErrorTipName)
-	if err then error(mes, 2) end
-	err,mes = mod:CheckArgType(slot, "number", nil, 2, ErrorTipName, true)
-	if err then error(mes, 2) end
-
+function TGOJ:FindBooks(player, slot)
 	local result = {}
-	for _,effect in pairs(Isaac.FindByType(1000, BookVariant)) do
-		local data = Ents:GetTempData(effect).TGOJ_EFFECT
-		if data and Ents:IsTheSame(effect.SpawnerEntity, player) then
+	for _,effect in pairs(Isaac.FindByType(1000, self.BookVariant)) do
+		if self._Ents:IsTheSame(effect.SpawnerEntity, player) then
+			local data = self:GetBookData(effect)
 			if (slot == nil) then
 				table.insert(result, effect)
 			elseif (data.Slot ~= nil) and (slot == data.Slot) then
@@ -66,340 +49,497 @@ function IBS_API.TGOJ:FindBooks(player, slot)
 	return result
 end
 
---生成书本
-function IBS_API.TGOJ:SpawnBook(player, spawnPos, targetPos, timeOut, flyingDMG)
-	local err,mes = mod:CheckArgType(player, "userdata", "player", 1, ErrorTipName)
-	if err then error(mes, 2) end
-	err,mes = mod:CheckArgType(spawnPos, "userdata", "vector", 2, ErrorTipName)
-	if err then error(mes, 2) end
-	err,mes = mod:CheckArgType(targetPos, "userdata", "vector", 3, ErrorTipName, true)
-	if err then error(mes, 2) end
-	err,mes = mod:CheckArgType(timeOut, "number", nil, 4, ErrorTipName, true)
-	if err then error(mes, 2) end
-	err,mes = mod:CheckArgType(flyingDMG, "number", nil, 5, ErrorTipName, true)
-	if err then error(mes, 2) end
-	
-	targetPos = targetPos or spawnPos
-	timeOut = timeOut or 240
-	flyingDMG = flyingDMG or 6.5
-
-	local book = Isaac.Spawn(1000, BookVariant, 0, spawnPos, Vector.Zero, player):ToEffect()
-	local data = GetBookData(book)
-	data.TimeOut = timeOut
-	data.TargetPosition = targetPos
-	book.CollisionDamage = flyingDMG
-	
-	return book
-end
-
---获取书本数据
-function IBS_API.TGOJ:GetBookData(effect)
-	local err,mes = mod:CheckArgType(effect, "userdata", "effect", 1, ErrorTipName)
-	if err then error(mes, 2) end
-	
-	return GetBookData(effect)
-end
-
---书本是否在飞行
-function IBS_API.TGOJ:IsBookFlying(effect)
-	local err,mes = mod:CheckArgType(effect, "userdata", "effect", 1, ErrorTipName)
-	if err then error(mes, 2) end
-
-	local data = GetBookData(effect)
-	return (data.State == "Go") or (data.State == "Recycle")
-end
-
-mod:AddCallback(ModCallbacks.MC_USE_ITEM, function()
-	return {Discharge = false, ShowAnim = false}
-end, IBS_Item.tgoj)
-
---尝试回收书本
-mod:AddCallback(IBS_Callback.TRY_USE_ITEM, function(_,item, player, slot, charges, maxCharges)
-	if charges < maxCharges then
-		for _,book in pairs(IBS_API.TGOJ:FindBooks(player, slot)) do
-			local data = GetBookData(book)
-			if data.State == "Idle" then
-				data.State = "Recycle"
+--无飞行不能停在障碍物上
+function TGOJ:CanStop(pos, canFly)
+	local room = game:GetRoom()
+	local grid = room:GetGridEntityFromPos(pos)
+	if grid then
+		local isPit = (grid.CollisionClass == GridCollisionClass.COLLISION_PIT)
+		if not canFly then
+			if isPit or (grid.CollisionClass == GridCollisionClass.COLLISION_SOLID) then
+				return false
+			end
+		else --不能飞到超撒坑里
+			if isPit and (room:GetBossID() == BossType.MEGA_SATAN) then
+				return false
 			end
 		end
 	end
-end, IBS_Item.tgoj)
+	return true
+end
 
---举起判定
-mod:AddCallback(IBS_Callback.TRY_HOLD_ITEM, function(_,item, player, flag, slot, holdingItem)
-	local canHold = (flag & UseFlag.USE_CARBATTERY <= 0) and (flag & UseFlag.USE_VOID <= 0)
-	if canHold and (holdingItem <= 0) then GetPlayerData(player).TargetPosition = player.Position end
-	
-	if (flag & UseFlag.USE_VOID > 0) then
-		IBS_API.TGOJ:SpawnBook(player, player.Position)
+--查找可冲向的书本
+function TGOJ:FindBookToDash(player, slot)
+	return self._Finds:ClosestEntityInTable(player.Position, self:FindBooks(player, slot), function(book)
+		local room = game:GetRoom()
+		local data = self:GetBookData(book)
+
+		--检测书本位置
+		if (book.Position:Distance(player.Position) < 100) or not room:IsPositionInRoom(book.Position, 1) then
+			return false
+		end
+
+		--无飞行不能冲刺到障碍物上
+		if not self:CanStop(book.Position, player.CanFly) then
+			return false
+		end
+
+		--检测书本状态
+		if (data.DashLeft <= 0) then
+			return false
+		end
+
+		return true
+	end)
+end
+
+--角色是否可冲刺
+function TGOJ:CanDash(player, slot)
+	if player:GetPlayerType() ~= IBS_PlayerID.BJudas then return false end
+	local book = self:FindBookToDash(player, slot)
+	if book == nil or (book:IsDead() or not book:Exists()) then return false end
+
+	return true
+end
+
+--角色正在冲刺
+function TGOJ:IsPlayerDashing(player)
+	local data = self._Ents:GetTempData(player).TGOJ_PLAYER
+	if data and (data.DashPosition ~= nil) then
+		return true
 	end
+	return false
+end
+
+--获取兼容状态
+function TGOJ:GetCompats(player)
+	local tear = true
+	local tear_to_fetus = player:HasCollectible(678)
+	local tear_to_laser = false
+	local brimstone = false
+	local tech = false
+	local explosion = false
+	local sword = false
+
+	if not tear_to_fetus then
+		--科技/X
+		if player:HasCollectible(68) or player:HasCollectible(395) then	
+			tear_to_laser = true
+		end
+	end
+
+	--硫磺火
+	if player:HasCollectible(118) then
+		brimstone = true
+		
+		--没有剖腹产则取消眼泪
+		if not tear_to_fetus then
+			tear = false
+		end
+	end
+
+	--胎儿博士
+	if player:HasCollectible(52) or player:HasCollectible(168) then
+		explosion = true
+	end
+
+	return {
+		Tear = tear,
+		TearToFetus = tear_to_fetus,
+		TearToLaser = tear_to_laser,
+		TechX = techX,
+		Brimstone = brimstone,
+		Tech = tech,
+		Explosion = explosion,
+	}
+end
+
+--尝试使用
+function TGOJ:OnTryUse()
+	return 0
+end
+TGOJ:AddCallback(ModCallbacks.MC_PLAYER_GET_ACTIVE_MIN_USABLE_CHARGE, 'OnTryUse', TGOJ.ID)
+
+--提醒是否可冲刺
+local fnt = Font()
+fnt:Load("font/pftempestasevencondensed.fnt")
+function TGOJ:OnActiveRender(player, slot, offset, alpha, scale)
+	if player:GetActiveItem(slot) ~= self.ID then return end
+	if not self:CanDash(player, slot) then return end
+	local book = TGOJ:FindBookToDash(player, slot)
+	if (not book) or (book:IsDead() or not book:Exists()) then return end
+	local left = self:GetBookData(book).DashLeft
+	if left <= 0 then return end
+	local pos = Vector(14*scale, -1*scale) + offset
+	local color = KColor(1,1,1,alpha)
+
+	--抖动
+	if not game:IsPaused() then
+		pos.X = pos.X + math.random(-2,2)
+		pos.Y = pos.Y + math.random(-2,2)
+	end
+	
+	if left >= 4 then
+		fnt:DrawStringScaled('^', pos.X, pos.Y, 1.5*scale, 1.5*scale, color)
+	end
+
+	if left >= 1 then
+		fnt:DrawStringScaled('^', pos.X, pos.Y + 6*scale, 1.5*scale, 1.5*scale, color)
+	end
+	
+	if left >= 2 then
+		fnt:DrawStringScaled('^', pos.X, pos.Y + 12*scale, 1.5*scale, 1.5*scale, color)
+	end
+	
+	if left >= 3 then
+		fnt:DrawStringScaled('^', pos.X, pos.Y + 18*scale, 1.5*scale, 1.5*scale, color)
+	end
+end
+TGOJ:AddCallback(ModCallbacks.MC_POST_PLAYERHUD_RENDER_ACTIVE_ITEM, 'OnActiveRender')
+
+
+--使用
+function TGOJ:OnUse(item, rng, player, flag, slot)
+	if (flag & UseFlag.USE_CARBATTERY > 0) then return end
+	local owned = (flag & UseFlag.USE_OWNED > 0) --是否拥有
+
+	--由其他效果触发则原地生成书本
+	if not owned then
+		TGOJ_Book:Spawn(player)
+	else
+		local charges = self._Players:GetSlotCharges(player, slot, true, true)
+		local maxCharges = 135
+
+		if charges < maxCharges then
+			local book = TGOJ:FindBookToDash(player, slot)
+
+			--表表犹大兼容
+			if player:GetPlayerType() == IBS_PlayerID.BJudas and book and self:CanDash(player, slot) then
+				local data = self:GetPlayerData(player)
+				data.DashPosition = book.Position
+				
+				local bdata = self:GetBookData(book)
+				bdata.State = 'Go'
+				bdata.TargetPosition = player.Position
+				bdata.DashLeft = bdata.DashLeft - 1
+			else
+				--尝试回收书本
+				for _,book in ipairs(self:FindBooks(player, slot)) do
+					local data = self:GetBookData(book)
+					if data.State == 'Idle' then
+						data.State = 'Recycle'
+					end
+				end
+			end
+		else
+			self._Players:TryHoldItem(item, player, flag, slot)
+		end	
+	end
+	
+	return {ShowAnim = false, Discharge = false}
+end
+TGOJ:AddCallback(ModCallbacks.MC_USE_ITEM, 'OnUse', TGOJ.ID)
+
+
+--握住判定
+function TGOJ:OnTryHold(item, player, flag, slot, holdingItem)
+	local canHold = (flag & UseFlag.USE_CARBATTERY <= 0) and (flag & UseFlag.USE_VOID <= 0)
+	if canHold and (holdingItem <= 0) then self:GetPlayerData(player).TargetPosition = player.Position end
 	
 	return {
 		CanHold = canHold,
 		CanCancel = true,
-		TimeOut = 120
+		Timeout = 120
 	}
-end, IBS_Item.tgoj)
+end
+TGOJ:AddCallback(IBS_CallbackID.TRY_HOLD_ITEM, 'OnTryHold', TGOJ.ID)
+
 
 --正在握住
-local function OnHolding(_,item, player, flag, slot)
-	local cid = player.ControllerIndex
-	local data = GetPlayerData(player)
+function TGOJ:OnHolding(item, player, flag, slot)
+	local data = self:GetPlayerData(player)
 	if not data.TargetPosition then data.TargetPosition = player.Position end
 	
 	--调整目标位置
 	if player:AreControlsEnabled() then
 		if (player.ControllerIndex == 0) and Input.IsMouseBtnPressed(0) then --鼠标兼容
-			local mousePos = Screens:GetMousePosition(true)
-			data.TargetPosition = data.TargetPosition + (mousePos - data.TargetPosition):Resized(4.5)
+			local mousePos = self._Screens:GetMousePosition(true)
+			if mousePos:Distance(data.TargetPosition) > 4 then
+				data.TargetPosition = self._Maths:MoveInRoom(data.TargetPosition, (mousePos - data.TargetPosition):Resized(8), 5)
+			end
 		else
-			data.TargetPosition = data.TargetPosition + (Players:GetAimingVector(player, true))*4
+			data.TargetPosition = self._Maths:MoveInRoom(data.TargetPosition, (self._Players:GetAimingVector(player, true))*9, 5)
 		end
 	end
 end
-mod:AddCallback(IBS_Callback.HOLDING_ITEM, OnHolding, IBS_Item.tgoj)
+TGOJ:AddCallback(IBS_CallbackID.HOLDING_ITEM, 'OnHolding', TGOJ.ID)
 
 --结束握住
-local function OnHoldEnd(_,item, player, flag, slot, active, timeOut, hurt, newRoom)
-	if (flag & UseFlag.USE_CARBATTERY <= 0) and not newRoom then
-		if (flag & UseFlag.USE_OWNED <= 0) or Players:DischargeSlot(player, slot, 90, true, false, true, true) then
-			local book = Isaac.Spawn(1000, BookVariant, 0, player.Position, Vector.Zero, player):ToEffect()
-			local bData = GetBookData(book)
-			local pData = GetPlayerData(player)
-			
-			book.CollisionDamage = 6.5
-			bData.Slot = slot
-			bData.TargetPosition = pData.TargetPosition
-			SFXManager():Play(SoundEffect.SOUND_SHELLGAME)
-			
-			--车载电池
-			if player:HasCollectible(356) then
-				bData.TimeOut = bData.TimeOut * 2
-			end
+function TGOJ:OnHoldEnd(item, player, flag, slot, byActive, byTimeout, byHurt, byNewRoom)
+	if byNewRoom then return end
+
+	if (flag & UseFlag.USE_OWNED <= 0) or self._Players:DischargeSlot(player, slot, 135, true, false, true, true) then
+		local data = self:GetPlayerData(player)
+		local timeout = 270
+
+		--昧化犹大长子权
+		if player:GetPlayerType() == IBS_PlayerID.BJudas and player:HasCollectible(619) then
+			timeout = 390
+		end
+
+		--车载电池
+		if player:HasCollectible(356) then
+			timeout = timeout * 2
+		end
+
+		TGOJ_Book:Spawn(player, player.Position, data.TargetPosition, timeout, slot)
+		sfx:Play(SoundEffect.SOUND_SHELLGAME)
+		
+		--尝试恢复上限骰(东方mod)
+		if slot ~= 2 then
+			mod.IBS_Compat.THI:TryRestoreDice(player, TGOJ.ID, slot)
 		end
 	end
 end
-mod:AddCallback(IBS_Callback.END_HOLD_ITEM, OnHoldEnd, IBS_Item.tgoj)
+TGOJ:AddCallback(IBS_CallbackID.HOLD_ITEM_END, 'OnHoldEnd', TGOJ.ID)
 
 --充能
-local function OnCharge()
-	for i = 0, Game():GetNumPlayers() -1 do
+function TGOJ:Charge()
+	for i = 0, game:GetNumPlayers() -1 do
 		local player = Isaac.GetPlayer(i)	
 		for slot = 0,2 do
-			if player:GetActiveItem(slot) == (IBS_Item.tgoj) then
-				if #IBS_API.TGOJ:FindBooks(player, slot) <= 0 then
-					local charges = Players:GetSlotCharges(player, slot, true, true)
+			if player:GetActiveItem(slot) == (self.ID) and #self:FindBooks(player, slot) <= 0 then
+			local charges = self._Players:GetSlotCharges(player, slot, true, true)
+			local maxCharges = 135
+			
+				if charges < maxCharges then
+					self._Players:ChargeSlot(player, slot, 1, true)
 					
-					if charges < 90 then
-						Players:ChargeSlot(player, slot, 1, true)
-						
-						if charges == 89 then
-							SFXManager():Play(SoundEffect.SOUND_BEEP)
-							Game():GetHUD():FlashChargeBar(player, slot)
-						end						
-					end
-				end	
+					if charges + 1 == maxCharges then
+						sfx:Play(SoundEffect.SOUND_BEEP)
+						game:GetHUD():FlashChargeBar(player, slot)
+					end						
+				end
 			end	
 		end
 	end	
 end
-mod:AddCallback(ModCallbacks.MC_POST_UPDATE, OnCharge)
+TGOJ:AddCallback(ModCallbacks.MC_POST_UPDATE, 'Charge')
 
 --显示光标
 local mark_spr = Sprite()
 mark_spr:Load("gfx/ibs/effects/mark.anm2", true)
 mark_spr:Play("Mark")
-local function TargetRender()
-	for i = 0, Game():GetNumPlayers() -1 do
+function TGOJ:OnRender()
+	for i = 0, game:GetNumPlayers() -1 do
 		local player = Isaac.GetPlayer(i)
-		local data = Ents:GetTempData(player).TGOJ_PLAYER
-		local hold = (Ents:GetTempData(player).HoldItemCallback and Ents:GetTempData(player).HoldItemCallback.Item == (IBS_Item.tgoj))
+		local data = self._Ents:GetTempData(player).TGOJ_PLAYER
 		
-		if data and hold then
-			local pos = Screens:WorldToScreen(data.TargetPosition)
+		if data and self._Players:IsHoldingItem(player, self.ID) then
+			local pos = self._Screens:WorldToScreen(data.TargetPosition, nil, true)
 			mark_spr:Render(pos)
 		end
 	end	
 end
-mod:AddCallback(ModCallbacks.MC_POST_RENDER, TargetRender)
-
---书本拖尾
-mod:AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, function(_,effect)
-	local trail = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SPRITE_TRAIL, 0, effect.Position, Vector(0,0), effect):ToEffect()
-	trail:FollowParent(effect)
-	trail:GetSprite().Color = Color(0.6,0.6,0.6,1) --颜色
-	trail.MinRadius = 0.06 --淡化速率
-	trail.SpriteScale = Vector(2,2) --尺寸
-	trail:Update()	
-end, BookVariant)
-
---书本逻辑
-mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_,effect)
-	local data = Ents:GetTempData(effect).TGOJ_EFFECT
-	local player = Ents:IsSpawnerPlayer(effect)
-	
-	if data and player then
-		local spr = effect:GetSprite()
-		effect.DepthOffset = 70 --使图层处于上层
-		
-		if data.State == "Go" then
-			local vec = data.TargetPosition - effect.Position
-			effect.Velocity = vec:Resized(14)
-			spr:Play("Moving", false)
-			spr.Rotation = spr.Rotation + 4
-			
-			--为了让旋转看起来更丝滑，用延迟触发的方式
-			mod:DelayFunction(function() spr.Rotation = spr.Rotation + 4 end ,1)
-			mod:DelayFunction(function() spr.Rotation = spr.Rotation + 4 end ,2)
-			mod:DelayFunction(function() spr.Rotation = spr.Rotation + 4 end ,3)
-			
-			if vec:Length() <= 10 then
-				spr.Rotation = 0
-				effect.Velocity = Vector.Zero
-				data.State = "Opening"
-			end
-		elseif data.State == "Opening" then
-			spr:Play("Opening", false)
-			
-			if spr:IsEventTriggered("sound") then
-				SFXManager():Play(SoundEffect.SOUND_PAPER_IN, 1, 3, false, 0.666)
-			end
-			
-			if spr:IsFinished("Opening") then 
-				data.State = "Idle" 
-			end
-		elseif data.State == "Idle" then
-			spr:Play("Idle", false)
-			spr:PlayOverlay("Sparkle", false)
-			
-			local pos = effect.Position + Vector(0,20)
-			local range = 90
-			local pdata = GetPlayerData(player)
-		
-			--吸收敌弹
-			for _,bullet in pairs(Isaac.FindInRadius(effect.Position, range, EntityPartition.BULLET)) do
-				bullet.Velocity = (pos - bullet.Position):Resized(7)
-				if bullet.Position:Distance(pos) <= 12 then
-					pdata.Points = pdata.Points + 1
-				
-					if pdata.Points >= 13 then
-						pdata.Points = pdata.Points - 13
-						
-						--我释放恶魂
-						Isaac.Spawn(1000, 189, 0, player.Position, Vector.Zero, player)
-		
-						--美德书兼容
-						if player:HasCollectible(584) then
-							player:AddWisp(33, player.Position)
-							player:AddWisp(34, player.Position)
-						end					
-					end					
-				
-					--彼列书/昧化犹大兼容
-					if player:HasCollectible(59) or (player:GetPlayerType() == IBS_Player.bjudas) then
-						pdata.DMGUp = pdata.DMGUp + 0.2
-						player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
-						player:EvaluateItems()					
-					end
-					
-					--昧化犹大长子权
-					if (player:GetPlayerType() == IBS_Player.bjudas) and player:HasCollectible(619) then
-						local target = Finds:ClosestEnemy(pos)
-						if target ~= nil then
-							local tear = player:FireTear(pos, (target.Position - pos):Resized(13), true, false, false, player, 0.5)
-							tear.CollisionDamage = math.max(2, tear.CollisionDamage)
-						end	
-					end
-					bullet:Remove()
-				end
-			end
-			
-			--虚弱敌人
-			if (Isaac.GetChallenge() == IBS_Challenge.bc4) or IBS_Data.Setting["bc4"] then
-				for _,target in pairs(Isaac.FindInRadius(effect.Position, range, EntityPartition.ENEMY)) do
-					if Ents:IsEnemy(target) then
-						Ents:AddWeakness(target, 2)
-					end
-				end
-			end		
-		elseif data.State == "Recycle" then
-			local vec = player.Position - effect.Position
-			effect.Velocity = vec:Resized(13)
-			spr:Play("Closing", false)
-			spr.Rotation = spr.Rotation + 4
-			mod:DelayFunction(function() spr.Rotation = spr.Rotation + 4 end ,1)
-			mod:DelayFunction(function() spr.Rotation = spr.Rotation + 4 end ,2)
-			mod:DelayFunction(function() spr.Rotation = spr.Rotation + 4 end ,3)
-			
-			if spr:IsEventTriggered("sound") then
-				SFXManager():Play(SoundEffect.SOUND_PAPER_OUT, 1, 3, false, 0.777)
-			end			
-		
-			if vec:Length() <= math.max(30, 30*(player.SpriteScale.X), 30*(player.SpriteScale.Y)) then
-				effect:Remove()
-				SFXManager():Play(SoundEffect.SOUND_BOOK_PAGE_TURN_12, 1, 3, false, 0.777)
-			end			
-		end
-		
-		--属性修正以及飞行时碰撞伤害
-		if (data.State ~= "Go") and (data.State ~= "Recycle") then
-			spr.Rotation = 0
-			effect.Velocity = Vector.Zero
-		elseif (data.State == "Go") or (data.State == "Recycle") then
-			for _,target in pairs(Isaac.FindInRadius(effect.Position, 20, EntityPartition.ENEMY)) do
-				if Ents:IsEnemy(target) then
-					target:TakeDamage(effect.CollisionDamage, 0, EntityRef(effect), 1)
-				end
-			end
-		end
-		
-		if data.TimeOut > 0 then
-			data.TimeOut = data.TimeOut - 1
-		else
-			data.State = "Recycle"
-		end
-	else
-		effect:Remove()
-	end		
-end, BookVariant)
-
---伤害加成
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_,player, flag)
-	local data = Ents:GetTempData(player).TGOJ_PLAYER
-	if data and (data.DMGUp > 0) then
-		if flag == CacheFlag.CACHE_DAMAGE then
-			Stats:Damage(player, data.DMGUp)
-		end
-	end	
-end)
+TGOJ:AddCallback(ModCallbacks.MC_POST_RENDER, 'OnRender')
 
 --更新玩家数据
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_,player)
-	local data = Ents:GetTempData(player).TGOJ_PLAYER
+function TGOJ:OnPlayerUpdate(player)
+	local data = self._Ents:GetTempData(player).TGOJ_PLAYER
 	if data then
-	
-		--伤害衰减
-		if (player.FrameCount % 31 == 0) and (data.DMGUp >= 0.1) then
-			data.DMGUp = data.DMGUp - 0.1
-			player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
-			player:EvaluateItems()
-		end		
-	end	
-end)
 
---新房间重置伤害加成
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
-	for i = 0, Game():GetNumPlayers() -1 do
-		local player = Isaac.GetPlayer(i)
-		local data = Ents:GetTempData(player).TGOJ_PLAYER
-		if data then
-			data.DMGUp = 0
-			player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
-			player:EvaluateItems()
+		--冲刺
+		if data.DashPosition then
+			local compats = self:GetCompats(player)
+			local scale = math.max(player.SpriteScale.X, player.SpriteScale.Y)
+
+			player:SetMinDamageCooldown(24)
+			player:AddControlsCooldown(1)
+			player.Position = player.Position + (data.DashPosition - player.Position):Resized(13)
+
+			--自动攻击
+			if compats.Tear then
+				if compats.TearToLaser and not compats.TearToFetus then
+					if player:IsFrame(math.max(1, math.ceil(player.MaxFireDelay / 2)),0) then
+						for _,ent in pairs(Isaac.FindInRadius(player.Position, player.TearRange, EntityPartition.ENEMY)) do
+							local laser = EntityLaser.ShootAngle(2, player.Position, (ent.Position - player.Position):GetAngleDegrees(), 2, Vector(0,-20), player)
+							laser:SetMaxDistance(player.TearRange / 3)
+							laser.CollisionDamage = math.max(2, player.Damage / 2)
+							laser.LaserLength = self._Maths:TearDamageToScale(laser.CollisionDamage)
+							laser:AddTearFlags(player.TearFlags)
+							laser.Color = player.LaserColor
+							laser:Update()
+						end
+					end
+				elseif player:IsFrame(math.max(1, math.ceil(player.MaxFireDelay)),0) then
+					for _,ent in pairs(Isaac.FindInRadius(player.Position, player.TearRange, EntityPartition.ENEMY)) do
+						local tear = player:FireTear(player.Position, (ent.Position - player.Position):Resized(player.ShotSpeed * 10), true, true, false)
+						if compats.TearToFetus then
+							self._Tears:ToFetus(tear, player)
+						end
+					end
+				end
+			end
+			if compats.Brimstone then
+				if player:IsFrame(math.max(1, math.ceil(player.MaxFireDelay / 5)),0) then
+					local timeout = 30 * math.floor(math.min(13, player.TearRange / 160))
+					local ball = player:FireBrimstoneBall(player.Position, Vector.Zero)
+					ball.CollisionDamage = ball.CollisionDamage / 2
+					ball.Timeout = timeout
+					for _,ent in pairs(Isaac.FindInRadius(player.Position, 120, EntityPartition.ENEMY)) do
+						local ball = player:FireBrimstoneBall(player.Position, (ent.Position - player.Position):Resized(10))
+						ball.CollisionDamage = ball.CollisionDamage / 2
+						ball.Timeout = timeout
+					end				
+					sfx:Play(7,0.5)
+				end
+			end
+
+			--碰撞伤害
+			if player:IsFrame(2,0) then
+				for _,ent in pairs(Isaac.FindInRadius(player.Position, scale*40, EntityPartition.ENEMY)) do
+					ent:TakeDamage(math.max(3.5, player.Damage), 0, EntityRef(player), 0)
+
+					--虚弱敌人
+					if self:GetIBSData('persis')['bc4'] then
+						ent:AddWeakness(EntityRef(player), 20)
+					end
+				end
+			end
+
+			--设置特效
+			local effect = data.DashEffect
+			if (not effect) or (effect:IsDead() or not effect:Exists()) then
+				data.DashEffect = Isaac.Spawn(1000, self.DashVariant, 0, player.Position, Vector.Zero, player):ToEffect()
+				data.DashEffect:FollowParent(player)
+				data.DashEffect.SpriteScale = Vector(scale, scale)
+
+				local spr = data.DashEffect:GetSprite()
+				spr.Rotation = (data.DashPosition - player.Position):Normalized():GetAngleDegrees() + 90
+				local color = (compats.Brimstone and Color(1,1,1,1)) or Color(173/255, 170/255, 170/255)
+				if compats.Brimstone then
+					color:SetColorize(1,0,0,1)
+				else
+					color:SetColorize(1,1,1,1)
+				end
+				spr.Color = color
+
+				--光效
+				local lightColor = (compats.Brimstone and Color(1,0,0,1)) or Color(173/255, 170/255, 170/255, 2)
+				self._Ents:ApplyLight(data.DashEffect, scale * 2, lightColor, function(light)
+					light.Scale = scale * 2
+				end)
+
+				--拖尾
+				local trailColor = (compats.Brimstone and Color(1,0,0,1,1)) or Color(0.6,0.6,0.6,1)
+				self._Ents:ApplyTrail(data.DashEffect, trailColor, 2*Vector(scale,scale))
+
+				--烟雾
+				local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF02, 1, player.Position, Vector.Zero, player)				
+				poof.SpriteScale = Vector(0.7*scale,0.7*scale)
+				poof.Color = color
+
+				sfx:Play(SoundEffect.SOUND_BLACK_POOF, 0.5)
+				game:ShakeScreen(3)
+				
+				--爆炸(非特效哦)
+				if compats.Explosion then
+					local bomb = player:FireBomb(player.Position, Vector.Zero, player)
+					bomb.ExplosionDamage = math.max(30, player.Damage * 10)
+					bomb:SetExplosionCountdown(0)
+				end
+			else
+				effect.SpriteScale = player.SpriteScale
+				effect:GetSprite().Rotation = (data.DashPosition - player.Position):Normalized():GetAngleDegrees() + 90
+			end
+			
+			--到达地点
+			if (data.DashPosition:Distance(player.Position) <= player.Size) or (data.DashFrame > 3 and self:CanStop(player.Position, player.CanFly) and self._Players:IsShooting(player, true)) or (data.DashFrame > 420) then
+				data.DashPosition = nil
+				if data.DashEffect then
+					data.DashEffect.Parent = nil
+				end
+
+				--爆炸
+				if compats.Explosion then
+					local bomb = player:FireBomb(player.Position, Vector.Zero, player)
+					bomb.ExplosionDamage = math.max(30, player.Damage * 10)
+					bomb:SetExplosionCountdown(0)
+				end
+
+				--烟雾
+				local color = Color(173/255, 170/255, 170/255)
+				color:SetColorize(1,1,1,1)
+				local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF02, 1, player.Position, Vector.Zero, player)				
+				poof.SpriteScale = Vector(0.7*scale,0.7*scale)
+				poof.Color = color
+
+				sfx:Play(SoundEffect.SOUND_BLACK_POOF, 0.5)
+				game:ShakeScreen(3)
+			end
+			
+			--计时,最多冲刺7秒
+			if data.DashFrame then
+				data.DashFrame = data.DashFrame + 1
+			end
 		end
+
+		--重置数据
+		if data.DashPosition == nil then
+			data.DashFrame = 0
+		end
+	end	
+end
+TGOJ:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, 'OnPlayerUpdate')
+
+--冲刺期间无视与实体的碰撞
+function TGOJ:PrePlayerCollision(player)
+	if self:IsPlayerDashing(player) then
+		return true
 	end
-end)
+end
+TGOJ:AddCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, 'PrePlayerCollision')
+
+--冲刺期间无视与障碍物的碰撞
+function TGOJ:PrePlayerGridCollision(player)
+	if self:IsPlayerDashing(player) then
+		return true
+	end
+end
+TGOJ:AddCallback(ModCallbacks.MC_PRE_PLAYER_GRID_COLLISION, 'PrePlayerGridCollision')
+
+--冲刺期间无视伤害
+function TGOJ:PrePlayerTakeDMG(player)
+	if self:IsPlayerDashing(player) then
+		return false
+	end
+end
+TGOJ:AddCallback(ModCallbacks.MC_PRE_PLAYER_TAKE_DMG, 'PrePlayerTakeDMG')
+
+
+--新房间重置数据
+function TGOJ:OnNewRoom()
+	for i = 0, game:GetNumPlayers() -1 do
+		local player = Isaac.GetPlayer(i)
+		local data = self._Ents:GetTempData(player).TGOJ_PLAYER
+		if data then
+			data.DashPosition = nil
+			player:AddCacheFlags(CacheFlag.CACHE_DAMAGE, true)
+		end
+		
+		--充能
+		for slot = 0,2 do
+			if player:GetActiveItem(slot) == (self.ID) then
+				local maxCharges = 135
+				player:SetActiveCharge(maxCharges, slot)
+			end
+		end		
+	end
+end
+TGOJ:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, 'OnNewRoom')
 
 
 
+
+return TGOJ
 

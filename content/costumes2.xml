@@ -1,43 +1,97 @@
 <costumes anm2root="gfx/ibs/characters/">
 
 <!-- items -->
+	<!-- no options -->
+	<costume id="2" anm2path="no_options.anm2" type="passive"/>
+	<!-- ssg -->
+	<costume id="4" anm2path="ssg.anm2" type="passive"/>
 	<!-- envy -->
-	<costume id="6" anm2path="envy.anm2" type="passive"/>
+	<costume id="6" anm2path="envy.anm2" type="passive" priority="1" />
 	<!-- purplebubbles -->
 	<costume id="8" anm2path="purplebubbles_head.anm2" type="active" hasOverlay="true" />
+	<!-- chocolate -->
+	<costume id="12" anm2path="chocolate.anm2" type="passive"/>
+	<!-- diamoond -->
+	<costume id="13" anm2path="diamoond.anm2" type="passive" priority="3"/>
 	<!-- bone of temperance -->
-	<costume id="17" anm2path="bone_of_temperance.anm2" priority="2" type="passive" skinColor="2" />
+	<costume id="17" anm2path="bone_of_temperance.anm2" priority="3" type="passive" skinColor="2" />
 	<!-- guard_of_fortitude -->
 	<costume id="18" anm2path="guard_of_fortitude_head.anm2" priority="5" type="passive" />
 	<!-- superb -->
 	<costume id="22" anm2path="superb_head.anm2" type="passive" hasOverlay="true" priority="1" />
 	<!-- circumcision -->
 	<costume id="25" anm2path="circumcision.anm2" type="passive" hasSkinAlt="true" />	
+	<!-- cursed heart -->
+	<costume id="26" anm2path="cursed_heart.anm2" type="passive"/>
 	<!-- minihorn -->
 	<costume id="30" anm2path="minihorn_body.anm2" type="passive" />	
 	<!-- wings of apollyon -->
 	<costume id="31" anm2path="wings_of_apollyon_body.anm2" type="passive" />	
+	<!-- everlasting regret -->
+	<costume id="35" anm2path="regret.anm2" type="passive"/>
+	<!-- multiplication -->
+	<costume id="38" anm2path="multiplication_glow.anm2" type="passive"/>	
+	<!-- no temperance -->
+	<costume id="39" anm2path="nt_head.anm2" type="passive"/>		
+	<!-- guppys potty -->
+	<costume id="40" anm2path="guppys_potty.anm2" type="passive"/>
+	<!-- gold experience -->
+	<costume id="44" anm2path="ge_body.anm2" type="passive"/>
+	<!-- profane weapon -->
+	<costume id="46" anm2path="profane_weapon.anm2" type="passive" skinColor="4" overwriteColor="true" />
+	<!-- profane weapon -->
+	<costume id="48" anm2path="cathedral_window.anm2" type="passive" />
+	<!-- leaden heart -->
+	<costume id="49" anm2path="leaden_heart.anm2" type="passive" />
+	<!-- china -->
+	<costume id="50" anm2path="china_body.anm2" type="passive" />
+	<!-- sstew -->
+	<costume id="63" anm2path="ssstew.anm2" type="passive" />
+	<!-- alms -->
+	<costume id="85" anm2path="alms.anm2" type="passive" />
+	<!-- smile world -->
+	<costume id="101" anm2path="smile_world.anm2" type="passive" priority="1" />
+
 
 <!-- null costumes -->
 	<!-- bisaac -->
-	<costume anm2path="bisaac_cross.anm2" type="none" priority="2" />
-	<costume anm2path="bisaac_devil.anm2" type="none" priority="6" hasOverlay="true" />	
-	<costume anm2path="bisaac_angel.anm2" type="none" priority="7" hasOverlay="true" />
-	<costume anm2path="bisaac_both.anm2" type="none" priority="8" hasOverlay="true" />
-	
+	<costume id="7250" anm2path="bisaac_cross.anm2" type="none" priority="2" />
+	<costume id="7251" anm2path="bisaac_devil.anm2" type="none" priority="6" hasOverlay="true" />	
+	<costume id="7252" anm2path="bisaac_angel.anm2" type="none" priority="7" hasOverlay="true" />
+	<costume id="7253" anm2path="bisaac_both.anm2" type="none" priority="8" hasOverlay="true" />
+
 	<!-- bmaggy -->
-	<costume anm2path="bmaggy_hair.anm2" type="none" priority="2" />
+	<costume id="7254" anm2path="bmaggy_hair.anm2" type="none" priority="2" />
 	
 	<!-- bcain -->
-	<costume anm2path="bcain_hat.anm2" type="none" priority="2" />
+	<costume id="7255" anm2path="bcain_hat.anm2" type="none" priority="2" />
 	
 	<!-- babel -->
-	<costume anm2path="babel_hair.anm2" type="none" priority="2" />
-	
-	<!-- bjudas -->
-	<costume anm2path="bjudas_mitre_and_mantle.anm2" type="none" priority="3" />
+	<costume id="7256" anm2path="babel_hair.anm2" type="none" priority="2" />
 
-	<!-- falsehood -->
-	<costume anm2path="falsehood_bmaggy.anm2" type="none" priority="2" />
+	<!-- bjudas -->
+	<costume id="7257" anm2path="bjudas_mitre_and_mantle.anm2" type="none" priority="3" />
+
+	<!-- bxxx -->
+	<costume id="7258" anm2path="bxxx_eye.anm2" type="none" priority="7" />
+	<costume anm2path="bxxx_bisaac.anm2" type="none" priority="7" />
+	<costume anm2path="bxxx_bmaggy.anm2" type="none" priority="7" />
+	<costume anm2path="bxxx_bcain.anm2" type="none" priority="7" />
+	<costume anm2path="bxxx_babel.anm2" type="none" priority="7" />
+	<costume anm2path="bxxx_bjudas.anm2" type="none" priority="7" />
+	<costume anm2path="bxxx_beden.anm2" type="none" priority="7" />
+
+	<!-- beden -->
+	<costume id="7259" anm2path="beden_hair.anm2" type="none" priority="2" />
+	
+	<!-- blost -->
+	<costume id="7260" anm2path="blost_costume.anm2" type="none" priority="7" isFlying="true" />
+
+	<!-- bkeeper -->
+	<costume id="7261" anm2path="bkeeper_rope.anm2" isFlying="true" hasOverlay="true" type="none" priority="777" />
+
+	<!-- other -->
+	<costume anm2path="falsehood_bmaggy.anm2" type="none" priority="3" />
+	<costume anm2path="no_face.anm2" type="none" priority="3" hasSkinAlt="true" />
 	
 </costumes>

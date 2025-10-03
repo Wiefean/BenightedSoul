@@ -1,17 +1,19 @@
 --奇怪的头骨
 
 local mod = Isaac_BenightedSoul
-local IBS_Item = mod.IBS_Item
-local Players = mod.IBS_Lib.Players
-local Finds = mod.IBS_Lib.Finds
+
+local game = Game()
+
+local Cranium = mod.IBS_Class.Item(mod.IBS_ItemID.Cranium)
+
 
 --下层记录
-local function OnNewLevel()
-	for i = 0, Game():GetNumPlayers() -1 do
+function Cranium:OnNewLevel()
+	for i = 0, game:GetNumPlayers() -1 do
 		local player = Isaac.GetPlayer(i)
-		local data = Players:GetData(player)
+		local data = self._Players:GetData(player)
 		
-		if player:HasCollectible(IBS_Item.cranium) then
+		if player:HasCollectible(self.ID) then
 			local effect = player:GetEffects()
 			data.WeirdCranium = true
 			if not effect:HasNullEffect(NullItemID.ID_LOST_CURSE) then
@@ -22,20 +24,19 @@ local function OnNewLevel()
 		end	
 	end
 end
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, OnNewLevel)
+Cranium:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, 'OnNewLevel')
 
 --检测状态
-local function OnNewRoom()
-	local game = Game()
+function Cranium:OnNewRoom()
 	local room = game:GetRoom()
 	
 	for i = 0, game:GetNumPlayers() -1 do
 		local player = Isaac.GetPlayer(i)
 		local effect = player:GetEffects()
-		local data = Players:GetData(player)
+		local data = self._Players:GetData(player)
 	
 		--没有道具直接清除记录
-		if not player:HasCollectible(IBS_Item.cranium) then
+		if not player:HasCollectible(self.ID) then
 			data.WeirdCranium = nil
 		end		
 		
@@ -57,12 +58,43 @@ local function OnNewRoom()
 				end
 				
 				--正邪增强(东方mod)
-				if mod:THI_WillSeijaBuff(player) and (Finds:ClosestEnemy(player.Position) ~= nil) then
+				--10秒护盾(影书)
+				if mod.IBS_Compat.THI:SeijaBuff(player) and (self._Finds:ClosestEnemy(player.Position) ~= nil) then
 					player:UseActiveItem(58, false, false)
 				end
 			end
 		end
 	end
 end
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, OnNewRoom)
+Cranium:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, 'OnNewRoom')
 
+
+--里正邪兼容
+function Cranium:TrySpawnItemsForSeijaB()
+	local room = game:GetRoom()
+	for i = 0, game:GetNumPlayers() -1 do
+		local player = Isaac.GetPlayer(i)
+		local num = mod.IBS_Compat.THI:GetSeijaBLevel(player) - 1
+		if player:HasCollectible(self.ID) and num > 0 then
+			for i = 1,num do
+				local seed = self._Levels:GetRoomUniqueSeed()
+				local id = game:GetItemPool():GetCollectible(ItemPoolType.POOL_DEVIL, true, seed)
+				local pos = room:FindFreePickupSpawnPosition((room:GetCenterPos()), 0, true)
+				local item = Isaac.Spawn(5, 100, id, pos, Vector(0,0), nil):ToPickup()
+				item.ShopItemId = -2
+				item.Price = -1
+			end
+		end
+	end
+end
+
+--清理房间
+function Cranium:OnRoomCleaned()
+	if game:GetRoom():GetType() == RoomType.ROOM_BOSS then
+		self:TrySpawnItemsForSeijaB()
+	end
+end
+Cranium:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, 'OnRoomCleaned')
+
+
+return Cranium

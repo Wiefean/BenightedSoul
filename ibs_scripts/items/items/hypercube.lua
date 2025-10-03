@@ -1,21 +1,16 @@
 --超立方
 
 local mod = Isaac_BenightedSoul
-local IBS_Callback = mod.IBS_Callback
-local IBS_Item = mod.IBS_Item
-local IBS_Player = mod.IBS_Player
-local Ents = mod.IBS_Lib.Ents
-local Pools = mod.IBS_Lib.Pools
-local Finds = mod.IBS_Lib.Finds
 
+local game = Game()
 local config = Isaac.GetItemConfig()
 
---用于昧化该隐&亚伯
-mod.IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.hypercube)
+local Hypercube = mod.IBS_Class.Item(mod.IBS_ItemID.Hypercube)
 
---获取记录
-local function GetRecord()
-	local data = mod:GetIBSData("Temp")
+
+--获取数据
+function Hypercube:GetData()
+	local data = self:GetIBSData('temp')
 	if not data.Hypercube then
 		data.Hypercube = {ItemID = 0}		
 	end
@@ -23,24 +18,17 @@ local function GetRecord()
 	return data.Hypercube
 end
 
---临时贴图数据
-local function GetItemIconData(player)
-	local data = Ents:GetTempData(player)
-	if not data.Hypercube then
-		local spr = Sprite()
-		spr:Load("gfx/ibs/ui/items/hypercube.anm2", true)
-		spr:Play(spr:GetDefaultAnimation())		
-		data.Hypercube = {ItemID = 0, Sprite = spr}
-	end
-	
-	return data.Hypercube
-end
+--道具图标
+local Icon = Sprite()
+local IconID = 0
+Icon:Load("gfx/ibs/ui/items/Hypercube.anm2", true)
+Icon:Play(Icon:GetDefaultAnimation())
+
 
 --使用效果
-local function Copy(_,item, rng, player, flags)
+function Hypercube:OnUse(item, rng, player, flags)
 	if (flags & UseFlag.USE_CARBATTERY <= 0) and (flags & UseFlag.USE_VOID <= 0) then--拒绝车载电池和虚空
-		local data = GetRecord()
-		local icon = GetItemIconData(player)
+		local data = self:GetData()
 		
 		if data.ItemID > 0 then
 			for _,ent in pairs(Isaac.FindByType(5, 100)) do
@@ -54,15 +42,15 @@ local function Copy(_,item, rng, player, flags)
 			end
 			data.ItemID = 0
 		else
-			local item = Finds:ClosestCollectible(player.Position)
+			local item = self._Finds:ClosestCollectible(player.Position)
 			if item ~= nil and item.SubType > 0 then
 				local itemConfig = config:GetCollectible(item.SubType)
 				if itemConfig and itemConfig.GfxFileName then
 					data.ItemID = item.SubType
-					icon.Sprite:ReplaceSpritesheet(1, itemConfig.GfxFileName)
-					icon.Sprite:LoadGraphics()
+					Icon:ReplaceSpritesheet(1, itemConfig.GfxFileName)
+					Icon:LoadGraphics()
 					item:SetColor(Color(0,0,0,0),6,3,true)
-					Game():GetItemPool():RemoveCollectible(item.SubType)
+					game:GetItemPool():RemoveCollectible(item.SubType)
 					SFXManager():Play(81)
 				else
 					data.ItemID = 0
@@ -74,23 +62,33 @@ local function Copy(_,item, rng, player, flags)
 		return {ShowAnim = false}
 	end
 end
-mod:AddCallback(ModCallbacks.MC_USE_ITEM, Copy, IBS_Item.hypercube)
+Hypercube:AddCallback(ModCallbacks.MC_USE_ITEM, 'OnUse', Hypercube.ID)
+
+
 
 --把记录的道具贴图贴在主动槽上
-local function RenderItem(_,item, player, slot, pos, scale)
-	local data = mod:GetIBSData("Temp").Hypercube
-	local icon = GetItemIconData(player)
-	
+function Hypercube:OnActiveRender(player, slot, offset, alpha, scale)
+	if player:GetActiveItem(slot) ~= self.ID then return end
+	local data = mod:GetIBSData("temp").Hypercube
+
 	if data and (data.ItemID > 0) then
-		if icon.ItemID ~= data.ItemID then
-			icon.ItemID = data.ItemID
-			icon.Sprite:ReplaceSpritesheet(1, config:GetCollectible(data.ItemID).GfxFileName)
-			icon.Sprite:LoadGraphics()			
-		end		
-		icon.Sprite.Scale = scale
-		icon.Sprite:Render(pos)
+		local itemConfig = config:GetCollectible(data.ItemID)
+
+		if itemConfig and IconID ~= data.ItemID then
+			IconID = data.ItemID
+			Icon:ReplaceSpritesheet(1, itemConfig.GfxFileName)
+			Icon:LoadGraphics()			
+		end
+
+		if IconID ~= 0 then
+			Icon.Scale = Vector(scale, scale)
+			Icon.Color = Color(1,1,1,alpha)
+			Icon:Render(offset + Vector(16*scale,16*scale))
+		end
 	end
 end
-mod:AddCallback(IBS_Callback.ACTIVE_SLOT_RENDER, RenderItem, IBS_Item.hypercube)
+Hypercube:AddCallback(ModCallbacks.MC_POST_PLAYERHUD_RENDER_ACTIVE_ITEM, 'OnActiveRender')
 
+
+return Hypercube
 

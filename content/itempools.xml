@@ -1,291 +1,627 @@
 <ItemPools>
 
 	<Pool Name="treasure">
-		<Item Name="Shooting Stars Gazer" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1"/>
-		<Item Name="The Light D6" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
-		<Item Name="The Waster" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Purple Bubbles" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Hypercube" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
-		<Item Name="Defined" weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
-		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Wisper" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
-		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
-		<Item Name="The Gospel Of Judas" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Bony Knife" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
-		<Item Name="Re-death" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Dusty Bomb" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Needle Mushroom" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Mini Horn" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="The Forbidden Fruit" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Sword of Siberite" weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
-		<Item Name="Everlasting Regret" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Unwelcome Sacrifice" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Welcome Sacrifice" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
+		<Item Name="Shooting Stars Gazer" Weight="0.5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="The Light D6" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Waster" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.6" RemoveOn="0.01" />
+		<Item Name="Glowing Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Purple Bubbles" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hypercube" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Defined" Weight="0.3" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Diamoond" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Wisper" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Guard of Fortitude" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="The Gospel Of Judas" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bony Knife" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Re-death" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Dusty Bombs" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Needle Mushroom" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Mini Horn" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Forbidden Fruit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sword of Siberite" Weight="0.3" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Everlasting Regret" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Unwelcome Sacrifice" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Welcome Sacrifice" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="No Temperance?" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Lord of Locusts" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Chubby Cookbook" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Profane Weapon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Rules Book" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cathedral Window" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="China" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Guard of Fortitude" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Route of Humility" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hoarding" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Blackjack" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Dice Projector" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sketch" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Molekale" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Book of Seen" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Portable Farm" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Goatify" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Falowerse" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="GHP" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Moth" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Edge" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Forge" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Alms" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Troposphere" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Model of Deligence" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Lamp of Diligence" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
+		<Item Name="Contact C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Maxx C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sneaky C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Confronting C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Retaliating C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Rich Mines" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Smile World" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="False GHD" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Clash" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Best Weapon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Three Wishes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cheese Cutter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Chest Chest" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Silver Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Truth Chest" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Knock" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Wildering Mirror" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Moon Streets" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Luck Enchantment" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Chill Mind" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Turbine" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="OvO" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Danish Gambit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hyper Block" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Fusion Hammer" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sangen Summoning" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Peace Pipe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hexa Vessel" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
+		<Item Name="Signature Move" Weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
+		<Item Name="Double Dosage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Holy Injection" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Kille R" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Vein Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="PUC" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Diecry" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Reused Story" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Zoth" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1"/>
+		<Item Name="Pageant Father" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1"/>
+		<Item Name="Astro Vera" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.01"/>
 		
-	</pool>
+	</Pool>
 	
 	<Pool Name="greedTreasure">
-		<Item Name="Shooting Stars Gazer" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1"/>
-		<Item Name="The Light D6" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="The Waster" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Purple Bubbles" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Hypercube" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Defined" weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
-		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Wisper" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
-		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="The Gospel Of Judas" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Bony Knife" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
-		<Item Name="Dusty Bomb" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Needle Mushroom" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Mini Horn" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="The Forbidden Fruit" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Sword of Siberite" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
-		<Item Name="Unwelcome Sacrifice" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Welcome Sacrifice" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Shooting Stars Gazer" Weight="0.5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="The Light D6" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Waster" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.6" RemoveOn="0.01" />
+		<Item Name="Glowing Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Purple Bubbles" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hypercube" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Defined" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Diamoond" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Wisper" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Guard of Fortitude" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Gospel Of Judas" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bony Knife" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Dusty Bombs" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Needle Mushroom" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Mini Horn" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Forbidden Fruit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sword of Siberite" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Unwelcome Sacrifice" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Welcome Sacrifice" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Lord of Locusts" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Chubby Cookbook" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Profane Weapon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Rules Book" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="China" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Dice Projector" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
+		<Item Name="Hoarding" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Molekale" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Book of Seen" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Portable Farm" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Goatify" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Falowerse" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Edge" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Forge" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Alms" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Troposphere" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Model of Deligence" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Lamp of Diligence" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
+		<Item Name="Contact C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
+		<Item Name="Sneaky C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Confronting C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Retaliating C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Smile World" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Clash" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Best Weapon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Three Wishes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cheese Cutter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Chest Chest" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Truth Chest" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Luck Enchantment" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Turbine" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="OvO" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Danish Gambit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hyper Block" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Fusion Hammer" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sangen Summoning" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Peace Pipe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hexa Vessel" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
+		<Item Name="Signature Move" Weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
+		<Item Name="Double Dosage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Holy Injection" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Kille R" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Vein Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="PUC" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Diecry" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Astro Vera" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.01"/>
 		
-	</pool>
+	</Pool>
 	
 	<Pool Name="planetarium">
-		<Item Name="Shooting Stars Gazer" Weight="2" DecreaseBy="1" RemoveOn="0.1"/>
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Shooting Stars Gazer" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Fomalhaut" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Zoth" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 
-	</pool>
-	
+	</Pool>
+
 	<Pool Name="shop">
-		<Item Name="No Options" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1"/>
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Purple Bubbles" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
-		<Item Name="Defined" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
-		<Item Name="Valentinus Chocolate" weight="1" DecreaseBy="0.5" RemoveOn="0.1" />
-		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="The Reserved Nail" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Super B" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Dreggy Pie" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Circumcision" weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
-		<Item Name="Mom's Cheque" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Sword of Siberite" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
+		<Item Name="No Options" Weight="0.5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.6" RemoveOn="0.01" />
+		<Item Name="Purple Bubbles" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Valentine Chocolate" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Reserved Nail" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Super B" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Dreggy Pie" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Mom's Cheque" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sword of Siberite" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Gold Experience" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Profane Weapon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="China" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
+		<Item Name="Silver Bracelet" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
+		<Item Name="Super Panic Button" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
+		<Item Name="Guppy's Potty" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
+		<Item Name="GHD" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Another Karma" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hoarding" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sneaky C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Master Pack" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Panacea" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cheese Cutter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Turbo" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Treasure Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Truth Chest" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Chill Mind" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Turbine" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="OvO" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Danish Gambit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Fusion Hammer" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Peace Pipe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Vein Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
-	</pool>
+	</Pool>
 	
 	<Pool Name="greedShop">
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Purple Bubbles" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Hypercube" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Defined" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Valentinus Chocolate" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Diamoond" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Bone of Temperance" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
-		<Item Name="The Reserved Nail" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Super B" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Dreggy Pie" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Circumcision" weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
-		<Item Name="Re-death" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Mom's Cheque" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="The Forbidden Fruit" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
-		<Item Name="Sword of Siberite" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
-		<Item Name="Everlasting Regret" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		
-	</pool>
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.6" RemoveOn="0.01" />
+		<Item Name="Purple Bubbles" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hypercube" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Defined" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Valentine Chocolate" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Diamoond" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bone of Temperance" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Guard of Fortitude" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="The Reserved Nail" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Super B" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Dreggy Pie" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Re-death" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Mom's Cheque" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Forbidden Fruit" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sword of Siberite" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Everlasting Regret" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Gold Experience" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Profane Weapon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="China" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Silver Bracelet" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Route of Humility" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Guppy's Potty" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Super Panic Button" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
+		<Item Name="Portable Farm" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Goatify" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Edge" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Another Karma" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hoarding" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Troposphere" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Maxx C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Sneaky C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Panacea" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cheese Cutter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Turbo" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Truth Chest" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Eye of Truth" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Turbine" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="OvO" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Danish Gambit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hyper Block" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Fusion Hammer" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sangen Summoning" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Peace Pipe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Signature Move" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Vein Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+
+	</Pool>
 	
 	<Pool Name="babyShop">
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.6" RemoveOn="0.01" />
 	
-	</pool>
+	</Pool>
 	
 	<Pool Name="boss">
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Needle Mushroom" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-
-	</pool>
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.6" RemoveOn="0.01" />
+		<Item Name="Needle Mushroom" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Circumcision" Weight="0.1" DecreaseBy="0.1" RemoveOn="0.1" />
+		<Item Name="Leaden Heart" Weight="0.3" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Master Round" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Lown Tea" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Eye of Truth" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Flex" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Double Dosage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Deciduous Meat" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Curse Syringe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		
+	</Pool>
 	
 	<Pool Name="greedBoss">
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Needle Mushroom" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.6" RemoveOn="0.01" />
+		<Item Name="Needle Mushroom" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Master Round" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Lown Tea" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Eye of Truth" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Flex" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Double Dosage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Deciduous Meat" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Curse Syringe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
-	</pool>	
+	</Pool>	
 	
 	<Pool Name="secret">
-		<Item Name="D4D" weight="0.3" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="D4D" Weight="0.3" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Shooting Stars Gazer" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Hypercube" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Defined" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
-		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
-		<Item Name="The Gospel Of Judas" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="The Forbidden Fruit" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Unwelcome Sacrifice" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.6" RemoveOn="0.01" />
+		<Item Name="Hypercube" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Defined" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Ether" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="The Gospel Of Judas" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Forbidden Fruit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Unwelcome Sacrifice" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Multiplication" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sketch" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Molekale" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Dice Projector" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
+		<Item Name="Stolen Decade" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
+		<Item Name="Elegiast Winter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Falowerse" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Secret Histories" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Maxx C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="018" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sneaky C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Three Wishes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="AKEY-47" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Knock" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Wildering Mirror" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Moon Streets" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Horned-Axe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="OvO" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sangen Summoning" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Yongle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Signature Move" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Vain Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Reused Story" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Pageant Father" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Astro Vera" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		
-	</pool>
+	</Pool>
 
 	<Pool Name="greedSecret">
-		<Item Name="D4D" weight="0.3" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="D4D" Weight="0.3" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="Shooting Stars Gazer" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Hypercube" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Defined" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
-		<Item Name="The Gospel Of Judas" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="The Forbidden Fruit" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Unwelcome Sacrifice" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.6" RemoveOn="0.01" />
+		<Item Name="Hypercube" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Defined" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ether" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="The Gospel Of Judas" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Forbidden Fruit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Unwelcome Sacrifice" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Multiplication" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Molekale" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Dice Projector" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
+		<Item Name="Stolen Decade" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
+		<Item Name="Elegiast Winter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Falowerse" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Secret Histories" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Maxx C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="018" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sneaky C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Three Wishes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="AKEY-47" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Horned-Axe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="OvO" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sangen Summoning" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Yongle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Signature Move" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Vain Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Pageant Father" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Astro Vera" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		
-	</pool>	
+	</Pool>	
 	
 	<Pool Name="curse">
-		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Cursed Mantle" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Weird Cranium" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Cursed Heart" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Everlasting Regret" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-	
-	</pool>
+		<Item Name="Ennnnnnvyyyyyy" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Mantle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Weird Cranium" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Everlasting Regret" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Tenebrosity" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ssstew" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Elegiast Winter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Grail" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Moth" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Maxx C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Smile World" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="False GHD" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Silver Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Knock" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Luck Enchantment" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Horned-Axe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Light Barrier" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Red Hook" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hexa Vessel" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Deciduous Meat" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Curse Syringe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		
+	</Pool>
 	
 	<Pool Name="greedCurse">
-		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Cursed Mantle" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Cursed Heart" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Mantle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Everlasting Regret" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Tenebrosity" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ssstew" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
+		<Item Name="Elegiast Winter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Grail" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Maxx C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Smile World" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Luck Enchantment" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Horned-Axe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Light Barrier" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Red Hook" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hexa Vessel" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
-	</pool>
+	</Pool>
 	
 	<Pool Name="devil">
-		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Cursed Mantle" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Bony Knife" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Cursed Heart" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Wings Of Apollyon" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Welcome Sacrifice" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Mantle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ether" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bony Knife" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Wings of Apollyon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Welcome Sacrifice" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Guppy's Potty" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
+		<Item Name="Hell Kitchen" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ssstew" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Elegiast Winter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Grail" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Contact C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Multiply" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Retaliating C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="False GHD" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
-	</pool>
+	</Pool>
 	
 	<Pool Name="greedDevil">
-		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Cursed Mantle" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Bony Knife" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Cursed Heart" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Wings Of Apollyon" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Welcome Sacrifice" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-	
-	</pool>	
+		<Item Name="Ennnnnnvyyyyyy" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Mantle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ether" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bony Knife" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Wings of Apollyon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Welcome Sacrifice" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Guppy's Potty" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hell Kitchen" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ssstew" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Elegiast Winter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Grail" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Multiply" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Retaliating C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		
+	</Pool>	
 	
 	<Pool Name="angel">
-		<Item Name="The Light D6" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="The Waster" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Glowing Heart" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Valentinus Chocolate" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
-		<Item Name="Wisper" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Bone of Temperance" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Circumcision" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Wings Of Apollyon" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Welcome Sacrifice" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Light D6" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Waster" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Glowing Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Valentine Chocolate" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ether" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Wisper" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bone of Temperance" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="V7" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Circumcision" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Wings of Apollyon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Welcome Sacrifice" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cathedral Window" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Forge" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Notched Sword" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Model of Deligence" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Lamp of Diligence" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Soul of Generosity" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="AKEY-47" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Wildering Mirror" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Light Barrier" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Holy Injection" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
-	</pool>
+	</Pool>
 	<Pool Name="greedAngel">
-		<Item Name="The Light D6" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="The Waster" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Glowing Heart" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
-		<Item Name="Ether" weight="1" DecreaseBy="1" RemoveOn="0.1" />	
-		<Item Name="Wisper" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
-		<Item Name="Bone of Temperance" weight="0.5" DecreaseBy="0.5" RemoveOn="1" />	
-		<Item Name="Circumcision" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Wings Of Apollyon" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Welcome Sacrifice" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Light D6" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="The Waster" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Glowing Heart" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ether" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Wisper" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bone of Temperance" Weight="0.5" DecreaseBy="1" RemoveOn="1" />
+		<Item Name="V7" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Circumcision" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Wings of Apollyon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Welcome Sacrifice" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Forge" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Notched Sword" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Model of Deligence" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Lamp of Diligence" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Soul of Generosity" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="AKEY-47" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Light Barrier" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Holy Injection" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
-	</pool>
+	</Pool>
 
 	<Pool Name="library">
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="The Gospel Of Judas" weight="1" DecreaseBy="0.1" RemoveOn="0.1" />
+		<Item Name="The Gospel Of Judas" Weight="1" DecreaseBy="0.1" RemoveOn="0.1" />
+		<Item Name="Chubby Cookbook" Weight="1" DecreaseBy="0.1" RemoveOn="0.1" />
+		<Item Name="Rules Book" Weight="1" DecreaseBy="0.1" RemoveOn="0.1" />
+		<Item Name="Book of Seen" Weight="1" DecreaseBy="0.1" RemoveOn="0.1" />
+		<Item Name="Yongle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Diecry" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
-	</pool>
+	</Pool>
 	
 	<Pool Name="shellGame">
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
 
-	</pool>
+	</Pool>
 	
 	<Pool Name="craneGame">	
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Mini Horn" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Wings Of Apollyon" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-	
-	</pool>
+		<Item Name="Mini Horn" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Wings of Apollyon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Guppy's Potty" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="GHD" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Secret Histories" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Smile World" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Three Wishes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Turbo" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Luck Enchantment" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Turbine" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hyper Block" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Holy Injection" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="PUC" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Pageant Father" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+
+	</Pool>
 
 	<Pool Name="ultraSecret">
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Defined" weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
-		<Item Name="Valentinus Chocolate" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Valentine Chocolate" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Tenebrosity" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Hell Kitchen" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Grail" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="018" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Red Hook" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Danish Gambit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Fusion Hammer" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sangen Summoning" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Vain Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
-	</pool>
+	</Pool>
 
 	<Pool Name="goldenChest">
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Bone of Temperance" weight="1" DecreaseBy="1" RemoveOn="1" />
-		<Item Name="Guard of Fortitude" weight="1" DecreaseBy="1" RemoveOn="1" />	
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Guard of Fortitude" Weight="1" DecreaseBy="1" RemoveOn="1" />
+		<Item Name="Falsehood of ???" Weight="1" DecreaseBy="1" RemoveOn="1" />	
+		<Item Name="Leaden Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Clash" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
-	</pool>
+	</Pool>
 	
 	<Pool Name="redChest">
-		<Item Name="Ennnnnnvyyyyyy" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Weird Cranium" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Cursed Heart" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		
-	</pool>
+		<Item Name="Ennnnnnvyyyyyy" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Weird Cranium" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cursed Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Guppy's Potty" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Ssstew" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Multiply" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Red Hook" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+
+	</Pool>
 	
 	<Pool Name="momsChest">	
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Mom's Cheque" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
-	</pool>
+	</Pool>
 	
 	<Pool Name="oldChest">	
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Mom's Cheque" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
-	</pool>
+	</Pool>
 	
 	<Pool Name="woodenChest">	
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
 	
-	</pool>
+	</Pool>
 	
 	<Pool Name="beggar">
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Profane Weapon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Silver Bracelet" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="Alms" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Soul of Generosity" Weight="0.1" DecreaseBy="0.1" RemoveOn="0.1" />
+		<Item Name="Lown Tea" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
-	</pool>
+	</Pool>
 	
 	<Pool Name="demonBeggar">
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Cursed Heart" weight="1" DecreaseBy="1" RemoveOn="0.1" />
-	
-	</pool>
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Cursed Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Guppy's Potty" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Contact C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Multiply" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Retaliating C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Curse Syringe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+
+	</Pool>
 	
 	<Pool Name="keyMaster">	
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Treasure Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
-	</pool>
+	</Pool>
 	
 	<Pool Name="batteryBum">
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Sword of Siberite" weight="0.3" DecreaseBy="0.3" RemoveOn="0.1" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Turbo" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
-	</pool>
+	</Pool>
 	
 	<Pool Name="bombBum">
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-		<Item Name="Dusty Bomb" weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Dusty Bombs" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sneaky C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
-	</pool>
-	
+	</Pool>
+
 	<Pool Name="rottenBeggar">
-		<Item Name="Ennnnnnvyyyyyy" weight="0.1" DecreaseBy="0.1" RemoveOn="0.01" />
-
-	</pool>
+		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
+		<Item Name="Confronting C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Retaliating C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Deciduous Meat" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		
+	</Pool>
 	
 </ItemPools>
 

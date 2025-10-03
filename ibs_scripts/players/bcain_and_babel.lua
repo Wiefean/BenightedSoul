@@ -1,40 +1,41 @@
 --昧化该隐&亚伯
 
 local mod = Isaac_BenightedSoul
-local IBS_API = mod.IBS_API
-local IBS_Callback = mod.IBS_Callback
-local IBS_Item = mod.IBS_Item
-local IBS_Player = mod.IBS_Player
-local IBS_Sound = mod.IBS_Sound
-local Pools = mod.IBS_Lib.Pools
-local Finds = mod.IBS_Lib.Finds
-local Ents = mod.IBS_Lib.Ents
-local Players = mod.IBS_Lib.Players
-local Stats = mod.IBS_Lib.Stats
+local IBS_CallbackID = mod.IBS_CallbackID
+local IBS_PlayerID = mod.IBS_PlayerID
+local IBS_ItemID = mod.IBS_ItemID
 
+local game = Game()
 local config = Isaac.GetItemConfig()
 local sfx = SFXManager()
 
-local ErrorTipName = "IBS_API.BCBA"
-IBS_API.BCBA = {}
+local BCBA = mod.IBS_Class.Component()
 
-local ExcludedActive = {}
+BCBA.BCain = mod.IBS_Class.Character(IBS_PlayerID.BCain, {
+	SpritePath = 'gfx/ibs/characters/player_bcain.anm2',
+	SpritePathFlight = 'gfx/ibs/characters/player_bcain.anm2',
+	PocketActive = IBS_ItemID.PortableFarm,
+})
+BCBA.BAbel = mod.IBS_Class.Character(IBS_PlayerID.BAbel, {
+	PocketActive = IBS_ItemID.Goatify,
+})
 
---添加处于副角色状态时不临时移除的主动道具
+--添加处于副角色状态时不临时移除的主动道具,用于模组兼容
 --(默认包含原版所有主动)
-function IBS_API.BCBA:AddExcludedActiveItem(item)
-	local err,mes = mod:CheckArgType(item, "number", nil, 1, ErrorTipName)
-	if err then error(mes, 2) end
+BCBA.ExcludedActive = {}
 
-	ExcludedActive[item] = true
+function BCBA:AddExcludedActiveItem(item)
+	self.ExcludedActive[item] = true
+end
+
+--愚昧模组道具
+for k,v in pairs(IBS_ItemID) do
+	BCBA:AddExcludedActiveItem(v)
 end
 
 --获取另一玩家
-function IBS_API.BCBA:GetOtherTwin(player)
-	local err,mes = mod:CheckArgType(player, "userdata", "player", 1, ErrorTipName)
-	if err then error(mes, 2) end
-
-	local data = Ents:GetTempData(player).BCBA
+function BCBA:GetOtherTwin(player)
+	local data = self._Ents:GetTempData(player).BCBA
 	if data and data.Twin then
 		return data.Twin
 	end
@@ -42,11 +43,8 @@ function IBS_API.BCBA:GetOtherTwin(player)
 end
 
 --是否为主角色
-function IBS_API.BCBA:IsMainPlayer(player)
-	local err,mes = mod:CheckArgType(player, "userdata", "player", 1, ErrorTipName)
-	if err then error(mes, 2) end
-
-	local data = Players:GetData(player).BCBAInfo
+function BCBA:IsMainPlayer(player)
+	local data = self._Players:GetData(player).BCBAInfo
 	if data and data.State and (data.State ~= "Second") then
 		return true
 	end
@@ -54,11 +52,8 @@ function IBS_API.BCBA:IsMainPlayer(player)
 end
 
 --是否为副角色
-function IBS_API.BCBA:IsSecondPlayer(player)
-	local err,mes = mod:CheckArgType(player, "userdata", "player", 1, ErrorTipName)
-	if err then error(mes, 2) end
-
-	local data = Players:GetData(player).BCBAInfo
+function BCBA:IsSecondPlayer(player)
+	local data = self._Players:GetData(player).BCBAInfo
 	if data and data.State and (data.State == "Second") then
 		return true
 	end
@@ -66,11 +61,8 @@ function IBS_API.BCBA:IsSecondPlayer(player)
 end
 
 --是否为初始玩家
-function IBS_API.BCBA:IsOriginPlayer(player)
-	local err,mes = mod:CheckArgType(player, "userdata", "player", 1, ErrorTipName)
-	if err then error(mes, 2) end
-
-	local data = Players:GetData(player).BCBAInfo
+function BCBA:IsOriginPlayer(player)
+	local data = self._Players:GetData(player).BCBAInfo
 	if data and data.Origin then
 		return true
 	end
@@ -78,14 +70,9 @@ function IBS_API.BCBA:IsOriginPlayer(player)
 end
 
 --任意主副角色拥有道具
-function IBS_API.BCBA:AnyHasCollectible(player, item)
-	local err,mes = mod:CheckArgType(player, "userdata", "player", 1, ErrorTipName)
-	if err then error(mes, 2) end
-	err,mes = mod:CheckArgType(item, "number", nil, 1, ErrorTipName)
-	if err then error(mes, 2) end
-
+function BCBA:AnyHasCollectible(player, item)
 	local has = false
-	local player2 = IBS_API.BCBA:GetOtherTwin(player)
+	local player2 = self:GetOtherTwin(player)
 	
 	has = player:HasCollectible(item)
 	
@@ -100,7 +87,7 @@ end
 --(大于462时,自动重置为0)
 --(对非副角色则返回0)
 local function GetInSecondFrameCount(player)
-	local data = Ents:GetTempData(player).BCBA
+	local data = BCBA._Ents:GetTempData(player).BCBA
 	if data then
 		return data.InSecondFrameCount or 0
 	end
@@ -109,13 +96,12 @@ end
 
 
 --临时数据
-local function GetBCBATempData(player)
-	local data = Ents:GetTempData(player)
+function BCBA:GetTempData(player)
+	local data = self._Ents:GetTempData(player)
 	data.BCBA = data.BCBA or {
 		Twin = nil,
 		InSecondFrameCount = 0,
-		ShockDamage = 0,
-		RedeathTimeOut = 0,
+		SwitchTimeOut = 0,
 		QuickRedeathWait = 42
 	}
 
@@ -123,8 +109,8 @@ local function GetBCBATempData(player)
 end
 
 --长久数据
-local function GetBCBAData(player)
-	local data = Players:GetData(player)
+function BCBA:GetData(player)
+	local data = self._Players:GetData(player)
 	data.BCBAInfo = data.BCBAInfo or {
 		State = "",
 		TwinIndex = "",
@@ -143,7 +129,7 @@ end
 
 --用索引获取玩家
 local function GetPlayerByIndex(index)
-	for i = 0, Game():GetNumPlayers() -1 do
+	for i = 0, game:GetNumPlayers() -1 do
 		local player = Isaac.GetPlayer(i)
 		if GetPlayerIndex(player) == index then
 			return player
@@ -152,30 +138,34 @@ local function GetPlayerByIndex(index)
 	return nil
 end
 
---尝试切换主副角色
-function IBS_API.BCBA:TrySwitch(player)
-	local err,mes = mod:CheckArgType(player, "userdata", "player", 1, ErrorTipName)
-	if err then error(mes, 2) end
+--正在退出游戏,用于修正
+local EXITING = false
 
-	local tdata = Ents:GetTempData(player).BCBA
+--尝试切换主副角色
+function BCBA:TrySwitch(player, force)
+	EXITING = false
+	local SUCCESS = false
+	local tdata = self._Ents:GetTempData(player).BCBA
 
 	if tdata and tdata.Twin then
 		local player2 = tdata.Twin
 		
 		--检测副角色状态
-		if player2:Exists() and not player2:IsDead() then
-			local data = GetBCBAData(player)
-			local data2 = GetBCBAData(player2)
+		if player2:Exists() and not player2:IsDead() and (force or not player2:IsCoopGhost()) then
+			local data = self:GetData(player)
+			local data2 = self:GetData(player2)
 
 			--副切主
 			player2.Parent = nil
 			player2:ClearEntityFlags(EntityFlag.FLAG_NO_DAMAGE_BLINK)
+			player2:ClearEntityFlags(EntityFlag.FLAG_NO_TARGET)
 			player2:SetColor(Color(1,1,0,0.5,1,1,0), 30, 7, true, false)
 			if data2.State == "Second" then data2.State = "Main" end
 			
 			--主切副
 			player.Parent = player2
-			player:ClearEntityFlags(EntityFlag.FLAG_NO_DAMAGE_BLINK)
+			player:AddEntityFlags(EntityFlag.FLAG_NO_DAMAGE_BLINK)
+			player:AddEntityFlags(EntityFlag.FLAG_NO_TARGET)
 			if data.State == "Main" then data.State = "Second" end
 			
 			do --副角色临时移除模组主动
@@ -183,8 +173,8 @@ function IBS_API.BCBA:TrySwitch(player)
 					local item = player:GetActiveItem(slot)
 					local charges = 0
 					
-					if (item > 733) and not ExcludedActive[item] then 
-						charges = Players:GetSlotCharges(player, slot, true, true)
+					if (item > 733) and not self.ExcludedActive[item] then 
+						charges = self._Players:GetSlotCharges(player, slot, true, true)
 						
 						if (slot == 2) then
 							player:SetPocketActiveItem(0, ActiveSlot.SLOT_POCKET)
@@ -209,118 +199,120 @@ function IBS_API.BCBA:TrySwitch(player)
 				end
 			end			
 			
-			Game():GetHUD():AssignPlayerHUDs()
+			--刷新角色属性
+			player:AddCacheFlags(CacheFlag.CACHE_ALL, true)
+			player2:AddCacheFlags(CacheFlag.CACHE_ALL, true)
+			
+			game:GetHUD():AssignPlayerHUDs()
+
+			--屑官方的API还要面板变动才让更新道具列表
+			--只能先用口水币安排一下了
+			player2:AddSmeltedTrinket(32769, false)
+			player2:TryRemoveSmeltedTrinket(32769)
+
+			SUCCESS = true
 		end
 	end
+
+	return SUCCESS
 end
 
---角色初始化
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_,player)
-	local game = Game()
-	local playerType = player:GetPlayerType()
+--接触时切换主副角色
+function BCBA:CollisionSwitch(player)
+	if game:GetRoom():GetFrameCount() < 15 then return end
+	if not self:IsMainPlayer(player) then return end
 
-	--该隐自带亚伯
-	if playerType == (PlayerType.PLAYER_CAIN) then
-		player:AddCollectible(CollectibleType.COLLECTIBLE_ABEL)
-	end
-end)
+	local other = self._Finds:ClosestEntity(player.Position, 1, 0, -1, function(ent)
+		return ent:ToPlayer() and (not ent:ToPlayer():IsCoopGhost()) and (not self._Ents:IsTheSame(ent, player)) and (player.Position:DistanceSquared(ent.Position) <= 150)
+	end)
+	if not other then return end
+	local data = self._Ents:GetTempData(player).BCBA
 
---角色属性
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_,player, flag)
-	local playerType = player:GetPlayerType()
-
-	if playerType == (IBS_Player.bcain) then
-		if flag == CacheFlag.CACHE_RANGE then
-			Stats:Range(player, -1)
+	if data and (data.SwitchTimeOut <= 0) and self:TrySwitch(player) then
+		local tdata = self:GetTempData(player)
+		tdata.SwitchTimeOut = 75
+		local player2 = tdata.Twin
+		
+		if player2 and self._Ents:IsTheSame(other, player2) and player2:Exists() and not player2:IsDead() and not player2:IsCoopGhost() then
+			local tdata2 = self:GetTempData(player2)
+			tdata2.SwitchTimeOut = 75		
+			player2:AddCacheFlags(CacheFlag.CACHE_ALL, true)
+			player2:SetMinDamageCooldown(60)
 		end
-		if flag == CacheFlag.CACHE_LUCK then
-			Stats:Luck(player, -1)
-		end		
-	end
-	
-	if playerType == (IBS_Player.babel) then
-		if flag == CacheFlag.CACHE_RANGE then
-			Stats:Range(player, 2)
-		end
-		if flag == CacheFlag.CACHE_SHOTSPEED then
-			Stats:ShotSpeed(player, -0.1)
-		end
-		if flag == CacheFlag.CACHE_LUCK then
-			Stats:Luck(player, -2)
-		end			
-	end
-end)
-mod:AddPriorityCallback(ModCallbacks.MC_EVALUATE_CACHE, CallbackPriority.LATE, function(_,player, flag)
-	local playerType = player:GetPlayerType()
 
-	if playerType == (IBS_Player.bcain) then
+		player:AddCacheFlags(CacheFlag.CACHE_ALL, true)
+		player:SetMinDamageCooldown(60)
+	end	
+end
+BCBA:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, 'CollisionSwitch')
+
+
+--角色属性(部分已在xml中实现)
+function BCBA:OnEvaluateCache(player, flag)
+	local playerType = player:GetPlayerType()
+	if playerType == (IBS_PlayerID.BCain) then
 		if flag == CacheFlag.CACHE_DAMAGE then
 			player.Damage = player.Damage * 1.2
 		end
 	end	
-	if playerType == (IBS_Player.babel) then
+	if playerType == (IBS_PlayerID.BAbel) then
 		if flag == CacheFlag.CACHE_FIREDELAY then
-			Stats:TearsMultiples(player, 1.2)
-		end	
-		if flag == CacheFlag.CACHE_DAMAGE then
-			player.Damage = player.Damage * 0.9
+			self._Stats:TearsMultiples(player, 1.2)
 		end
 	end
 	
-	--副角色属性衰减
-	if flag == CacheFlag.CACHE_DAMAGE then
-		local f = GetInSecondFrameCount(player)
-		if f > 0 then
-			local mult = math.max(0, 1 - (f/1020))
-			player.Damage = player.Damage * mult
-		end
-	end	
-end)
+	--副角色幽灵泪
+	if flag == CacheFlag.CACHE_TEARFLAG and self:IsSecondPlayer(player) then
+		player.TearFlags = player.TearFlags | TearFlags.TEAR_SPECTRAL
+	end
+end
+BCBA:AddPriorityCallback(ModCallbacks.MC_EVALUATE_CACHE, CallbackPriority.LATE, 'OnEvaluateCache')
+
 
 --变身
-local function Henshin(_,player)
-	local canHenshin = false
+function BCBA:Benighted(player, fromMenu)
+	local CAN = false
 	
-	--检测1钥匙,道具亚伯和幸运脚,饰品回形针
-	if (player:GetNumKeys() > 0) and player:HasCollectible(CollectibleType.COLLECTIBLE_ABEL) and player:HasCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT) then	
+	--检测幸运脚
+	if player:HasCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT) then	
 		for slot = 0,1 do
 			if player:GetTrinket(slot) == TrinketType.TRINKET_PAPER_CLIP then
 				player:TryRemoveTrinket(TrinketType.TRINKET_PAPER_CLIP)
-				player:AddKeys(-1)
-				player:RemoveCollectible(CollectibleType.COLLECTIBLE_ABEL, true)
-				player:RemoveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT, true)
-				canHenshin = true
 				break
 			end
 		end
+		player:AddKeys(-1)
+		player:RemoveCollectible(CollectibleType.COLLECTIBLE_ABEL, true)
+		player:RemoveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT, true)
+		CAN = true
 	end
 
-	if canHenshin then
-		player:ChangePlayerType(IBS_Player.bcain)
+	if CAN or fromMenu then
+		player:ChangePlayerType(IBS_PlayerID.BCain)
 
-		local tdata = GetBCBATempData(player)
-		local data = GetBCBAData(player)
+		local tdata = self:GetTempData(player)
+		local data = self:GetData(player)
 		
 		--生成副角色
 		if not tdata.Twin and (data.TwinIndex == "") then
-			local game = Game()
-			Isaac.ExecuteCommand("addplayer "..tostring(IBS_Player.babel).." "..tostring(player.ControllerIndex))
+			local game = game
+			Isaac.ExecuteCommand("addplayer "..tostring(IBS_PlayerID.BAbel).." "..tostring(player.ControllerIndex))
 
 			local player2 = Isaac.GetPlayer(game:GetNumPlayers() - 1)
-			local tdata2 = GetBCBATempData(player2)
-			local data2 = GetBCBAData(player2)
+			local tdata2 = self:GetTempData(player2)
+			local data2 = self:GetData(player2)
 			
-			mod:DelayFunction(function() player2:AnimateAppear() end, 1)
-			player2:AddControlsCooldown(90)
+
+			player2:SetPocketActiveItem(IBS_ItemID.Goatify, ActiveSlot.SLOT_POCKET, false)
 			player2.Position = player.Position
 			player2.Velocity = Vector(7,0)
 			player2.Parent = player
+			player2:SetControllerIndex(player.ControllerIndex)
 			tdata2.Twin = player
 			data2.State = "Second"
 			data2.TwinIndex = GetPlayerIndex(player)
 			
-			mod:DelayFunction(function() player:AnimateAppear() end, 1)
-			player:AddControlsCooldown(90)
+			player:SetPocketActiveItem(IBS_ItemID.PortableFarm, ActiveSlot.SLOT_POCKET, false)
 			player:SetColor(Color(1,1,0,0.5,1,1,0), 30, 7, true, false)
 			player.Velocity = Vector(-7,0)
 			tdata.Twin = player2
@@ -329,161 +321,96 @@ local function Henshin(_,player)
 			data.Origin = true
 			
 			game:GetHUD():AssignPlayerHUDs()
-			game:ShakeScreen(20)
-			SFXManager():Play(SoundEffect.SOUND_LAZARUS_FLIP_DEAD)
-			SFXManager():Play(SoundEffect.SOUND_LAZARUS_FLIP_ALIVE)
+			
+			--完成挑战后生成伪忆
+			if self:GetIBSData('persis')['bc3'] then
+				local room = game:GetRoom()
+				Isaac.Spawn(5, 300, mod.IBS_PocketID.BCain, room:FindFreePickupSpawnPosition(player2.Position + Vector(40,0), 0, true), Vector.Zero, nil)
+				Isaac.Spawn(5, 300, mod.IBS_PocketID.BAbel, room:FindFreePickupSpawnPosition(player.Position + Vector(-40,0), 0, true), Vector.Zero, nil)
+			end
+			
+			if not fromMenu then
+				player:AddControlsCooldown(90)
+				self:DelayFunction(function() player:AnimateAppear() end, 1)
+
+				player2:AddControlsCooldown(90)
+				self:DelayFunction(function() player2:AnimateAppear() end, 1)
+
+				game:ShakeScreen(20)
+				SFXManager():Play(SoundEffect.SOUND_LAZARUS_FLIP_DEAD)
+				SFXManager():Play(SoundEffect.SOUND_LAZARUS_FLIP_ALIVE)
+			end
 		end
 	end	
 end
-mod:AddCallback(IBS_Callback.BENIGHTED_HENSHIN, Henshin, PlayerType.PLAYER_CAIN)
-
---频率限制,用于修正
-local OffsetTimeOut = 0
-mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
-	if OffsetTimeOut > 0 then
-		OffsetTimeOut = OffsetTimeOut - 1
-	end	
-end)
-
---死亡回放/生死逆转切换主副角色
-local function Switch(_,item, rng, player, flags, slot)
-	local data = Ents:GetTempData(player).BCBA
-	
-	if data and (data.RedeathTimeOut <= 0) and (OffsetTimeOut <= 0) and (flags & UseFlag.USE_CARBATTERY <= 0) then
-		local tdata = GetBCBATempData(player)
-		local player2 = tdata.Twin
-		
-		if player2 and player2:Exists() and not player2:IsDead() then
-			local tdata2 = GetBCBATempData(player2)
-			
-			tdata2.RedeathTimeOut = 60
-			
-			--切换时尝试对周围的敌人造成伤害
-			if tdata2.ShockDamage > 0 then
-				for _,target in pairs(Isaac.FindInRadius(player2.Position, 100, EntityPartition.ENEMY)) do
-					if Ents:IsEnemy(target) then
-						target:TakeDamage(tdata2.ShockDamage, DamageFlag.DAMAGE_IGNORE_ARMOR, EntityRef(player), 0)
-					end
-				end
-				player2:SetMinDamageCooldown(60)
-				sfx:Play(SoundEffect.SOUND_DEATH_CARD, 1)
-				Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF02, 5, player2.Position, Vector.Zero, nil)
-				Game():ShakeScreen(30)
-				
-				tdata2.ShockDamage = 0
-			end				
-			
-			--刷新角色属性
-			player2:AddCacheFlags(CacheFlag.CACHE_ALL)
-			player2:EvaluateItems()
-		end
-	
-		data.RedeathTimeOut = 60
-		tdata.ShockDamage = 0
-		OffsetTimeOut = 2
-		IBS_API.BCBA:TrySwitch(player)
-		
-		--刷新角色属性
-		player:AddCacheFlags(CacheFlag.CACHE_ALL)
-		player:EvaluateItems()		
-		
-		return {ShowAnim = false, Discharge = true}
-	end	
-end
-mod:AddCallback(ModCallbacks.MC_USE_ITEM, Switch, IBS_Item.redeath)
-mod:AddCallback(ModCallbacks.MC_USE_ITEM, Switch, CollectibleType.COLLECTIBLE_FLIP)
+BCBA:AddCallback(IBS_CallbackID.BENIGHTED, 'Benighted', PlayerType.PLAYER_CAIN)
 
 --更新
-local function OnUpdate(_,player)
-	local data = Players:GetData(player).BCBAInfo
+function BCBA:OnPlayerUpdate(player)
+	local data = self._Players:GetData(player).BCBAInfo
 
 	if data then
-		local tdata = GetBCBATempData(player)
-		if tdata.RedeathTimeOut > 0 then tdata.RedeathTimeOut = tdata.RedeathTimeOut - 1 end
+		local tdata = self:GetTempData(player)
+		if tdata.SwitchTimeOut > 0 then tdata.SwitchTimeOut = tdata.SwitchTimeOut - 1 end
 		if not tdata.Twin then tdata.Twin = GetPlayerByIndex(data.TwinIndex) end
 		
 		local player2 = tdata.Twin
 		local MAIN = (data.State == "Main")
 		local SECOND = (data.State == "Second")
 
-		--副角色存在时,调整Parent以及死亡回放
+		--副角色存在时,调整Parent
 		if player2 and (player2:Exists() and not player2:IsDead()) then
 			if MAIN and player.Parent then
 				player.Parent = nil
 			elseif SECOND and not player.Parent then
 				player.Parent = player2
-			end
-			
-			--将死亡回放添加至2号副主动(同骰子袋)
-			if (player:GetActiveItem(ActiveSlot.SLOT_POCKET2) == 0) then
-				player:SetPocketActiveItem(IBS_Item.redeath, ActiveSlot.SLOT_POCKET2, false)
-			end
-			
-			--长按丢弃键快速切换至死亡回放(覆盖骰子袋给的骰子)
-			if Input.IsActionPressed(ButtonAction.ACTION_DROP, player.ControllerIndex) then
-				if tdata.QuickRedeathWait > 0 then
-					tdata.QuickRedeathWait = tdata.QuickRedeathWait - 1
-				else				
-					player:SetPocketActiveItem(IBS_Item.redeath, ActiveSlot.SLOT_POCKET2, false)
-				end
-			else
-				if tdata.QuickRedeathWait ~= 42 then tdata.QuickRedeathWait = 42 end
 			end			
 		end
 
 		--主
 		if MAIN then
 			if tdata.InSecondFrameCount ~= 0 then tdata.InSecondFrameCount = 0 end
+			
+			--为鬼魂玩家时自动切换
+			if (not EXITING) and player:IsCoopGhost() and player2 and player2:Exists() and not player2:IsDead() and not player2:IsCoopGhost() then
+				self:TrySwitch(player)
+			end
 		end
 
 		--副
-		if SECOND then
+		if SECOND and not player:IsCoopGhost() then
 			local f = tdata.InSecondFrameCount
-			
             player:AddEntityFlags(EntityFlag.FLAG_NO_DAMAGE_BLINK)
-			player:SetColor(Color(0.5,0.5,0.5, math.max(0.1, 1 - f / 1140)), 1, 1, true, true)
 			tdata.InSecondFrameCount = tdata.InSecondFrameCount + 1
-			
-			--17秒前无敌
-			if (f < 1020) then
+			player:SetColor(Color(0.2,0.2,0.2, math.max(0.1, 0.8 - (f / 28 / 60))), 2, 100, false, true)
+
+			--28秒前无敌
+			if (f < 28*60) then
 				player:SetMinDamageCooldown(2)
 			end
-			
-			---美德书/生死逆转固定时间
-			if IBS_API.BCBA:AnyHasCollectible(player, CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES) or IBS_API.BCBA:AnyHasCollectible(player, CollectibleType.COLLECTIBLE_FLIP) then				
-				tdata.InSecondFrameCount = 0
-			end
-			
-			--冲击波可发动提示
-			if (f == 421) then
-				sfx:Play(SoundEffect.SOUND_BEEP, 2, 0, false, 0.5)
+
+			--每隔7秒提示一次
+			if (f == 7*60) or (f == 14*60) or (f == 21*60) then
+				sfx:Play(SoundEffect.SOUND_BEEP, 3, 0, false, 0.5)
 				local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF02, 0, player.Position, Vector.Zero, nil):ToEffect()
 				poof.Parent = player
 				poof:FollowParent(player)
 			end
-			
-			--超过17秒后扣血
-			if (f > 1020) then
-				tdata.InSecondFrameCount = 1201
+
+			--超过28秒后扣血
+			if (f > 28*60) then
 				player:TakeDamage(3, DamageFlag.DAMAGE_INVINCIBLE | DamageFlag.DAMAGE_IV_BAG, EntityRef(player), 30)
 			end
-			
-			--刷新角色攻击力
-			player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
-			player:EvaluateItems()			
-			
-			--记录冲击伤害
-			tdata.ShockDamage = (f > 420 and 7 * f/30) or tdata.ShockDamage
 		end
 	end
 end
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, OnUpdate)
+BCBA:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, 'OnPlayerUpdate')
 
 --模拟清理房间充能
 local function CleanChargeSimulation()
-	for i = 0, Game():GetNumPlayers() -1 do
+	for i = 0, game:GetNumPlayers() -1 do
 		local player = Isaac.GetPlayer(i)
-		local data = Players:GetData(player).BCBAInfo
+		local data = BCBA._Players:GetData(player).BCBAInfo
 		
 		if data and data.SavedActive then
 			for slot = 0,2 do
@@ -522,13 +449,13 @@ local function CleanChargeSimulation()
 	end	
 end
 mod:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, CleanChargeSimulation)
-mod:AddCallback(IBS_Callback.GREED_NEW_WAVE, CleanChargeSimulation)
+mod:AddCallback(IBS_CallbackID.GREED_NEW_WAVE, CleanChargeSimulation)
 
 --模拟自充
 local function TimedChargeSimulation()
-	for i = 0, Game():GetNumPlayers() -1 do
+	for i = 0, game:GetNumPlayers() -1 do
 		local player = Isaac.GetPlayer(i)
-		local data = Players:GetData(player).BCBAInfo
+		local data = BCBA._Players:GetData(player).BCBAInfo
 		
 		if data and data.SavedActive then
 			for slot = 0,2 do
@@ -563,16 +490,20 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, TimedChargeSimulation)
 --必需修正
 --在退出游戏时切换至初始角色(顺便刷新副角色状态时长),防止控制器判断出错导致无法进行游戏
 local function NecessaryOffset()
-	for i = 0, Game():GetNumPlayers() -1 do
+	for i = 0, game:GetNumPlayers() -1 do
 		local player = Isaac.GetPlayer(i)
-		local data = Players:GetData(player).BCBAInfo
+		local data = BCBA._Players:GetData(player).BCBAInfo
 
 		if data then
+			local tdata = BCBA:GetTempData(player)
 			if (data.State == "Main") and not data.Origin then
-				IBS_API.BCBA:TrySwitch(player)
+				EXITING = true
+				if tdata.Twin then
+					player:SetControllerIndex(tdata.Twin.ControllerIndex)
+				end
+				BCBA:TrySwitch(player, true)
 			end
 			if (data.State == "Second") then
-				local tdata = GetBCBATempData(player)
 				if tdata.InSecondFrameCount ~= 0 then
 					tdata.InSecondFrameCount = 0
 				end
@@ -585,127 +516,189 @@ mod:AddPriorityCallback(ModCallbacks.MC_PRE_GAME_EXIT, CallbackPriority.IMPORTAN
 --必需修正2
 --在使用创世纪时切换至非初始角色,防止其消失
 local function NecessaryOffset2()
-	for i = 0, Game():GetNumPlayers() -1 do
+	for i = 0, game:GetNumPlayers() -1 do
 		local player = Isaac.GetPlayer(i)
-		local data = Players:GetData(player).BCBAInfo
+		local data = BCBA._Players:GetData(player).BCBAInfo
 		
 		if data and (data.State == "Main") and data.Origin then
-			IBS_API.BCBA:TrySwitch(player)
+			BCBA:TrySwitch(player, true)
 		end
 	end
 end
 mod:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, NecessaryOffset2, CollectibleType.COLLECTIBLE_GENESIS)
 
+--必需修正3
+--在进入游戏时设置控制器ID
+local function NecessaryOffset3()
+	for i = 0, game:GetNumPlayers() -1 do
+		local player = Isaac.GetPlayer(i)
+		local data = BCBA._Players:GetData(player).BCBAInfo
+		if data and data.TwinIndex ~= '' and not data.Origin then
+			local twin = GetPlayerByIndex(data.TwinIndex)
+			if twin then
+				player:SetControllerIndex(twin.ControllerIndex)
+			end
+		end
+	end
+end
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, NecessaryOffset3)
+
 --新房间设置副角色位置
-local function NewRoom()
-	local room = Game():GetRoom()
+function BCBA:OnNewRoom()
+	local room = game:GetRoom()
 	local centerPos = room:GetCenterPos()
 	
-	for i = 0, Game():GetNumPlayers() -1 do
+	for i = 0, game:GetNumPlayers() -1 do
 		local player = Isaac.GetPlayer(i)
 		
-		if IBS_API.BCBA:IsSecondPlayer(player) and not IBS_API.BCBA:AnyHasCollectible(player, CollectibleType.COLLECTIBLE_BIRTHRIGHT) then
+		if self:IsSecondPlayer(player) and not self:AnyHasCollectible(player, CollectibleType.COLLECTIBLE_BIRTHRIGHT) then
 			local pos = player.Position
 			player.Position = room:FindFreePickupSpawnPosition(Vector(2*(centerPos.X) - pos.X , 2*(centerPos.Y) - pos.Y))
 		end
 	end
 end
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, NewRoom)
-				
+BCBA:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, 'OnNewRoom')
+
+--摄像头位置修正
+function BCBA:OnCameraUpdate()
+	local players = PlayerManager.GetPlayers()
+	for _,player in ipairs(players) do
+		if self:IsMainPlayer(player) then
+			local room = game:GetRoom()
+			room:GetCamera():SetFocusPosition(player.Position)
+			break
+		end
+	end
+end
+BCBA:AddCallback(ModCallbacks.MC_POST_UPDATE, 'OnCameraUpdate')
+	
 --死亡判定
-local function OnKilled(_,ent)
+function BCBA:OnPlayerKilled(ent)
 	local player = ent:ToPlayer()
 	
-	if player and Players:GetData(player).BCBAInfo and (player:GetExtraLives() <= 0 or not player:WillPlayerRevive()) then
-		IBS_API.BCBA:TrySwitch(player) --自动切换角色,防止游戏结束
-		
+	if player and self._Players:GetData(player).BCBAInfo and (player:GetExtraLives() <= 0 or not player:WillPlayerRevive()) then
 		local deathPosition = player.Position
-		local data = GetBCBAData(player)		
-		local tdata = GetBCBATempData(player)
+		local data = self:GetData(player)		
+		local tdata = self:GetTempData(player)
 		local player2 = tdata.Twin
-		local data2 = (player2 and GetBCBAData(player2))
-		local cachedItems = Players:GetPlayerCollectibles(player)
-		local cachedDataActive = data.SavedActive
-		local cachedActive = {}
+		--local data2 = (player2 and self:GetData(player2))
+		-- local cachedItems = self._Players:GetPlayerCollectibles(player)
+		-- local cachedDataActive = data.SavedActive
+		-- local cachedActive = {}
 		
-		--缓存主动道具
-		for Slot = 0,1 do
-			local item = player:GetActiveItem(Slot)
-			local charges = 0
-			
-			if item > 0 then 
-				charges = Players:GetSlotCharges(player, Slot, true, true)
-			end
-			
-			cachedActive[Slot] = {Item = item, Charges = charges}
+		if player2 and player2:Exists() and not player2:IsDead() and not player2:IsCoopGhost() then
+			self:TrySwitch(player)
+			player:MorphToCoopGhost() --变为鬼魂玩家
 		end
+
+		--缓存主动道具
+		-- for Slot = 0,1 do
+			-- local item = player:GetActiveItem(Slot)
+			-- local charges = 0
+			
+			-- if item > 0 then 
+				-- charges = self._Players:GetSlotCharges(player, Slot, true, true)
+			-- end
+			
+			-- cachedActive[Slot] = {Item = item, Charges = charges}
+		-- end
 		
 		--延迟2秒,检测是否真的死亡(同时兼容部分模组复活效果)
-		mod:DelayFunction(function()
-			if (not player:Exists()) or player:IsDead() then
-				if player2 then
-					player2:AnimateSad()
-					player2:AddBrokenHearts(6)
-					data2.Origin = true --变为初始角色
-					
-					--移除死亡回放
-					if (player2:GetActiveItem(ActiveSlot.SLOT_POCKET2) == IBS_Item.redeath) then
-						player2:SetPocketActiveItem(0, ActiveSlot.SLOT_POCKET2)
-					end	
-				end
+		-- self:DelayFunction(function()
+			-- if (not player:Exists()) or player:IsDead() then
+				-- if player2 then
+					-- player2:AnimateSad()
+					-- player2:AddBrokenHearts(6)
+					-- data2.Origin = true --变为初始角色
+				-- end
 				
-				do --掉落主动道具
-					for slot = 0,1 do
-						local active = cachedDataActive[slot]
+				-- do --掉落主动道具
+					-- for slot = 0,1 do
+						-- local active = cachedDataActive[slot]
 						
-						if active and (active.Item > 0) then
-							local item = active.Item
-							local pos = Game():GetRoom():FindFreePickupSpawnPosition(deathPosition, 0, true)
-							local pickup = Isaac.Spawn(5, 100, item, pos, Vector.Zero, nil):ToPickup()
+						-- if active and (active.Item > 0) then
+							-- local item = active.Item
+							-- local pos = game:GetRoom():FindFreePickupSpawnPosition(deathPosition, 0, true)
+							-- local pickup = Isaac.Spawn(5, 100, item, pos, Vector.Zero, nil):ToPickup()
 
-							pickup.Touched = true
-							pickup:Morph(5, 100, item, false, false, true) --防止某些替换道具的效果
-							pickup.Charge = active.Charges
-							pickup.Wait = 60
-						end
-					end	
-				end
+							-- pickup.Touched = true
+							-- pickup:Morph(5, 100, item, false, false, true) --防止某些替换道具的效果
+							-- pickup.Charge = active.Charges
+							-- pickup.Wait = 60
+						-- end
+					-- end	
+				-- end
 
-				do --掉落主动道具
-					for slot,active in pairs(cachedActive) do
-						local item = active.Item
+				-- do --掉落主动道具
+					-- for slot,active in pairs(cachedActive) do
+						-- local item = active.Item
 						
-						if item > 0 then 
-							local pos = Game():GetRoom():FindFreePickupSpawnPosition(deathPosition, 0, true)
-							local pickup = Isaac.Spawn(5, 100, item, pos, Vector.Zero, nil):ToPickup()
+						-- if item > 0 then 
+							-- local pos = game:GetRoom():FindFreePickupSpawnPosition(deathPosition, 0, true)
+							-- local pickup = Isaac.Spawn(5, 100, item, pos, Vector.Zero, nil):ToPickup()
 							
-							pickup.Touched = true
-							pickup:Morph(5, 100, item, false, false, true) --防止某些替换道具的效果
-							pickup.Charge = active.Charges
-							pickup.Wait = 60
-						end
-					end	
-				end
+							-- pickup.Touched = true
+							-- pickup:Morph(5, 100, item, false, false, true) --防止某些替换道具的效果
+							-- pickup.Charge = active.Charges
+							-- pickup.Wait = 60
+						-- end
+					-- end	
+				-- end
 
-				do --被动道具继承
-					if player2 then
-						for item,num in pairs(cachedItems) do
-							if (config:GetCollectible(item).Type ~= ItemType.ITEM_ACTIVE) then
-								for i = 1,num do
-									player2:AddCollectible(item, 0, false)
-								end
-							end	
-						end
-					end	
-				end
-			end
-		end, 60)
+				-- do --被动道具继承
+					-- if player2 then
+						-- for item,num in pairs(cachedItems) do
+							-- if (config:GetCollectible(item).Type ~= ItemType.ITEM_ACTIVE) then
+								-- for i = 1,num do
+									-- player2:AddCollectible(item, 0, false)
+								-- end
+							-- end	
+						-- end
+					-- end	
+				-- end
+			-- end
+		-- end, 60)
 	end	
 end
-mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, OnKilled, EntityType.ENTITY_PLAYER)
+BCBA:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, 'OnPlayerKilled', EntityType.ENTITY_PLAYER)
+
+--鬼魂玩家复活
+function BCBA:ReviveGhostAfterBoss()
+	if game:GetRoom():GetType() == RoomType.ROOM_BOSS then
+		for i = 0, game:GetNumPlayers() -1 do
+			local player = Isaac.GetPlayer(i)
+			if (self:IsMainPlayer(player) or self:IsSecondPlayer(player)) and player:IsCoopGhost() then
+				local data = self:GetTempData(player)
+				data.InSecondFrameCount = 0
+				player:ReviveCoopGhost()
+				player:SetMinDamageCooldown(120)
+				player:AddControlsCooldown(90)
+			end
+		end	
+	end
+end
+BCBA:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, 'ReviveGhostAfterBoss')
+
+function BCBA:ReviveGhostAfterBossWave(state)
+	if state == 2 then
+		for i = 0, game:GetNumPlayers() -1 do
+			local player = Isaac.GetPlayer(i)
+			if (self:IsMainPlayer(player) or self:IsSecondPlayer(player)) and player:IsCoopGhost() then
+				local data = self:GetTempData(player)
+				data.InSecondFrameCount = 0
+				player:ReviveCoopGhost()
+				player:SetMinDamageCooldown(120)
+				player:AddControlsCooldown(90)
+			end
+		end	
+	end
+end
+BCBA:AddCallback(IBS_CallbackID.GREED_WAVE_END_STATE, 'ReviveGhostAfterBossWave')
+
+
 
 --操作
-local function CheckInput(_,ent, hook, action)
+function BCBA:CheckInput(ent, hook, action)
 	local player = (ent and ent:ToPlayer())
 	
 	if player then
@@ -715,7 +708,7 @@ local function CheckInput(_,ent, hook, action)
 		local cid = player.ControllerIndex
 	
 		--主角色按地图键立定
-		if IBS_API.BCBA:IsMainPlayer(player) and (action >= 0 and action <= 3) and Input.IsActionPressed(ButtonAction.ACTION_MAP, cid) then
+		if self:IsMainPlayer(player) and (action >= 0 and action <= 3) and Input.IsActionPressed(ButtonAction.ACTION_MAP, cid) then
 			if Press or Trigger then
 				return false
 			elseif GetValue then
@@ -724,9 +717,9 @@ local function CheckInput(_,ent, hook, action)
 		end
 	
 		--副角色
-		if IBS_API.BCBA:IsSecondPlayer(player) then
+		if self:IsSecondPlayer(player) then
 			--无长子权则移动和射击操作反转
-			if (action >= 0 and action <= 7) and GetValue and not IBS_API.BCBA:AnyHasCollectible(player, CollectibleType.COLLECTIBLE_BIRTHRIGHT) then
+			if (action >= 0 and action <= 7) and GetValue and not self:AnyHasCollectible(player, CollectibleType.COLLECTIBLE_BIRTHRIGHT) then
 				return -Input.GetActionValue(action, cid)
 			end
 			
@@ -741,38 +734,51 @@ local function CheckInput(_,ent, hook, action)
 		end	
 	end
 end
-mod:AddPriorityCallback(ModCallbacks.MC_INPUT_ACTION, -999, CheckInput)
+BCBA:AddPriorityCallback(ModCallbacks.MC_INPUT_ACTION, -9999, 'CheckInput')
 
 --副角色无敌
-local function PreTakeDMG(_,ent, amount, flag, source)
-	local player = ent:ToPlayer()
-	if player and (source.Type ~= EntityType.ENTITY_SLOT) and IBS_API.BCBA:IsSecondPlayer(player) and (GetInSecondFrameCount(player) < 1020) then
+function BCBA:PrePlayerTakeDMG(player, dmg, flag, source)
+	if (source.Type ~= EntityType.ENTITY_SLOT) and self:IsSecondPlayer(player) and (GetInSecondFrameCount(player) < 28*60) then
 		return false
 	end
 end
-mod:AddPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, -999, PreTakeDMG)
+BCBA:AddPriorityCallback(ModCallbacks.MC_PRE_PLAYER_TAKE_DMG, -9999, 'PrePlayerTakeDMG')
 
---副角色无视碰撞
-local function PrePlayerCollision(_,player)
-	if IBS_API.BCBA:IsSecondPlayer(player) then
+--副角色无视障碍物
+function BCBA:PrePlayerGridCollision(player)
+	if self:IsSecondPlayer(player) and game:GetRoom():GetType() ~= RoomType.ROOM_DUNGEON then
 		return true
 	end
 end
-mod:AddPriorityCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, -999, PrePlayerCollision)
+BCBA:AddCallback(ModCallbacks.MC_PRE_PLAYER_GRID_COLLISION, 'PrePlayerGridCollision')
 
---副角色无视碰撞(对掉落物则1秒后再无视)
-local function PreOtherCollision(_,ent, other)
-	local player = other:ToPlayer()
-	
-	if player and IBS_API.BCBA:IsSecondPlayer(player) then
-		if ent:ToPickup() then
-			if (GetInSecondFrameCount(player) >= 60) then
-				return true
-			end
-		else
-			return true
-		end
+--副角色无视碰撞
+function BCBA:PrePlayerCollision(player, other)
+	if self:IsSecondPlayer(player) then
+		return true
 	end
 end
-mod:AddPriorityCallback(ModCallbacks.MC_PRE_NPC_COLLISION, -999, PreOtherCollision)
-mod:AddPriorityCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, -999, PreOtherCollision)
+BCBA:AddPriorityCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, -9999, 'PrePlayerCollision')
+
+--副角色无视碰撞
+function BCBA:PreOtherCollision(ent, other)
+	local player = other:ToPlayer()
+	if player and self:IsSecondPlayer(player) then
+		return true
+	end
+end
+BCBA:AddPriorityCallback(ModCallbacks.MC_PRE_PROJECTILE_COLLISION, -9999, 'PreOtherCollision')
+BCBA:AddPriorityCallback(ModCallbacks.MC_PRE_NPC_COLLISION, -9999, 'PreOtherCollision')
+BCBA:AddPriorityCallback(ModCallbacks.MC_PRE_BOMB_COLLISION, -9999, 'PreOtherCollision')
+BCBA:AddPriorityCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, -9999, 'PreOtherCollision')
+BCBA:AddPriorityCallback(ModCallbacks.MC_PRE_SLOT_COLLISION, -9999, 'PreOtherCollision')
+
+--副角色禁用炸弹
+function BCBA:PreUseBomb(player)
+	if self:IsSecondPlayer(player) then
+		return false
+	end
+end
+BCBA:AddPriorityCallback(ModCallbacks.MC_PRE_PLAYER_USE_BOMB, -9999, 'PreUseBomb')
+
+return BCBA

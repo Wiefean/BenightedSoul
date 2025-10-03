@@ -1,16 +1,14 @@
 --D4D
 
 local mod = Isaac_BenightedSoul
-local IBS_Item = mod.IBS_Item
-local Pools = mod.IBS_Lib.Pools
-local Finds = mod.IBS_Lib.Finds
-local Maths = mod.IBS_Lib.Maths
 
---用于昧化该隐&亚伯
-mod.IBS_API.BCBA:AddExcludedActiveItem(IBS_Item.d4d)
+local game = Game()
+local config = Isaac.GetItemConfig()
+
+local D4D = mod.IBS_Class.Item(mod.IBS_ItemID.D4D)
 
 --功能表
-local D4D_Func = {
+D4D.DirectionFunc = {
 	[Direction.LEFT] = function(id) id = id + 1 return id end,
 	[Direction.RIGHT] = function(id) id = id - 1 return id end,
 	[Direction.UP] = function(id) id = id * 2 return id end,
@@ -19,45 +17,41 @@ local D4D_Func = {
 
 
 --效果
-local function roll(_,col, rng, player, flags)
+function D4D:ChangeItemID(item, rng, player, flags)
 	if (flags & UseFlag.USE_CARBATTERY <= 0) and (flags & UseFlag.USE_VOID <= 0) then--拒绝车载电池和虚空
-		local itemPool = Game():GetItemPool()
-		local MAX = Isaac.GetItemConfig():GetCollectibles().Size - 1
-		local item = Finds:ClosestCollectible(player.Position)
+		local itemPool = game:GetItemPool()
+		local item = self._Finds:ClosestCollectible(player.Position)
 		
 		if item ~= nil then
-			local seed = rng:GetSeed()
-			local pool = Pools:GetRoomPool(seed)
+			item = item:ToPickup()
+			local pool = self._Pools:GetRoomPool(self._Levels:GetRoomUniqueSeed())
 			local id = item.SubType
-			local dir = Maths:VectorToDirection((player.Position - item.Position):Normalized())
-			local func = D4D_Func[dir]
+			local dir = self._Maths:VectorToDirection((player.Position - item.Position):Normalized())
+			local func = self.DirectionFunc[dir]
 			
 			--正邪削弱(东方mod)
-			if mod:THI_WillSeijaNerf(player) then
-				func = D4D_Func[rng:RandomInt(3)] or D4D_Func[dir]
+			--随机方位效果
+			if mod.IBS_Compat.THI:SeijaNerf(player) then
+				func = self.DirectionFunc[rng:RandomInt(0,3)] or func
 			end
 			
 			--根据离最近道具的方向改变id
 			id = func(id)
 			id = math.floor(id+0.5) --四舍五入
-			
-			--彼列书
-			if player:HasCollectible(59) then
-				if id <= 0 then id = 51 end
-				if id >= MAX then id = 51 end
-			else
-				if id <= 0 then id = 0 end
-				if id >= MAX then id = 0 end
+
+			local itemConfig = config:GetCollectible(id)
+			if itemConfig and itemConfig:IsAvailable() then
+				item:Morph(5, 100, id, true, false, true)
+				item.Touched = false
+			else --彼列书将无效道具变为五芒星
+				if self._Players:AnyHasCollectible(59) then
+					item:Morph(5, 100, 51, true, false, true)
+				else
+					item:TryRemoveCollectible()
+				end
 			end
 
-			if id > 0 then
-				item:ToPickup():Morph(5,100,id,true,false,true)
-				item:ToPickup().Touched = false
-			else
-				item:Remove()
-			end
-					
-			Game():ShowHallucination(60, Game():GetRoom():GetBackdropType()) --特效
+			game:ShowHallucination(60, game:GetRoom():GetBackdropType()) --特效
 			
 			return {ShowAnim = false, Discharge = true}
 		end	
@@ -65,5 +59,7 @@ local function roll(_,col, rng, player, flags)
 		return {ShowAnim = false, Discharge = false}
 	end	
 end
-mod:AddCallback(ModCallbacks.MC_USE_ITEM, roll, IBS_Item.d4d)
+D4D:AddCallback(ModCallbacks.MC_USE_ITEM, 'ChangeItemID', D4D.ID)
 
+
+return D4D

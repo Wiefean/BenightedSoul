@@ -1,48 +1,193 @@
 <items gfxroot="gfx/ibs/items/" deathanm2="gfx/ibsitem.anm2" version="1">
 
-	<active id="1" name="The Light D6" description="Balance your destiny" maxcharges="6" gfx="light d6.png" quality="4" tags="offensive nocantrip" />
-	<passive id="2" name="No Options" description="Minnnnnnne" gfx="nop.png" quality = "4" tags="offensive summonable nogreed nocantrip" />
-	<active id="3" name="D4D" description="Control your destiny" maxcharges="6" cooldown="60" gfx="d4d.png" devilprice = "2" shopprice="999" quality="4" tags="offensive nocantrip" />
-	<passive id="4" name="Shooting Stars Gazer" description="Double tap stars" gfx="ssg.png" devilprice = "2" quality="3" tags="offensive summonable stars" />
-	<passive id="5" name="The Waster" description="Damage resistance..." gfx="waster.png" quality="2" tags="summonable nokeeper" />
-	<passive id="6" cache="all" name="Ennnnnnvyyyyyy" description="How old are you?" gfx="envy.png" quality="0" tags="offensive summonable nocantrip" />
-	<active id="7" name="Glowing Heart" description="Reusable regeneration" chargetype="special" maxcharges="7" gfx="glowingheart.png" quality="3" tags="nolostbr" />
-	<active id="8" cache="all" name="Purple Bubbles" description="Reusable drunk" maxcharges="2" gfx="pb.png" quality="1" tags="offensive nocantrip" />
-	<active id="9" name="Cursed Mantle" description="Binding curse + shield with retaliation" maxcharges="4" gfx="cursedmantle.png" quality="2" tags="offensive nocantrip" />
-	<active id="10" name="Hypercube" description="Copy your destiny" maxcharges="4" gfx="hypercube.png" quality="3" tags="offensive nocantrip" />
-	<active id="11" name="Defined" description="Good trip" maxcharges="12" initcharge="6" gfx="defined.png" quality="4" tags="offensive nocantrip" />
-	<passive id="12" name="Valentinus Chocolate" description="Double tap lovers, two shots for a room" gfx="chocolate.png" quality="2" soulhearts="4" tags="offensive summonable nocantrip" />
-	<passive id="13" name="Diamoond" description="Dia - moon - d" gfx="diamoond.png" quality="3" tags="offensive summonable" />
-	<passive id="14" name="Weird Cranium" description="Semms to have met before" gfx="cranium.png" quality="0" tags="dead nolostbr nokeeper nocantrip nogreed" />
-	<passive id="15" name="Ether" description="Revenge fly" gfx="ether.png" quality="2" tags="offensive summonable angel devil nolostbr" />
-	<familiar id="16" cache="familiars" name="Wisper" description="Wisps" gfx="wisper.png" quality="3" tags="offensive summonable angel" />
-	<passive id="17" cache="all" name="Bone of Temperance" description="Wish you temperance" gfx="temperance_bone.png" quality="3" tags="offensive summonable" />
-	<passive id="18" name="Guard of Fortitude" description="Wish you fortitude" gfx="fortitude_guard.png" quality="3" tags="summonable" />
-	<active id="19" name="V7" description="Random virtues" maxcharges="3" gfx="v7.png" quality="2" tags="offensive" />
-	<active id="20" name="The Gospel Of Judas" description="The way of salvation, be in it" chargetype="special" maxcharges="90" gfx="tgoj.png" quality="3" tags="offensive book nocantrip" />
-	<active id="21" cache="damage" name="The Reserved Nail" description="Reserve them" chargetype="timed" maxcharges="300" gfx="nail2.png" quality="2" tags="offensive nocantrip" />
-	<passive id="22" name="Super B" description="Dangerous charge, but who cares?" gfx="superb.png" quality="4" tags="summonable battery" />
-	<passive id="23" cache="firedelay" name="Dreggy Pie" description="HP up + temporary tears up, best match is red stew" gfx="dreggypie.png" maxhearts="2" hearts="4" quality="2" tags="offensive tearsup nocantrip" />
-	<active id="24" cache="all" name="Bony Knife" description="Knife and boning them" maxcharges="4" gfx="bonyknife.png" quality="3" tags="offensive dead" />
-	<passive id="25" cache="speed firedelay luck" name="Circumcision" description="Speed down + tears and luck up" gfx="circumcision.png" quality="4" tags="offensive summonable tearsup" />
-	<passive id="26" name="Cursed Heart" description="Curse up" gfx="cursedheart.png" quality="1" tags="summonable nocantrip" />
-	<active id="27" name="Re-death" description="Reroll goners...temporarily" gfx="redeath.png" quality="2" tags="offensive nocantrip" />
-	<passive id="28" name="Dusty Bombs" description="The third explosion..." gfx="dustybomb.png" bombs="3" quality="1" tags="offensive nocantrip" />
-	<passive id="29" cache="speed firedelay range" name="Needle Mushroom" description="See you tomorrow" gfx="nm.png" quality="1" tags="offensive tearsup nocantrip mushroom poop" />
-	<passive id="30" name="Mini Horn" description="Limited edition" gfx="minihorn.png" quality="0" tags="offensive summonable nolostbr" />
-	<passive id="31" cache="shotspeed" name="Wings Of Apollyon" description="Shot speed up = All stats up" gfx="woa.png" quality="3" tags="offensive summonable angel devil" />
-	<active id="32" cache="luck" passivecache="true" name="Mom's Cheque" description="Payment on terms" gfx="momscheque.png" coins="3" shopprice="10" quality="1" tags="mom nocantrip" />
-	<active id="33" name="The Forbidden Fruit" description="Original sin" gfx="ffruit.png" quality="2" tags="offensive nocantrip" />
-	<familiar id="34" cache="familiars" name="Sword of Siberite" description="See you again, old friend" gfx="sword.png" quality="4" tags="offensive summonable" />
-	<passive id="35" name="Everlasting Regret" description="Killing you also makes you stronger" gfx="regret.png" quality="0" tags="offensive nocantrip" />
-	<active id="36" name="Unwelcome Sacrifice" description="So, he is not vegetarian" maxcharges="1" gfx="sacrifice.png" quality="1" tags="offensive" />
-	<active id="37" name="Welcome Sacrifice" description="Deadly feast" chargetype="special" maxcharges="1" initcharge="0" gfx="sacrifice2.png" quality="3" tags="offensive nocantrip" />
+	<active id="1" name="The Light D6" description="Balance your destiny" maxcharges="6" gfx="light d6.png" quality="4" craftquality="4" shopprice="30" tags="offensive nocantrip" customtags="nometronome" />
+	<passive id="2" name="No Options" description="Minnnnnnne" gfx="nop.png" quality="3" craftquality="3" tags="offensive summonable nogreed nocantrip" />
+	<active id="3" name="D4D" description="Control your destiny" maxcharges="6" cooldown="60" gfx="d4d.png" devilprice = "2" shopprice="99" quality="4" craftquality="4" tags="offensive nocantrip" customtags="nometronome" />
+	<passive id="4" name="Shooting Stars Gazer" description="Double tap stars" gfx="ssg.png" devilprice="2" quality="3" craftquality="3" tags="offensive summonable stars" />
+	<passive id="5" name="The Waster" description="Damage resistance..." gfx="waster.png" quality="2" craftquality="2" tags="summonable nokeeper nolostbr" />
+	<passive id="6" cache="all" name="Ennnnnnvyyyyyy" description="Who are you looking for?" gfx="envy.png" quality="2" craftquality="0" tags="offensive nocantrip" />
+	<active id="7" name="Glowing Heart" description="Reusable regeneration" maxcharges="8" gfx="glowingheart.png" quality="3" craftquality="3" tags="nolostbr" />
+	<active id="8" cache="all" name="Purple Bubbles" description="Reusable drunk" maxcharges="2" shopprice="10" gfx="pb.png" quality="1" craftquality="1" tags="offensive nocantrip tearsup" />
+	<active id="9" name="Cursed Mantle" description="Binding curse + shield with retaliation" maxcharges="4" gfx="cursedmantle.png" quality="2" craftquality="2" tags="offensive nocantrip" customtags="nometronome" />
+	<active id="10" name="Hypercube" description="Copy your destiny" maxcharges="4" gfx="hypercube.png" quality="3" craftquality="3" tags="offensive nocantrip" customtags="nometronome"  />
+	<active id="11" name="Defined" description="Good trip" chargetype="special" maxcharges="12" initcharge="6" gfx="defined.png" devilprice="2" shopprice="30" quality="4" craftquality="4" tags="offensive nocantrip" customtags="nometronome" />
+	<passive id="12" name="Valentine Chocolate" description="Double tap lovers, two shots for a room" gfx="chocolate.png" quality="2" craftquality="2" soulhearts="4" tags="offensive summonable nocantrip" customtags="nometronome" />
+	<passive id="13" name="Diamoond" description="Dia - moon - d" gfx="diamoond.png" quality="3" craftquality="3" tags="offensive summonable" />
+	<passive id="14" name="Weird Cranium" description="Semms to have met before" gfx="cranium.png" quality="0" craftquality="0" tags="dead nolostbr nokeeper nocantrip nogreed" customtags="nometronome" />
+	<passive id="15" name="Ether" description="Revenge fly" gfx="ether.png" quality="2" craftquality="2" tags="summonable angel devil nolostbr" />
+	<familiar id="16" cache="familiars" name="Wisper" description="Wisps" gfx="wisper.png" quality="3" craftquality="3" tags="offensive summonable angel" />
+	<passive id="17" cache="all" name="Bone of Temperance" description="Wish you temperance" gfx="temperance_bone.png" quality="3" craftquality="3" tags="offensive summonable tearsup" />
+	<passive id="18" name="Guard of Fortitude" description="Wish you fortitude" gfx="fortitude_guard.png" quality="3" craftquality="3" tags="summonable" />
+	<active id="19" name="V7" description="Random virtues" maxcharges="3" gfx="v7.png" quality="3" craftquality="3" tags="offensive" />
+	<active id="20" name="The Gospel Of Judas" description="The way of salvation, be in it" chargetype="special" maxcharges="135" gfx="tgoj.png" quality="2" craftquality="2" tags="offensive book nocantrip" customtags="nometronome" />
+	<active id="21" cache="damage" name="The Reserved Nail" description="Reserve them" chargetype="timed" maxcharges="300" gfx="nail2.png" quality="2" craftquality="2" tags="offensive nocantrip" customtags="nometronome" />
+	<passive id="22" name="Super B" description="Dangerous charge, but who cares?" gfx="superb.png" devilprice="2" shopprice="30" quality="4" tags="offensive summonable battery nocantrip" />
+	<passive id="23" cache="firedelay" name="Dreggy Pie" description="HP up + temporary tears up, best match is red stew" gfx="dreggypie.png" maxhearts="2" hearts="2" quality="2" craftquality="2" tags="offensive tearsup nocantrip" />
+	<active id="24" cache="all" name="Bony Knife" description="Knife and boning them" maxcharges="4" gfx="bonyknife.png" quality="3" tags="offensive dead mom" />
+	<passive id="25" cache="speed firedelay luck" name="Circumcision" description="Speed down + tears and luck up" gfx="circumcision.png" shopprice="30" devilprice="2" quality="4" craftquality="4" tags="offensive summonable tearsup" />
+	<passive id="26" name="Cursed Heart" description="Curse up" gfx="cursedheart.png" quality="2" craftquality="2" tags="summonable nocantrip" customtags="nometronome" />
+	<active id="27" name="Re-death" description="Reroll goners...temporarily" gfx="redeath.png" quality="2" craftquality="2" tags="offensive nocantrip" customtags="nometronome" />
+	<passive id="28" name="Dusty Bombs" description="The third explosion..." gfx="dustybomb.png" bombs="3" quality="2" craftquality="2" tags="offensive nocantrip" />
+	<passive id="29" cache="speed firedelay range" name="Needle Mushroom" description="See you tomorrow" gfx="nm.png" quality="1" craftquality="1" tags="offensive tearsup nocantrip mushroom poop" />
+	<passive id="30" name="Mini Horn" description="Limited edition" gfx="minihorn.png" quality="0" craftquality="0" tags="offensive summonable nolostbr" />
+	<passive id="31" cache="shotspeed" name="Wings of Apollyon" description="Shot speed up = All stats up" gfx="woa.png" quality="3" craftquality="3" tags="offensive summonable angel devil" />
+	<active id="32" cache="luck" passivecache="true" name="Mom's Cheque" description="Payment on terms" gfx="momscheque.png" shopprice="10" quality="1" craftquality="1" tags="mom nocantrip" />
+	<active id="33" name="The Forbidden Fruit" description="Original sin" gfx="ffruit.png" quality="2" craftquality="2" tags="offensive nocantrip" customtags="nometronome" />
+	<familiar id="34" cache="familiars" name="Sword of Siberite" description="Ambitious protector" gfx="sword.png" shopprice="30" quality="4" craftquality="4" tags="offensive summonable" />
+	<passive id="35" name="Everlasting Regret" description="Killing you also makes you stronger" gfx="regret.png" quality="0" craftquality="0" tags="nocantrip" />
+	<active id="36" name="Unwelcome Sacrifice" description="So, he is not vegetarian" maxcharges="1" gfx="sacrifice.png" quality="1" craftquality="1" tags="offensive" />
+	<active id="37" name="Welcome Sacrifice" description="Sacrificial feast" chargetype="special" maxcharges="1" initcharge="0" gfx="sacrifice2.png" quality="3" craftquality="3" tags="offensive nocantrip" />
+	<passive id="38" name="Multiplication" description="The miracle of bread and fish" gfx="mult.png" shopprice="30" quality="4" craftquality="4" tags="offensive" />
+	<passive id="39" name="No Temperance?" description="Quit gambling now!" gfx="nt.png" quality="2" craftquality="2" tags="offensive summonable nocantrip nogreed" customtags="nometronome" />
+	<passive id="40" name="Guppy's Potty" description="Also mine" gfx="guppys_potty.png" quality="2" craftquality="2" tags="offensive summonable guppy poop fly" />
+	<passive id="41" name="Lord of Locusts" description="L.O.L" gfx="lol.png" quality="3" craftquality="3" tags="offensive summonable fly" />
+	<active id="42" name="Falowerse" description='"Isaac and his parents lived in..."' gfx="falowerse.png" quality="3" craftquality="3" tags="offensive nocantrip nolostbr" customtags="revive nometronome"/>
+	<passive id="43" cache="all" name="Falsehood of ???" description="--TO DO" gfx="falsehoodofxxx.png" quality="3" craftquality="3" craftquality="2" tags="offensive nocantrip dead syringe mom tech battery guppy fly bob mushroom baby angel devil poop book spider stars tearsup" />
+	<passive id="44" name="Gold Experience" description="Life for money!" gfx="ge.png" quality="2" craftquality="2" tags="nolostbr nocantrip" customtags="nometronome" />
+	<active id="45" name="Chubby Cookbook" description="Summon maggots" maxcharges="4" gfx="chubby_cookbook.png" quality="2" craftquality="2" tags="offensive book" />
+	<passive id="46" name="Profane Weapon" description="DMG up...only to the profane" gfx="profane_weapon.png" quality="2" craftquality="2" tags="offensive summonable" />
+	<active id="47" name="Rules Book" description="??????" maxcharges="3" gfx="rules_book.png" quality="2" craftquality="2" tags="offensive book" />
+	<passive id="48" cache="firedelay" name="Cathedral Window" description="Let his light inside you" gfx="cathedral_window.png" soulhearts="4" quality="3" craftquality="3" tags="offensive nocantrip nogreed tearsup" />
+	<passive id="49" cache="speed" name="Leaden Heart" description="My heart is stuffed by lead" gfx="leaden_heart.png" quality="3" craftquality="3" tags="offensive nocantrip" customtags="nometronome"  />
+	<passive id="50" name="China" description="Made in China" gfx="china.png" quality="2" craftquality="2" tags="offensive summonable nocantrip" />
+	<active id="51" name="Silver Bracelet" description="Prize for gambling" chargetype="timed" maxcharges="180" shopprice="10" gfx="silver_vracelet.png" quality="1" craftquality="1" tags="offensive" />
+	<passive id="52" cache="all" name="Route of Humility" description="Wish you Humility" gfx="humility_route.png" quality="3" craftquality="3" tags="offensive summonable nocantrip" customtags="nometronome" />
+	<passive id="53" name="Tenebrosity" description="Heal = Hurt" gfx="tenebrosity.png" quality="0" craftquality="0" tags="nolostbr summonable nocantrip" />
+	<passive id="54" name="Hell Kitchen" description="Specialty by Satan" gfx="hell_kitchen.png" quality="2" craftquality="2" blackhearts="4" tags="offensive nocantrip devil" customtags="nometronome"  />
+	<active id="55" name="Stolen Decade" description="Maybe someone's present" chargetype="special" maxcharges="10" gfx="stolen_decade.png" quality="3" craftquality="3" tags="offensive nocantrip" />
+	<passive id="56" name="Dice Projector" description="Project your destiny...for a while" gfx="dice_projector.png" quality="3" craftquality="3" tags="offensive summonable nocantrip" />
+	<passive id="57" cache="all" name="Hoarding" description="Caused by BG" gfx="hoarding.png" quality="2" craftquality="1" tags="offensive summonable" />
+	<passive id="58" name="Super Panic Button" description="Only for emergency, or your risk" gfx="super_panic_button.png" quality="1" craftquality="1" shopprice="10" tags="nocantrip" customtags="nometronome" />
+	<active id="59" name="Super Panic Button " description="Only for emergency, or your risk" gfx="super_panic_button.png" quality="1" craftquality="-1" hidden="true" tags="nocantrip" customtags="nometronome"  />
+	<passive id="60" name="Blackjack" description="But tarot" gfx="blackjack.png" quality="1" craftquality="1" tags="summonable nocantrip nogreed" customtags="nometronome"  />
+	<active id="61" name="Sketch" description="Creative A" gfx="sketch.png" quality="4" craftquality="4" maxcharges="12" tags="offensive nocantrip nogreed" customtags="nometronome" />
+	<passive id="62" name="Molekale" description="It's me, and not" gfx="molekale.png" quality="3" craftquality="3" tags="offensive nocantrip" customtags="nometronome"  />
+	<passive id="63" name="Ssstew" description="Ancient flavor" gfx="ssstew.png" quality="3" craftquality="3" tags="offensive devil nocantrip" customtags="nometronome"  />
+	<active id="64" name="Book of Seen" description="Book of books" maxcharges="4" gfx="book_of_seen.png" quality="3" craftquality="3" tags="offensive book nocantrip" customtags="nometronome" />
+	<active id="65" name="Portable Farm" description="Means you" gfx="farm.png" quality="3" craftquality="2" maxcharges="3" tags="offensive nocantrip" customtags="nometronome"  />
+	<passive id="66" name="Growing Wheat I" description="Growing" gfx="wheat_stage1.png" quality="1" craftquality="-1" tags="offensive nocantrip" hidden="true" customtags="nometronome"  />
+	<passive id="67" name="Growing Wheat II" description="Growing" gfx="wheat_stage2.png" quality="1" craftquality="-1" tags="offensive nocantrip" hidden="true" customtags="nometronome"  />
+	<passive id="68" name="Growing Wheat III" description="Growing" gfx="wheat_stage3.png" quality="1" craftquality="-1" tags="offensive nocantrip" hidden="true" customtags="nometronome"  />
+	<passive id="69" name="Growing Wheat IV" description="Growing" gfx="wheat_stage4.png" quality="1" craftquality="-1" tags="offensive nocantrip" hidden="true" customtags="nometronome"  />
+	<passive id="70" name="Growing Wheat V" description="Growing" gfx="wheat_stage5.png" quality="1" craftquality="-1" tags="offensive nocantrip" hidden="true" customtags="nometronome"  />
+	<passive id="71" name="Growing Wheat VI" description="Growing" gfx="wheat_stage6.png" quality="1" craftquality="-1" tags="offensive nocantrip" hidden="true" customtags="nometronome"  />
+	<passive id="72" cache="speed" name="Wheat" description="Collect 3 to make bread!" gfx="wheat.png" quality="1" craftquality="-1" tags="offensive nocantrip" hidden="true" customtags="nometronome"  />
+	<passive id="73" cache="all" name="Bread" description="Classic food" gfx="bread.png" soulhearts="2" hearts="6" quality="1" craftquality="-1" tags="offensive nocantrip" hidden="true" customtags="nometronome"  />
+	<active id="74" name="Goatify" description="Goat it" gfx="goatify.png" quality="3" craftquality="2" maxcharges="6" tags="offensive nocantrip" customtags="nometronome"  />
+	<passive id="75" name="Elegiast Winter" description="Poetry from another hermit" gfx="elegiast_winter.png" quality="3" craftquality="2" tags="offensive nocantrip dead" customtags="nometronome" />
+	<passive id="76" name="GHD" description="Better obstacles" gfx="ghd.png" quality="2" craftquality="2" bombs="2" tags="offensive summonable nocantrip nogreed" customtags="nometronome" />
+	<passive id="77" name="Grail" description="Only the drowned, no the returned, devil" gfx="grail.png" quality="3" craftquality="3" maxhearts="2" devilprice="2" tags="offensive summonable" customtags="nometronome" />
+	<passive id="78" name="Moth" description="Disintegration of the Fool" gfx="moth.png" quality="3" craftquality="3" tags="offensive nogreed" customtags="nometronome" />
+	<passive id="79" name="Edge" description="The Colonel and The Lionsmith" gfx="edge.png" quality="4" craftquality="-1" tags="offensive nocantrip" customtags="nometronome" />
+	<passive id="80" cache="firedelay" name="Colonel Edge" description="Fearless Chariot" gfx="edge2.png" quality="4" craftquality="4" tags="offensive nokeeper tearsup"  />
+	<passive id="81" cache="damage" name="Lionsmith Edge" description="Limitless Strength" gfx="edge3.png" quality="4" craftquality="4" tags="offensive" customtags="nometronome"  />
+	<passive id="82" name="Forge" description="Judegement through forge" gfx="forge.png" quality="3" craftquality="3" tags="offensive nocantrip" customtags="nometronome" />
+	<passive id="83" name="Secret Histories" description="Masks of The Vagabond" gfx="secret_histories.png" quality="3" craftquality="3" tags="offensive nocantrip nokeeper" customtags="nometronome" />
+	<active id="84" name="Another Karma" description="Gainful or painful" gfx="another_karma.png" quality="1" craftquality="1" maxcharges="3" shopprice="1" tags="offensive nocantrip" customtags="nometronome" />
+	<passive id="85" name="Alms" description="For beggars" gfx="alms.png" quality="1" craftquality="1" coins="3" tags="offensive nocantrip" customtags="nometronome" />
+	<passive id="86" cache="damage" name="Notched Sword" description="DMG up...and open the door!" gfx="notched_sword.png" quality="4" craftquality="3" tags="offensive" />
+	<passive id="87" name="Troposphere" description="Swap" gfx="troposphere.png" quality="1" craftquality="0" shopprice="10" tags="offensive noeden nocantrip" />
+	<passive id="88" cache="speed firedelay luck" name="Model of Deligence" description="Wish you deligence" gfx="deligence_model.png" quality="2" craftquality="2" tags="offensive noeden summonable" />
+	<passive id="89" name="Lamp of Diligence" description="Wish you diligence" gfx="diligence_lamp.png" quality="2" craftquality="2" tags="offensive noeden summonable" />
+	<passive id="90" name="Contact C" description="Oops!" gfx="contact_c.png" quality="1" craftquality="1" tags="offensive fly nocantrip" />
+	<active id="91" name="Maxx C" description="Keep up!" gfx="maxx_c.png" chargetype="special" maxcharges="2" quality="3" craftquality="2" tags="offensive fly nocantrip" />
+	<active id="92" name="Multiply" description="Killer ball waves" gfx="multiply.png" chargetype="special" maxcharges="3" quality="2" craftquality="2" tags="offensive devil nocantrip" />
+	<active id="93" cache="familiars" passivecache="true" name="018" description="" gfx="018.png" chargetype="timed" chargetype="special" maxcharges="270" quality="3" craftquality="3" tags="offensive uniquefamiliar" />
+	<passive id="94" name="Sneaky C" description="C4 deployer !" gfx="sneaky_c.png" quality="2" craftquality="2" tags="offensive fly" />
+	<passive id="95" name="Confronting C" description="Get out !" gfx="confronting_c.png" quality="1" craftquality="1" tags="offensive fly summonable" />
+	<passive id="96" name="Retaliating C" description="Take That !" gfx="retaliating_c.png" quality="2" craftquality="2" tags="offensive fly" />
+	<passive id="97" name="Master Round" description="HP up + no hit prize" gfx="master_round.png" maxhearts="2" hearts="2" quality="2" craftquality="2" tags="nolostbr nokeeper" />
+	<passive id="98" name="Master Pack" description="Premium version" gfx="master_pack.png" shopprice="20" quality="2" craftquality="2" tags="offensive nogreed" />
+	<passive id="99" name="Rich Mines" description="Time to mine" gfx="rich_mines.png" quality="1" craftquality="1" tags="offensive nogreed" />
+	<active id="100" cache="all" name="Panacea" description="Cure all diseases !" gfx="panacea.png" quality="2" craftquality="2" shopprice="20" tags="offensive nocantrip" />
+	<passive id="101" name="Smile World" description="DMG smile smile up" gfx="smile_world.png" quality="3" craftquality="3" tags="offensive summonable" />
+	<passive id="102" name="False GHD" description="Worse obstacles + destrudo up" gfx="false_ghd.png" quality="2" craftquality="2" bombs="2" tags="offensive nocantrip nogreed" />
+	<passive id="103" name="Soul of Generosity" description="Wish you generosity" gfx="generosity_soul.png" quality="3" craftquality="2" soulhearts="4" shopprice="1" tags="offensive lazarusshared" />
+	<passive id="104" cache="damage" name="Clash" description="DMG up when you are offensive" gfx="clash.png" quality="1" craftquality="1" tags="offensive nocantrip" />
+	<passive id="105" cache="damage" name="The Best Weapon" description="DMG up ?" gfx="the_best_weapon.png" quality="0" craftquality="0" tags="offensive" />
+	<active id="106" name="Three Wishes" description="Reusable item generator" gfx="three_wishes.png" maxcharges="12" quality="3" craftquality="3" tags="offensive nocantrip" />
+	<active id="107" name="Chest Chest" description="Loop or loot" gfx="chest_chest.png" quality="0" craftquality="0" tags="offensive nocantrip" customtags="nometronome" />
+	<passive id="108" name="Cheese Cutter" description="Bosses = extra meals" gfx="cheese_cutter.png" quality="3" craftquality="3" tags="offensive summonable nocantrip" />
+	<passive id="109" name="Turbo" description="Full Charge, but what's the cost?" gfx="turbo.png" quality="0" craftquality="0" shopprice="1" tags="offensive battery nocantrip" />
+	<active id="110" name="Treasure Key" description="Key to the treasure" gfx="treasure_key.png" quality="3" craftquality="2" maxcharges="12" tags="offensive nocantrip nogreed" customtags="nometronome" />
+	<passive id="111" cache="familiars" name="AKEY-47" description="Key shooter" gfx="akey47.png" quality="4" craftquality="4" shopprice="30" tags="offensive summonable" />
+	<active id="112" name="The Silver Key" description="Through the Gates of the Sliver Key" gfx="the_silver_key.png" quality="2" craftquality="2" chargetype="special" maxcharges="4" initcharge="0" tags="offensive nocantrip nogreed" customtags="nometronome" />
+	<passive id="113" cache="range luck" name="Truth Chest" description="Where's Brother Albern?" gfx="truth_chest.png" quality="3" craftquality="3" tags="offensive" />
+	<passive id="114" name="Knock" description="Hierophant passport" gfx="knock.png" quality="3" craftquality="3" tags="nogreed nokeeper" />
+	<passive id="115" name="Wildering Mirror" description="More vistas...not the broken ones !" gfx="wildering_mirror.png" quality="2" craftquality="2" tags="offensive nogreed" />
+	<active id="116" name="Broken Wildering Mirror" description="Buy some glue?" gfx="wildering_mirror2.png" maxcharges="4" initcharge="0" quality="1" craftquality="-1" tags="offensive nogreed" hidden="true" customtags="nometronome" />
+	<passive id="117" name="Moon Streets" description="Strange connections" gfx="moon_streets.png" quality="2" craftquality="2" tags="offensive nogreed" />
+	<passive id="118" name="Fomalhaut" description="Lighter" gfx="fomalhaut.png" quality="3" craftquality="3" tags="offensive stars summonable" />
+	<passive id="119" cache="luck" name="Luck Enchantment" description="Luck = DMG" gfx="luck_enchantment.png" quality="3" craftquality="3" tags="offensive summonable" />
+	<passive id="120" cache="damage" name="The Horned-Axe" description="Death and rebirth" gfx="the_horned_axe.png" quality="3" craftquality="3" tags="offensive summonable dead" />
+	<passive id="121" cache="damage" name="Light Barrier" description="Tarot reverser" gfx="light_barrier.png" quality="2" craftquality="2" tags="offensive" />
+	<passive id="122" cache="shotspeed" name="Chill Mind" description="Just see through it" gfx="chill_mind.png" quality="1" craftquality="1" shopprice="10" tags="offensive nogreed" />
+	<passive id="123" cache="damage" name="Lown Tea" description="HP up" gfx="lown_tea.png" maxhearts="2" hearts="4" quality="1" craftquality="1" tags="nolostbr food" />
+	<passive id="124" cache="range" name="The Eye of Truth" description="I C U !" gfx="the_eye_of_truth.png" soulhearts="2" quality="1" craftquality="1" tags="offensive" />
+	<active id="125" name="Turbine" description="Machine driver" gfx="turbine.png" maxcharges="4" quality="3" craftquality="3" tags="offensive" />
+	<passive id="126" cache="damage" name="Red Hook" description="Dark crit!" gfx="red_hook.png" quality="1" craftquality="1" tags="offensive" />
+	<passive id="127" cache="speed" name="OvO" description="20 combo!" gfx="ovo.png" quality="2" craftquality="2" tags="offensive summonable tearsup dead" />
+	<active id="128" name="Danish Gambit" description="Sacrifice for the better" chargetype="special" maxcharges="4" initcharge="0" gfx="danish_gambit.png" quality="2" craftquality="2" shopprice="10" tags="offensive nocantrip" customtags="nometronome" />
+	<active id="129" name="Hyper Block" description="Block damage with superpower" chargetype="special" maxcharges="8" initcharge="0" gfx="hyper_block.png" quality="2" craftquality="2" tags="nolostbr" />
+	<passive id="130" cache="damage" name="Fusion Hammer" description="Power of never-let-go" gfx="fusion_hammer.png" quality="2" craftquality="2" tags="offensive" />
+	<passive id="131" cache="damage" name="Sangen Summoning" description="Damage resistance + unknown potential" gfx="sangen_summoning.png" quality="2" craftquality="2" tags="offensive" />
+	<active id="132" name="Peace Pipe" description="Cleanse your mind" gfx="peace_pipe.png" quality="3" craftquality="1" tags="offensive nocantrip nochallenge" customtags="nometronome" />
+	<active id="133" name="Yongle" description="Big document literature" gfx="yongle.png" maxcharges="12" quality="3" craftquality="3" tags="offensive book" />
+	<passive id="134" name="Hexa Vessel" description="Rekindle" gfx="hexa_vessel.png" quality="3" craftquality="3" tags="offensive summonable dead" />
+	<passive id="135" cache="damage" name="Flex" description="DMG up" gfx="flex.png" quality="3" craftquality="3" tags="offensive summonable mom" />
+	<passive id="136" cache="damage" name="Signature Move" description="Be more offensive is to be less" gfx="signature_move.png" quality="4" craftquality="4" tags="offensive" />
+	<passive id="137" name="Double Dosage" description="Do sage do" gfx="double_dosage.png" quality="2" craftquality="2" tags="offensive syringe" customtags="nometronome" />
+	<passive id="138" cache="luck" name="Holy Injection" description="Blessing is truely matter" gfx="holy_Injection.png" quality="2" craftquality="2" tags="nocantrip nolostbr syringe angel" customtags="nometronome" />
+	<passive id="139" cache="damage" name="Kille R" description="DMG Rp" gfx="kille_r.png" quality="1" craftquality="1" tags="offensive" />
+	<passive id="140" name="Vein Miner" description="Break Break Break !" gfx="vein_miner.png" bombs="5" quality="1" craftquality="1" tags="offensive" />
+	<passive id="141" name="Vain Miner" description="Break Break Break ?" gfx="vain_miner.png" quality="3" craftquality="3" tags="offensive" customtags="nometronome" />
+	<passive id="142" name="PUC" description="Benighted Up" gfx="puc.png" quality="3" craftquality="3" tags="nocantrip offensive" customtags="nometronome" />
+	<passive id="143" name="Sale Bomb" description="Boom sale !" gfx="sale_bomb.png" quality="2" craftquality="2" tags="offensive" />
+	<active id="144" name="Diecry" description="Smells like onions" gfx="diecry.png" chargetype="timed" maxcharges="210" quality="2" craftquality="2" tags="offensive book tearsup" />
+	<passive id="145" name="Reused Story" description="Isaac leaves alone in..." gfx="reused_story.png" quality="3" craftquality="3" tags="nocantrip offensive nogreed" customtags="nometronome" />
+	<passive id="146" name="Zoth" description="Room Transformer" gfx="zoth.png" quality="2" craftquality="2" tags="nocantrip offensive stars nogreed" customtags="nometronome" />
+	<passive id="147" name="Pageant Father" description="Ultimate+ grand+ supreme+" gfx="pageant_father.png" quality="3" craftquality="3" tags="offensive" />
+	<passive id="148" name="Deciduous Meat" description="HP up?" gfx="deciduous_meat.png" quality="1" craftquality="1" maxhearts="2" hearts="2" tags="nolostbr" />
+	<passive id="149" cache="damage" name="Curse Syringe" description="Curse = DMG" gfx="curse_syringe.png" quality="1" craftquality="1" tags="nolostbr syringe" />
+	<passive id="150" name="Astro Vera" description="Max HP up" gfx="astro_vera.png" quality="3" craftquality="3" hearts="20" soulhearts="20" tags="nolostbr nocantrip" />
 
 
 	<trinket name="Bottle Shard" description="He really did it" gfx="bottleshard.png" />
 	<trinket name="Dad's Promise" description="The old ends, The new comes" gfx="dadspromise.png" />
+	<trinket name="Gambler's Eye" description="Gaze with your quick draw" gfx="gamblers_eye.png" />
+	<trinket name="Bacon Saver" description="No one more" gfx="bacon_saver.png" />
 	<trinket name="Divine Retaliation" description="Projectile to fire" gfx="devineretaliation.png" />
 	<trinket name="Tough Heart" description="Blocks damage... sometimes" gfx="toughheart.png" />
 	<trinket name="Chaotic Belief" description="Faith up?" gfx="chaoticbelief.png" />
 	<trinket name="Throny Ring" description="Last order" gfx="thronyring.png" />
+	<trinket name="Presentational Mind" description="Betrayal?" gfx="presentational_mind.png" tags="lazarusshared"/>
+	<trinket name="Export" description="Dualistic trade" gfx="export.png" />
+	<trinket name="Nemesis" description="7 multiples return" gfx="nemesis.png" />
+	<trinket name="Barren" description="All in vain" gfx="barren.png" />
+	<trinket name="The Left Foot" description="The left-foot path reaps dark rewards" gfx="leftfoot.png" />
+	<trinket cache="luck" name="Rabbit Head" description="Bonus on the stump" gfx="rabbithead.png" />
+	<trinket name="Lunar Twigs" description="Born with stubbornness" gfx="lunar_twigs.png" />
+	<trinket name="Interval" description="Interval = Power" gfx="interval.png" />
+	<trinket name="Numeron Force" description="Change cards' effect" gfx="numeron_force.png" />
+	<trinket name="Wheat Seeds" description="Plant it in your stomach" gfx="wheat_seeds.png" />
+	<trinket name="Corrupted Deck" description="Corrupt the tarot cards!" gfx="corrupted_deck.png" />
+	<trinket name="Glitched Penny" description="Wealth of ZZAZZ" gfx="glitched_penny.png" />
+	<trinket name="Starry Penny" description="Wealth of the future" gfx="starry_penny.png" />
+	<trinket name="Paper Penny" description="Wealth of knowledge" gfx="paper_penny.png" />
+	<trinket name="Cultist Mask" description="You feel more talkative" gfx="cultist_mask.png" />
+	<trinket name="Ssserpent Head" description="? = $" gfx="ssserpent_head.png" />
+	<trinket name="Cleric Face" description="Everyone loves Cleric" gfx="cleric_face.png" />
+	<trinket name="Nloths Mask" description="You feel hungry" gfx="nloths_mask.png" />
+	<trinket name="Gremlin Mask" description="Time to run" gfx="gremlin_mask.png" />
+	<trinket name="Old Penny" description="Wealth of time" gfx="old_penny.png" />
+	<trinket name="Crack Callback" description="Can crack back?" gfx="crack_callback.png" />
+	<trinket name="Foe" description="Can block attack (Not you)" gfx="foe.png" />
+	<trinket name="Odd Key" description="???" gfx="odd_key.png" />
+	<trinket cache="speed firedelay damage" name="Neopolitan" description="3x flavours !" gfx="neopolitan.png" />
+	<trinket name="Wild Milk" description="From a male cow!" gfx="wild_milk.png" />
+	<trinket cache="damage" name="Black Charm" description="Curse strike" gfx="black_charm.png" />
+	<trinket name="War Hospital" description="Salvage" gfx="war_hospital.png" />
+	<trinket name="Spore Cloud" description="Fungal spreader" gfx="spore_cloud.png" />
+	<trinket name="For Screenshot" description="The Hoaxer" gfx="for_screenshot.png" customtags="hiddenrevive" />
+
 </items>

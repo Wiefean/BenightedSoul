@@ -2,12 +2,27 @@
 	<!-- card -->
 	<card type="object" hud="ibs_czd6" pickup="7250" description="Cu + Zn" name="The Great Golden Collectible -- D6"/>
 	<card type="special" hud="ibs_goldenprayer" pickup="7251" description="Pray for people and peace" name="Golden Prayer" mimiccharge="6"/>
+	<card type="special" hud="ibs_stolen_year" pickup="7252" description="Maybe someone's present" name="Stolen Year" mimiccharge="6"/>
+	<card type="special" hud="ibs_nenia_dea" pickup="7252" description="Talk with souls and memories" name="Nenia Dea" mimiccharge="6"/>
 
 
 	<!-- rune -->
     <rune type="rune" pickup="7777" hud="ibs_falsehood_bisaac" description="Dice Sign 「Dualistic Equilibrium」" name="Falsehood of Isaac" mimiccharge="4" />
     <rune type="rune" pickup="7778" hud="ibs_falsehood_bmaggy" description="Holy Sign 「Charge Under Stone」" name="Falsehood of Magdalene" mimiccharge="6" />
-
-    <rune type="rune" pickup="7780" hud="ibs_falsehood_bjudas" description="Death Sign 「Night Shot」" name="Falsehood of Judas" mimiccharge="1" />
+    <rune type="rune" pickup="7779" hud="ibs_falsehood_bcain" description="Growing 「Sow The Seeds」" name="Falsehood of Cain" mimiccharge="4" />
+    <rune type="rune" pickup="7780" hud="ibs_falsehood_babel" description="Grazing 「Before The Feast」" name="Falsehood of Abel" mimiccharge="4" />
+    <rune type="rune" pickup="7781" hud="ibs_falsehood_bjudas" description="Death Sign 「Night Shot」" name="Falsehood of Judas" mimiccharge="1" />
+    <rune type="rune" pickup="7782" hud="ibs_falsehood_beve" description="Purification 「The Permitted Fruit」" name="Falsehood of Eve" mimiccharge="4" />
+    <rune type="rune" pickup="7783" hud="ibs_falsehood_bsamson" description="Silent Sign 「Brief Revival」" name="Falsehood of Samson" mimiccharge="4" />
+    <rune type="rune" pickup="7784" hud="ibs_falsehood_bazazel" description="Sacrifice 「Scape One」" name="Falsehood of Azazel" mimiccharge="1" />
+    <rune type="rune" pickup="7785" hud="ibs_falsehood_blazarus" description="Transport Sign「Ticket To Another」" name="Falsehood of Lazarus" mimiccharge="12" />
+    <rune type="rune" pickup="7786" hud="ibs_falsehood_beden" description="Shuttle 「Bug Patches」" name="Falsehood of Eden" mimiccharge="6" />
+    <rune type="rune" pickup="7787" hud="ibs_falsehood_blost" description="Lost Sign 「Eternal Lock」" name="Falsehood of the Lost" mimiccharge="6" />
+    <rune type="rune" pickup="7788" hud="ibs_falsehood_blilith" description="Checkmate 「Queen's Gambit」" name="Falsehood of Lilith" mimiccharge="3" />
+    <rune type="rune" pickup="7789" hud="ibs_falsehood_bkeeper" description="Karma Sign 「Begger's Return」" name="Falsehood of the Keeper" mimiccharge="6" />
+    <rune type="rune" pickup="7790" hud="ibs_falsehood_bapollyon" description="Rumination 「Echo of Soul」" name="Falsehood of Apollyon" mimiccharge="12" />
+    <rune type="rune" pickup="7791" hud="ibs_falsehood_bforgotten" description="Recall 「Bounce Back」" name="Falsehood of the Forgotten" mimiccharge="6" />
+    <rune type="rune" pickup="7792" hud="ibs_falsehood_bbeth" description="Seeking 「Phantom Relics」" name="Falsehood of Bethany" mimiccharge="4" />
+    <rune type="rune" pickup="7793" hud="ibs_falsehood_bjbe" description="Right「De-Fusion」" name="Falsehood of Jacob and Esau" mimiccharge="12" />
 	
 </pocketitems>

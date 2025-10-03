@@ -1,38 +1,17 @@
 --节制之骨
 
 local mod = Isaac_BenightedSoul
-local IBS_API = mod.IBS_API
-local IBS_Callback = mod.IBS_Callback
-local IBS_Item = mod.IBS_Item
-local IBS_Sound = mod.IBS_Sound
-local Ents = mod.IBS_Lib.Ents
-local Maths = mod.IBS_Lib.Maths
-local Stats = mod.IBS_Lib.Stats
 
-local sfx = SFXManager()
+local game = Game()
 
-local ErrorTipName = "IBS_API.BOT"
-IBS_API.BOT = {}
-
---来自其他模组的条件,用于判断是否让眼泪获得节制之骨的效果
-local ModTearCondition = {}
-
---添加条件
-function IBS_API.BOT:AddTearCondition(condition, name)
-	local err,mes = mod:CheckArgType(condition, "function", nil, 1, ErrorTipName)
-	if err then error(mes, 2) end
-	err,mes = mod:CheckArgType(name, "string", nil, 2, ErrorTipName)
-	if err then error(mes, 2) end
-
-	ModTearCondition[name] = condition
-end
+local BOT = mod.IBS_Class.Item(mod.IBS_ItemID.BOT)
 
 --眼泪特效黑名单
-local TearFlagBlacklist = {
+BOT.TearFlagBlacklist = {
 	--环绕(小星球,木星,无暇圣心)
 	TearFlags.TEAR_ORBIT,
 	TearFlags.TEAR_ORBIT_ADVANCED,
-	
+
 	--剖腹产
 	TearFlags.TEAR_FETUS_SWORD,
 	TearFlags.TEAR_FETUS_BONE,
@@ -51,118 +30,128 @@ local TearFlagBlacklist = {
 }
 
 --检查条件
-local function CheckTearCondition(tear)
-	for _,flag in pairs(TearFlagBlacklist) do
+function BOT:CheckTearCondition(tear)
+	for _,flag in pairs(self.TearFlagBlacklist) do
 		if tear:HasTearFlags(flag) then return false end
 	end
 
-	if IBS_API.SSG:IsFallingTear(tear) then return false end --判断是否为仰望星空的下落眼泪
-
-	--检查来自其他模组的条件
-	for k,v in ipairs(ModTearCondition) do
-		local result = v.Condition(tear)
-		if (result ~= nil) and (result == false) then return false end
-	end
+	local SSG = mod.IBS_Item and mod.IBS_Item.SSG
+	if SSG and SSG:IsFallingTear(tear) then return false end --判断是否为仰望星空的下落眼泪
 
 	return true
 end
 
+--临时玩家数据
+function BOT:GetPlayerData(player)
+	local data = self._Ents:GetTempData(player)
+	data.BoneOfTemperance_Player = data.BoneOfTemperance_Player or {TearsUp = 0}
+	return data.BoneOfTemperance_Player
+end
+
 --临时眼泪数据(科X激光也可使用)
-local function GetTearData(tear)
-	local data = Ents:GetTempData(tear)
+function BOT:GetTearData(tear)
+	local data = self._Ents:GetTempData(tear)
 	data.BoneOfTemperance_Tear = data.BoneOfTemperance_Tear or {
 		Stop = false,
 		Recycle = false,
-		TimeOut = 210
+		Timeout = 210
 	}
 	return data.BoneOfTemperance_Tear
 end
 
 --临时妈刀数据(常规激光也可使用)
-local function GetKnifeData(knife)
-	local data = Ents:GetTempData(knife)
+function BOT:GetKnifeData(knife)
+	local data = self._Ents:GetTempData(knife)
 	data.BoneOfTemperance_Knife = data.BoneOfTemperance_Knife or {Wait = 0}
 
 	return data.BoneOfTemperance_Knife
 end
 
---眼泪逻辑
-mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, function(_,tear)
-	local player = Ents:IsSpawnerPlayer(tear, true)
+--眼泪发射
+function BOT:OnFireTear(tear)
+	local player = self._Ents:IsSpawnerPlayer(tear, true)
 	
-    if player and player:HasCollectible(IBS_Item.bone) and CheckTearCondition(tear) then
-		local data = GetTearData(tear)
+    if player and player:HasCollectible(self.ID) and self:CheckTearCondition(tear) then
+		local data = self:GetTearData(tear)
 
-		tear:AddTearFlags(TearFlags.TEAR_SPECTRAL)
-		tear:AddTearFlags(TearFlags.TEAR_PIERCING)
-		tear:SetColor(Color(1,1,1,0.1), -1, 1)
-		
 		--突眼
 		if tear:HasTearFlags(TearFlags.TEAR_SHRINK) then
 			tear:ClearTearFlags(TearFlags.TEAR_SHRINK) 
 		end
     end
-end)
-mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, function(_,tear)
-	local data = Ents:GetTempData(tear).BoneOfTemperance_Tear
-	local player = Ents:IsSpawnerPlayer(tear, true)
+end
+BOT:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, 'OnFireTear')
+
+function BOT:OnTearUpdate(tear)
+	local data = self._Ents:GetTempData(tear).BoneOfTemperance_Tear
+	local player = self._Ents:IsSpawnerPlayer(tear, true)
+
+	--判断是否为仰望星空的下落眼泪
+	local SSG = mod.IBS_Item and mod.IBS_Item.SSG
+	if SSG and SSG:IsFallingTear(tear) then return end
 
 	if data and player then
 		tear.FallingSpeed = 0
 		tear.FallingAcceleration = -0.1
-		tear:SetColor(Color(1,1,1,0.1), -1, 1)
 		
 		if data.Stop and not data.Recycle then
 			tear.Velocity = Vector.Zero
 		elseif data.Recycle then
 			tear.Velocity = 30*((player.Position - tear.Position):Normalized())
-			if (tear.Position - player.Position):Length() <= 2*(player.Size) then
+			if self._Ents:AreColliding(tear, player) then
+				local pData = self:GetPlayerData(player)
+				pData.TearsUp = math.min(2, pData.TearsUp + 0.1)
+				player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY, true)
 				tear:Remove()
 			end
 		end
 		
-		if data.TimeOut > 0 then
-			data.TimeOut = data.TimeOut - 1
+		if data.Timeout > 0 then
+			data.Timeout = data.Timeout - 1
 		elseif not data.Recycle then
 			data.Recycle = true
 		end
 	end
-end)
+end
+BOT:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, 'OnTearUpdate')
 
 --科技X兼容
-mod:AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, function(_,laser)
+function BOT:OnTechXLaserUpdate(laser)
 	if laser.SubType == 2 then
-		local data = Ents:GetTempData(laser).BoneOfTemperance_Tear
-		local player = Ents:IsSpawnerPlayer(laser, true)
+		local data = self._Ents:GetTempData(laser).BoneOfTemperance_Tear
+		local player = self._Ents:IsSpawnerPlayer(laser, true)
 			
 		if data and player then
 			if data.Stop and not data.Recycle then
 				laser.Velocity = Vector.Zero
 			elseif data.Recycle then
 				laser.Velocity = 30*((player.Position - laser.Position):Normalized())
-				if (laser.Position - player.Position):Length() <= 2*(player.Size) then
+				if self._Ents:AreColliding(laser, player) then
+					local pData = self:GetPlayerData(player)
+					pData.TearsUp = math.min(2, pData.TearsUp + 0.5)
+					player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY, true)				
 					laser:Remove()
 				end
 			end
 			
-			if data.TimeOut > 0 then
-				data.TimeOut = data.TimeOut - 1
+			if data.Timeout > 0 then
+				data.Timeout = data.Timeout - 1
 			elseif not data.Recycle then
 				data.Recycle = true
 			end
 		end	
 	end
-end)
+end
+BOT:AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, 'OnTechXLaserUpdate')
 
 --生成停滞的眼泪
-local function SpawnTear(player, position)
+function BOT:SpawnStoppedTear(player, position)
 	local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, position, Vector.Zero, player):ToTear()
-	local tdata = GetTearData(tear)
-	tdata.Stop = true
+	local data = self:GetTearData(tear)
+	data.Stop = true
 	
 	tear:AddTearFlags(TearFlags.TEAR_SPECTRAL)
-	tear:AddTearFlags(TearFlags.TEAR_PIERCING)	
-	tear:SetColor(Color(1,1,1,0.1), -1, 1)
+	tear:AddTearFlags(TearFlags.TEAR_PIERCING)
 	tear.CollisionDamage = math.max(3.5, player.Damage)
 	tear.FallingSpeed = 0
 	tear.FallingAcceleration = -0.1	
@@ -170,40 +159,20 @@ local function SpawnTear(player, position)
 	return tear
 end
 
---常规激光兼容(包括硫磺火,不包括牵引光束)
-mod:AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, function(_,laser)
-	if (laser.Variant ~= 7) and (laser.SubType == 0) then
-		local player = Ents:IsSpawnerPlayer(laser, true)
-		
-		if player and player:HasCollectible(IBS_Item.bone) then
-			local data = GetKnifeData(laser)
-
-			if data.Wait > 0 then
-				data.Wait = data.Wait - 1
-			else
-				data.Wait = 9
-				local tear = SpawnTear(player, laser.EndPoint + 20 * RandomVector())
-				tear.Scale = 0.7
-				tear:ChangeVariant(37)
-				tear:Update()
-			end			
-		end	
-	end
-end)
 
 --妈刀等兼容
-mod:AddCallback(ModCallbacks.MC_POST_KNIFE_UPDATE, function(_,knife)
-	local player = Ents:IsSpawnerPlayer(knife, true)
+function BOT:OnKnifeUpdate(knife)
+	local player = self._Ents:IsSpawnerPlayer(knife, true)
 	
-	if player and player:HasCollectible(IBS_Item.bone) then
-		local data = GetKnifeData(knife)
+	if player and player:HasCollectible(self.ID) then
+		local data = self:GetKnifeData(knife)
 
 		if data.Wait > 0 then
 			data.Wait = data.Wait - 1
 		else
 			data.Wait = 10
 			if knife:IsFlying() then
-				local tear = SpawnTear(player, knife.Position)
+				local tear = self:SpawnStoppedTear(player, knife.Position)
 				tear.Scale = 1
 				
 				if (knife.Variant == 0) then --经典妈刀对应金属子弹
@@ -222,90 +191,116 @@ mod:AddCallback(ModCallbacks.MC_POST_KNIFE_UPDATE, function(_,knife)
 			end			
 		end
 	end
-end)
+end
+BOT:AddCallback(ModCallbacks.MC_POST_KNIFE_UPDATE, 'OnKnifeUpdate')
 
---双击
-mod:AddCallback(IBS_Callback.PLAYER_DOUBLE_TAP, function(_,player, type, action)
-	if (type == 2) and (action == ButtonAction.ACTION_DROP) then
-		if player:HasCollectible(IBS_Item.bone) then
-			local game = Game()
-			if (not game:IsPaused()) and (player:AreControlsEnabled()) then
-				for _,tear in pairs(Isaac.FindByType(EntityType.ENTITY_TEAR)) do
-					tear = tear:ToTear()
-					local tearPlayer = Ents:IsSpawnerPlayer(tear, true)
-					
-					if Ents:IsTheSame(tearPlayer, player) and CheckTearCondition(tear) then
-						local data = GetTearData(tear)
-						if not data.Stop then data.Stop = true end
-					end	
-				end	
-				for _,laser in pairs(Isaac.FindByType(EntityType.ENTITY_LASER)) do
-					local laserPlayer = Ents:IsSpawnerPlayer(laser, true)
-					
-					if Ents:IsTheSame(laserPlayer, player) then
-						local data = GetTearData(laser)
-						if not data.Stop then data.Stop = true end
-					end	
-				end
+
+--暂停玩家的所有眼泪或科X激光
+function BOT:StopAll(player)
+	if not player:HasCollectible(self.ID) then return end
+
+	for _,tear in ipairs(Isaac.FindByType(EntityType.ENTITY_TEAR)) do
+		tear = tear:ToTear()
+		local tearPlayer = self._Ents:IsSpawnerPlayer(tear, true)
+		
+		if self._Ents:IsTheSame(tearPlayer, player) and self:CheckTearCondition(tear) then
+			local data = self:GetTearData(tear)
+			data.Stop = true
+		end	
+	end	
+	for _,laser in ipairs(Isaac.FindByType(EntityType.ENTITY_LASER)) do
+		local laserPlayer = self._Ents:IsSpawnerPlayer(laser, true)
+		
+		if self._Ents:IsTheSame(laserPlayer, player) then
+			local data = self:GetTearData(laser)
+			data.Stop = true
+		end	
+	end	
+end
+
+--玩家更新
+function BOT:OnPlayerUpdate(player)
+	if player:HasCollectible(self.ID) then
+		local data = self:GetPlayerData(player)
+
+		--加成衰减
+		if player:IsFrame(3, 0) and data.TearsUp > 0 then
+			data.TearsUp = math.max(0, data.TearsUp - 0.03)
+			player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY, true)
+		end
+
+		--单击暂停眼泪
+		if player:AreControlsEnabled() and not game:IsPaused() then
+			if Input.IsActionTriggered(ButtonAction.ACTION_DROP, player.ControllerIndex) then
+				self:StopAll(player)
 			end
 		end
-	end	
-end)
-
-
---眼泪/科X激光是否有节制之骨的效果
-function IBS_API.BOT:TearHasEffect(tear)
-	local err,mes = mod:CheckArgType(tear, "userdata", "tear or laser", 1, ErrorTipName)
-	if err then error(mes, 2) end
-	
-	local data = Ents:GetTempData(tear).BoneOfTemperance_Tear
-	if data and Ents:IsSpawnerPlayer(tear, true) then
-		return true
 	end
-	
-	return false
-end	
+end
+BOT:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, 'OnPlayerUpdate')
 
---获取节制之骨效果的持续时间
-function IBS_API.BOT:GetTearTimeOut(tear)
-	local err,mes = mod:CheckArgType(tear, "userdata", "tear or laser", 1, ErrorTipName)
-	if err then error(mes, 2) end
-	
-	local data = Ents:GetTempData(tear).BoneOfTemperance_Tear
-	
-	return (data and data.TimeOut) or 0
-end	
+--新房间重置属性加成
+function BOT:OnNewRoom()
+	for i = 0, game:GetNumPlayers() -1 do
+		local player = Isaac.GetPlayer(i)
+		if self._Ents:GetTempData(player).BoneOfTemperance_Player then
+			self._Ents:GetTempData(player).BoneOfTemperance_Player = nil
+			player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY, true)
+		end
+	end
+end
+BOT:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, 'OnNewRoom')
 
---设置节制之骨效果的持续时间,若没有效果则添加效果
-function IBS_API.BOT:SetTearTimeOut(tear, frames)
-	local err,mes = mod:CheckArgType(tear, "userdata", "tear or laser", 1, ErrorTipName)
-	if err then error(mes, 2) end
-	err,mes = mod:CheckArgType(frames, "number", nil, 2, ErrorTipName, true)
-	if err then error(mes, 2) end
-	
-	frames = frames or 210
-	
-	local data = GetTearData(tear)
-	data.TimeOut = frames
-end	
+--回收玩家的所有眼泪或科X激光
+function BOT:RecycleAll(player)
+	if not player:HasCollectible(self.ID) then return end
 
---添加节制之骨效果的持续时间,若没有效果则添加效果
-function IBS_API.BOT:AddTearTimeOut(tear, frames)
-	local err,mes = mod:CheckArgType(tear, "userdata", "tear or laser", 1, ErrorTipName)
-	if err then error(mes, 2) end
-	err,mes = mod:CheckArgType(frames, "number", nil, 2, ErrorTipName)
-	if err then error(mes, 2) end
-	
-	local data = GetTearData(tear)
-	data.TimeOut = data.TimeOut + frames
-end	
+	for _,tear in ipairs(Isaac.FindByType(EntityType.ENTITY_TEAR)) do
+		tear = tear:ToTear()
+		local tearPlayer = self._Ents:IsSpawnerPlayer(tear, true)
+		
+		if self._Ents:IsTheSame(tearPlayer, player) and self:CheckTearCondition(tear) then
+			local data = self:GetTearData(tear)
+			data.Recycle = true
+		end	
+	end	
+	for _,laser in ipairs(Isaac.FindByType(EntityType.ENTITY_LASER)) do
+		local laserPlayer = self._Ents:IsSpawnerPlayer(laser, true)
+		
+		if self._Ents:IsTheSame(laserPlayer, player) then
+			local data = self:GetTearData(laser)
+			data.Recycle = true
+		end	
+	end	
+end
 
---让眼泪停滞,若没有节制之骨的效果则添加效果
-function IBS_API.BOT:StopTear(tear)
-	local err,mes = mod:CheckArgType(tear, "userdata", "tear or laser", 1, ErrorTipName)
-	if err then error(mes, 2) end
-	
-	local data = GetTearData(tear)
-	data.Stop = true
-end	
+--双击回收眼泪
+function BOT:OnDoubleTap(player, type, action)
+	if (type == 2) and (action == ButtonAction.ACTION_DROP) then
+		self:RecycleAll(player)
+	end
+end
+BOT:AddCallback(mod.IBS_CallbackID.DOUBLE_TAP, 'OnDoubleTap')
+
+--属性变更
+function BOT:OnEvalueateCache(player, flag)
+	if player:HasCollectible(self.ID) then
+		if flag == CacheFlag.CACHE_FIREDELAY then
+			local data = self:GetPlayerData(player)
+			if data.TearsUp > 0 then
+				self._Stats:TearsModifier(player, data.TearsUp)
+			end
+		end
+		
+		--弹性眼泪
+		if flag == CacheFlag.CACHE_TEARFLAG then
+			player.TearFlags = player.TearFlags | TearFlags.TEAR_BOUNCE
+		end
+	end
+end
+BOT:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, 'OnEvalueateCache')
+
+
+
+return BOT
 

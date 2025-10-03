@@ -31,4 +31,26 @@
 		<sample weight="1" path="falsehood_bjudas_ready.wav" />
 	</sound>
 
+	<sound name="otto">
+		<sample weight="1" path="otto.wav" />
+	</sound>
+	
+	<sound name="kaka">
+		<sample weight="1" path="kaka.wav" />
+	</sound>
+	
+	<sound name="三个愿望">
+		<sample weight="1" path="three_wishes.wav" />
+	</sound>
+
+	<sound name="铛">
+		<sample weight="1" path="dang.wav" />
+		<sample weight="1" path="dang2.wav" />
+		<sample weight="1" path="dang3.wav" />
+	</sound>
+
+	<sound name="冷静头脑">
+		<sample weight="1" path="chill_mind.wav" />
+	</sound>
+
 </sounds>

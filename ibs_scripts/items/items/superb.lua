@@ -1,21 +1,21 @@
 --核能电罐
 
 local mod = Isaac_BenightedSoul
-local IBS_Item = mod.IBS_Item
-local Ents = mod.IBS_Lib.Ents
-local Players = mod.IBS_Lib.Players
-local Maths = mod.IBS_Lib.Maths
+local Damage = mod.IBS_Class.Damage()
 
+local game = Game()
 local config = Isaac.GetItemConfig()
-
 local sfx = SFXManager()
 
+local SuperB = mod.IBS_Class.Item(mod.IBS_ItemID.SuperB)
+
+
 --临时数据
-local function GetSuperBData(player)
-	local data = Ents:GetTempData(player)
+function SuperB:GetData(player)
+	local data = self._Ents:GetTempData(player)
 	data.SuperB = data.SuperB or {
 		Damage = 0,
-		LaserTimeOut = 0,
+		LaserTimeout = 0,
 		LaserWait = 0
 	}
 	
@@ -23,8 +23,8 @@ local function GetSuperBData(player)
 end
 
 --消耗充能
-local function ChainReaction(player)
-	local data = GetSuperBData(player)
+function SuperB:ChainReaction(player)
+	local data = self:GetData(player)
 	local discharged = 0
 	
 	for slot = 0,2 do
@@ -33,22 +33,22 @@ local function ChainReaction(player)
 		
 		if itemConfig then
 			local chargeType = itemConfig.ChargeType
-			local charges = Players:GetSlotCharges(player, slot, true, true)
-			local maxCharges = itemConfig.MaxCharges
-			
-			if charges > maxCharges then
-				local cost = charges - maxCharges
-				if chargeType == 0 then
-					if Players:DischargeSlot(player, slot, cost, false, false, true, true) then
-						discharged = discharged + cost
-					end	
-				elseif chargeType == 1 then	
-					if Players:DischargeTimedSlot(player, slot, cost, false, true, true) then
-						discharged = discharged + 0.05
-					end	
+			local charges = self._Players:GetSlotCharges(player, slot, true, true)
+
+			if chargeType == 0 then
+				if self._Players:DischargeSlot(player, slot, charges, false, false, true, true) then
+					discharged = discharged + charges
 				end	
-			end	
-			data.LaserTimeOut = data.LaserTimeOut + math.floor(60*discharged)
+			elseif chargeType == 1 then	
+				local maxCharges = itemConfig.MaxCharges
+				if charges >= maxCharges then
+					if self._Players:DischargeTimedSlot(player, slot, maxCharges, false, true, true) then
+						discharged = discharged + math.max(0.5, math.ceil(maxCharges / 300))
+					end
+				end
+			end
+
+			data.LaserTimeout = data.LaserTimeout + math.floor(60*discharged)
 		end
 	end
 	
@@ -56,15 +56,16 @@ local function ChainReaction(player)
 end
 
 --受伤触发
-local function OnTakeDamage(_,entity, dmg)
+function SuperB:OnTakeDamage(entity, dmg, flag, source)
+	if dmg <= 0 then return end
 	local player = entity:ToPlayer()
 	
-	if player then
-		if player:HasCollectible(IBS_Item.superb) then
-			local data = GetSuperBData(player)
+	if player and not Damage:IsPlayerSelfDamage(player, flag, source) then
+		if player:HasCollectible(self.ID) then
+			local data = self:GetData(player)
 			
-			if (data.LaserTimeOut <= 0) and (ChainReaction(player) > 0) then
-				data.LaserTimeOut = data.LaserTimeOut + 400
+			if (data.LaserTimeout <= 0) and (self:ChainReaction(player) > 0) then
+				data.LaserTimeout = data.LaserTimeout + 400
 				Isaac.Explode(player.Position, player, 0)
 
 				local smoke = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SMOKE_CLOUD, 0, player.Position, Vector.Zero, player):ToEffect()
@@ -77,12 +78,12 @@ local function OnTakeDamage(_,entity, dmg)
 				creep:Update()
 			end	
 		end	
-	elseif Ents:IsEnemy(entity) then
-		for i = 0, Game():GetNumPlayers() -1 do
+	elseif self._Ents:IsEnemy(entity) then
+		for i = 0, game:GetNumPlayers() -1 do
 			local player = Isaac.GetPlayer(i)
-			if player:HasCollectible(IBS_Item.superb) then
-				local data = GetSuperBData(player)
-				
+			if player:HasCollectible(self.ID) then
+				local data = self:GetData(player)
+
 				if data.Damage > 200 then
 					data.Damage = data.Damage - 200
 					for slot = 0,2 do
@@ -91,7 +92,7 @@ local function OnTakeDamage(_,entity, dmg)
 						local chargeType = (itemConfig and itemConfig.ChargeType) or -1
 						
 						if chargeType == 0 then
-							Players:ChargeSlot(player, slot, 1, false, true, true, true)
+							self._Players:ChargeSlot(player, slot, 1, false, true, true, true)
 						end
 					end
 				else
@@ -104,53 +105,53 @@ local function OnTakeDamage(_,entity, dmg)
 					local chargeType = (itemConfig and itemConfig.ChargeType) or -1
 					
 					if chargeType == 1 then
-						Players:ChargeTimedSlot(player, slot, math.max(1, math.floor(dmg)), true)
+						self._Players:ChargeTimedSlot(player, slot, math.max(1, math.floor(dmg)), true)
 					end
 				end				
 			end	
 		end
 	end	
 end
-mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, OnTakeDamage)
+SuperB:AddCallback(ModCallbacks.MC_POST_ENTITY_TAKE_DMG, 'OnTakeDamage')
 
 --更新状态
-local function OnUpdate(_,player)
-	local data = Ents:GetTempData(player).SuperB
+function SuperB:OnUpdate(player)
+	local data = self._Ents:GetTempData(player).SuperB
 
 	if data then
-		if player:HasCollectible(IBS_Item.superb) then
-			if data.LaserTimeOut > 0 then
-				
+		if player:HasCollectible(self.ID) then
+			if data.LaserTimeout > 0 then
+
 				--爆炸
-				if (player.FrameCount / 60) % 2 == 0 then
-					if data.LaserTimeOut >= 1022 then
-						data.LaserTimeOut = data.LaserTimeOut - 999
-						
+				if player:IsFrame(30,0) then
+					if data.LaserTimeout >= 999 then
+						data.LaserTimeout = math.max(10, data.LaserTimeout - 666)
+
 						local smoke = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SMOKE_CLOUD, 0, player.Position, Vector.Zero, player):ToEffect()
-						local game = Game()
-						game:BombExplosionEffects(player.Position, 799, TearFlags.TEAR_BURN | TearFlags.TEAR_POISON, Color(0,1,0,1), player, 3, true, false, DamageFlag.DAMAGE_EXPLOSION | DamageFlag.DAMAGE_IGNORE_ARMOR)
+						game:BombExplosionEffects(player.Position, 466, TearFlags.TEAR_BURN | TearFlags.TEAR_POISON, Color(0,1,0,1), player, 3, true, false, DamageFlag.DAMAGE_EXPLOSION | DamageFlag.DAMAGE_IGNORE_ARMOR)
 						game:GetLevel():GetCurrentRoom():MamaMegaExplosion(player.Position)
 						
 						--正邪削弱(东方mod)
-						if mod:THI_WillSeijaNerf(player) then
-							player:TakeDamage(999, DamageFlag.DAMAGE_EXPLOSION, EntityRef(player), 0)
+						--炸死你
+						if mod.IBS_Compat.THI:SeijaNerf(player) then
+							player:TakeDamage(666, DamageFlag.DAMAGE_EXPLOSION, EntityRef(player), 0)
 						end
 					end
 				end
-			
-				data.LaserTimeOut = data.LaserTimeOut - 1
-				ChainReaction(player)
+
+				data.LaserTimeout = data.LaserTimeout - 1
+				self:ChainReaction(player)
 				
 				if data.LaserWait > 0 then
 					data.LaserWait = data.LaserWait - 1
 				else
-					data.LaserWait = math.random(3, math.max(5, 120 - math.floor(data.LaserTimeOut / 5)))
+					data.LaserWait = math.random(3, math.max(5, 120 - math.floor(data.LaserTimeout / 5)))
 					
-					for i = math.min(1, 1 + math.floor(data.LaserTimeOut / 60)),13 do 
+					for i = math.min(1, 1 + math.floor(data.LaserTimeout / 60)),13 do 
 						local laser = EntityLaser.ShootAngle(2, player.Position, RandomVector():GetAngleDegrees(), 2, Vector(0,-20), player)
 						laser:SetMaxDistance(player.TearRange / 3)
 						laser.LaserLength = 3
-						laser.CollisionDamage = math.max(2, player.Damage / 2)
+						laser.CollisionDamage = math.max(3.5, player.Damage)
 						laser:AddTearFlags(TearFlags.TEAR_SPECTRAL)
 						laser:AddTearFlags(TearFlags.TEAR_POISON)
 						laser:AddTearFlags(TearFlags.TEAR_SHIELDED)
@@ -161,8 +162,11 @@ local function OnUpdate(_,player)
 					
 			end	
 		else
-			Ents:GetTempData(player).SuperB = nil
+			self._Ents:GetTempData(player).SuperB = nil
 		end
 	end
 end
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, OnUpdate)
+SuperB:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, 'OnUpdate')
+
+
+return SuperB

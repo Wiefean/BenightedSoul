@@ -1,91 +1,87 @@
 --昧化犹大
 
 local mod = Isaac_BenightedSoul
-local IBS_Callback = mod.IBS_Callback
-local IBS_Challenge = mod.IBS_Challenge
-local IBS_Item = mod.IBS_Item
-local IBS_Trinket = mod.IBS_Trinket
-local IBS_Player = mod.IBS_Player
-local IBS_Sound = mod.IBS_Sound
-local Pools = mod.IBS_Lib.Pools
-local Stats = mod.IBS_Lib.Stats
-local Players = mod.IBS_Lib.Players
-local Ents = mod.IBS_Lib.Ents
+local IBS_CallbackID = mod.IBS_CallbackID
+local IBS_TrinketID = mod.IBS_TrinketID
+local CharacterLock = mod.IBS_Achiev.CharacterLock
 
---角色属性
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_,player, flag)
-	if player:GetPlayerType() == (IBS_Player.bjudas) then
-		if flag == CacheFlag.CACHE_SPEED then
-			Stats:Speed(player, 0.11)
-		end	
-		if flag == CacheFlag.CACHE_FIREDELAY then
-			Stats:TearsModifier(player, 0.6)
-		end	
-		if flag == CacheFlag.CACHE_DAMAGE then
-			Stats:Damage(player, -1.28)
-		end
-		if flag == CacheFlag.CACHE_RANGE then
-			Stats:Range(player, 0.16)
-		end
-		if flag == CacheFlag.CACHE_SHOTSPEED then
-			Stats:ShotSpeed(player, 0.11)
-		end	
-	end	
-end)
+local game = Game()
+local sfx = SFXManager()
+
+local BJudas = mod.IBS_Class.Character(mod.IBS_PlayerID.BJudas, {
+	SpritePath = 'gfx/ibs/characters/player_bjudas.anm2',
+	SpritePathFlight = 'gfx/ibs/characters/player_bjudas.anm2',
+	PocketActive = mod.IBS_ItemID.TGOJ,
+	TearsModifier = 0.6	
+})
+
 
 --初始化角色
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_,player)
-    if player:GetPlayerType() == (IBS_Player.bjudas) then
-        local game = Game()
-        if not (game:GetRoom():GetFrameCount() < 0 and game:GetFrameCount() > 0) then
-			player:AddEternalHearts(1)
-            player:SetPocketActiveItem((IBS_Item.tgoj), ActiveSlot.SLOT_POCKET, false)
-			
-			--混沌信仰
-			if (Isaac.GetChallenge() ~= IBS_Challenge.bc4) and IBS_Data.Setting["bc4"] then
-				player:AddTrinket(IBS_Trinket.chaoticbelief)	
-			end
-        end
-    end
-end)
+function BJudas:OnPlayerInit(player)
+	--混沌信仰
+	if player:GetPlayerType() == self.ID and self:GetIBSData('persis')['bc4'] then
+		player:AddTrinket(IBS_TrinketID.ChaoticBelief, false)
+	end
+end
+BJudas:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, 'OnPlayerInit', 0)
+
 
 --变身
-local function Henshin(_,player)
-	local canHenshin = false 
+function BJudas:Benighted(player, fromMenu)
+	local CAN = false 
 
 	--检测彼列书和三块钱
 	if player:GetNumCoins() >= 3 then
 		for slot = 0,1 do
 			if player:GetActiveItem(slot) == 34 then
 				player:RemoveCollectible(34, true, slot)
-				canHenshin = true
+				CAN = true
 				break
 			end	
 		end
-		if player:GetActiveItem(2) == 34 then canHenshin = true end
+		if player:GetActiveItem(2) == 34 then CAN = true end
 	end
 	
-	if canHenshin then
-		player:ChangePlayerType(IBS_Player.bjudas)
+	if CAN or fromMenu then
+		player:ChangePlayerType(self.ID)
 		player:AddCoins(-3)
-		player:AddBlackHearts(1)
-		player:AddEternalHearts(1)
+		player:AddBlackHearts(2)
 		player:AddMaxHearts(-2)
-		player:SetPocketActiveItem(IBS_Item.tgoj, ActiveSlot.SLOT_POCKET, false)
+		player:AddEternalHearts(1)
+		player:SetPocketActiveItem(self.Info.PocketActive, ActiveSlot.SLOT_POCKET, false)
+		player:SetMinDamageCooldown(76)
 		
 		--混沌信仰
-		if IBS_Data.Setting["bc4"] then
-			player:AddTrinket(IBS_Trinket.chaoticbelief)
+		if self:GetIBSData('persis')['bc4'] then
+			player:AddTrinket(IBS_TrinketID.ChaoticBelief, false)
+			game:AddDevilRoomDeal()
 		end
 		
 		--我释放恶魂
-		SFXManager():Play(266)
-		SFXManager():Play(468)
 		Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, player.Position, Vector.Zero, nil)
-		player:SetMinDamageCooldown(76)
 		for i = 1,7 do
 			Isaac.Spawn(1000, 189, 1, player.Position + 20*RandomVector(), Vector.Zero, player)
 		end
+		if not fromMenu then
+			sfx:Play(266)
+			sfx:Play(468)
+		end
 	end
 end
-mod:AddCallback(IBS_Callback.BENIGHTED_HENSHIN, Henshin, PlayerType.PLAYER_JUDAS)
+BJudas:AddCallback(mod.IBS_CallbackID.BENIGHTED, 'Benighted', PlayerType.PLAYER_JUDAS)
+
+--清除尿迹(十分生草)
+local function ClearPee(_,effect)
+	if game:GetRoom():GetFrameCount() > 0 then return end
+	for i = 0, game:GetNumPlayers() - 1 do
+		local player = Isaac.GetPlayer(i)
+		if player:GetPlayerType() == BJudas.ID then
+			if effect.Position:Distance(player.Position) <= 1 then
+				effect:Remove()
+			end
+		end
+	end
+end
+mod:AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, ClearPee, 7)
+
+return BJudas

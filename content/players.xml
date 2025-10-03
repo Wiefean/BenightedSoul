@@ -1,8 +1,12 @@
 <players root="gfx/ibs/characters/costumes/players/" nameimageroot="gfx/ibs/ui/portrait/" portraitroot="gfx/ibs/ui/portrait/" >
-	<player name="Benighted Isaac" birthright="Go up" skin="bisaac/bisaac.png" hp="0" armor="6" nameimage="bisaac_name.png" portrait="bisaac.png" skinColor="-1" costumeSuffix="bisaac" hidden="true" />
-	<player name="Benighted Magdalene" birthright="Iron up" skin="bmaggy/bmaggy.png" hp="0" armor="8" broken="4" nameimage="bmaggy_name.png" portrait="air.png" extraportrait="bmaggy.anm2" skinColor="5" costumeSuffix="bmaggy" hidden="true" />
-	<player name="Benighted Cain" birthright="Where you are?" skin="bcain/bcain.png" hp="4" nameimage="bcain_name.png" portrait="bcain.png" skinColor="-1" costumeSuffix="bcain" hidden="true" />
-	<player name="Benighted Abel" birthright="There you are" skin="babel/babel.png" armor="4" nameimage="babel_name.png" portrait="babel.png" skinColor="-1" costumeSuffix="babel" hidden="true" />
-	<player name="Benighted Judas" birthright="Kick back" skin="bjudas/bjudas.png" hp="0" black="1" nameimage="bjudas_name.png" portrait="bjudas.png" skinColor="-1" costumeSuffix="bjudas" hidden="true" />
-	
+	<player name="Benighted Isaac" modcostume="7250" birthright="Ascent" skin="bisaac/bisaac.png" hp="0" armor="6" nameimage="bisaac_name.png" portrait="bisaac.png" skinColor="-1" costumeSuffix="bisaac" nomarks="true" hidden="true" />
+	<player name="Benighted Magdalene" modcostume="7254" birthright="Iron up" skin="bmaggy/bmaggy.png" healthtype="1" hp="0" armor="4" broken="4" nameimage="bmaggy_name.png" portrait="bmaggy.png" noshake="true" skinColor="5" nomarks="true" costumeSuffix="bmaggy" hidden="true" speedmodifier="-0.3" />
+	<player name="Benighted Cain" modcostume="7255" birthright="Where you are?" skin="bcain/bcain.png" hp="4" nameimage="bcain_name.png" portrait="bcain.png" skinColor="-1" costumeSuffix="bcain" nomarks="true" hidden="true" rangemodifier="-1" luckmodifier="-1" />
+	<player name="Benighted Abel" modcostume="7256" birthright="There you are" skin="babel/babel.png" armor="4" nameimage="babel_name.png" portrait="babel.png" skinColor="-1" costumeSuffix="babel" nomarks="true" hidden="true" damagemodifier="-0.5" rangemodifier="2" shotspeedmodifier ="-0.15" luckmodifier="-2" />
+	<player name="Benighted Judas" modcostume="7257" birthright="Come back" skin="bjudas/bjudas.png" hp="0" black="2" eternalheart="1" nameimage="bjudas_name.png" portrait="bjudas.png" skinColor="-1" costumeSuffix="bjudas" nomarks="true" hidden="true" speedmodifier="0.11" damagemodifier="-1.28" rangemodifier="0.16" shotspeedmodifier ="0.11" />
+	<player name="Benighted ???" modcostume="7258" birthright="Irresistible" skin="bxxx/bxxx.png" healthtype="1" hp="0" armor="6" nameimage="bxxx_name.png" portrait="bxxx.png" skinColor="2" costumeSuffix="bluebaby" nomarks="true" hidden="true" />
+	<player name="Benighted Eden" modcostume="7259" birthright="Blasphemy" skin="beden/beden.png" hp="6" nameimage="beden_name.png" portrait="beden.png" skinColor="-1" costumeSuffix="beden" nomarks="true" hidden="true" />
+	<player name="Benighted Lost" modcostume="7260" birthright="Eternal Lock" skin="blost/blost.png" armor="1" healthtype="2" coins="1" nameimage="blost_name.png" portrait="blost.png" skinColor="0" nomarks="true" hidden="true" />
+	<player name="Benighted Keeper" modcostume="7261" birthright="Depends on you" skin="bkeeper/bkeeper.png" healthtype="3" hp="2" coins="70" nameimage="bkeeper_name.png" portrait="bkeeper.png" noshake="true" skinColor="5" costumeSuffix="keeper" nomarks="true" hidden="true" speedmodifier="-0.2" luckmodifier="-7" />
+
 </players>

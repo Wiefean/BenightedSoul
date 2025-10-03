@@ -1,8 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-	<name>Benighted Soul</name>
-	<directory>Benighted Soul</directory>
-	<description/>
-	<version>0.5.0</version>
-	<visibility/>
-</metadata>
+    <name>[RGON]Benighted Soul</name>
+    <directory>benighted soul</directory>
+    <id>3290493485</id>
+    <description>!!!ATTENTION!!!
+REPENTOGON is necessary
+https://steamcommunity.com/sharedfiles/filedetails/?id=3127536138
 
+- What's in it?
+· 8+1 characters with complete unlock-trees!
+· 100+ items!
+· 4+1 bosses!
+· 6 challenges!
+· 2 curses!
+· More rooms!
+· More poops!
+· More bugs!
+
+
+- What's in the future?
+· More characters!
+· More items!
+· More fancy stuff!
+· Infinite+1 Easter Eggs!
+· More poops!
+· More exhausting challenges!
+· More and more bugs!
+
+
+- No More Info?
+· None! (In fact, our wiki is unfinished)
+
+
+- MOD COMPATS:
+Sewing Machine
+Reverie
+
+
+
+Start cry!</description>
+    <version>0.10.2.3</version>
+    <visibility>Public</visibility>
+    <tag id="Lua"/>
+    <tag id="Items"/>
+    <tag id="Active Items"/>
+    <tag id="Trinkets"/>
+    <tag id="Cards"/>
+    <tag id="Player Characters"/>
+    <tag id="Familiars"/>
+    <tag id="Babies"/>
+    <tag id="Enemies"/>
+    <tag id="Bosses"/>
+    <tag id="Challenges"/>
+    <tag id="Tweaks"/>
+</metadata>

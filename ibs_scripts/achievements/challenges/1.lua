@@ -1,69 +1,37 @@
 --乾坤十掷挑战
 
 local mod = Isaac_BenightedSoul
-local IBS_Challenge = mod.IBS_Challenge
-local BigBooks = mod.IBS_Lib.BigBooks
 
-local LANG = Options.Language
+local game = Game()
 
+local BC1 = mod.IBS_Class.Challenge(1, {
+	PaperNames = {'bisaac_up'},
+	Destination = 'Foot'
+})
 
---播放成就纸张动画
-local function ShowPaper()
-	local paper = "bisaac_up"
-	
-	--检测语言
-	if LANG == "zh" then
-		paper = paper.."_zh"
-	end
-	
-	paper = paper..".png"	
-	BigBooks:PlayPaper(paper)
-end
-
---解锁条件
-local function IsUnlockable(bossLevel)
-	local Challenge = Isaac.GetChallenge() == IBS_Challenge.bc1
-	local bossRoom = Game():GetRoom():GetType() == RoomType.ROOM_BOSS
-	local level = Game():GetLevel():GetStage()
-
-	
-	--特定挑战
-	if Challenge then
-		if bossLevel then --Boss房和楼层判定
-			if bossRoom and level == bossLevel then
-				return true
-			end
-		else
-			return true
-		end	
-	end
-
-	return false
-end
 
 --10次以撒魂
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
-	if Isaac.GetChallenge() == (IBS_Challenge.bc1) then
+function BC1:RollTen()
+	if self:Challenging() and game:GetRoom():IsFirstVisit() then
 		for i = 1,10 do
 			Isaac.GetPlayer(0):UseCard(81, UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER | UseFlag.USE_MIMIC)
 		end
 					
 		--移除烟雾特效
-		local poof = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.POOF01)
-		for i = 1, #poof do
-			poof[i]:Remove()
-		end		
+		for _,poof in pairs(Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.POOF01)) do
+			poof:Remove()
+		end
 	end
-end)
+end
+BC1:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, 'RollTen')
 
 --完成
-mod:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE , function()
-	if IsUnlockable(6) then
-		if not IBS_Data.Setting["bc1"] then			
-			ShowPaper()
-		end
-		IBS_Data.Setting["bc1"] = true
-		mod:SaveIBSData()
+function BC1:TryFinish()
+	if self:IsUnfinished() and self:AtDestination() then
+		self:Finish(true, true)
 	end
-end, EntityType.ENTITY_MOM)
+end
+BC1:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, 'TryFinish', EntityType.ENTITY_MOM)
 
+
+return BC1

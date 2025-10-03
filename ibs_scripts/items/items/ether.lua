@@ -1,35 +1,37 @@
 --以太
 
 local mod = Isaac_BenightedSoul
-local IBS_Item = mod.IBS_Item
-local Ents = mod.IBS_Lib.Ents
+
+local game = Game()
+
+local Ether = mod.IBS_Class.Item(mod.IBS_ItemID.Ether)
 
 
 --获取数据
-local function GetEtherData(player)
-	local data = Ents:GetTempData(player)
+function Ether:GetData(player)
+	local data = self._Ents:GetTempData(player)
 	data.Ether = data.Ether or {
 		HurtTimes = 0,
-		LightTimeOut = 120,
+		LightTimeout = 120,
 		Flight = false
 	}
-	
+
 	return data.Ether
 end
 
 --圣光
-local function Light(_,player)
-	local data = Ents:GetTempData(player).Ether
+function Ether:OnPlayerUpdate(player)
+	local data = self._Ents:GetTempData(player).Ether
 
 	if data and (data.HurtTimes > 0) then
-		if data.LightTimeOut > 0 then
-			data.LightTimeOut = data.LightTimeOut - 1
+		if data.LightTimeout > 0 then
+			data.LightTimeout = data.LightTimeout - 1
 		else	
-			data.LightTimeOut = math.max(12, 240 - 30*(data.HurtTimes))
+			data.LightTimeout = math.max(12, 240 - 30*(data.HurtTimes))
 			for _,ent in pairs(Isaac.GetRoomEntities()) do
-				if ent:IsEnemy() and ent:IsVulnerableEnemy() and not ent:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then
+				if self._Ents:IsEnemy(ent) then
 					local dmg = math.max(7, 2*(player.Damage))
-					ent:TakeDamage(dmg ,DamageFlag.DAMAGE_IGNORE_ARMOR,EntityRef(player),0)
+					ent:TakeDamage(dmg ,DamageFlag.DAMAGE_IGNORE_ARMOR,EntityRef(player), 0)
 					
 					local light = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CRACK_THE_SKY, 0, ent.Position, Vector.Zero, player)
 					light:SetColor(Color(1, 1, 1, 1, 1, 0, 1),-1,0)				
@@ -38,34 +40,34 @@ local function Light(_,player)
 		end
 	end	
 end
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, Light)
+Ether:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, 'OnPlayerUpdate')
 
 --受伤
-local function OnHurt(_,ent)
+function Ether:OnTakeDMG(ent)
 	local player = ent:ToPlayer()
 
-	if player then
-		if player:HasCollectible(IBS_Item.ether) then
-			local data = GetEtherData(player)
-			data.HurtTimes = data.HurtTimes + 1
-			data.Flight = true
+	if player and player:HasCollectible(self.ID) then
+		local data = self:GetData(player)
+		data.HurtTimes = data.HurtTimes + 1
+		data.Flight = true
+	end
+end
+Ether:AddCallback(ModCallbacks.MC_POST_ENTITY_TAKE_DMG, 'OnTakeDMG')
+
+--飞行
+function Ether:OnEvaluateCache(player, flag)
+	if flag == CacheFlag.CACHE_FLYING then
+		local data = self._Ents:GetTempData(player).Ether
+		if data and data.Flight then
+			player.CanFly = true
 		end
 	end
 end
-mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, OnHurt)
-
---飞行
-local function Fly(_,player, flag)
-	local data = Ents:GetTempData(player).Ether
-	if data and (flag == CacheFlag.CACHE_FLYING) and data.Flight then
-		player.CanFly = true
-	end	
-end
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Fly)
+Ether:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, 'OnEvaluateCache')
 
 --翅膀装饰
-local function FlyCostume(_,player)
-	local data = Ents:GetTempData(player).Ether
+function Ether:ApplyFlyCostume(player)
+	local data = self._Ents:GetTempData(player).Ether
 	
 	if data and data.Flight then
 		local effect = player:GetEffects()
@@ -74,19 +76,23 @@ local function FlyCostume(_,player)
 		end	
 	end	
 end
-mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, FlyCostume)
+Ether:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, 'ApplyFlyCostume')
 
---重置房间临时数据
-local function Reset()
-	for i = 0, Game():GetNumPlayers() -1 do
-		local player = Isaac.GetPlayer(i)
-	
-		if Ents:GetTempData(player).Ether then
-			Ents:GetTempData(player).Ether = nil
-			player:AddCacheFlags(CacheFlag.CACHE_FLYING)
-			player:EvaluateItems()
-		end	
-	end
+--重置数据
+function Ether:Reset(player)
+	if self._Ents:GetTempData(player).Ether then
+		self._Ents:GetTempData(player).Ether = nil
+		player:AddCacheFlags(CacheFlag.CACHE_FLYING, true)
+	end	
 end
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, Reset)
 
+--新房间重置数据
+function Ether:OnNewRoom()
+	for i = 0, game:GetNumPlayers() - 1 do
+		self:Reset(Isaac.GetPlayer(i))
+	end	
+end
+Ether:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, 'OnNewRoom')
+
+
+return Ether
