@@ -158,6 +158,7 @@ mod.IBS_Item = {
 	DeciduousMeat = Load('deciduous_meat'),
 	CurseSyringe = Load('curse_syringe'),
 	AstroVera = Load('astro_vera'),
+	CurseoftheFool = Load('curse_of_the_fool'),
 
 }
 

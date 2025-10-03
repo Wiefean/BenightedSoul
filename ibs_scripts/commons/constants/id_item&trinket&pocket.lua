@@ -154,6 +154,7 @@ PageantFather = Isaac.GetItemIdByName("Pageant Father"),
 DeciduousMeat = Isaac.GetItemIdByName("Deciduous Meat"),
 CurseSyringe = Isaac.GetItemIdByName("Curse Syringe"),
 AstroVera = Isaac.GetItemIdByName("Astro Vera"),
+CurseoftheFool = Isaac.GetItemIdByName("Curse of the Fool"),
 
 }
 

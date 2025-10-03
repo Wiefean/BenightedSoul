@@ -324,6 +324,7 @@
 		<Item Name="Reused Story" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Pageant Father" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Astro Vera" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Curse of the Fool" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		
 	</Pool>
 
@@ -383,6 +384,7 @@
 		<Item Name="Hexa Vessel" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Deciduous Meat" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Curse Syringe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Curse of the Fool" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		
 	</Pool>
 	
@@ -467,7 +469,8 @@
 		<Item Name="Light Barrier" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Holy Injection" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
-	</Pool>
+	</Pool>
+
 	<Pool Name="greedAngel">
 		<Item Name="The Light D6" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="The Waster" Weight="1" DecreaseBy="1" RemoveOn="0.1" />

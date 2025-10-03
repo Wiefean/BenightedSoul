@@ -1,0 +1,120 @@
+-- 愚者之诅咒
+
+local mod = Isaac_BenightedSoul
+
+local CurseoftheFool = mod.IBS_Class.Item(mod.IBS_ItemID.CurseoftheFool)
+
+-- 道具变量
+CurseoftheFool.MaxTimes = 11
+CurseoftheFool.ShowTimeout = 90
+CurseoftheFool.UsedCards = {
+    Card.CARD_FOOL,
+    Card.CARD_REVERSE_FOOL,
+}
+
+-- 获取数据
+function CurseoftheFool:GetPData(player)
+    local data = self._Players:GetData(player, false)
+    data.CurseoftheFool = data.CurseoftheFool or {
+        HurtTimes = 0,
+        Timeout = 0,
+    }
+    return data.CurseoftheFool
+end
+
+-- 获取显示剩余次数时间
+do
+    function CurseoftheFool:GetShowTimeout(player)
+        local data = CurseoftheFool:GetPData(player)
+        return data.Timeout or 0
+    end
+
+    function CurseoftheFool:SetShowTimeout(player, value)
+        local data = CurseoftheFool:GetPData(player)
+        data.Timeout = (value or CurseoftheFool.ShowTimeout)
+    end
+
+    function CurseoftheFool:AddShowTimeout(player, value)
+        local timeout = CurseoftheFool:GetShowTimeout(player)
+        CurseoftheFool:SetShowTimeout(player, math.max(timeout + (value or -1), 0))
+    end
+end
+
+-- 受伤次数相关数据
+do
+    function CurseoftheFool:GetHurtTimes(player)
+        local data = CurseoftheFool:GetPData(player)
+        return data.HurtTimes or 0
+    end
+
+    function CurseoftheFool:SetHurtTimes(player, value)
+        local data = CurseoftheFool:GetPData(player)
+        data.HurtTimes = (value or 0)
+    end
+
+    function CurseoftheFool:AddHurtTimes(player, value)
+        local hurtTimes = CurseoftheFool:GetHurtTimes(player)
+        CurseoftheFool:SetHurtTimes(player, hurtTimes + (value or 1))
+    end
+end
+
+function CurseoftheFool:SpawnDiceShard(player, num)
+    for i = 1, num do
+        local game = Game()
+        local room = game:GetRoom()
+        local position = room:FindFreePickupSpawnPosition(player.Position, 40, true, false)
+        local pickup = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_DICE_SHARD, position, Vector.Zero, player):ToPickup()
+    end
+end
+
+-- 忏悔龙的受伤后触发回调，避免受伤被取消后依旧增加计数
+function CurseoftheFool:PostEntityTakeDamage(entity, amount, flag, source, countdownFrames)
+    local player = entity:ToPlayer()
+    if not player then return end
+    if player:HasCollectible(self.ID) then
+        CurseoftheFool:AddHurtTimes(player, 1)
+        CurseoftheFool:SetShowTimeout(player, CurseoftheFool.ShowTimeout)
+    end
+end
+CurseoftheFool:AddCallback(ModCallbacks.MC_POST_ENTITY_TAKE_DMG, 'PostEntityTakeDamage', EntityType.ENTITY_PLAYER)
+
+-- 玩家每帧检测计数是否大于等于11
+function CurseoftheFool:OnPlayerUpdate(player)
+	if not player:HasCollectible(self.ID) then return end
+    local hurtTimes = CurseoftheFool:GetHurtTimes(player)
+    if hurtTimes >= CurseoftheFool.MaxTimes then
+        CurseoftheFool:SetHurtTimes(player, hurtTimes - CurseoftheFool.MaxTimes)
+        for idx = 1, #CurseoftheFool.UsedCards do
+            local id = CurseoftheFool.UsedCards[idx]
+            player:UseCard(id, UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER | UseFlag.USE_MIMIC)
+        end
+        if mod.IBS_Compat.THI:SeijaBuff(player) then
+            -- 正邪兼容生成强化等级个骰子碎片
+            local seijaBLevel = mod.IBS_Compat.THI:GetSeijaBLevel(player)
+            CurseoftheFool:SpawnDiceShard(player, seijaBLevel)
+        end
+    end
+end
+CurseoftheFool:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, 'OnPlayerUpdate')
+
+-- 显示计数
+do
+    local font = Font()
+    font:Load("font/pftempestasevencondensed.fnt")
+
+    function CurseoftheFool:OnPlayerRender(player, offset)
+        if not player:HasCollectible(self.ID) then return end
+        local timeout = CurseoftheFool:GetShowTimeout(player)
+        if timeout <= 0 then return end
+        CurseoftheFool:AddShowTimeout(player, -1)
+        local alpha = math.min(timeout, 30) / 30
+        local screenpos = Isaac.WorldToScreen(player.Position)
+        local renderPos = screenpos + offset + Vector(-8, -48)
+        local num = CurseoftheFool:GetHurtTimes(player)
+        local text = string.format("%d/%d", num, CurseoftheFool.MaxTimes)
+        font:DrawString(text, renderPos.X, renderPos.Y, KColor(1, 1, 1, alpha, 0, 0, 0), 0, true)
+    end
+    CurseoftheFool:AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, 'OnPlayerRender')
+end
+
+return CurseoftheFool

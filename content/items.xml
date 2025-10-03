@@ -150,6 +150,8 @@
 	<passive id="148" name="Deciduous Meat" description="HP up?" gfx="deciduous_meat.png" quality="1" craftquality="1" maxhearts="2" hearts="2" tags="nolostbr" />
 	<passive id="149" cache="damage" name="Curse Syringe" description="Curse = DMG" gfx="curse_syringe.png" quality="1" craftquality="1" tags="nolostbr syringe" />
 	<passive id="150" name="Astro Vera" description="Max HP up" gfx="astro_vera.png" quality="3" craftquality="3" hearts="20" soulhearts="20" tags="nolostbr nocantrip" />
+    <passive id="151" name="Curse of the Fool" gfx="curse_of_the_fool.png" description="Without Beginning and End" quality="0" craftquality="0" tags="offensive summonable"/>
+
 
 
 	<trinket name="Bottle Shard" description="He really did it" gfx="bottleshard.png" />

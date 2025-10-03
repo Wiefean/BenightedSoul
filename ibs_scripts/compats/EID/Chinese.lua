@@ -1441,6 +1441,19 @@ local itemEID={
 		 '#+ 10 {{SoulHeart}}魂心'
 },
 
+[IBS_ItemID.CurseoftheFool]={
+	name='愚者之诅咒',
+	info='累计受伤11次后，同时触发{{Card'..Card.CARD_FOOL..'}}愚者和{{Card'..Card.CARD_REVERSE_FOOL..'}}逆位愚者',
+	seijaBuff={
+		desc = '触发时生成1个{{Card'..Card.CARD_DICE_SHARD..'}}骰子碎片',
+		data = {
+			append = function(x) 
+				return (x > 1 and "#触发时额外生成"..(x-1).."{{Card"..Card.CARD_DICE_SHARD.."}}个骰子碎片") or ''
+			end
+		},
+	},
+},
+
 }
 --------------------------------------------------------
 --------------------------饰品--------------------------

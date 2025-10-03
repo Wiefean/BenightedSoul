@@ -780,6 +780,11 @@ Item = {
 		Desc='最大体力上升'
 	},
 
+	[IBS_ItemID.CurseoftheFool]={
+		Name='愚者之诅咒',
+		Desc='无终无始之旅'
+	},
+
 },
 
 --饰品

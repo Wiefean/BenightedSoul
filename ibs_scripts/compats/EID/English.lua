@@ -1406,6 +1406,11 @@ local itemEID={
 		 '#+ 10 {{SoulHeart}}Soul Hearts'
 },
 
+[IBS_ItemID.CurseoftheFool]={
+	name='Curse of the Fool',
+	info='When take damage 11 times, use {{Card'..Card.CARD_FOOL..'}}The Fool and {{Card'..Card.CARD_REVERSE_FOOL..'}}The Fool?'
+},
+
 }
 --------------------------------------------------------
 -------------------------Trinket------------------------
