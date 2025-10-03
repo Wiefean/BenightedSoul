@@ -7,10 +7,6 @@ local CurseoftheFool = mod.IBS_Class.Item(mod.IBS_ItemID.CurseoftheFool)
 -- 道具变量
 CurseoftheFool.MaxTimes = 11
 CurseoftheFool.ShowTimeout = 90
-CurseoftheFool.UsedCards = {
-    Card.CARD_FOOL,
-    Card.CARD_REVERSE_FOOL,
-}
 
 -- 获取数据
 function CurseoftheFool:GetPData(player)
@@ -72,8 +68,8 @@ function CurseoftheFool:PostEntityTakeDamage(entity, amount, flag, source, count
     local player = entity:ToPlayer()
     if not player then return end
     if player:HasCollectible(self.ID) then
-        CurseoftheFool:AddHurtTimes(player, 1)
-        CurseoftheFool:SetShowTimeout(player, CurseoftheFool.ShowTimeout)
+        self:AddHurtTimes(player, 1)
+        self:SetShowTimeout(player, self.ShowTimeout)
     end
 end
 CurseoftheFool:AddCallback(ModCallbacks.MC_POST_ENTITY_TAKE_DMG, 'PostEntityTakeDamage', EntityType.ENTITY_PLAYER)
@@ -81,17 +77,19 @@ CurseoftheFool:AddCallback(ModCallbacks.MC_POST_ENTITY_TAKE_DMG, 'PostEntityTake
 -- 玩家每帧检测计数是否大于等于11
 function CurseoftheFool:OnPlayerUpdate(player)
 	if not player:HasCollectible(self.ID) then return end
-    local hurtTimes = CurseoftheFool:GetHurtTimes(player)
-    if hurtTimes >= CurseoftheFool.MaxTimes then
-        CurseoftheFool:SetHurtTimes(player, hurtTimes - CurseoftheFool.MaxTimes)
-        for idx = 1, #CurseoftheFool.UsedCards do
-            local id = CurseoftheFool.UsedCards[idx]
-            player:UseCard(id, UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER | UseFlag.USE_MIMIC)
-        end
+    local hurtTimes = self:GetHurtTimes(player)
+    if hurtTimes >= self.MaxTimes then
+        self:SetHurtTimes(player, hurtTimes - self.MaxTimes)
+		player:UseCard(Card.CARD_REVERSE_FOOL, UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER | UseFlag.USE_MIMIC)
+		self:DelayFunction(function()
+			player:UseCard(Card.CARD_FOOL, UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER | UseFlag.USE_MIMIC)
+		end, 1)
         if mod.IBS_Compat.THI:SeijaBuff(player) then
             -- 正邪兼容生成强化等级个骰子碎片
             local seijaBLevel = mod.IBS_Compat.THI:GetSeijaBLevel(player)
-            CurseoftheFool:SpawnDiceShard(player, seijaBLevel)
+			if seijaBLevel > 0 then
+				self:SpawnDiceShard(player, seijaBLevel)
+			end
         end
     end
 end
@@ -104,14 +102,14 @@ do
 
     function CurseoftheFool:OnPlayerRender(player, offset)
         if not player:HasCollectible(self.ID) then return end
-        local timeout = CurseoftheFool:GetShowTimeout(player)
+        local timeout = self:GetShowTimeout(player)
         if timeout <= 0 then return end
-        CurseoftheFool:AddShowTimeout(player, -1)
+        self:AddShowTimeout(player, -1)
         local alpha = math.min(timeout, 30) / 30
         local screenpos = Isaac.WorldToScreen(player.Position)
         local renderPos = screenpos + offset + Vector(-8, -48)
-        local num = CurseoftheFool:GetHurtTimes(player)
-        local text = string.format("%d/%d", num, CurseoftheFool.MaxTimes)
+        local num = self:GetHurtTimes(player)
+        local text = string.format("%d/%d", num, self.MaxTimes)
         font:DrawString(text, renderPos.X, renderPos.Y, KColor(1, 1, 1, alpha, 0, 0, 0), 0, true)
     end
     CurseoftheFool:AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, 'OnPlayerRender')

@@ -1408,7 +1408,15 @@ local itemEID={
 
 [IBS_ItemID.CurseoftheFool]={
 	name='Curse of the Fool',
-	info='When take damage 11 times, use {{Card'..Card.CARD_FOOL..'}}The Fool and {{Card'..Card.CARD_REVERSE_FOOL..'}}The Fool?'
+	info='When take damage 11 times, use {{Card'..Card.CARD_REVERSE_FOOL..'}}The Fool? and {{Card'..Card.CARD_FOOL..'}}The Fool',
+	seijaBuff={
+		desc = 'Spawn {{Card'..Card.CARD_DICE_SHARD..'}}Dice Shard as bonus',
+		data = {
+			append = function(x) 
+				return (x > 1 and "#Spawn"..(x-1).."{{Card"..Card.CARD_DICE_SHARD.."}}Dice Shard as bonus") or ''
+			end
+		},
+	},	
 },
 
 }

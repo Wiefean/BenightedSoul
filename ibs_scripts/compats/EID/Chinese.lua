@@ -1443,7 +1443,7 @@ local itemEID={
 
 [IBS_ItemID.CurseoftheFool]={
 	name='愚者之诅咒',
-	info='累计受伤11次后，同时触发{{Card'..Card.CARD_FOOL..'}}愚者和{{Card'..Card.CARD_REVERSE_FOOL..'}}逆位愚者',
+	info='累计受伤11次后，触发{{Card'..Card.CARD_REVERSE_FOOL..'}}愚者？和{{Card'..Card.CARD_FOOL..'}}愚者',
 	seijaBuff={
 		desc = '触发时生成1个{{Card'..Card.CARD_DICE_SHARD..'}}骰子碎片',
 		data = {
