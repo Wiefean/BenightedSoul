@@ -155,6 +155,7 @@ DeciduousMeat = Isaac.GetItemIdByName("Deciduous Meat"),
 CurseSyringe = Isaac.GetItemIdByName("Curse Syringe"),
 AstroVera = Isaac.GetItemIdByName("Astro Vera"),
 CurseoftheFool = Isaac.GetItemIdByName("Curse of the Fool"),
+UnburntGod = Isaac.GetItemIdByName("Burning of Unburnt God"),
 
 }
 

@@ -159,6 +159,7 @@ mod.IBS_Item = {
 	CurseSyringe = Load('curse_syringe'),
 	AstroVera = Load('astro_vera'),
 	CurseoftheFool = Load('curse_of_the_fool'),
+	UnburntGod = Load('burning_of_unburnt_god'),
 
 }
 

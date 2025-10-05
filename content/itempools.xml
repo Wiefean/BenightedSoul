@@ -88,6 +88,7 @@
 		<Item Name="Zoth" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1"/>
 		<Item Name="Pageant Father" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1"/>
 		<Item Name="Astro Vera" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.01"/>
+		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -159,6 +160,7 @@
 		<Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Diecry" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Astro Vera" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.01"/>
+		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -203,6 +205,7 @@
 		<Item Name="Peace Pipe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Vein Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -253,6 +256,7 @@
 		<Item Name="Signature Move" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Vein Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 	
@@ -501,6 +505,7 @@
 		<Item Name="Book of Seen" Weight="1" DecreaseBy="0.1" RemoveOn="0.1" />
 		<Item Name="Yongle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Diecry" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</Pool>
 	

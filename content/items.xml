@@ -151,6 +151,7 @@
 	<passive id="149" cache="damage" name="Curse Syringe" description="Curse = DMG" gfx="curse_syringe.png" quality="1" craftquality="1" tags="nolostbr syringe" />
 	<passive id="150" name="Astro Vera" description="Max HP up" gfx="astro_vera.png" quality="3" craftquality="3" hearts="20" soulhearts="20" tags="nolostbr nocantrip" />
     <passive id="151" name="Curse of the Fool" gfx="curse_of_the_fool.png" description="Without Beginning and End" quality="0" craftquality="0" tags="offensive summonable"/>
+	<active id="152" name="Burning of Unburnt God" description="The Ritual of Blacksmith" gfx="burning_of_unburnt_god.png" maxcharges="3" quality="2" craftquality="2" tags="offensive book nocantrip" />
 
 
 

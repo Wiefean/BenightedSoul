@@ -785,6 +785,10 @@ Item = {
 		Desc='无终无始之旅'
 	},
 
+	[IBS_ItemID.UnburntGod]={
+		Name='焚烧不焚之神',
+		Desc='铁匠的仪式'
+	},
 },
 
 --饰品

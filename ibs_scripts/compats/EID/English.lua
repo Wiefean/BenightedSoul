@@ -1419,6 +1419,14 @@ local itemEID={
 	},	
 },
 
+[IBS_ItemID.UnburntGod]={
+	name='Burning of Unburnt God',
+	info='Smelt 1 random gold trinket to generate a no fire tear 2 health inner wisp'..
+		 '#When wisp of this item goes out, remove the last smelted trinket',
+	virtue='Double wisp health',
+	belial='Each gold trinket player have，{{Damage}}Damage+0.6',
+},
+
 }
 --------------------------------------------------------
 -------------------------Trinket------------------------

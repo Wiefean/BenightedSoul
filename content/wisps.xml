@@ -310,6 +310,9 @@
 	
 	<!-- diecry -->
 	<wisp id="144" layer="0" hp="1" flameColor="flame_blue" coreColor="core_blue" tearColor="default" fireDelay="7" coreGfx="isaac.png" />
+
+	<!-- diecry -->
+	<wisp id="152" layer="0" hp="2" canShoot="false" flameColor="flame_gold" coreColor="core_red" coreGfx="core_bright.png" />
 		
 	
 </wisps>
