@@ -157,6 +157,8 @@ AstroVera = Isaac.GetItemIdByName("Astro Vera"),
 SecretAgent = Isaac.GetItemIdByName("Secret Agent"),
 CurseoftheFool = Isaac.GetItemIdByName("Curse of the Fool"),
 UnburntGod = Isaac.GetItemIdByName("Burning of Unburnt God"),
+Memento = Isaac.GetItemIdByName("Memento"),
+PowerisMoney = Isaac.GetItemIdByName("Power = Money"),
 
 }
 

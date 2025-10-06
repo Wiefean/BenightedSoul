@@ -1472,6 +1472,15 @@ local itemEID={
 	belial='无特殊效果',
 },
 
+[IBS_ItemID.Memento]={
+	name='狻猊碎片',
+	info='{{Damage}} 攻击力不会低于7',
+},
+
+[IBS_ItemID.PowerisMoney]={
+	name='力量就是金钱',
+	info='{{Coin}} 拾取可能增加{{Damage}}伤害的道具后生成10随机{{Coin}}硬币',
+},
 
 }
 --------------------------------------------------------

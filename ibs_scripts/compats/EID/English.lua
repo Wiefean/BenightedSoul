@@ -1437,6 +1437,16 @@ local itemEID={
 	belial='No special effect',
 },
 
+[IBS_ItemID.Memento]={
+	name='Memento',
+	info='{{Damage}} Damage will not be lower than 7',
+},
+
+[IBS_ItemID.PowerisMoney]={
+	name='Power = Money',
+	info='{{Coin}} Picked possible impact on {{Damage}} Damage items spawn 10 {{Coin}} Coins',
+},
+
 }
 --------------------------------------------------------
 -------------------------Trinket------------------------

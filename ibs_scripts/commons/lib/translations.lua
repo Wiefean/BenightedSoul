@@ -796,6 +796,16 @@ Item = {
 		Desc='铁匠的仪式'
 	},
 
+	[IBS_ItemID.Memento]={
+		Name='狻猊碎片',
+		Desc='狻猊的残骸'
+	},
+
+	[IBS_ItemID.PowerisMoney]={
+		Name='力量就是金钱',
+		Desc='力量及利量'
+	},
+
 },
 
 --饰品
