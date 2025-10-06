@@ -16,6 +16,7 @@ local sfx = SFXManager()
 local config = Isaac.GetItemConfig()
 
 local BLost = mod.IBS_Class.Character(mod.IBS_PlayerID.BLost, {
+	BossIntroName = 'blost',
 	SpritePath = 'gfx/ibs/characters/player_blost.anm2',
 	SpritePathFlight = 'gfx/ibs/characters/player_blost.anm2',	
 	PocketActive = IBS_ItemID.ChestChest,

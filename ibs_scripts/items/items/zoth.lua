@@ -18,7 +18,9 @@ end
 --用于对照的白名单
 local WhiteList = {}
 for _,roomType in ipairs(Zoth.RoomList) do
-	WhiteList[roomType] = true
+	if roomType ~= 29 then
+		WhiteList[roomType] = true
+	end
 end
 
 --新房间触发

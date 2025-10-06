@@ -1308,7 +1308,7 @@ local itemEID={
 
 [IBS_ItemID.Yongle]={
 	name='永乐大典',
-	info='触发一些书主动道具的效果，那些道具的充能总和至少为20'..
+	info='触发一些书主动道具的效果，那些道具的充能总和至少达20'..
 		 '#每局序列固定',
 	virtue='生成对应魂火',
 	belial='无特殊效果',
@@ -1412,7 +1412,8 @@ local itemEID={
 
 [IBS_ItemID.Zoth]={
 	name='索斯星',
-	info='每层首次进入{{BossRoom}}头目房时，重置未探索过的特殊房间的房间类型'
+	info='每层首次进入{{BossRoom}}头目房时，重置未探索过的特殊房间的房间类型'..
+		 '#{{BossRoom}}头目房和{{UltraSecretRoom}}究极隐藏房不会被重置'
 },
 
 [IBS_ItemID.PageantFather]={
@@ -1441,6 +1442,15 @@ local itemEID={
 		 '#+ 10 {{SoulHeart}}魂心'
 },
 
+[IBS_ItemID.SecretAgent]={
+	name='秘密特工',
+	info='选择移除一个角色身上的道具'..
+		 '#再次使用将生成被移除的道具',
+	virtue='选择空位将记录{{Collectible33}}圣经',
+	belial='选择空位将记录{{Collectible51}}五芒星',
+	void='无效',
+},
+
 [IBS_ItemID.CurseoftheFool]={
 	name='愚者之诅咒',
 	info='累计受伤11次后，触发{{Card'..Card.CARD_REVERSE_FOOL..'}}愚者？和{{Card'..Card.CARD_FOOL..'}}愚者',
@@ -1456,11 +1466,12 @@ local itemEID={
 
 [IBS_ItemID.UnburntGod]={
 	name='焚烧不焚之神',
-	info='使用后：吞下1个随机的金饰品，生成1个不攻击的2生命内环魂火'..
-		 '#该道具魂火熄灭时，移除最后吞下的饰品',
-	virtue='魂火生命翻倍',
-	belial='角色每拥有1个金饰品，{{Damage}}攻击+0.6',
+	info='使用后，吞下随机金饰品，并生成1个不发射眼泪的魂火'..
+		 '#该魂火熄灭时，移除最后吞下的金饰品',
+	virtue='魂火血量翻倍',
+	belial='无特殊效果',
 },
+
 
 }
 --------------------------------------------------------

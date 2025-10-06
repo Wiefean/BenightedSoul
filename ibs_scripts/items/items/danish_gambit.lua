@@ -8,6 +8,14 @@ local sfx = SFXManager()
 
 local DanishGambit = mod.IBS_Class.Item(mod.IBS_ItemID.DanishGambit)
 
+--计算充能消耗
+function DanishGambit:GetDischarge(player)
+	local discharge = 4
+	if player:HasCollectible(116) then discharge = discharge - 1 end --9伏特
+	if discharge < 0 then discharge = 0 end
+	return discharge
+end
+
 --尝试使用
 function DanishGambit:OnTryUse(slot, player)
 	return 0
@@ -108,13 +116,13 @@ function DanishGambit:OnUse(item, rng, player, flags, slot)
 		local charges = self._Players:GetSlotCharges(player, slot, true, true)
 		
 		--充能不足时使用
-		if charges < 3 then
+		if charges < 4 then
 			local absorbed,currentCharges = self:AbsorbPickups(player, slot)
 			
 			--充能动画和音效
 			if absorbed then
 				game:GetHUD():FlashChargeBar(player, slot)
-				if currentCharges == 3 or currentCharges == 6 then
+				if currentCharges == 4 or currentCharges == 8 then
 					sfx:Play(SoundEffect.SOUND_BATTERYCHARGE)
 				else
 					sfx:Play(SoundEffect.SOUND_BEEP)
@@ -122,7 +130,7 @@ function DanishGambit:OnUse(item, rng, player, flags, slot)
 				return {ShowAnim = true, Discharge = false}
 			end	
 		else
-			if self._Players:DischargeSlot(player, slot, 3, true, false, true, true) then
+			if self._Players:DischargeSlot(player, slot, self:GetDischarge(player), true, false, true, true) then
 
 				--重置品质3及以下的道具为品质+1的随机道具,但不会超过3
 				for _,ent in ipairs(Isaac.FindByType(5,100)) do

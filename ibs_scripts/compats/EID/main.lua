@@ -937,7 +937,7 @@ for LANG,Table in pairs(IBS_EID) do
 	end	
 	
 	
-	do --成套收集
+	do --收集癖
 	
 		--套装列表(不包括成人和践踏套装)
 		local FormList = {
@@ -982,8 +982,8 @@ for LANG,Table in pairs(IBS_EID) do
 				en = '{{OhCrap}} When this transformation is done, heal an extra {{Heart}}Heart from destroying a poop'
 			},
 			[ItemConfig.TAG_BOOK] = {
-				zh = '{{Bookworm}} 使用书时获得(0.5 x 最大充能)秒无敌时间',
-				en = '{{Bookworm}} Provides (0.5 x max-charges) invincible time when using a book'
+				zh = '{{Bookworm}} 使用书时获得(0.5 x 最大充能 x 套件数量)秒的护盾',
+				en = '{{Bookworm}} Provides (0.5 x maxCharges x componentNum) shield when using a book'
 			},
 			[ItemConfig.TAG_SPIDER] = {
 				zh = '{{SpiderBaby}} 在新房间或新贪婪波次生成2只蓝蜘蛛',

@@ -8,6 +8,7 @@ local itemPool = game:GetItemPool()
 local itemConfig = Isaac.GetItemConfig()
 
 local UnburntGod = mod.IBS_Class.Item(mod.IBS_ItemID.UnburntGod)
+
 -- 饰品黑名单
 UnburntGod.TrinketBlackList = {
     -- M'
@@ -58,18 +59,6 @@ function UnburntGod:GetTrinket(rng)
     return trinket
 end
 
--- 检测一共有多少个来自该道具的魂火
-function UnburntGod:GetWispNum(player)
-    local num = 0
-    for _, entity in pairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.WISP, self.ID)) do
-        local familiar = entity:ToFamiliar()
-        if familiar and familiar.Player and GetPtrHash(familiar.Player) == GetPtrHash(player) then
-            num = num + 1
-        end
-    end
-    return num
-end
-
 -- 获取最晚获得的金饰品
 function UnburntGod:GetLatestGoldenTrinket(player)
     local history = player:GetHistory():GetCollectiblesHistory()
@@ -81,83 +70,73 @@ function UnburntGod:GetLatestGoldenTrinket(player)
     end
 end
 
--- 使用主动道具时
-function UnburntGod:UseItem(item, rng, player, flags, slot)
-    if self:GetWispNum(player) < 6 then
-        player:AddSmeltedTrinket(self:GetTrinket(rng) + 32768)
-    else
-        return {
-            ShowAnim = false,
-            Remove = false,
-            Discharge = false,
-        }
+-- 检测一共有多少个跟班
+local function GetFamiliarNum()
+    local num = 0
+    for _, entity in pairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR)) do
+        local familiar = entity:ToFamiliar()
+        if familiar then
+            num = num + 1
+        end
     end
-    -- 如果没有美德书则手动生成一个魂火
-    if not player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES) then
-        player:AddWisp(self.ID, player.Position, false, false)
-    end
-    if player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_BELIAL_PASSIVE) then
-        -- 一个邪门的不触发犹大长子权自动兼容的方法
-        self:DelayFunction(function()
-            player:AddCacheFlags(CacheFlag.CACHE_DAMAGE, true)
-        end, 1)
-        player:AddActiveCharge(-itemConfig:GetCollectible(self.ID).MaxCharges, slot, true, false, false)
-        return {
-            ShowAnim = true,
-            Remove = false,
-            Discharge = false,
-        }
-    else
-        return {
-            ShowAnim = true,
-            Remove = false,
-            Discharge = true,
-        }
-    end
+    return num
 end
-UnburntGod:AddCallback(ModCallbacks.MC_USE_ITEM, 'UseItem', UnburntGod.ID)
 
--- 强制调整魂火血量
-function UnburntGod:FamiliarInit(familiar)
-    if familiar.SubType ~= self.ID then return end
-    local player = familiar.Player
-    if not player then
-        player = game:GetNearestPlayer(familiar.Position)
+-- 使用主动道具时
+function UnburntGod:OnUseItem(item, rng, player, flags, slot)
+    if GetFamiliarNum() < 64 then
+        player:AddSmeltedTrinket(self:GetTrinket(rng) + 32768)
+
+		-- 如果没有美德书则手动生成一个魂火
+		if not self._Players:CanSpawnWisp(player, flags) then
+			player:AddWisp(self.ID, player.Position)
+		end	
     end
+	return true
+end
+UnburntGod:AddCallback(ModCallbacks.MC_USE_ITEM, 'OnUseItem', UnburntGod.ID)
+
+-- 魂火初始化
+function UnburntGod:OnFamiliarInit(familiar)
+    if familiar.SubType ~= self.ID then return end
+    local player = familiar.Player or Isaac.GetPlayer(0); if not player then return end
+	
+    familiar:AddToOrbit(0)
+	familiar.OrbitDistance = Vector(40,40)
+	familiar.OrbitSpeed = 0.1
+	
+	--美德书
     if player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES) then
-        familiar.HitPoints = 4
-    else
-        familiar.HitPoints = 2
+        familiar.MaxHitPoints = familiar.MaxHitPoints * 2
+        familiar.HitPoints = familiar.MaxHitPoints
     end
 end
-UnburntGod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, 'FamiliarInit', FamiliarVariant.WISP)
+UnburntGod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, 'OnFamiliarInit', FamiliarVariant.WISP)
+
+-- 魂火更新
+function UnburntGod:OnFamiliarUpdate(familiar)
+    if familiar.SubType ~= self.ID then return end
+    local player = familiar.Player or Isaac.GetPlayer(0); if not player then return end
+	
+	--手动环绕
+	familiar:AddToOrbit(0)
+	familiar.OrbitDistance = Vector(40,40)
+    familiar.OrbitSpeed = 0.1
+    familiar.Velocity = (familiar:GetOrbitPosition(player.Position) - familiar.Position)	
+end
+UnburntGod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, 'OnFamiliarUpdate', FamiliarVariant.WISP)
 
 -- 该道具的火熄灭时移除最晚获得的金饰品
 function UnburntGod:PostEntityKill(entity)
     if not entity then return end
-    local familiar = entity:ToFamiliar()
-    if not familiar then return end
-    if familiar.SubType ~= self.ID then return end
-    local player = familiar.Player
-    if not player then return end
+    local familiar = entity:ToFamiliar(); if not familiar then return end
+    if familiar.Variant ~= FamiliarVariant.WISP or familiar.SubType ~= self.ID then return end
+    local player = familiar.Player; if not player then return end
     local trinket = self:GetLatestGoldenTrinket(player)
     if trinket then
         player:TryRemoveSmeltedTrinket(trinket)
     end
-    if player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_BELIAL_PASSIVE) then
-        self:DelayFunction(function()
-            player:AddCacheFlags(CacheFlag.CACHE_DAMAGE, true)
-        end, 1)
-    end
 end
 UnburntGod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, 'PostEntityKill', EntityType.ENTITY_FAMILIAR)
-
---当玩家有犹大长子权时更新玩家的属性数值
-function UnburntGod:EvaluateCache(player, flag)
-    if not player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_BELIAL_PASSIVE) then return end
-    local DamageUp = self:GetWispNum(player) * 0.6
-    Stats:Damage(player, DamageUp)
-end
-UnburntGod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, 'EvaluateCache', CacheFlag.CACHE_DAMAGE)
 
 return UnburntGod

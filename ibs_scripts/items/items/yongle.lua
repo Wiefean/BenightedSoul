@@ -42,7 +42,7 @@ function Yongle:GetBooks(seed)
 	for id = 1, config:GetCollectibles().Size do
 		if not self.BlackList[id] then
 			local itemConfig = config:GetCollectible(id)
-			if itemConfig and itemConfig:IsAvailable() and itemConfig:HasTags(ItemConfig.TAG_BOOK) and not itemConfig:HasTags(ItemConfig.TAG_QUEST) then
+			if itemConfig and itemConfig:IsAvailable() and itemConfig.Type == 3 and itemConfig:HasTags(ItemConfig.TAG_BOOK) and not itemConfig:HasTags(ItemConfig.TAG_QUEST) then
 				--充能不为0,且类型为常规充能
 				if itemConfig.MaxCharges > 0 and itemConfig.ChargeType == ItemConfig.CHARGE_NORMAL then
 					table.insert(cache, {ID = id, Charge = itemConfig.MaxCharges})
@@ -80,6 +80,11 @@ function Yongle:OnUse(item, rng, player)
 	--触发效果
 	for _,id in ipairs(self:GetBooks()) do
 		player:UseActiveItem(id, UseFlag.USE_NOANIM | UseFlag.USE_ALLOWWISPSPAWN | UseFlag.USE_VOID)
+		
+		--美德书魂火
+		if player:HasCollectible(584) then		
+			player:AddWisp(id, player.Position, true)
+		end		
 	end
 
 	return true

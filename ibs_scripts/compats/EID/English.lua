@@ -1377,7 +1377,8 @@ local itemEID={
 
 [IBS_ItemID.Zoth]={
 	name='Zoth',
-	info='Every level, when entering the first {{BossRoom}}Boos Room, reroll room types of the unexplored special rooms'
+	info='Every level, when entering the first {{BossRoom}}Boos Room, reroll room types of the unexplored special rooms'..
+		  '#{{BossRoom}}Boss Room and {{UltraSecretRoom}}Ultra Secret Room can not be rerolled'
 },
 
 [IBS_ItemID.PageantFather]={
@@ -1406,6 +1407,15 @@ local itemEID={
 		 '#+ 10 {{SoulHeart}}Soul Hearts'
 },
 
+[IBS_ItemID.SecretAgent]={
+	name='Secret Agent',
+	info='Select an item from Isaac to remove'..
+		 '#Using again to spawn the removed item',
+	virtue='Selecting empty slot as {{Collectible34}}Bible',
+	belial='Selecting empty slot as {{Collectible51}}Pentagram',
+	void='No effect',
+},
+
 [IBS_ItemID.CurseoftheFool]={
 	name='Curse of the Fool',
 	info='When take damage 11 times, use {{Card'..Card.CARD_REVERSE_FOOL..'}}The Fool? and {{Card'..Card.CARD_FOOL..'}}The Fool',
@@ -1421,10 +1431,10 @@ local itemEID={
 
 [IBS_ItemID.UnburntGod]={
 	name='Burning of Unburnt God',
-	info='Smelt 1 random gold trinket to generate a no fire tear 2 health inner wisp'..
-		 '#When wisp of this item goes out, remove the last smelted trinket',
-	virtue='Double wisp health',
-	belial='Each gold trinket player have，{{Damage}}Damage+0.6',
+	info='When used, smelt a gold trinket and spawn a wisp that does not shoot'..
+		 '#If the wisp is killed, remove the last smelted golden trinket',
+	virtue='Double wisp Hp',
+	belial='No special effect',
 },
 
 }

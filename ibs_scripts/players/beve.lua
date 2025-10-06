@@ -1,4 +1,4 @@
---昧化抹大拉
+--昧化夏娃
 
 local mod = Isaac_BenightedSoul
 local IBS_CallbackID = mod.IBS_CallbackID
@@ -9,7 +9,7 @@ local ShockWave = mod.IBS_Effect.ShockWave
 local game = Game()
 local sfx = SFXManager()
 
-local BMaggy = mod.IBS_Class.Character(mod.IBS_PlayerID.BMaggy, {
+local BEve = mod.IBS_Class.Character(mod.IBS_PlayerID.BEve, {
 	BossIntroName = 'bmaggy',
 	PocketActive = mod.IBS_ItemID.GlowingHeart,
 })

@@ -6,6 +6,7 @@
 
 "info_tbl"可包含内容:
 {
+BossIntroName, --boss战角色名字贴图文件名称
 SpritePath, --动画路径
 SpritePathFlight, --飞行动画路径
 
@@ -31,7 +32,7 @@ local Character = mod.Class(Component, function(self, id, info_tbl)
 	self.Info = info_tbl or {}
 
 	--射速修正
-	function self:_OnEvaluateCache(player, flag)
+	function self:__OnEvaluateCache(player, flag)
 		if player:GetPlayerType() == (self.ID) then
 			if flag == CacheFlag.CACHE_FIREDELAY then
 				local tears = self.Info.TearsModifier
@@ -41,10 +42,10 @@ local Character = mod.Class(Component, function(self, id, info_tbl)
 			end
 		end	
 	end
-	self:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, '_OnEvaluateCache')
+	self:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, '__OnEvaluateCache')
 
 	--动画数据
-	function self:GetAnimData(player)
+	function self:__GetAnimData(player)
 		local data = self._Ents:GetTempData(player)
 
 		if not data.IBSPlayerAnim then
@@ -58,7 +59,7 @@ local Character = mod.Class(Component, function(self, id, info_tbl)
 	end
 
 	--角色初始化
-	function self:_OnPlayerInit(player)
+	function self:__OnPlayerInit(player)
 		if player:GetPlayerType() == self.ID then
 			local item = self.Info.PocketActive
 			if item and not (game:GetRoom():GetFrameCount() < 0 and game:GetFrameCount() > 0) then
@@ -66,10 +67,23 @@ local Character = mod.Class(Component, function(self, id, info_tbl)
 			end
 		end
 	end
-	self:AddPriorityCallback(ModCallbacks.MC_POST_PLAYER_INIT, 725, '_OnPlayerInit')
+	self:AddPriorityCallback(ModCallbacks.MC_POST_PLAYER_INIT, 725, '__OnPlayerInit')
+
+	--boss战名字翻译
+	function self:__OnBossIntro()
+		local spr = RoomTransition.GetVersusScreenSprite()
+		if spr and mod.Language == 'zh' and self.Info.BossIntroName then
+			local path = 'gfx/ibs/ui/portrait/'..(self.Info.BossIntroName)..'_name.png'
+			if path == spr:GetLayer(6):GetSpritesheetPath() then			
+				local newPath = 'gfx/ibs/ui/portrait/'..(self.Info.BossIntroName)..'_name_zh.png'
+				spr:ReplaceSpritesheet(6, newPath, true)
+			end
+		end
+	end
+	self:AddCallback(ModCallbacks.MC_POST_BOSS_INTRO_SHOW, '__OnBossIntro')
 
 	--更换角色动画文件
-	function self:ChangeSprite(player, anm2path)
+	function self:__ChangeSprite(player, anm2path)
 		local spr = player:GetSprite()
 		local animation = spr:GetAnimation()
 		local frame = spr:GetFrame()
@@ -81,12 +95,12 @@ local Character = mod.Class(Component, function(self, id, info_tbl)
 	end
 
 	--更新贴图
-	function self:UpdatePlayerSprite(player)
+	function self:__UpdatePlayerSprite(player)
 		if player:IsCoopGhost() then return end
 		local playerType = player:GetPlayerType()
 		
 		if playerType == self.ID then
-			local data = self:GetAnimData(player)
+			local data = self:__GetAnimData(player)
 			local sprPath = self.Info.SpritePath
 			local sprPathFlight = self.Info.SpritePathFlight
 
@@ -109,7 +123,7 @@ local Character = mod.Class(Component, function(self, id, info_tbl)
 			
 				if data.SpriteState ~= sprState then
 					data.SpriteState = sprState
-					self:ChangeSprite(player, path)
+					self:__ChangeSprite(player, path)
 				end	
 			end
 		else
@@ -120,12 +134,9 @@ local Character = mod.Class(Component, function(self, id, info_tbl)
 			end
 		end
 	end
-	self:AddPriorityCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, -725, 'UpdatePlayerSprite', 0)
+	self:AddPriorityCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, -725, '__UpdatePlayerSprite', 0)
 
 end, { {expectedType = 'number'}, {expectedType = 'table', allowNil = true} })
-
-
-
 
 
 return Character

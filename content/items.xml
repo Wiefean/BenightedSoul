@@ -132,7 +132,7 @@
 	<passive id="130" cache="damage" name="Fusion Hammer" description="Power of never-let-go" gfx="fusion_hammer.png" quality="2" craftquality="2" tags="offensive" />
 	<passive id="131" cache="damage" name="Sangen Summoning" description="Damage resistance + unknown potential" gfx="sangen_summoning.png" quality="2" craftquality="2" tags="offensive" />
 	<active id="132" name="Peace Pipe" description="Cleanse your mind" gfx="peace_pipe.png" quality="3" craftquality="1" tags="offensive nocantrip nochallenge" customtags="nometronome" />
-	<active id="133" name="Yongle" description="Big document literature" gfx="yongle.png" maxcharges="12" quality="3" craftquality="3" tags="offensive book" />
+	<active id="133" name="Yongle" description="Big document literature" gfx="yongle.png" maxcharges="8" quality="3" craftquality="3" tags="offensive book" />
 	<passive id="134" name="Hexa Vessel" description="Rekindle" gfx="hexa_vessel.png" quality="3" craftquality="3" tags="offensive summonable dead" />
 	<passive id="135" cache="damage" name="Flex" description="DMG up" gfx="flex.png" quality="3" craftquality="3" tags="offensive summonable mom" />
 	<passive id="136" cache="damage" name="Signature Move" description="Be more offensive is to be less" gfx="signature_move.png" quality="4" craftquality="4" tags="offensive" />
@@ -150,8 +150,10 @@
 	<passive id="148" name="Deciduous Meat" description="HP up?" gfx="deciduous_meat.png" quality="1" craftquality="1" maxhearts="2" hearts="2" tags="nolostbr" />
 	<passive id="149" cache="damage" name="Curse Syringe" description="Curse = DMG" gfx="curse_syringe.png" quality="1" craftquality="1" tags="nolostbr syringe" />
 	<passive id="150" name="Astro Vera" description="Max HP up" gfx="astro_vera.png" quality="3" craftquality="3" hearts="20" soulhearts="20" tags="nolostbr nocantrip" />
-    <passive id="151" name="Curse of the Fool" gfx="curse_of_the_fool.png" description="Without Beginning and End" quality="0" craftquality="0" tags="offensive summonable"/>
-	<active id="152" name="Burning of Unburnt God" description="The Ritual of Blacksmith" gfx="burning_of_unburnt_god.png" maxcharges="3" quality="2" craftquality="2" tags="offensive book nocantrip" />
+	<active id="151" name="Secret Agent" description="Leave and come back" gfx="secret_agent.png" maxcharges="3" quality="2" craftquality="2" tags="offensive nocantrip" customtags="nometronome" />
+    <passive id="152" name="Curse of the Fool" gfx="curse_of_the_fool.png" description="Without beginning and end" quality="0" craftquality="0" tags="offensive nogreed nocantrip" customtags="nometronome"/>
+	<active id="153" name="Burning of Unburnt God" description="The Ritual of Blacksmith" gfx="burning_of_unburnt_god.png" maxcharges="3" quality="2" craftquality="2" tags="offensive book nocantrip" customtags="nometronome" />
+
 
 
 

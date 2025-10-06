@@ -88,6 +88,8 @@
 		<Item Name="Zoth" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1"/>
 		<Item Name="Pageant Father" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1"/>
 		<Item Name="Astro Vera" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.01"/>
+		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Curse of the Fool" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
@@ -160,6 +162,7 @@
 		<Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Diecry" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Astro Vera" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.01"/>
+		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
@@ -205,7 +208,7 @@
 		<Item Name="Peace Pipe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Vein Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		
 	</Pool>
 	
@@ -256,6 +259,7 @@
 		<Item Name="Signature Move" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Vein Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
@@ -328,7 +332,7 @@
 		<Item Name="Reused Story" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Pageant Father" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Astro Vera" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
-		<Item Name="Curse of the Fool" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		
 	</Pool>
 
@@ -543,6 +547,7 @@
 		<Item Name="Fusion Hammer" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Sangen Summoning" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Vain Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 	
 	</Pool>
 
@@ -563,6 +568,7 @@
 		<Item Name="Ssstew" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="Multiply" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Red Hook" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Curse of the Fool" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 
 	</Pool>
 	

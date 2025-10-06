@@ -146,7 +146,7 @@ PeacePipe:AddCallback(mod.IBS_CallbackID.GREED_NEW_WAVE, 'Charge') --贪婪模�
 
 --使用
 function PeacePipe:OnUse(item, rng, player, flag, slot)
-	if (flag & UseFlag.USE_OWNED > 0) and (flag & UseFlag.USE_CARBATTERY <= 0) and (flag & UseFlag.USE_VOID <= 0) then
+	if (slot >= 0 and slot <= 2) and (flag & UseFlag.USE_OWNED > 0) and (flag & UseFlag.USE_CARBATTERY <= 0) and (flag & UseFlag.USE_VOID <= 0) then
 		local data = self:GetData(player)
 			
 		--正在握住则触发效果,否则尝试握住

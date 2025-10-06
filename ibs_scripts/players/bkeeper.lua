@@ -11,6 +11,7 @@ local game = Game()
 local sfx = SFXManager()
 
 local BKeeper = mod.IBS_Class.Character(mod.IBS_PlayerID.BKeeper, {
+	BossIntroName = 'bkeeper',
 	SpritePath = 'gfx/ibs/characters/player_bkeeper.anm2',
 	SpritePathFlight = 'gfx/ibs/characters/player_bkeeper.anm2',
 	PocketActive = mod.IBS_ItemID.AnotherKarma,

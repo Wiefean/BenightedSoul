@@ -86,7 +86,7 @@ function BookOfSeen:OnUse(item, rng, player, flag, slot)
 		
 		--美德书魂火
 		if player:HasCollectible(584) then		
-			player:AddWisp(id, player.Position)
+			player:AddWisp(id, player.Position, true)
 		end
 	end
 	

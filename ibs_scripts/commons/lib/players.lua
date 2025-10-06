@@ -79,6 +79,11 @@ function Players:GetDataOfAnotherForm(player)
 	return data[idx]
 end
 
+--使用主动是否能生成魂火
+function Players:CanSpawnWisp(player, useFlags)
+	return player:HasCollectible(584) and (useFlags & UseFlag.USE_NOANIM <= 0 or useFlags & UseFlag.USE_ALLOWWISPSPAWN > 0)
+end
+
 --添加护盾(调用影之书效果)
 function Players:AddShield(player, frames)
 	local effects = player:GetEffects()

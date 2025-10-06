@@ -12,11 +12,13 @@ local sfx = SFXManager()
 local BCBA = mod.IBS_Class.Component()
 
 BCBA.BCain = mod.IBS_Class.Character(IBS_PlayerID.BCain, {
+	BossIntroName = 'bcain',
 	SpritePath = 'gfx/ibs/characters/player_bcain.anm2',
 	SpritePathFlight = 'gfx/ibs/characters/player_bcain.anm2',
 	PocketActive = IBS_ItemID.PortableFarm,
 })
 BCBA.BAbel = mod.IBS_Class.Character(IBS_PlayerID.BAbel, {
+	BossIntroName = 'babel',
 	PocketActive = IBS_ItemID.Goatify,
 })
 

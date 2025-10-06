@@ -71,12 +71,12 @@ function Hoarding:OnUseItem(item, rng, player)
 				maxCharges = 1
 			end
 
-			--书套件给无敌时间
+			--书套件给护盾
 			if itemConfig:HasTags(ItemConfig.TAG_BOOK) then
 				local num = player:GetPlayerFormCounter(PlayerForm.PLAYERFORM_BOOK_WORM)
-				if num > 0 then
-					player = player:SetMinDamageCooldown(30*num*maxCharges + player:GetDamageCooldown())
-				end	
+				if num > 0 then				
+					self._Players:AddShield(player, 15*num*maxCharges)
+				end
 			end
 		end
 	end

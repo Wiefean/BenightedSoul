@@ -9,6 +9,7 @@ local game = Game()
 local sfx = SFXManager()
 
 local BJudas = mod.IBS_Class.Character(mod.IBS_PlayerID.BJudas, {
+	BossIntroName = 'bjudas',
 	SpritePath = 'gfx/ibs/characters/player_bjudas.anm2',
 	SpritePathFlight = 'gfx/ibs/characters/player_bjudas.anm2',
 	PocketActive = mod.IBS_ItemID.TGOJ,

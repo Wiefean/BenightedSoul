@@ -13,6 +13,7 @@ local sfx = SFXManager()
 local config = Isaac.GetItemConfig()
 
 local BEden = mod.IBS_Class.Character(mod.IBS_PlayerID.BEden, {
+	BossIntroName = 'beden',
 	PocketActive = IBS_ItemID.Defined,
 })
 

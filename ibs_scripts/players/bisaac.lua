@@ -9,6 +9,7 @@ local game = Game()
 local sfx = SFXManager()
 
 local BIsaac = mod.IBS_Class.Character(mod.IBS_PlayerID.BIsaac, {
+	BossIntroName = 'bisaac',
 	PocketActive = mod.IBS_ItemID.LightD6,
 })
 

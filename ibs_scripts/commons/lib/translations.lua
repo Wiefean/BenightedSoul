@@ -23,6 +23,7 @@ Player = {
 	[IBS_PlayerID.BAbel] = '亚伯',
 	[IBS_PlayerID.BJudas] = '犹大',
 	[IBS_PlayerID.BXXX] = '???',
+	[IBS_PlayerID.BEve] = '夏娃',
 	[IBS_PlayerID.BEden] = '伊甸',
 	[IBS_PlayerID.BLost] = '游魂',
 	[IBS_PlayerID.BKeeper] = '店主',
@@ -780,6 +781,11 @@ Item = {
 		Desc='最大体力上升'
 	},
 
+	[IBS_ItemID.SecretAgent]={
+		Name='秘密特工',
+		Desc='离开再归来'
+	},
+	
 	[IBS_ItemID.CurseoftheFool]={
 		Name='愚者之诅咒',
 		Desc='无终无始之旅'
@@ -789,6 +795,7 @@ Item = {
 		Name='焚烧不焚之神',
 		Desc='铁匠的仪式'
 	},
+
 },
 
 --饰品
