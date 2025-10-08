@@ -85,13 +85,11 @@
 		<Item Name="PUC" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Diecry" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Reused Story" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Zoth" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1"/>
 		<Item Name="Pageant Father" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1"/>
 		<Item Name="Astro Vera" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.01"/>
 		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Curse of the Fool" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Power = Money" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Memento" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
@@ -166,13 +164,11 @@
 		<Item Name="Astro Vera" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.01"/>
 		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Power = Money" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Memento" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
 	<Pool Name="planetarium">
-		<Item Name="Shooting Stars Gazer" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Fomalhaut" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Zoth" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 
@@ -213,7 +209,6 @@
 		<Item Name="Vein Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
-		<Item Name="Power = Money" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -266,12 +261,12 @@
 		<Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Power = Money" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="My Fruit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 	
 	<Pool Name="babyShop">
-		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.6" RemoveOn="0.01" />
+		<Item Name="Wisper" Weight="1" DecreaseBy="1" RemoveOn="0.01" />
 	
 	</Pool>
 	
@@ -399,6 +394,8 @@
 		<Item Name="Deciduous Meat" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Curse Syringe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Curse of the Fool" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="My Fault" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+
 		
 	</Pool>
 	
@@ -482,6 +479,7 @@
 		<Item Name="Wildering Mirror" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Light Barrier" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Holy Injection" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="My Fruit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 
@@ -505,6 +503,7 @@
 		<Item Name="AKEY-47" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Light Barrier" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Holy Injection" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="My Fruit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</Pool>
 
@@ -555,7 +554,7 @@
 		<Item Name="Sangen Summoning" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Vain Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
-		<Item Name="Power = Money" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="My Fault" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 	
 	</Pool>
 
@@ -577,6 +576,7 @@
 		<Item Name="Multiply" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Red Hook" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Curse of the Fool" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="My Fault" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 
 	</Pool>
 	
@@ -615,7 +615,6 @@
 		<Item Name="Multiply" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Retaliating C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Curse Syringe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Power = Money" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 	

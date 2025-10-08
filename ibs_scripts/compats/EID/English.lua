@@ -68,6 +68,11 @@ local playerEID = {
 	br="The maximum of orbs increases to 6"
 },
 
+[IBS_PlayerID.BEve] = {
+	name='Benighted Eve',
+	br='{{Collectible'..(IBS_ItemID.MyFruit)..'}} My Fruit\'s max-charge is fixed at 0 #{{Collectible'..(IBS_ItemID.MyFault)..'}} My Fault will be automatically triggered before taking penalt damage'
+},
+
 [IBS_PlayerID.BEden] = {
 	name="Benighted Eden",
 	info="Stats won't be affected by most effects",
@@ -1437,14 +1442,31 @@ local itemEID={
 	belial='No special effect',
 },
 
-[IBS_ItemID.Memento]={
-	name='Memento',
-	info='{{Damage}} Damage will not be lower than 7',
+[IBS_ItemID.MyFruit]={
+	name='My Fruit',
+	info='Charged by cleaning non-red rooms'..
+		 '#When used:'..
+		 '#Remove curses and gain a blessing'..
+		 '#Reveal and reset all rooms to red rooms, excepting some rooms'..
+		 '#+4 max-charge'..
+		 '#!!! Remove this item after 4 uses'..
+		 '#{{Blank}}(Tap '..EID.ButtonToIconMap[ButtonAction.ACTION_MAP]..' map key to view blessings)',
+	virtue='Middle wisps that do not shoot#The wisps can not be hurt when holding this item',
+	belial='No special effect',
+	void='!!! {{ColorYellow}}SINGLE USE{{CR}}',
 },
 
-[IBS_ItemID.PowerisMoney]={
-	name='Power = Money',
-	info='{{Coin}} Picked possible impact on {{Damage}} Damage items spawn 10 {{Coin}} Coins',
+[IBS_ItemID.MyFault]={
+	name='My Fault',
+	info='Become invincible for 0.5s'..
+		 '#Enemies around lose 3x Isaac\'s {{Damage}}dmg Hp, and gain bleeding for 10s',
+	virtue='Outer wisps that does not shoot and exist only one room',
+	belial='Invincible time increases to 1s',
+},
+
+[IBS_ItemID.Memento]={
+	name='Memento',
+	info='{{Damage}} Set min-dmg to 7',
 },
 
 }

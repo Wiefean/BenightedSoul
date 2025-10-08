@@ -39,6 +39,7 @@ Item = {
 		[IBS_PlayerID.BCain]='你在哪 ?',
 		[IBS_PlayerID.BAbel]='在你那',
 		[IBS_PlayerID.BXXX]='沉浸',
+		[IBS_PlayerID.BEve]='果已过',
 		[IBS_PlayerID.BEden]='氵卖神',
 		[IBS_PlayerID.BLost]='永恒心锁',
 		[IBS_PlayerID.BKeeper]='取决于你',
@@ -795,15 +796,20 @@ Item = {
 		Name='焚烧不焚之神',
 		Desc='铁匠的仪式'
 	},
-
-	[IBS_ItemID.Memento]={
-		Name='狻猊碎片',
-		Desc='狻猊的残骸'
+	
+	[IBS_ItemID.MyFruit]={
+		Name='我果',
+		Desc='自允之果'
+	},
+	
+	[IBS_ItemID.MyFault]={
+		Name='我过',
+		Desc='自允之过'
 	},
 
-	[IBS_ItemID.PowerisMoney]={
-		Name='力量就是金钱',
-		Desc='力量及利量'
+	[IBS_ItemID.Memento]={
+		Name='某纪念品',
+		Desc='某残骸'
 	},
 
 },

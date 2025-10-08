@@ -13,7 +13,7 @@ mod.NameStr = "愚昧"
 if mod.Language ~= "zh" then mod.Language = "en" mod.NameStr = mod.Name end
 
 --测试模式
-mod._Debug = true
+mod._Debug = false
 
 --忏悔龙检测
 if not REPENTOGON then

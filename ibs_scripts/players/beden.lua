@@ -2764,6 +2764,7 @@ function BEden:Hemokinesis(ent, dmg, flag, source)
 				end
 			end
 			
+			--特效
 			for subType = 3,4 do
 				local poof = Isaac.Spawn(1000,16, subType, player.Position, Vector.Zero, player)
 				poof.SpriteScale = Vector(scale, scale)

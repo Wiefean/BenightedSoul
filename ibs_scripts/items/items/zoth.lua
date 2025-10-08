@@ -25,6 +25,7 @@ end
 
 --新房间触发
 function Zoth:OnNewRoom()
+	if game:IsGreedMode() then return end
 	if self:GetIBSData("level").ZothTriggered then return end
 	if game:GetRoom():GetType() ~= RoomType.ROOM_BOSS then return end
 	if not PlayerManager.AnyoneHasCollectible(self.ID) then return end

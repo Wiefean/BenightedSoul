@@ -312,7 +312,13 @@
 	<wisp id="144" layer="0" hp="1" flameColor="flame_blue" coreColor="core_blue" tearColor="default" fireDelay="7" coreGfx="isaac.png" />
 
 	<!-- burning of unburnt god -->
-	<wisp id="153" layer="-1" hp="4" canShoot="false" flameColor="flame_gold" coreColor="core_red" coreGfx="core_bright.png" priority="10" />
+	<wisp id="153" layer="-1" hp="4" canShoot="false" flameColor="flame_gold" coreColor="core_red" coreGfx="core_bright.png" priority="5" />
+	
+	<!-- my fruit -->
+	<wisp id="154" layer="1" hp="1" canShoot="false" flameColor="flame_gold" coreColor="core_gold" coreGfx="core_bright.png" priority="3" />
+
+	<!-- my fault -->
+	<wisp id="155" layer="2" hp="2" canShoot="false" flameColor="flame_dark_red" coreColor="core_black" />
 			
 	
 </wisps>

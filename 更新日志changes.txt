@@ -2,13 +2,17 @@
 2025.10
 v0.10.4
 
+道具池调整
+
 新角色：昧化夏娃(未完成)
 
 新道具：
  愚者之诅咒
  秘密特工
  焚烧不焚之神
- 我的果
+ 我果
+ 我过
+ 某纪念品
 
 调整：
  <道具>
@@ -17,20 +21,23 @@ v0.10.4
  永乐大典：8充能
 
 
+Item pools adjustments
+
 New Character: Benighted Eve (Unfinished)
 
 New Items:
  Curse of the Fool
  Secret Agent
  Burning of Unburnt God
- The fruit of mine
+ My Fruit
+ My Fault
+ Memento
 	
 Adjustments:
  <Items>
  Hoarding: Shield for Book Worm instead of invincible time
  Zoth: Won't reroll Ultra Secret Room anymore
  Yongle: Charge 8
- 
 -----------------------------------
 2025.9
 v0.10.3

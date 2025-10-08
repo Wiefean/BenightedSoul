@@ -14,6 +14,23 @@ local game = Game()
 local config = Isaac.GetItemConfig()
 
 --------加载--------
+local AnotherPage = false --用于切换显示内容
+mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
+	for idx = 0,4 do
+		if Input.IsActionTriggered(ButtonAction.ACTION_MAP, idx) then
+			AnotherPage = not AnotherPage
+			break
+		end
+	end
+end)
+mod:AddCallback(ModCallbacks.MC_MAIN_MENU_RENDER, function()
+	for idx = 0,4 do
+		if Input.IsActionTriggered(ButtonAction.ACTION_MAP, idx) then
+			AnotherPage = not AnotherPage
+			break
+		end
+	end
+end)
 
 --添加图标
 --[[输入:
@@ -250,7 +267,6 @@ local function EID_ContentForGreed(name, content, T, V, LANG)
 end
 
 --东方模组兼容
-local THILoaded = false
 local SeijaBuffEID = {
 	['zh_cn'] = {},
 	['en_us'] = {},
@@ -278,8 +294,8 @@ local function EID_ContentForTHI(content, LANG)
 	end	
 end
 
-mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.EARLY, function()
-	if (not THILoaded) and mod.IBS_Compat.THI:IsEnabled() then
+mod:AddPriorityCallback(ModCallbacks.MC_POST_MODS_LOADED, CallbackPriority.EARLY, function()
+	if mod.IBS_Compat.THI:IsEnabled() then
 		local seija = THI.Players.Seija
 		
 		do --正邪增强的道具
@@ -1842,6 +1858,7 @@ for LANG,Table in pairs(IBS_EID) do
 		EID:addDescriptionModifier('ibsFacer'..'_'..LANG, condition, callback)
 	end
 	
+	
 	do --永乐大典
 	
 		--触发条件
@@ -1939,7 +1956,7 @@ for LANG,Table in pairs(IBS_EID) do
 			return desc
 		end
 		EID:addDescriptionModifier('ibsVainMiner'..'_'..LANG, condition, callback)
-	end		
+	end
 	
 	do --符文佩剑(东方模组)	
 	
@@ -1981,6 +1998,99 @@ for LANG,Table in pairs(IBS_EID) do
 			return desc
 		end
 		EID:addDescriptionModifier('ibsRuneSword'..'_'..LANG, condition, callback)	
+	end	
+	
+	do --我果祝福显示
+		
+		--祝福列表
+		local BlessList = {
+			{
+				name = {
+					zh = '预知祝福', 
+					en = 'Foreknown',
+				},
+				desc = {
+					zh = '清理房间后有50%概率生成正塔罗牌',
+					en = 'When a room is cleared, 50% chance to spawn a common tarot card',
+				},
+			},
+			{
+				name = {
+					zh = '光明祝福', 
+					en = 'Light',
+				},
+				desc = {
+					zh = '排斥敌人和敌弹',
+					en = 'Repel enemies and projectiles',
+				},
+			},
+			{
+				name = {
+					zh = '羽翼祝福', 
+					en = 'Wing',
+				},
+				desc = {
+					zh = '+ 0.3{{Speed}}移速，普通房间的门保持开启',
+					en = '+ 0.3 {{Speed}}spd, doors of normal rooms keep open',
+				},
+				noGreed = true,
+			},
+			{
+				name = {
+					zh = '丰收祝福', 
+					en = 'Harvest',
+				},
+				desc = {
+					zh = '清理房间后复制一个掉落物',
+					en = 'When a room is cleared, duplicate a pickup',
+				},
+			},
+		}		
+		
+		--触发条件
+		local function condition(desc)
+			local Type = desc.ObjType
+			local Variant = desc.ObjVariant
+			local SubType = desc.ObjSubType	
+		
+			--检查语言
+			local lang = EID:getLanguage()
+			if lang ~= 'zh_cn' then lang = 'en_us' end
+			if lang ~= LANG then
+				return false
+			end
+			
+			if (Type == 5) and (Variant == 100) and (SubType == IBS_ItemID.MyFruit) then
+				return AnotherPage
+			end
+				
+			return false
+		end
+
+		--修改描述
+		local function callback(desc)
+			if AnotherPage then
+				local newDesc = ''
+				local greed = game:IsGreedMode()
+				local colon = Translate('：', ': ', LANG)
+				local greedDisabled = Translate('({{GreedMode}}禁用)', '({{GreedMode}}DISABLED)', LANG)
+				
+				for _,bless in ipairs(BlessList) do
+					local N = mod:ChooseLanguageInTable(bless.name)
+					local D = ''
+					if (not bless.noGreed) or (not greed) then
+						D = mod:ChooseLanguageInTable(bless.desc)
+					else
+						D = greedDisabled
+					end
+					newDesc = newDesc..'#'..N..colon..D
+				end
+				
+ 				desc.Description = newDesc
+			end
+			return desc
+		end
+		EID:addDescriptionModifier('ibsVainMiner'..'_'..LANG, condition, callback)
 	end	
 	
 end

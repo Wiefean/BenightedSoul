@@ -72,6 +72,11 @@ local playerEID = {
 	br='伪忆球上限提升至6'
 },
 
+[IBS_PlayerID.BEve] = {
+	name='昧化夏娃',
+	br='{{Collectible'..(IBS_ItemID.MyFruit)..'}} 我果的最大充能固定为0#{{Collectible'..(IBS_ItemID.MyFault)..'}} 我过在即将受到惩罚性伤害时自动触发'
+},
+
 [IBS_PlayerID.BEden] = {
 	name='昧化伊甸',
 	info='属性不受大部分效果影响',
@@ -594,7 +599,7 @@ local itemEID={
 	info='令周围的敌人混乱、恐惧或石化'..
 		 '#赌博游戏爆炸'..
 		 '#{{ArcadeRoom}}赌博房内所有可互动实体爆炸',
-	virtue='不发射眼泪的中层单房间魂火#熄灭时，触发该道具的效果',
+	virtue='不发射眼泪的中环单房间魂火#熄灭时，触发该道具的效果',
 	belial='点燃敌人'
 },
 
@@ -1472,14 +1477,32 @@ local itemEID={
 	belial='无特殊效果',
 },
 
-[IBS_ItemID.Memento]={
-	name='狻猊碎片',
-	info='{{Damage}} 攻击力不会低于7',
+[IBS_ItemID.MyFruit]={
+	name='我果',
+	info='通过清理非红房间充能'..
+		 '#使用后：'..
+		 '#移除所有诅咒，并获得1个祝福'..
+		 '#揭示并重设所有房间为红房间，部分房间除外'..
+		 '#最大充能 + 4'..
+		 '#!!! 使用四次后移除该道具'..
+		 '#{{Blank}} (按下'..EID.ButtonToIconMap[ButtonAction.ACTION_MAP]..'地图键查看祝福效果)',
+	virtue='不发射眼泪的中环魂火#此魂火在持有该道具时不会受伤',
+	belial='无特殊效果',
+	void='!!! {{ColorYellow}}一次性{{CR}}',
+	player={[IBS_PlayerID.BEve]='{{Collectible'..(IBS_ItemID.MyFruit)..'}} 我果耗尽时，将变为{{Collectible'..(IBS_ItemID.MyFault)..'}}我过'}
 },
 
-[IBS_ItemID.PowerisMoney]={
-	name='力量就是金钱',
-	info='{{Coin}} 拾取可能增加{{Damage}}伤害的道具后生成10随机{{Coin}}硬币',
+[IBS_ItemID.MyFault]={
+	name='我过',
+	info='无敌0.5秒'..
+		 '#周围的敌人失去 {{Damage}}角色伤害x3 的生命，并获得10秒流血',
+	virtue='不发射眼泪的外环单房间魂火',
+	belial='无敌时间延长至1秒',
+},
+
+[IBS_ItemID.Memento]={
+	name='某纪念品',
+	info='{{Damage}} 伤害不会低于7',
 },
 
 }

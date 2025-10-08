@@ -153,9 +153,9 @@
 	<active id="151" name="Secret Agent" description="Leave and come back" gfx="secret_agent.png" maxcharges="3" quality="2" craftquality="2" tags="offensive nocantrip" customtags="nometronome" />
     <passive id="152" name="Curse of the Fool" gfx="curse_of_the_fool.png" description="Without beginning and end" quality="0" craftquality="0" tags="offensive nogreed nocantrip" customtags="nometronome"/>
 	<active id="153" name="Burning of Unburnt God" description="The Ritual of Blacksmith" gfx="burning_of_unburnt_god.png" maxcharges="3" quality="2" craftquality="2" tags="offensive book nocantrip" customtags="nometronome" />
-    <passive id="154" name="Memento" gfx="memento.png" description="Remnants of Suanni" quality="2" craftquality="2" tags="offensive nocantrip" customtags="nometronome"/>
-    <passive id="155" name="Power = Money" gfx="power_is_money.png" description="DMG = $$$" quality="1" craftquality="2" tags="offensive nocantrip" customtags="nometronome"/>
-
+	<active id="154" name="My Fruit" description="The permitted fruit" gfx="my_fruit.png" quality="3" craftquality="3" chargetype="special" maxcharges="12" initcharge="0" tags="offensive nocantrip" customtags="nometronome" />
+	<active id="155" name="My Fault" description="The permitted fault" gfx="my_fault.png" quality="2" craftquality="2" chargetype="timed" maxcharges="90" tags="offensive nocantrip" customtags="nometronome" />
+    <passive id="156" cache="damage" name="Memento" gfx="memento.png" description="Remnants of something" quality="2" craftquality="2" tags="offensive nocantrip" customtags="nometronome"/>
 
 
 

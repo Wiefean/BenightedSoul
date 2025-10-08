@@ -161,8 +161,10 @@ mod.IBS_Item = {
 	SecretAgent = Load('secret_agent'),
 	CurseoftheFool = Load('curse_of_the_fool'),
 	UnburntGod = Load('burning_of_unburnt_god'),
+	MyFruit = Load('my_fruit'),
+	MyFault = Load('my_fault'),
 	Memento = Load('memento'),
-	PowerisMoney = Load('power_is_money'),
+	PowerIsMoney = Load('power_is_money'),
 
 }
 

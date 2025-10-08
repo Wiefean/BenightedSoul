@@ -4,6 +4,9 @@ local mod = Isaac_BenightedSoul
 
 local CurseoftheFool = mod.IBS_Class.Item(mod.IBS_ItemID.CurseoftheFool)
 
+local game = Game()
+local config = Isaac.GetItemConfig()
+
 -- 道具变量
 CurseoftheFool.MaxTimes = 11
 CurseoftheFool.ShowTimeout = 90
@@ -95,6 +98,14 @@ function CurseoftheFool:OnPlayerUpdate(player)
 end
 CurseoftheFool:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, 'OnPlayerUpdate')
 
+
+--道具贴图
+local spr = Sprite('gfx/ibs/ui/items/any.anm2')
+local itemConfig = config:GetCollectible(CurseoftheFool.ID)
+spr:ReplaceSpritesheet(0, itemConfig.GfxFileName, true)
+spr:Play('Idle')
+spr.Scale = Vector(0.5,0.5)
+
 -- 显示计数
 do
     local font = Font()
@@ -104,12 +115,13 @@ do
         if not player:HasCollectible(self.ID) then return end
         local timeout = self:GetShowTimeout(player)
         if timeout <= 0 then return end
-        self:AddShowTimeout(player, -1)
+        if not game:IsPaused() then self:AddShowTimeout(player, -1) end
         local alpha = math.min(timeout, 30) / 30
-        local screenpos = Isaac.WorldToScreen(player.Position)
-        local renderPos = screenpos + offset + Vector(-8, -48)
+        local renderPos = self._Screens:GetEntityRenderPosition(player, offset + Vector(-8, -100+timeout))
         local num = self:GetHurtTimes(player)
         local text = string.format("%d/%d", num, self.MaxTimes)
+		spr.Color.A = alpha
+		spr:Render(Vector(renderPos.X-8, renderPos.Y+8))
         font:DrawString(text, renderPos.X, renderPos.Y, KColor(1, 1, 1, alpha, 0, 0, 0), 0, true)
     end
     CurseoftheFool:AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, 'OnPlayerRender')

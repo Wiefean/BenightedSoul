@@ -1,4 +1,9 @@
 <giantbook anm2root="gfx/ibs/ui/giantbook/">
 	<entry name="IBS_Paper" anm2="achievement.anm2" anim="Idle" />
 	<entry name="IBS_Envy" anm2="envy.anm2" anim="Idle" />
+	<entry name="IBS_MyFruit" anm2="giantbook.anm2" anim="Appear" gfx="my_fruit.png">
+		<layer name="poof" r="228" g="228" b="228" a="255" />
+		<layer name="bg" r="228" g="228" b="228" a="153" />
+		<layer name="poof2" r="225" g="225" b="225" a="128" />
+	</entry>	
 </giantbook>
