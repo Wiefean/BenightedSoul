@@ -103,8 +103,8 @@ function UnburntGod:OnFamiliarInit(familiar)
 	
     familiar:AddToOrbit(0)
 	familiar.OrbitDistance = Vector(40,40)
-	familiar.OrbitSpeed = 0.1
-	
+	familiar.OrbitSpeed = 0.05
+
 	--美德书
     if player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES) then
         familiar.MaxHitPoints = familiar.MaxHitPoints * 2
@@ -121,7 +121,15 @@ function UnburntGod:OnFamiliarUpdate(familiar)
 	--手动环绕
 	familiar:AddToOrbit(0)
 	familiar.OrbitDistance = Vector(40,40)
-    familiar.OrbitSpeed = 0.1
+    familiar.OrbitSpeed = 0.05
+
+    local wisps = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.WISP, self.ID)
+    for index, entity in pairs(wisps) do
+        if GetPtrHash(entity) == GetPtrHash(familiar) then
+            familiar.OrbitAngleOffset = (index - 1) * 2 * math.pi / #wisps
+        end
+    end
+
     familiar.Velocity = (familiar:GetOrbitPosition(player.Position) - familiar.Position)	
 end
 UnburntGod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, 'OnFamiliarUpdate', FamiliarVariant.WISP)
