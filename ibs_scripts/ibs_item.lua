@@ -164,7 +164,8 @@ mod.IBS_Item = {
 	MyFruit = Load('my_fruit'),
 	MyFault = Load('my_fault'),
 	Memento = Load('memento'),
-	PowerIsMoney = Load('power_is_money'),
+	RubbishBook = Load('rubbish_book'),
+	MawBank = Load('maw_bank'),
 
 }
 
@@ -211,6 +212,7 @@ mod.IBS_Trinket = {
 	WarHospital = Load('war_hospital'),
 	SporeCloud = Load('spore_cloud'),
 	ForScreenshot = Load('for_screenshot'),
+	TheLunatic = Load('the_lunatic'),
 		
 }
 

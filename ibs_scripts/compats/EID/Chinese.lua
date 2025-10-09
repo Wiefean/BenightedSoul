@@ -74,6 +74,9 @@ local playerEID = {
 
 [IBS_PlayerID.BEve] = {
 	name='昧化夏娃',
+	info='使用次要主动{{Collectible'..(IBS_ItemID.MyFruit)..'}}我果后，将其替换为{{Collectible'..(IBS_ItemID.MyFault)..'}}我过'..
+		 '#在新层换回{{Collectible'..(IBS_ItemID.MyFruit)..'}}我果，并继承使用次数'..
+		 '#!!! {{Collectible'..(IBS_ItemID.MyFruit)..'}}我果耗尽后不再换回',
 	br='{{Collectible'..(IBS_ItemID.MyFruit)..'}} 我果的最大充能固定为0#{{Collectible'..(IBS_ItemID.MyFault)..'}} 我过在即将受到惩罚性伤害时自动触发'
 },
 
@@ -375,7 +378,7 @@ local itemEID={
 	info='+ 3{{Bomb}}炸弹'..
 		 '#免疫来自角色炸弹的爆炸'..
 		 '#角色炸弹一触即发'..
-		 '#每房间限一次，角色炸弹第三次爆炸时，消灭房间内的所有非Boss敌人，Boss失去15%生命'
+		 '#切换房间刷新，角色炸弹前三次爆炸时，所有敌人失去12%当前血量；第三次爆炸还会消灭非头目敌人'
 },
 
 [IBS_ItemID.NeedleMushroom]={
@@ -1479,17 +1482,16 @@ local itemEID={
 
 [IBS_ItemID.MyFruit]={
 	name='我果',
-	info='通过清理非红房间充能'..
+	info='通清理非红房间充能'..
 		 '#使用后：'..
+		 '#本层暂停游戏计时'..
 		 '#移除所有诅咒，并获得1个祝福'..
 		 '#揭示并重设所有房间为红房间，部分房间除外'..
-		 '#最大充能 + 4'..
 		 '#!!! 使用四次后移除该道具'..
 		 '#{{Blank}} (按下'..EID.ButtonToIconMap[ButtonAction.ACTION_MAP]..'地图键查看祝福效果)',
 	virtue='不发射眼泪的中环魂火#此魂火在持有该道具时不会受伤',
 	belial='无特殊效果',
 	void='!!! {{ColorYellow}}一次性{{CR}}',
-	player={[IBS_PlayerID.BEve]='{{Collectible'..(IBS_ItemID.MyFruit)..'}} 我果耗尽时，将变为{{Collectible'..(IBS_ItemID.MyFault)..'}}我过'}
 },
 
 [IBS_ItemID.MyFault]={
@@ -1503,6 +1505,25 @@ local itemEID={
 [IBS_ItemID.Memento]={
 	name='某纪念品',
 	info='{{Damage}} 伤害不会低于7',
+},
+
+[IBS_ItemID.RubbishBook]={
+	name='惊天秘密',
+	info='如此这般这般如此',
+	virtue='无魂火',
+	belial='无效果',
+	seijaBuff={
+		desc = '+ %s{{Coin}}硬币',
+		data = {
+			args = function(x) return x end		
+		}
+	},
+},
+
+[IBS_ItemID.MawBank]={
+	name='巨口储蓄罐',
+	info='清理房间后，生成2个{{Coin}}硬币'..
+		 '#!!! 花费{{Coin}}硬币购买掉落物时，移除该道具',
 },
 
 }
@@ -1854,6 +1875,17 @@ local trinketEID={
 		append = {'角色死后将复活为{{Player23}}堕化该隐，但对堕化该隐无效'}
 	}
 },
+
+[IBS_TrinketID.TheLunatic]={
+	name='可悲的疯人',
+	info='新出现的道具有10%概率添加一个{{Collectible358}}蠢巫帽作为轮换'..
+		 '#对任务道具无效',
+	mult={
+		numberToMultiply = 10,
+		maxMultiplier = 3,
+	}
+},
+
 
 }
 --------------------------------------------------------

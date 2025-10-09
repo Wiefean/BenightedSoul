@@ -26,25 +26,29 @@ function DustyBomb:DustyExplosion(player, bomb)
 	local data = self:GetIBSData('room')
 	if not data.DustyExplosion then data.DustyExplosion = 0 end
 	data.DustyExplosion = data.DustyExplosion + 1
-	
-	--第三次爆炸消灭所有非Boss敌人,Boss失去15%血量
-	if data.DustyExplosion < 3 then
+	if data.DustyExplosion > 3 then return end
 		
-		--尘埃特效
-		if bomb then
-			local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF02, 1, bomb.Position, Vector.Zero, bomb):ToEffect()			
-			poof.Color = Color(1,1,1,0.5,1,1,1)
-			
-			sfx:Play(SoundEffect.SOUND_BLACK_POOF, 2, 2, false, 0.9)
-		end		
-	elseif data.DustyExplosion == 3 then
+	for _,ent in pairs(Isaac.GetRoomEntities()) do
+		if ent:IsEnemy() and not ent:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then
+			ent.HitPoints = ent.HitPoints - 0.12*ent.HitPoints
+			if ent.HitPoints <= 0 then
+				ent:Kill()
+			end
+
+			--尘埃特效
+			for subType = 1,2 do				
+				local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF02, subType, ent.Position, Vector.Zero, player):ToEffect()			
+				local size = ent.Size / 40
+				poof.SpriteScale = Vector(size,size)
+				poof.Color = Color(1,1,1,0.5,1,1,1)
+			end
+		end
+	end
+	
+	--第三次爆炸
+	if data.DustyExplosion == 3 then
 		for _,ent in pairs(Isaac.GetRoomEntities()) do
-			if ent:IsEnemy() and not ent:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then
-				if ent:IsBoss() then
-					ent:TakeDamage(0.15*(ent.MaxHitPoints), DamageFlag.DAMAGE_IGNORE_ARMOR, EntityRef(player), 0)
-				else
-					ent:Remove()
-				end
+			if ent:IsEnemy() and not ent:IsBoss() and not ent:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then
 
 				--尘埃特效
 				for subType = 1,2 do				
@@ -53,6 +57,8 @@ function DustyBomb:DustyExplosion(player, bomb)
 					poof.SpriteScale = Vector(size,size)
 					poof.Color = Color(1,1,1,0.5,1,1,1)
 				end
+
+				ent:Remove()
 			end
 		end
 		
@@ -66,6 +72,14 @@ function DustyBomb:DustyExplosion(player, bomb)
 		game:ShakeScreen(15)
 		sfx:Play(SoundEffect.SOUND_BLACK_POOF, 4, 2, false, 0.6)
 		sfx:Play(SoundEffect.SOUND_DEATH_CARD, 2, 2, false)
+	end		
+		
+	--尘埃特效
+	if bomb then
+		local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF02, 1, bomb.Position, Vector.Zero, bomb):ToEffect()			
+		poof.Color = Color(1,1,1,0.5,1,1,1)
+		
+		sfx:Play(SoundEffect.SOUND_BLACK_POOF, 2, 2, false, 0.9)
 	end
 end
 

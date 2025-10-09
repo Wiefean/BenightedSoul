@@ -44,5 +44,6 @@ function ClericFace:OnRoomCleaned()
 	end
 end
 ClericFace:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, 'OnRoomCleaned')
+ClericFace:AddCallback(mod.IBS_CallbackID.GREED_NEW_WAVE, 'OnRoomCleaned')
 
 return ClericFace

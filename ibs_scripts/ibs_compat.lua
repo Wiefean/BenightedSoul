@@ -3,6 +3,7 @@
 local mod = Isaac_BenightedSoul
 local IBS_ItemID = mod.IBS_ItemID
 local IBS_TrinketID = mod.IBS_TrinketID
+local IBS_PocketID = mod.IBS_PocketID
 local IBS_SlotID = mod.IBS_SlotID
 local Ents = mod.IBS_Lib.Ents
 local Pools = mod.IBS_Lib.Pools
@@ -17,6 +18,15 @@ local IBS_Compat = mod.IBS_Compat
 if tmmc then
 	--使者是否加速同普通乞丐设置
 	tmmc.enable[IBS_SlotID.Envoy.Variant] = tmmc.enable[4] or false
+end
+
+--GoodTrip
+if gt then
+
+--牺牲一些严谨性换来稳定性
+function gt:pre_secret_room()
+end
+
 end
 
 --东方幻想曲
@@ -231,6 +241,12 @@ mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.IMPO
 			
 			--注射型圣水<=>诅咒针剂
 			d:AddFixedPair(5,100,IBS_ItemID.HolyInjection, 5,100,IBS_ItemID.CurseSyringe)
+			
+			--禁断之果<=>夏娃的伪忆
+			d:AddFixedPair(5,100,IBS_ItemID.ForbiddenFruit, 5,300,IBS_PocketID.BEve)
+			
+			--我果<=>我过
+			d:AddFixedPair(5,100,IBS_ItemID.MyFruit, 5,100,IBS_ItemID.MyFault)
 		end
 
 		do --疾病道具

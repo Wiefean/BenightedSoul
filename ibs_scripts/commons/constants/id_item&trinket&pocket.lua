@@ -160,6 +160,8 @@ UnburntGod = Isaac.GetItemIdByName("Burning of Unburnt God"),
 MyFruit = Isaac.GetItemIdByName("My Fruit"),
 MyFault = Isaac.GetItemIdByName("My Fault"),
 Memento = Isaac.GetItemIdByName("Memento"),
+RubbishBook = Isaac.GetItemIdByName("DEEP MYSTERIES"),
+MawBank = Isaac.GetItemIdByName("Maw Bank"),
 
 
 }
@@ -203,6 +205,7 @@ BlackCharm = Isaac.GetTrinketIdByName("Black Charm"),
 WarHospital = Isaac.GetTrinketIdByName("War Hospital"),
 SporeCloud = Isaac.GetTrinketIdByName("Spore Cloud"),
 ForScreenshot = Isaac.GetTrinketIdByName("For Screenshot"),
+TheLunatic = Isaac.GetTrinketIdByName("The Lunatic"),
 
 }
 

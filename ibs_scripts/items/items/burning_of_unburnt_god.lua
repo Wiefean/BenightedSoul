@@ -11,8 +11,13 @@ local UnburntGod = mod.IBS_Class.Item(mod.IBS_ItemID.UnburntGod)
 
 -- 饰品黑名单
 UnburntGod.TrinketBlackList = {
-    -- M'
-    TrinketType.TRINKET_M,
+    TrinketType.TRINKET_CURSED_SKULL, --诅咒头骨
+    TrinketType.TRINKET_BUTT_PENNY, --屁股硬币
+    TrinketType.TRINKET_CROW_HEART, --乌鸦的心
+    TrinketType.TRINKET_TORN_CARD, --扑克牌残片
+    TrinketType.TRINKET_ROSARY_BEAD, --念珠段
+    TrinketType.TRINKET_M, --'M
+
     -- 蠕虫系列
     TrinketType.TRINKET_PULSE_WORM,
     TrinketType.TRINKET_WIGGLE_WORM,
@@ -103,7 +108,11 @@ function UnburntGod:OnFamiliarInit(familiar)
 	
     familiar:AddToOrbit(0)
 	familiar.OrbitDistance = Vector(40,40)
+<<<<<<< Updated upstream
 	familiar.OrbitSpeed = 0.1
+=======
+	familiar.OrbitSpeed = 0.05
+>>>>>>> Stashed changes
 	
 	--美德书
     if player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES) then
@@ -121,7 +130,19 @@ function UnburntGod:OnFamiliarUpdate(familiar)
 	--手动环绕
 	familiar:AddToOrbit(0)
 	familiar.OrbitDistance = Vector(40,40)
+<<<<<<< Updated upstream
     familiar.OrbitSpeed = 0.1
+=======
+    familiar.OrbitSpeed = 0.05
+	
+    local wisps = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.WISP, self.ID)
+    for index,entity in pairs(wisps) do
+        if GetPtrHash(entity) == GetPtrHash(familiar) then
+            familiar.OrbitAngleOffset = (index - 1) * 2 * math.pi / #wisps
+        end
+    end	
+	
+>>>>>>> Stashed changes
     familiar.Velocity = (familiar:GetOrbitPosition(player.Position) - familiar.Position)	
 end
 UnburntGod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, 'OnFamiliarUpdate', FamiliarVariant.WISP)

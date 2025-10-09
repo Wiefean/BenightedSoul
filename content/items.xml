@@ -27,7 +27,7 @@
 	<passive id="25" cache="speed firedelay luck" name="Circumcision" description="Speed down + tears and luck up" gfx="circumcision.png" shopprice="30" devilprice="2" quality="4" craftquality="4" tags="offensive summonable tearsup" />
 	<passive id="26" name="Cursed Heart" description="Curse up" gfx="cursedheart.png" quality="2" craftquality="2" tags="summonable nocantrip" customtags="nometronome" />
 	<active id="27" name="Re-death" description="Reroll goners...temporarily" gfx="redeath.png" quality="2" craftquality="2" tags="offensive nocantrip" customtags="nometronome" />
-	<passive id="28" name="Dusty Bombs" description="The third explosion..." gfx="dustybomb.png" bombs="3" quality="2" craftquality="2" tags="offensive nocantrip" />
+	<passive id="28" name="Dusty Bombs" description="Dust them" gfx="dustybomb.png" bombs="3" quality="2" craftquality="2" tags="offensive nocantrip" />
 	<passive id="29" cache="speed firedelay range" name="Needle Mushroom" description="See you tomorrow" gfx="nm.png" quality="1" craftquality="1" tags="offensive tearsup nocantrip mushroom poop" />
 	<passive id="30" name="Mini Horn" description="Limited edition" gfx="minihorn.png" quality="0" craftquality="0" tags="offensive summonable nolostbr" />
 	<passive id="31" cache="shotspeed" name="Wings of Apollyon" description="Shot speed up = All stats up" gfx="woa.png" quality="3" craftquality="3" tags="offensive summonable angel devil" />
@@ -153,9 +153,11 @@
 	<active id="151" name="Secret Agent" description="Leave and come back" gfx="secret_agent.png" maxcharges="3" quality="2" craftquality="2" tags="offensive nocantrip" customtags="nometronome" />
     <passive id="152" name="Curse of the Fool" gfx="curse_of_the_fool.png" description="Without beginning and end" quality="0" craftquality="0" tags="offensive nogreed nocantrip" customtags="nometronome"/>
 	<active id="153" name="Burning of Unburnt God" description="The Ritual of Blacksmith" gfx="burning_of_unburnt_god.png" maxcharges="3" quality="2" craftquality="2" tags="offensive book nocantrip" customtags="nometronome" />
-	<active id="154" name="My Fruit" description="The permitted fruit" gfx="my_fruit.png" quality="3" craftquality="3" chargetype="special" maxcharges="12" initcharge="0" tags="offensive nocantrip" customtags="nometronome" />
+	<active id="154" name="My Fruit" description="The permitted fruit" gfx="my_fruit.png" quality="3" craftquality="3" chargetype="special" maxcharges="8" initcharge="0" tags="offensive nocantrip" customtags="nometronome" />
 	<active id="155" name="My Fault" description="The permitted fault" gfx="my_fault.png" quality="2" craftquality="2" chargetype="timed" maxcharges="90" tags="offensive nocantrip" customtags="nometronome" />
-    <passive id="156" cache="damage" name="Memento" gfx="memento.png" description="Remnants of something" quality="2" craftquality="2" tags="offensive nocantrip" customtags="nometronome"/>
+    <passive id="156" cache="damage" name="Memento" gfx="memento.png" description="Remnants of something" quality="2" craftquality="2" tags="offensive summonable nocantrip" customtags="nometronome"/>
+	<active id="157" name="DEEP MYSTERIES" description="Something something DEEP MYSTERIES something" gfx="rubbish_book.png" quality="0" craftquality="0" tags="offensive book nocantrip" customtags="nometronome" />
+    <passive id="158" name="Maw Bank" gfx="maw_bank.png" description="So many coins, effective until next pay" quality="1" craftquality="1" tags="offensive nocantrip" customtags="nometronome"/>
 
 
 
@@ -196,5 +198,6 @@
 	<trinket name="War Hospital" description="Salvage" gfx="war_hospital.png" />
 	<trinket name="Spore Cloud" description="Fungal spreader" gfx="spore_cloud.png" />
 	<trinket name="For Screenshot" description="The Hoaxer" gfx="for_screenshot.png" customtags="hiddenrevive" />
+	<trinket name="The Lunatic" description="Eyes Down" gfx="the_lunatic.png" />
 
 </items>

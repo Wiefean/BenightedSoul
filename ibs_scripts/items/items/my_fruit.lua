@@ -22,14 +22,11 @@ MyFruit.BlessList = {
 --获取最大充能
 function MyFruit:GetMaxCharge(player, slot)
 	if player:GetActiveItem(slot) == self.ID then
-		
 		--昧化夏娃长子权
 		if player:GetPlayerType() == IBS_PlayerID.BEve and player:HasCollectible(619) then
 			return 0
 		end
-	
-		local varData = player:GetActiveItemDesc(slot).VarData
-		return math.min(12, varData*4)
+		return 8
 	end
 	return 0
 end
@@ -187,56 +184,62 @@ end
 function MyFruit:TriggerEffect(player, playSound, showGiant)
 	local level = game:GetLevel()
 	local seed = player:GetCollectibleRNG(self.ID):Next()
+	self:GetIBSData('level').MyFruitTriggered = true
 	
 	--移除诅咒并获得一个祝福
 	level:RemoveCurses(level:GetCurses())
 	self:EnableRandomBless(self._Levels:GetLevelUniqueSeed(), true, (showGiant and 1) or nil)
 	
-	--排除一些房间
-	local rooms = self._Levels:GetRooms(function(roomDesc)
-		if roomDesc.Data 
-			and (roomDesc.Data.Type ~= RoomType.ROOM_BOSS and roomDesc.Data.Type ~= RoomType.ROOM_GREED_EXIT)
-			--and roomDesc.SafeGridIndex ~= level:GetCurrentRoomIndex()
-			and (roomDesc.SafeGridIndex ~= level:GetStartingRoomIndex() or game:IsGreedMode())
-		then
-			return true
-		end
-		return false	
-	end)
+	--排除家层,检测主世界和镜世界
+	if level:GetStage() ~= 13 and (level:GetDimension() == 0 or level:GetDimension() == 1) then
+		--排除一些房间
+		local rooms = self._Levels:GetRooms(function(roomDesc)
+			roomDesc.DisplayFlags = 101
+			if roomDesc.Data 
+				and (not self._Levels:IsMirrorRoom(roomDesc.SafeGridIndex))
+				and (not self._Levels:IsMineShaftEntrance(roomDesc.SafeGridIndex))
+				and (roomDesc.Data.Type ~= RoomType.ROOM_BOSS and roomDesc.Data.Type ~= RoomType.ROOM_GREED_EXIT)
+				and (roomDesc.SafeGridIndex ~= level:GetStartingRoomIndex() or game:IsGreedMode())
+			then
+				return true
+			end
+			return false	
+		end)
 
-	for _,roomDesc in ipairs(rooms) do
-		local roomData = roomDesc.Data
-		if roomData then
-			local col,row = self._Levels:IndexToColRow(roomDesc.SafeGridIndex)
-			local entry = Isaac.LevelGeneratorEntry()
-			entry:SetAllowedDoors(roomData.Doors)
-			entry:SetColIdx(col)
-			entry:SetLineIdx(row)
-			
-			--缓存原来的门连接
-			local cachedDoors = {}
-			for doorSlot = 0,7 do
-				local gridIdx = roomDesc.Doors[doorSlot]
-				if gridIdx >= 0 then
-					cachedDoors[doorSlot] = gridIdx
+		for _,roomDesc in ipairs(rooms) do
+			local roomData = roomDesc.Data
+			if roomData then
+				local col,row = self._Levels:IndexToColRow(roomDesc.SafeGridIndex)
+				local entry = Isaac.LevelGeneratorEntry()
+				entry:SetAllowedDoors(roomData.Doors)
+				entry:SetColIdx(col)
+				entry:SetLineIdx(row)
+				
+				--缓存原来的门连接
+				local cachedDoors = {}
+				for doorSlot = 0,7 do
+					local gridIdx = roomDesc.Doors[doorSlot]
+					if gridIdx >= 0 then
+						cachedDoors[doorSlot] = gridIdx
+					end
+				end
+				
+				if level:PlaceRoom(entry, roomData, seed) then
+					local roomDesc2 = level:GetRoomByIdx(roomDesc.SafeGridIndex)
+					
+					--设为红房间并揭示位置
+					roomDesc2.Flags = roomDesc2.Flags | RoomDescriptor.FLAG_RED_ROOM
+					roomDesc2.DisplayFlags = 101
+					
+					--更新门连接
+					for doorSlot,gridIdx in pairs(cachedDoors) do
+						roomDesc2.Doors[doorSlot] = gridIdx
+					end
 				end
 			end
-			
-			if level:PlaceRoom(entry, roomData, seed) then
-				local roomDesc2 = level:GetRoomByIdx(roomDesc.SafeGridIndex)
-				
-				--设为红房间并揭示位置
-				roomDesc2.Flags = roomDesc2.Flags | RoomDescriptor.FLAG_RED_ROOM
-				roomDesc2.DisplayFlags = 101
-				
-				--更新门连接
-				for doorSlot,gridIdx in pairs(cachedDoors) do
-					roomDesc2.Doors[doorSlot] = gridIdx
-				end
-			end
-		end
-	end	
-	
+		end	
+	end
+
 	level:UpdateVisibility()
 	
 	--播放动画
@@ -257,22 +260,18 @@ function MyFruit:OnUse(item, rng, player, flags, slot)
 		self:TriggerEffect(player, true, true)
 		player:SetActiveVarData(varData+1, slot) --记录使用次数
 		
-		--使用达4次时时移除
-		if varData+1 >= 4 then
-		
-			--昧化夏娃
-			if player:GetPlayerType() == IBS_PlayerID.BEve then
-				if slot == 2 then
-					self:DelayFunction(function()					
-						player:SetPocketActiveItem(IBS_ItemID.MyFault, slot, false)
-					end, 0)
-				else
-					Isaac.Spawn(5, 100, IBS_ItemID.MyFault, player.Position + Vector(0,40), Vector.Zero, player)
-				end
+		--昧化夏娃
+		if slot == 2 and player:GetPlayerType() == IBS_PlayerID.BEve then
+			self:DelayFunction(function()					
+				player:SetPocketActiveItem(IBS_ItemID.MyFault, slot, false)
+				player:SetActiveVarData(varData+1, slot)
+			end, 0)
+		else	
+			--使用达4次时时移除
+			if varData+1 >= 4 then
+				return {ShowAnim = true, Remove = true}
 			end
-		
-			return {ShowAnim = true, Remove = true}
-		end
+		end		
 	else
 		self:TriggerEffect(player, true)
 		return {ShowAnim = true, Remove = true}
@@ -288,9 +287,17 @@ function MyFruit:OnGetMaxCharge(item, player, varData, maxCharge)
 	if player:GetPlayerType() == IBS_PlayerID.BEve and player:HasCollectible(619) then
 		return 0
 	end
-	return math.min(12, varData*4)
 end
 MyFruit:AddCallback(ModCallbacks.MC_PLAYER_GET_ACTIVE_MAX_CHARGE, 'OnGetMaxCharge', MyFruit.ID)
+
+--暂停游戏计时
+function MyFruit:OnUpdate()
+	if self:GetIBSData('level').MyFruitTriggered then
+		game.TimeCounter = math.max(30, game.TimeCounter - 1)	
+	end
+end
+MyFruit:AddCallback(ModCallbacks.MC_POST_UPDATE, 'OnUpdate')
+
 
 --魂火在角色持有道具时不会受伤
 function MyFruit:PreWispTakeDMG(ent)

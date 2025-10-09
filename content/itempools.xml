@@ -91,6 +91,8 @@
 		<Item Name="Curse of the Fool" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Memento" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="DEEP MYSTERIES" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Maw Bank" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -165,6 +167,8 @@
 		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Memento" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="DEEP MYSTERIES" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Maw Bank" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -209,6 +213,7 @@
 		<Item Name="Vein Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Maw Bank" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -262,6 +267,7 @@
 		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="My Fruit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Maw Bank" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 	
@@ -515,6 +521,7 @@
 		<Item Name="Yongle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Diecry" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="DEEP MYSTERIES" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</Pool>
 	
@@ -539,6 +546,7 @@
 		<Item Name="PUC" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Pageant Father" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Memento" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Maw Bank" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 

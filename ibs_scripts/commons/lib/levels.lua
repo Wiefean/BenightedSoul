@@ -33,12 +33,38 @@ function Levels:IsInBigRoom()
 	return (shape >= 8 and shape <= 12)
 end
 
+--是否为镜子房
+function Levels:IsMirrorRoom(roomIdx)
+	local level = game:GetLevel()
+	if level:HasMirrorDimension() then
+		local roomDesc = level:GetRoomByIdx(roomIdx)
+		local roomData = (roomDesc and roomDesc.Data) or nil
+		if roomData and roomData.Type == RoomType.ROOM_DEFAULT and roomData.Subtype == RoomSubType.DOWNPOUR_MIRROR then
+			return true
+		end
+	end
+	return false
+end
+
+--是否为矿坑逃亡入口
+function Levels:IsMineShaftEntrance(roomIdx)
+	local level = game:GetLevel()
+	if level:HasAbandonedMineshaft() then
+		local roomDesc = level:GetRoomByIdx(roomIdx)
+		local roomData = (roomDesc and roomDesc.Data) or nil
+		if roomData and roomData.Type == RoomType.ROOM_DEFAULT and roomData.Subtype == RoomSubType.MINES_MINESHAFT_ENTRANCE then
+			return true
+		end
+	end
+	return false
+end
+
 --是否在祸兽房间里
 function Levels:IsInBeastBattle()
-	local desc = game:GetLevel():GetCurrentRoomDesc()
-	local roomData = desc and desc.Data
+	local roomDesc = game:GetLevel():GetCurrentRoomDesc()
+	local roomData = (roomDesc and roomDesc.Data) or nil
 	
-	if roomData and roomData.Type == RoomType.ROOM_DUNGEON and roomData.Subtype == 4 then
+	if roomData and roomData.Type == RoomType.ROOM_DUNGEON and roomData.Subtype == RoomSubType.CRAWLSPACE_BEAST then
 		return true
 	end
 

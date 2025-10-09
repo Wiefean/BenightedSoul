@@ -70,6 +70,9 @@ local playerEID = {
 
 [IBS_PlayerID.BEve] = {
 	name='Benighted Eve',
+	info='Using pocket {{Collectible'..(IBS_ItemID.MyFruit)..'}}My Fruit at pocket turns it into {{Collectible'..(IBS_ItemID.MyFault)..'}}My Fault'..
+		 '#Return {{Collectible'..(IBS_ItemID.MyFruit)..'}}My Fruit with last used times in a new level'..
+		 '#!!! {{Collectible'..(IBS_ItemID.MyFruit)..'}}My Fruit can not be returned if exhausted',	
 	br='{{Collectible'..(IBS_ItemID.MyFruit)..'}} My Fruit\'s max-charge is fixed at 0 #{{Collectible'..(IBS_ItemID.MyFault)..'}} My Fault will be automatically triggered before taking penalt damage'
 },
 
@@ -373,7 +376,7 @@ local itemEID={
 	info="+ 3{{Bomb}}Bombs"..
 		 "#Grant immunity to explosion from Isaac's bombs"..
 		 "#Isaac's bombs explode immediately when touching an ennemy"..
-		 "#When Isaac's bombs explode for the third time in a room, destroy normal enemies while bosses lose 15% hp"
+		 "#In a room, when Isaac's bombs explode for the first three time, enemies lose 12% current Hp; The third one can even destroy non-boss enemies"
 },
 
 [IBS_ItemID.NeedleMushroom]={
@@ -1216,7 +1219,7 @@ local itemEID={
 		 '#{{RestockMachine}} Restock：Reroll items or restock'..
 		 '#{{CraneGame}} Crane: Destroy it, and spawn the shown item'..
 		 '#Else: Gain {{Card11}}Wheel of Fortune',
-	virtue='Inner wips that fire {{Collectible494}} laser tears',
+	virtue='Inner wisps that fire {{Collectible494}} laser tears',
 	belial='No special effect',
 },
 
@@ -1446,9 +1449,9 @@ local itemEID={
 	name='My Fruit',
 	info='Charged by cleaning non-red rooms'..
 		 '#When used:'..
+		 '#Pause the time counter this level'..
 		 '#Remove curses and gain a blessing'..
 		 '#Reveal and reset all rooms to red rooms, excepting some rooms'..
-		 '#+4 max-charge'..
 		 '#!!! Remove this item after 4 uses'..
 		 '#{{Blank}}(Tap '..EID.ButtonToIconMap[ButtonAction.ACTION_MAP]..' map key to view blessings)',
 	virtue='Middle wisps that do not shoot#The wisps can not be hurt when holding this item',
@@ -1467,6 +1470,35 @@ local itemEID={
 [IBS_ItemID.Memento]={
 	name='Memento',
 	info='{{Damage}} Set min-dmg to 7',
+},
+
+[IBS_ItemID.RubbishBook]={
+	name='DEEP MYSTERIES',
+	info='Something something DEEP MYSTERIES something',
+	virtue='No wisps',
+	belial='No effect',	
+	seijaBuff={
+		desc = '+ %s{{Coin}}Coin',
+		data = {
+			args = function(x) return x end		
+		}
+	},	
+},
+
+[IBS_ItemID.MawBank]={
+	name='Maw Bank',
+	info='When a room is cleared, spawn 2 {{Coin}}coins'..
+		 '#!!! Paying any {{Coin}}coin at pickups removes this item',
+},
+
+[IBS_TrinketID.TheLunatic]={
+	name='The Lunatic',
+	info='10% chance to add {{Collectible358}}The Wiz in cycle for new items'..
+		 '#No effect to quest items',
+	mult={
+		numberToMultiply = 10,
+		maxMultiplier = 3,
+	}
 },
 
 }

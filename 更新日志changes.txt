@@ -1,5 +1,39 @@
 -----------------------------------
 2025.10
+v0.10.5
+
+新道具：
+ 惊天秘密
+ 巨口储蓄罐
+ 
+新饰品：可悲的疯人
+
+调整：
+ <角色>
+ 昧化夏娃：
+  使用次要主动我果后替换为我过
+  在新层换回我果，并继承使用次数
+ <道具>
+ 尘埃炸弹：强化
+ 我果：8充能；使用后本层会暂停游戏计时器
+
+
+New Items: 
+ DEEP MYSTERIES
+ Maw Bank
+
+New Trinket: The Lunatic
+
+Adjustments:
+ <Character>
+ Benighted Eve:
+  Using pocket My Fruit turns it into My Fault
+  Return My Fruit with last used times in a new level
+ <Items>
+ Dusty Bombs: Boost
+ My Fruit: Charge 8; Charge condition changed；Pause time counter in the curret level when used
+-----------------------------------
+2025.10
 v0.10.4
 
 道具池调整

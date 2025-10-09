@@ -52,5 +52,9 @@
 	<sound name="冷静头脑">
 		<sample weight="1" path="chill_mind.wav" />
 	</sound>
+	
+	<sound name="惊天秘密">
+		<sample weight="1" path="rubbish_book.wav" />
+	</sound>
 
 </sounds>

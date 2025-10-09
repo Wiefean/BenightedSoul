@@ -19,5 +19,6 @@ KAKA = Isaac.GetSoundIdByName('kaka'),
 ThreeWishes = Isaac.GetSoundIdByName('三个愿望'),
 Dang = Isaac.GetSoundIdByName('铛'),
 ChillMind = Isaac.GetSoundIdByName('冷静头脑'),
+RubbishBook = Isaac.GetSoundIdByName('惊天秘密'),
 
 }

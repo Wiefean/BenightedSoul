@@ -181,7 +181,7 @@ Item = {
 	
 	[IBS_ItemID.DustyBomb]={
 		Name='尘埃炸弹',
-		Desc='第三次爆炸...'
+		Desc='化尘'
 	},
 	
 	[IBS_ItemID.NeedleMushroom]={
@@ -809,7 +809,17 @@ Item = {
 
 	[IBS_ItemID.Memento]={
 		Name='某纪念品',
-		Desc='某残骸'
+		Desc='某残骸'	
+	},
+	
+	[IBS_ItemID.RubbishBook]={
+		Name='惊天秘密',
+		Desc='如此这般这般如此'
+	},
+	
+	[IBS_ItemID.MawBank]={
+		Name='巨口储蓄罐',
+		Desc='好多好多钱，购物后失效'
 	},
 
 },
@@ -1000,7 +1010,11 @@ Trinket = {
 		Name='截图用具',
 		Desc='囤欺者'
 	},
-
+	
+	[IBS_TrinketID.TheLunatic]={
+		Name='可悲的疯人',
+		Desc='眼睛下降'
+	},
 
 },
 

@@ -320,5 +320,7 @@
 	<!-- my fault -->
 	<wisp id="155" layer="2" hp="2" canShoot="false" flameColor="flame_dark_red" coreColor="core_black" />
 			
+	<!-- rubbish book -->
+	<wisp id="157" count="0" />				
 	
 </wisps>
