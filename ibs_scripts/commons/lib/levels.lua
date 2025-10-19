@@ -71,19 +71,6 @@ function Levels:IsInBeastBattle()
 	return false
 end
 
---获取当前楼层类型(主要用于获取普通房间)
-function Levels:GetStbType(rng)
-	local id = Isaac:GetCurrentStageConfigId()
-
-	--虚空或家层改为随机(不包含支线)
-	if id == StbType.THE_VOID or id == StbType.HOME then
-		local rng = rng or RNG(self:GetRoomUniqueSeed())
-		return rng:RandomInt(1,17)
-	end
-
-	return id
-end
-
 --获取可用的房间门位置(主要用于生成红房间)
 function Levels:GetRoomDoorSlots(roomIdx)
 	local level = game:GetLevel()
@@ -194,16 +181,41 @@ function Levels:ColRowToIndex(col, row)
 end
 
 --是否为地图内的房间索引
-function Levels:IsRoomInMap(roomIdx)
-	return (roomIdx >= 0 and roomIdx <= 168)
+function Levels:IsRoomInMap(col, row)
+	return (col >= 0 and col <= 12) and (row >= 0 and row <= 12)
+end
+
+--获取当前楼层类型(主要用于获取普通房间)
+function Levels:GetStbType(rng)
+	local id = Isaac:GetCurrentStageConfigId()
+
+	--虚空或家层改为随机(不包含支线)
+	if id == StbType.THE_VOID or id == StbType.HOME then
+		local rng = rng or RNG(self:GetRoomUniqueSeed())
+		return rng:RandomInt(1,17)
+	end
+
+	return id
 end
 
 --创造房间数据
 function Levels:CreateRoomData(tbl)
+	local seed = tbl.Seed or game:GetLevel():GetDungeonPlacementSeed()
+	local stbType = tbl.StbType
+	
+	--自动修正
+	if not stbType and tbl.Type then
+		if tbl.Type == RoomType.ROOM_DEFAULT then		
+			stbType = self:GetStbType(RNG(seed))
+		else
+			stbType = StbType.SPECIAL_ROOMS
+		end
+	end
+
 	return RoomConfigHolder.GetRandomRoom(
-		tbl.Seed or game:GetLevel():GetDungeonPlacementSeed(),
+		seed,
 		tbl.ReduceWeight or true,
-		tbl.StbType or StbType.SPECIAL_ROOMS,
+		stbType,
 		tbl.Type,
 		tbl.Shape or RoomShape.ROOMSHAPE_1x1,
 		tbl.MinVariant or 0, 
@@ -214,6 +226,37 @@ function Levels:CreateRoomData(tbl)
 		tbl.SubType or -1,
 		tbl.Mode or -1
 	)
+end
+
+--重设房间
+--(允许的门位置与房间形状最好要与原来一致)
+function Levels:ResetRoom(roomDesc, newData, seed)
+	local col,row = self:IndexToColRow(roomDesc.GridIndex)
+	local entry = Isaac.LevelGeneratorEntry()
+	entry:SetAllowedDoors(roomDesc.AllowedDoors)
+	entry:SetColIdx(col)
+	entry:SetLineIdx(row)
+		
+	--缓存原来的门连接
+	local cachedDoors = {}
+	for doorSlot = 0,7 do
+		local gridIdx = roomDesc.Doors[doorSlot]
+		if gridIdx >= 0 then
+			cachedDoors[doorSlot] = gridIdx
+		end
+	end
+
+	local level = game:GetLevel()
+	if level:PlaceRoom(entry, newData, seed) then
+		local newDesc = level:GetRoomByIdx(roomDesc.SafeGridIndex)
+		if newDesc then		
+			--更新门连接
+			for doorSlot,gridIdx in pairs(cachedDoors) do
+				newDesc.Doors[doorSlot] = gridIdx
+			end
+			return newDesc
+		end
+	end
 end
 
 --将特殊房间类型翻译为控制台指令(用于goto指令)
@@ -286,98 +329,5 @@ function Levels:Reload()
 		Isaac.ExecuteCommand('stage '..stage)
 	end
 end
-
---对于不同形状的房间,可能的相邻房间编号修正对照表
-local RoomShapeToNeighborOffsets = {
-	[RoomShape.ROOMSHAPE_1x1] = {-1,-13,1,13},
-	[RoomShape.ROOMSHAPE_IH] = {-1,1},
-	[RoomShape.ROOMSHAPE_IV] = {-13,13},
-	[RoomShape.ROOMSHAPE_1x2] = {-1,-13,1,12,14,26},
-	[RoomShape.ROOMSHAPE_IIV] = {-13,26},
-	[RoomShape.ROOMSHAPE_2x1] = {-1,-13,-12,2,13,14},
-	[RoomShape.ROOMSHAPE_IIH] = {-1,2},
-	[RoomShape.ROOMSHAPE_2x2] = {-1,-13,-12,2,12,15,26,27},
-	[RoomShape.ROOMSHAPE_LTL] = {0,-12,2,12,15,26,27},
-	[RoomShape.ROOMSHAPE_LTR] = {-1,-13,1,12,15,26,27},
-	[RoomShape.ROOMSHAPE_LBL] = {-1,-13,-12,2,13,15,27},
-	[RoomShape.ROOMSHAPE_LBR] = {-1,-13,-12,2,12,14,26},
-}
-
---获取可能的相邻房间编号修正
-function Levels:GetRoomNeighborOffsets(roomShape, roomIdx)
-	local result = {}
-
-	if RoomShapeToNeighborOffsets[roomShape] then
-		for _,offset in ipairs(RoomShapeToNeighborOffsets[roomShape]) do
-			if self:IsRoomInMap(roomIdx + offset) then
-				table.insert(result, offset)
-			end
-		end
-	end
-
-	return result
-end
-
---获取可能的相邻房间编号
-function Levels:GetRoomNeighborIndexes(roomShape, roomIdx)
-	local result = {}
-
-	if RoomShapeToNeighborOffsets[roomShape] then
-		for _,offset in ipairs(RoomShapeToNeighborOffsets[roomShape]) do
-			if self:IsRoomInMap(roomIdx + offset) then
-				table.insert(result, roomIdx + offset)
-			end
-		end
-	end
-
-	return result
-end
-
-
---尝试扩展楼层
---[[
-会改变楼层布局,且存在一些不明的bug
-"count"表示尝试添加的房间数量,并不一定能全部添加上(成功率跟楼层尽头数量有关)
-
-只能在忏悔龙的"MC_POST_LEVEL_LAYOUT_GENERATED"回调使用
-参数"LevelGenerator"也只有那个回调提供
-
-mod:AddCallback(ModCallbacks.MC_POST_LEVEL_LAYOUT_GENERATED, function(_, LevelGenerator)
-	Levels:TryExpandLevel(LevelGenerator)
-end)
-
-对死寂层及以上使用很可能崩溃,干脆直接排除了
-]]
-function Levels:TryExpandLevel(LevelGenerator, seed, count)
-	if game:IsGreedMode() then return end --贪婪模式
-	local level = game:GetLevel(); if level:IsAscent() then return end --回溯线
-	local stage = level:GetStage(); if stage >= 9 then return end --死寂层及以上
-	seed = seed or self:GetLevelUniqueSeed(); if seed <= 0 then seed = 1 end
-	count = count or 1
-
-	local deadEnds = LevelGenerator:GetDeadEnds()
-	mod:ShuffleTable(deadEnds, seed) --根据种子为楼层尽头房间打乱排序
-
-	for _,roomSlot in ipairs(deadEnds) do
-		local roomIdx = self:ColRowToIndex(roomSlot:Column(), roomSlot:Row())
-		
-		--排除初始房间
-		if roomIdx ~= level:GetStartingRoomIndex() then			
-			for _,idx in ipairs(self:GetRoomNeighborIndexes(roomSlot:Shape(), roomIdx)) do		
-				local col,row = self:IndexToColRow(idx)
-				local success,mes = pcall(LevelGenerator.PlaceRoom, LevelGenerator, col, row, RoomShape.ROOMSHAPE_1x1, roomSlot)
-				if success then
-					count = count - 1
-					break
-				end
-			end
-			if count <= 0 then
-				break
-			end
-		end
-		
-	end
-end
-
 
 return Levels

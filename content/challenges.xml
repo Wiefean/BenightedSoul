@@ -34,6 +34,7 @@
 	<challenge name="BC3 Graze !" playertype="2" startingitems="260,403,416,517" endstage="6" difficulty="1"/>
 	<challenge name="BC4 Passover" playertype="3" canshoot='false' startingitems="20,567,641" endstage="11" megasatan="true" roomfilter="4,21" difficulty="1"/>
 	<challenge name="BC5 Dualcast" playertype="Benighted ???" canshoot='false' startingitems="8" endstage="11" altpath="true" difficulty="1"/>
+	<challenge name="BC6 Marsh Rooms" playertype="26" startingitems="45, 63, 75, 119, 119, 119, 219, 252, 356, 579, 619, 647, 671" endstage="8" secretpath="true" difficulty="1"/>
 	
 	<challenge name="BC10 Envery" playertype="0" endstage="10" altpath="true" difficulty="1"/>
 	<challenge name="BC11 Keys are Bomb" playertype="Benighted Lost" endstage="11" altpath="true" difficulty="1"/>

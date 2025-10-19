@@ -166,6 +166,8 @@ mod.IBS_Item = {
 	Memento = Load('memento'),
 	RubbishBook = Load('rubbish_book'),
 	MawBank = Load('maw_bank'),
+	FolkPrescription = Load('folk_prescription'),
+	WhiteQBall = Load('white_q_ball'),
 
 }
 

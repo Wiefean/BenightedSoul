@@ -108,11 +108,7 @@ function UnburntGod:OnFamiliarInit(familiar)
 	
     familiar:AddToOrbit(0)
 	familiar.OrbitDistance = Vector(40,40)
-<<<<<<< Updated upstream
-	familiar.OrbitSpeed = 0.1
-=======
 	familiar.OrbitSpeed = 0.05
->>>>>>> Stashed changes
 	
 	--美德书
     if player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES) then
@@ -130,9 +126,6 @@ function UnburntGod:OnFamiliarUpdate(familiar)
 	--手动环绕
 	familiar:AddToOrbit(0)
 	familiar.OrbitDistance = Vector(40,40)
-<<<<<<< Updated upstream
-    familiar.OrbitSpeed = 0.1
-=======
     familiar.OrbitSpeed = 0.05
 	
     local wisps = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.WISP, self.ID)
@@ -142,7 +135,6 @@ function UnburntGod:OnFamiliarUpdate(familiar)
         end
     end	
 	
->>>>>>> Stashed changes
     familiar.Velocity = (familiar:GetOrbitPosition(player.Position) - familiar.Position)	
 end
 UnburntGod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, 'OnFamiliarUpdate', FamiliarVariant.WISP)

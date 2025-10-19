@@ -69,7 +69,7 @@ function DanishGambit:AbsorbPickups(player, slot)
 	
 	for _,ent in ipairs(trinkets) do
 		local trinket = ent:ToPickup()
-		if trinket then
+		if trinket and trinket.Price == 0 then
 			local charge = (trinket.SubType > 32768 and 3) or 1 --金饰品提供3充能
 			self._Players:ChargeSlot(player, slot, charge, true, true)
 			currentCharges = currentCharges + charge		
@@ -87,7 +87,7 @@ function DanishGambit:AbsorbPickups(player, slot)
 	
 	for _,ent in ipairs(items) do
 		local item = ent:ToPickup()
-		if item then		
+		if item and item.Price == 0 then		
 			local itemConfig = config:GetCollectible(item.SubType)
 			if itemConfig and itemConfig.Quality < 2 then
 				local charge = (itemConfig.Quality == 1 and 2) or 1

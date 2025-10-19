@@ -72,14 +72,14 @@ end
 function SCP018:OnNewRoom()
 	for _,ent in ipairs(Isaac.FindByType(3, self.Variant, self.SubType)) do
 		self:ResetScale(ent)
-		ent.Velocity = 0.5*RandomVector()
+		ent.Velocity = RandomVector()
 	end
 end
 SCP018:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, 'OnNewRoom')
 
 --初始化
 function SCP018:OnFamiliarInit(familiar)
-	familiar.Velocity = 0.5*RandomVector()
+	familiar.Velocity = RandomVector()
 	familiar.GridCollisionClass = EntityCollisionClass.ENTCOLL_ALL
 	familiar.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_NOPITS
 	self:ResetScale(familiar)
@@ -161,8 +161,8 @@ function SCP018:OnFamiliarGridCollision(familiar, gridIdx, gridEnt)
 	familiar.Velocity = familiar.Velocity:Rotated(math.random(1,90))
 	
 	--限速
-	if familiar.Velocity:Length() > 180 then
-		familiar.Velocity = familiar.Velocity:Resized(180)
+	if familiar.Velocity:Length() > 240 then
+		familiar.Velocity = familiar.Velocity:Resized(240)
 	end
 end
 SCP018:AddCallback(ModCallbacks.MC_FAMILIAR_GRID_COLLISION, 'OnFamiliarGridCollision', SCP018.Variant)

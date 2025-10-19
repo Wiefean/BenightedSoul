@@ -1,5 +1,70 @@
 -----------------------------------
 2025.10
+v0.10.7
+
+新挑战：池沼魔谷
+
+新道具：灰白色母球
+
+调整：
+ <道具>
+ 银之钥：强化 
+ 施粥处：品质2 
+
+New Challenge: Marsh Rooms
+
+New Item: White Q Ball 
+
+Adjustments:
+ <Items>
+ The Silver Key: Boost
+ Alms: Quality 2
+-----------------------------------
+2025.10
+v0.10.6
+
+在菜单中加入难度配置项
+
+新道具：偏方
+
+调整：
+ <角色>
+ 昧化夏娃：能力更新；解锁树更新；现在需要解锁
+ <道具>
+ 蛆虫食谱：6充能 
+ 死亡回放：生成的掉落物更好
+ 018：起步速度增加
+ 箱中箱宝库：品质1；生成两倍的箱子
+ 伪造地质学博士证：不会在压力板附近生成障碍物
+ 秘密特工：品质3
+ 我过：强化
+ 我果：
+  12充能，初始为满
+  使用后获得2魂心
+  兼容贪婪模式
+
+
+Add difficulty options to menu
+
+New Item: Folk Prescription
+
+Adjustments:
+ <Character>
+ Benighted Eve: Abilities update; Unlcok-tree update; Needs to be unlocked now
+ <Items>
+ Chubby Cookbook: Charge 6
+ Re-death: Better pickups
+ 018: Initial speed up
+ Chest Chest: Quality 1; Spawn 2x chests
+ False GHD: Won't spawn obstacles near pressure plates
+ Secret Agent: Quality 3
+ My Fruit: 
+  Charge 12, 12 at start
+  +2 Soul Hearts when used
+  Compatible with Greed Mode
+ My Fault: Boost
+-----------------------------------
+2025.10
 v0.10.5
 
 新道具：

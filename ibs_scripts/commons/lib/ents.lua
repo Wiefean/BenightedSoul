@@ -34,6 +34,11 @@ end
 --是否为敌人
 --[[输入: 实体, 是否包括不能受伤的敌人, 是否包括友好的敌人, 是否忽略Boss]]
 function Ents:IsEnemy(ent, includeInvulnerable, includeFriendly, ignoreBoss)
+	--白火
+	if ent and ent.Type == 33 and ent.Variant == 4 then
+		return false
+	end
+
 	if ent and ent:IsEnemy() then
 		if (not ent:IsVulnerableEnemy()) and (not includeInvulnerable) then
 			return false

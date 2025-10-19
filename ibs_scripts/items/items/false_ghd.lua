@@ -33,6 +33,7 @@ function FGHD:OnNewRoom()
 	--普通石头换为刺石头或炸弹石头
 	local width = room:GetGridWidth()
 	local height = room:GetGridHeight()
+	local offsets = {1, -1, width, -width, width+1, -width-1, width-1, -width+1}
 	for x = 1, width - 1 do
 		for y = 1, height - 1 do
 			local gridIndex = x + y * width
@@ -40,12 +41,25 @@ function FGHD:OnNewRoom()
 			
 			--普通石头,非暗门石头
 			if gridEnt and (gridEnt:GetType() == 2) and (gridIndex ~= room:GetDungeonRockIdx()) then
-				local new = 5
-				if rng:RandomInt(100) < 66 then
-					new = new + 20
-				end
 				room:DestroyGrid(gridIndex, true)
-				room:SpawnGridEntity(gridIndex, new, 0, rng:Next(), 0)
+				
+				--检查附近是否有按钮,无则生成刺石头或炸弹石头
+				local shouldSpawn = true
+				for _,offset in ipairs(offsets) do
+					local gridEnt2 = room:GetGridEntity(gridIndex+offset)
+					if gridEnt2 and gridEnt2:GetType() == 20 then
+						shouldSpawn = false
+						break
+					end
+				end
+				
+				if shouldSpawn then				
+					local new = 5
+					if rng:RandomInt(100) < 66 then
+						new = new + 20
+					end
+					room:SpawnGridEntity(gridIndex, new, 0, rng:Next(), 0)
+				end
 			end
 		end
 	end	

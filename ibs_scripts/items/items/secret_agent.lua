@@ -122,9 +122,9 @@ function SecretAgent:OnUse(_, rng, player, flag, slot)
 				if not item or item <= 0 then				
 					--美德书
 					if player:HasCollectible(584) then
-						item = 34
+						item = 33
 						itemModified = true
-					end				
+					end
 					
 					--彼列书
 					if player:HasCollectible(59) then

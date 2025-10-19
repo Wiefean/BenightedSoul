@@ -8,36 +8,20 @@ local sfx = SFXManager()
 local Redeath = mod.IBS_Class.Item(mod.IBS_ItemID.Redeath)
 
 Redeath.ChestVariant = {
-	PickupVariant.PICKUP_CHEST,
-	PickupVariant.PICKUP_CHEST,
-	PickupVariant.PICKUP_CHEST,
-	PickupVariant.PICKUP_CHEST,
-	PickupVariant.PICKUP_CHEST,
-	PickupVariant.PICKUP_CHEST,
-	PickupVariant.PICKUP_CHEST,
-	PickupVariant.PICKUP_SPIKEDCHEST,
-	PickupVariant.PICKUP_ETERNALCHEST,
-	PickupVariant.PICKUP_MIMICCHEST,
 	PickupVariant.PICKUP_OLDCHEST,
-	PickupVariant.PICKUP_WOODENCHEST,
-	PickupVariant.PICKUP_HAUNTEDCHEST,
 	PickupVariant.PICKUP_LOCKEDCHEST,
-	PickupVariant.PICKUP_LOCKEDCHEST,
-	PickupVariant.PICKUP_REDCHEST,
-	PickupVariant.PICKUP_REDCHEST,
-	PickupVariant.PICKUP_REDCHEST
 }
 
 Redeath.ReadyToRoll = {
 	114514, --箱子
+	114514, --箱子
 	PickupVariant.PICKUP_GRAB_BAG,
 	PickupVariant.PICKUP_GRAB_BAG,
-	PickupVariant.PICKUP_PILL,
-	PickupVariant.PICKUP_PILL,
+	PickupVariant.PICKUP_GRAB_BAG,
+	PickupVariant.PICKUP_GRAB_BAG,
+	PickupVariant.PICKUP_GRAB_BAG,
 	PickupVariant.PICKUP_COLLECTIBLE,
-	PickupVariant.PICKUP_TAROTCARD,
-	PickupVariant.PICKUP_TAROTCARD,
-	PickupVariant.PICKUP_TRINKET
+	PickupVariant.PICKUP_TRINKET,
 }
 
 --使用效果
@@ -59,21 +43,15 @@ function Redeath:OnUse(item, rng, player, flags, slot)
 			--抽取掉落物
 			--(虽然部分掉落物有替换机制,但为了提高稀有掉落物出现概率还是做了随机)
 			if (variant == PickupVariant.PICKUP_GRAB_BAG) then
-				subType = rng:RandomInt(2) + 1
-				
-			elseif (variant == PickupVariant.PICKUP_PILL) then
-				subType = itemPool:GetPill(rng:Next())
+				subType = 1
 			
 			elseif (variant == PickupVariant.PICKUP_COLLECTIBLE) then
 				local seed = self._Levels:GetRoomUniqueSeed()
 				local pool = self._Pools:GetRoomPool(seed)
 				subType = itemPool:GetCollectible(pool, true, seed)
 				
-			elseif (variant == PickupVariant.PICKUP_TAROTCARD) then
-				subType = itemPool:GetCard(rng:Next(), true, true, false)
-				
 			elseif (variant == PickupVariant.PICKUP_TRINKET) then
-				subType = itemPool:GetTrinket()
+				subType = itemPool:GetTrinket() + 32768
 			end
 			
 			local pickup = Isaac.Spawn(5, variant, subType, ent.Position, Vector.Zero, nil):ToPickup()

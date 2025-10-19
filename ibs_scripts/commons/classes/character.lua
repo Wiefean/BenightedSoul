@@ -51,7 +51,8 @@ local Character = mod.Class(Component, function(self, id, info_tbl)
 		if not data.IBSPlayerAnim then
 			data.IBSPlayerAnim = {
 				PlayerType = 0,
-				SpriteState = -1,
+				SpriteState = 0,
+				CostumeState = 0,
 			}
 		end
 		
@@ -83,58 +84,66 @@ local Character = mod.Class(Component, function(self, id, info_tbl)
 	self:AddCallback(ModCallbacks.MC_POST_BOSS_INTRO_SHOW, '__OnBossIntro')
 
 	--更换角色动画文件
-	function self:__ChangeSprite(player, anm2path)
+	function self:__ChangeSprite(player, anm2path, sheetPath)
 		local spr = player:GetSprite()
 		local animation = spr:GetAnimation()
 		local frame = spr:GetFrame()
 		local overlayAnimation = spr:GetOverlayAnimation()
 		local overlayFrame = spr:GetOverlayFrame()
 		spr:Load(anm2path, true)
+		if sheetPath then
+			spr:ReplaceSpritesheet(0, sheetPath, true)
+		end
 		spr:SetFrame(animation, frame)
 		spr:SetOverlayFrame(overlayAnimation, overlayFrame)
 	end
 
 	--更新贴图
-	function self:__UpdatePlayerSprite(player)
+	function self:__UpdatePlayerSprite(player, data)
+		local sprPath = self.Info.SpritePath
+		local sprPathFlight = self.Info.SpritePathFlight
+
+		--更换角色动画文件
+		if sprPath and sprPathFlight then
+			local sprState = 1
+			local path = sprPath
+			
+			--飞行
+			if player.CanFly then
+				path = sprPathFlight
+				sprState = 2
+			end
+			
+			--超大蘑菇
+			if player:GetEffects():HasCollectibleEffect(CollectibleType.COLLECTIBLE_MEGA_MUSH) then
+				path = SpriteDefaultPath
+				sprState = 0
+			end
+		
+			if data.SpriteState ~= sprState then
+				data.SpriteState = sprState
+				self:__ChangeSprite(player, path)
+			end	
+		end
+	end
+
+	--检测并更新贴图
+	function self:__OnPlayerSpriteUpdate(player)
 		if player:IsCoopGhost() then return end
 		local playerType = player:GetPlayerType()
-		
 		if playerType == self.ID then
 			local data = self:__GetAnimData(player)
-			local sprPath = self.Info.SpritePath
-			local sprPathFlight = self.Info.SpritePathFlight
-
-			--更换角色动画文件
-			if sprPath and sprPathFlight then
-				local sprState = 1
-				local path = sprPath
-				
-				--飞行
-				if player.CanFly then
-					path = sprPathFlight
-					sprState = 2
-				end
-				
-				--超大蘑菇
-				if player:GetEffects():HasCollectibleEffect(CollectibleType.COLLECTIBLE_MEGA_MUSH) then
-					path = SpriteDefaultPath
-					sprState = 0
-				end
-			
-				if data.SpriteState ~= sprState then
-					data.SpriteState = sprState
-					self:__ChangeSprite(player, path)
-				end	
-			end
+			self:__UpdatePlayerSprite(player, data)
 		else
 			local data = self._Ents:GetTempData(player).IBSPlayerAnim 
 			if data and data.PlayerType ~= playerType then
 				data.PlayerType = playerType
 				data.SpriteState = 0
+				data.CostumeState = 0
 			end
 		end
 	end
-	self:AddPriorityCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, -725, '__UpdatePlayerSprite', 0)
+	self:AddPriorityCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, -725, '__OnPlayerSpriteUpdate', 0)
 
 end, { {expectedType = 'number'}, {expectedType = 'table', allowNil = true} })
 

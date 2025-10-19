@@ -26,7 +26,7 @@ function MyFruit:GetMaxCharge(player, slot)
 		if player:GetPlayerType() == IBS_PlayerID.BEve and player:HasCollectible(619) then
 			return 0
 		end
-		return 8
+		return 12
 	end
 	return 0
 end
@@ -181,10 +181,12 @@ function MyFruit:HasAllBlesses()
 end
 
 --触发效果
-function MyFruit:TriggerEffect(player, playSound, showGiant)
+function MyFruit:TriggerEffect(player, playSound, showGiant, fxDelay)
 	local level = game:GetLevel()
-	local seed = player:GetCollectibleRNG(self.ID):Next()
 	self:GetIBSData('level').MyFruitTriggered = true
+	self:GetIBSData('level').MyFruitTimeRecord = game.TimeCounter
+	
+	player:AddSoulHearts(4)
 	
 	--移除诅咒并获得一个祝福
 	level:RemoveCurses(level:GetCurses())
@@ -209,63 +211,72 @@ function MyFruit:TriggerEffect(player, playSound, showGiant)
 		for _,roomDesc in ipairs(rooms) do
 			local roomData = roomDesc.Data
 			if roomData then
-				local col,row = self._Levels:IndexToColRow(roomDesc.SafeGridIndex)
-				local entry = Isaac.LevelGeneratorEntry()
-				entry:SetAllowedDoors(roomData.Doors)
-				entry:SetColIdx(col)
-				entry:SetLineIdx(row)
-				
-				--缓存原来的门连接
-				local cachedDoors = {}
-				for doorSlot = 0,7 do
-					local gridIdx = roomDesc.Doors[doorSlot]
-					if gridIdx >= 0 then
-						cachedDoors[doorSlot] = gridIdx
-					end
-				end
-				
-				if level:PlaceRoom(entry, roomData, seed) then
-					local roomDesc2 = level:GetRoomByIdx(roomDesc.SafeGridIndex)
-					
+				local seed = player:GetCollectibleRNG(self.ID):Next()
+				local newDesc = self._Levels:ResetRoom(roomDesc, roomData, seed)
+				if newDesc then
 					--设为红房间并揭示位置
-					roomDesc2.Flags = roomDesc2.Flags | RoomDescriptor.FLAG_RED_ROOM
-					roomDesc2.DisplayFlags = 101
-					
-					--更新门连接
-					for doorSlot,gridIdx in pairs(cachedDoors) do
-						roomDesc2.Doors[doorSlot] = gridIdx
-					end
+					newDesc.Flags = newDesc.Flags | RoomDescriptor.FLAG_RED_ROOM
+					newDesc.DisplayFlags = 101
 				end
 			end
 		end	
 	end
 
 	level:UpdateVisibility()
-	
+
 	--播放动画
-	if showGiant then	
-		ItemOverlay.Show(self.GiantBookID)
+	if showGiant then
+		if fxDelay then
+			self:DelayFunction(function()
+				ItemOverlay.Show(self.GiantBookID)
+			end, fxDelay)
+		else		
+			ItemOverlay.Show(self.GiantBookID)
+		end
 	end
 	if playSound then
-		sfx:Play(266, 0.7, 2, false, 0.7)
+		if fxDelay then
+			self:DelayFunction(function()
+				sfx:Play(266, 0.7, 2, false, 0.7)
+			end, fxDelay)
+		else		
+			sfx:Play(266, 0.7, 2, false, 0.7)
+		end	
+	end	
+end
+
+--触发效果,附加贪婪模式兼容
+function MyFruit:TriggerCheckGreedEffect(player, playSound, showGiant)
+	local level = game:GetLevel()
+	
+	--贪婪模式重载楼层
+	if game:IsGreedMode() and level:GetStage() < 7 then
+		self:DelayFunction(function()					
+			self._Levels:Reload()
+			self:TriggerEffect(player, playSound, showGiant, 1)
+			game:StartRoomTransition(level:GetStartingRoomIndex(), -1, RoomTransitionAnim.TELEPORT, player)
+		end, 0)
+	else			
+		self:TriggerEffect(player, playSound, showGiant)
 	end
 end
 
 --使用效果
 function MyFruit:OnUse(item, rng, player, flags, slot)
+	local level = game:GetLevel()
 
 	--检测是否真正持有
 	if (slot >= 0 and slot <= 2) and (flags & UseFlag.USE_OWNED > 0) and (flags & UseFlag.USE_VOID <= 0) and (flags & UseFlag.USE_CARBATTERY <= 0) then
 		local varData = player:GetActiveItemDesc(slot).VarData
-		self:TriggerEffect(player, true, true)
 		player:SetActiveVarData(varData+1, slot) --记录使用次数
+		self:TriggerCheckGreedEffect(player, true, true)
 		
 		--昧化夏娃
 		if slot == 2 and player:GetPlayerType() == IBS_PlayerID.BEve then
 			self:DelayFunction(function()					
 				player:SetPocketActiveItem(IBS_ItemID.MyFault, slot, false)
 				player:SetActiveVarData(varData+1, slot)
-			end, 0)
+			end, 1)
 		else	
 			--使用达4次时时移除
 			if varData+1 >= 4 then
@@ -273,7 +284,7 @@ function MyFruit:OnUse(item, rng, player, flags, slot)
 			end
 		end		
 	else
-		self:TriggerEffect(player, true)
+		self:TriggerCheckGreedEffect(player, true)
 		return {ShowAnim = true, Remove = true}
 	end
 	
@@ -292,11 +303,33 @@ MyFruit:AddCallback(ModCallbacks.MC_PLAYER_GET_ACTIVE_MAX_CHARGE, 'OnGetMaxCharg
 
 --暂停游戏计时
 function MyFruit:OnUpdate()
-	if self:GetIBSData('level').MyFruitTriggered then
-		game.TimeCounter = math.max(30, game.TimeCounter - 1)	
+	local data = self:GetIBSData('level')
+	if data.MyFruitTriggered and data.MyFruitTimeRecord then
+		game.TimeCounter = data.MyFruitTimeRecord
 	end
 end
 MyFruit:AddCallback(ModCallbacks.MC_POST_UPDATE, 'OnUpdate')
+
+--显示剩余次数
+local fnt = Font()
+fnt:Load("font/pftempestasevencondensed.fnt")
+function MyFruit:OnActiveRender(player, slot, offset, alpha, scale)
+	if player:GetActiveItem(slot) ~= self.ID then return end
+	local varData = player:GetActiveItemDesc(slot).VarData
+
+	local stringNum = tostring(math.max(0, 4-varData))
+	local color = KColor(1,1,1,1)
+
+	--红色提醒快炸了
+	if varData >= 3 then
+		color = KColor(1,0,0,1)
+	end
+	
+	local pos = Vector(scale, scale) + offset
+	stringNum = "x"..stringNum
+	fnt:DrawStringScaled(stringNum, pos.X, pos.Y, scale * 0.75, scale * 0.75, color)
+end
+MyFruit:AddCallback(ModCallbacks.MC_POST_PLAYERHUD_RENDER_ACTIVE_ITEM, 'OnActiveRender')
 
 
 --魂火在角色持有道具时不会受伤

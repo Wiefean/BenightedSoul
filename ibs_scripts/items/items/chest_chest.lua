@@ -58,14 +58,14 @@ function ChestChest:CanStore(pickup, player)
 		--打开的木箱不能作为护甲
 		if chestName == 'Wooden' and not self._Pickups:IsChestClosed(pickup) then
 			local data = self:GetPlayerData(player)
-			if data.Selection == 2 and not mod.IBS_Compat.THI:SeijaBuff(player) then
+			if data.Selection == 2 then
 				return false
 			end
 		end
 	
 		return self._Pickups:IsChest(pickup.Variant) and chestName ~= nil and pickup.Position:Distance(player.Position) <= 120
 	else
-		return self._Pickups:IsChest(pickup.Variant) and (self._Pickups:IsChestClosed(pickup) or mod.IBS_Compat.THI:SeijaBuff(player))
+		return self._Pickups:IsChest(pickup.Variant) and self._Pickups:IsChestClosed(pickup)
 	end
 end
 
@@ -106,6 +106,7 @@ function ChestChest:OnUse(item, rng, player, flags, slot)
 				end			
 			
 				table.insert(data, variant)
+				table.insert(data, variant)
 				Isaac.Spawn(1000, 15, 0, pickup.Position, Vector.Zero, nil) --烟雾特效
 				pickup:Remove()
 				did = true
@@ -137,21 +138,6 @@ function ChestChest:OnNewLevel()
 			end
 		end
 		self:GetIBSData('temp').ChestChestChests = nil
-	end
-	
-	--里正邪额外生成箱子
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
-		if player:HasCollectible(self.ID, true) then
-			local seijaBLevel = mod.IBS_Compat.THI:GetSeijaBLevel(player)
-			if seijaBLevel >= 2 then
-				for i = 1,(seijaBLevel-1) do
-					local pos = room:FindFreePickupSpawnPosition(room:GetCenterPos(), 0, true)
-					local pickup = Isaac.Spawn(5, 60, 1, pos, Vector.Zero, nil):ToPickup()
-					pickup.Wait = 60
-				end
-			end	
-		end
 	end
 end
 ChestChest:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, 'OnNewLevel')

@@ -20,6 +20,7 @@ function TheEyeofTruth:OnRender()
 		if ent:ToPickup() or ent:IsEnemy() then
 			local pos = self._Screens:WorldToScreen(ent.Position, Vector(0,0), true)
 			fnt:DrawStringScaled(tostring(ent.Type)..'.'..tostring(ent.Variant)..'.'..tostring(ent.SubType), pos.X - 32, pos.Y, 0.5, 0.5, KColor(1,1,1,1), 64, true)
+			--fnt:DrawStringScaled(ent.HitPoints..' / '..ent.MaxHitPoints, pos.X - 32, pos.Y, 0.5, 0.5, KColor(1,1,1,1), 64, true)
 		end
 	end
 end

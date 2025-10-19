@@ -75,6 +75,12 @@ function SignatureMove:OnPickupFirstAppear(pickup)
 	if not PlayerManager.AnyoneHasCollectible(self.ID) then return end
 	if pickup.SubType <= 0 then return end
 	local itemConfig = config:GetCollectible(pickup.SubType)
+		
+	--非任务道具
+	if itemConfig and itemConfig:HasTags(ItemConfig.TAG_QUEST) then
+		return
+	end		
+	
 	if itemConfig and itemConfig:HasTags(ItemConfig.TAG_OFFENSIVE) then
 		local id = self:GetNonOffensiveItemID(pickup.InitSeed)
 		local seija = false

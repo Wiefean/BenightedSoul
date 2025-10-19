@@ -365,7 +365,7 @@ local itemEID={
 [IBS_ItemID.Redeath]={
 	name="Re-death",
 	info="Rerolls empty pedestals into one of the pickups below:"..
-		 "#{{Blank}} Chests, grab bags, pocket items, trinkets, collectibles"..
+		 "#{{Blank}} Golden Chest, Old Chest, Black Sack, Golden Trinket, Collectible"..
 		 "#The rerolled will disappear in 20 seconds and are surrounded by spikes",
 	virtue="No Wisps#The pickups won't disappear",
 	belial="No spikes surround the pickups"	
@@ -1056,19 +1056,11 @@ local itemEID={
 [IBS_ItemID.ChestChest]={
 	name='Chest Chest',
 	info='Absorb all non-empty chests in the current room'..
-		 '#Equal new chests will be spawned next level or next run',
+		 '#2x new chests will be spawned next level or next run',
 	virtue="A common wisp for every absorbed chest",
 	belial="Common Chest spawned may become Red Chest",
 	void='No effect',
 	player={[IBS_PlayerID.BLost]='Instead, hold to do: transform chests into weapons/armors/floats or repair them'},
-	seijaBuff={
-		desc = 'Available to empty chests',
-		data = {
-			append = function(x) 
-				return (x > 1 and "#Spawn"..(x-1).."Golden Chest in a new level") or ''
-			end
-		},
-	},
 },
 
 [IBS_ItemID.CheeseCutter]={
@@ -1114,9 +1106,8 @@ local itemEID={
 [IBS_ItemID.SilverKey]={
 	name='The Silver Key',
 	info="Charged by cleaning rooms, and can be fully charged twice"..
-		 '#Record the current room type(only a few can be recorded) and game timer'..
-		 '#If recorded, try reroll the room of the closest door into recorded type, make game timer become recorded one, and reset the record'..
-		 '#!!! Only some uncleared rooms whose types can be record or normal rooms can be rerolled'..
+		 '#Record the current room (only a few can be recorded) and game timer'..
+		 '#If recorded, try reset the closest room into recorded one, make game timer become recorded one, and reset the record'..
 		 '#!!! In a new level, all rooms with the last-recorded type will be rerolled into normal rooms'..
 		 '#All {{Collectible'..(IBS_ItemID.SilverKey)..'}}'..'The Silver Key share the same record',
 	virtue='No wisps#Can record {{AngelRoom}}Angel Room',
@@ -1243,7 +1234,7 @@ local itemEID={
 [IBS_ItemID.DanishGambit]={
 	name='Danish Gambit',
 	info='Can be used without full charge'..
-		 '#When used without full charge, absorb trinkets and {{Quality1}}Q-1-or-below items to charge itself'..
+		 '#When used without full charge, absorb trinkets and {{Quality1}}Q-1-or-below items to charge itself (including those being held)'..
 		 '#Can be fully charged twice'..
 		 '#When used with full charge, reroll {{Quality3}}Q-3-or-below items into quality + 1 random items, but not higher than 3',
 	virtue='No wisps#{{AngelRoom}}Angel pool',
@@ -1344,7 +1335,8 @@ local itemEID={
 [IBS_ItemID.PUC]={
 	name='PUC',
 	info='#35% chance to add an item from {{IBSMOD}}IBS into cycle for a pedestal item'..
-		 '#Anyone with {{Collectible'..(IBS_ItemID.Goatify)..'}} Goatify doubles the chance',
+		 '#Anyone with {{Collectible'..(IBS_ItemID.Goatify)..'}} Goatify doubles the chance'..
+		 '#No effect to quest items',
 },
 
 [IBS_ItemID.SaleBomb]={
@@ -1449,6 +1441,7 @@ local itemEID={
 	name='My Fruit',
 	info='Charged by cleaning non-red rooms'..
 		 '#When used:'..
+		 '#+ 2 {{SoulHeart}}Soul Hearts'..
 		 '#Pause the time counter this level'..
 		 '#Remove curses and gain a blessing'..
 		 '#Reveal and reset all rooms to red rooms, excepting some rooms'..
@@ -1457,12 +1450,14 @@ local itemEID={
 	virtue='Middle wisps that do not shoot#The wisps can not be hurt when holding this item',
 	belial='No special effect',
 	void='!!! {{ColorYellow}}SINGLE USE{{CR}}',
+	greed='Reload the current level, and then teleport to the starting room',
 },
 
 [IBS_ItemID.MyFault]={
 	name='My Fault',
 	info='Become invincible for 0.5s'..
-		 '#Enemies around lose 3x Isaac\'s {{Damage}}dmg Hp, and gain bleeding for 10s',
+		 '#Spawn blood wave, enemies around it will lose 2x Isaac\'s {{Damage}}dmg Hp, and gain bleeding for 8s'..
+		 '#Hitting bleeding enemies spawns blood wave again on where they stand',
 	virtue='Outer wisps that does not shoot and exist only one room',
 	belial='Invincible time increases to 1s',
 },
@@ -1491,14 +1486,11 @@ local itemEID={
 		 '#!!! Paying any {{Coin}}coin at pickups removes this item',
 },
 
-[IBS_TrinketID.TheLunatic]={
-	name='The Lunatic',
-	info='10% chance to add {{Collectible358}}The Wiz in cycle for new items'..
-		 '#No effect to quest items',
-	mult={
-		numberToMultiply = 10,
-		maxMultiplier = 3,
-	}
+[IBS_ItemID.FolkPrescription]={
+	name='Folk Prescription',
+	info='Ground decorations have 13% chance to be harvestable, whoever standing by makes it into a {{Pill}}pill'..
+		 '#!!! The effect of the pill becomes unidentified'..
+		 '#{{Pill}} Using non-negative pill heals 1 {{Hearts}}Red Hearts',
 },
 
 }
@@ -1849,6 +1841,22 @@ local trinketEID={
 		maxMultiplier = 3,
 		append = {'Isaac will revive as {{Player23}}Tainted Cain when dying if not Tainted Cain'}
 	}
+},
+
+[IBS_TrinketID.TheLunatic]={
+	name='The Lunatic',
+	info='10% chance to add {{Collectible358}}The Wiz in cycle for new items'..
+		 '#No effect to quest items',
+	mult={
+		numberToMultiply = 10,
+		maxMultiplier = 3,
+	}
+},
+
+[IBS_ItemID.WhiteQBall]={
+	name='White Q Ball',
+	info='↓ - 0.16 {{Shotspeed}}sspd'..
+		 '#{{AngelDevilChance}} + 15% {{DevilRoom}}devil chance, + 100% {{AngelRoom}}angel chance, till next {{AngelRoom}}Angel Room showing up',
 },
 
 }

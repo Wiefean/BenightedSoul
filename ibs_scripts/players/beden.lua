@@ -894,6 +894,7 @@ BEden:AddPriorityCallback(ModCallbacks.MC_EVALUATE_CACHE, 10^7, 'OnEvaluateCache
 BEden.ItemBlackList = {
 	304, --天秤座
 	562, --谷底石
+	IBS_ItemID.Memento, --某纪念品
 }
 function BEden:OnPlayerUpdate(player)
 	if player:GetPlayerType() == self.ID then

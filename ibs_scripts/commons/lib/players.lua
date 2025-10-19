@@ -86,6 +86,7 @@ end
 
 --添加护盾(调用影之书效果)
 function Players:AddShield(player, frames)
+	if frames <= 0 then return end
 	local effects = player:GetEffects()
 	local effect = effects:GetCollectibleEffect(CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS)
 	if not effect then
@@ -951,7 +952,7 @@ do --握住道具区(调用自\ibs_scripts\callbacks\hold_item.lua)
 --是否正在握住道具(限用于本模组的道具)
 function Players:IsHoldingItem(player, item)
 	local data = Ents:GetTempData(player).HoldItemCallback
-	local hold = (data and data.Item == item)
+	local hold = (data and data.Item > 0 and (item == nil or data.Item == item))
 
 	if data and hold then
 		return true,data.Slot

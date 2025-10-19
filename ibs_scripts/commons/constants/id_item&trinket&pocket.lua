@@ -162,7 +162,8 @@ MyFault = Isaac.GetItemIdByName("My Fault"),
 Memento = Isaac.GetItemIdByName("Memento"),
 RubbishBook = Isaac.GetItemIdByName("DEEP MYSTERIES"),
 MawBank = Isaac.GetItemIdByName("Maw Bank"),
-
+FolkPrescription = Isaac.GetItemIdByName("Folk Prescription"),
+WhiteQBall = Isaac.GetItemIdByName("White Q Ball"),
 
 }
 
@@ -206,6 +207,7 @@ WarHospital = Isaac.GetTrinketIdByName("War Hospital"),
 SporeCloud = Isaac.GetTrinketIdByName("Spore Cloud"),
 ForScreenshot = Isaac.GetTrinketIdByName("For Screenshot"),
 TheLunatic = Isaac.GetTrinketIdByName("The Lunatic"),
+
 
 }
 

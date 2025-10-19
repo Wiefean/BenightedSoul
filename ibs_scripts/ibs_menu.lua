@@ -183,6 +183,28 @@ local info_zh = {
 			{Str = '??? 的伪忆', Offset = Vector(-7, 0), ConditionKey = "bc5"},
 		},
 	},
+	[6] = {
+		PlayerKey = IBS_PlayerKey.BEve,
+		LockCheck = {
+			Lock = lock.BEve,
+			Desc = {
+				{Str = 'K13', Offset = Vector(70, 0)},
+				{Str = 'C122', Offset = Vector(60, 25)},
+				{Str = '------', Offset = Vector(44, 25)},
+			}
+		},
+		Portrait = {Anim = 'BEve'},	
+		Name = {Str = '夏娃', Offset = Vector(-3,0)},
+		Desc = {
+			{Str = '一回生', Offset = Vector(-20, 0)},
+			{Str = '二回熟', Offset = Vector(20, 0)},
+			{Str = '三回转', Offset = Vector(2, 16), ConditionKey='bc6'},
+		},
+		Thing = {
+			{Str = '我果', Offset = Vector(22, 0)},
+			{Str = '我过', Offset = Vector(17, 25)},
+		},
+	},	
 	[10] = {
 		PlayerKey = IBS_PlayerKey.BEden,
 		LockCheck = {
@@ -347,6 +369,28 @@ local info_en = {
 			{Str = 'Falsehood of ???', Offset = Vector(-40, 0), ConditionKey = "bc5"},
 		},
 	},	
+	[6] = {
+		PlayerKey = IBS_PlayerKey.BEve,
+		LockCheck = {
+			Lock = lock.BEve,
+			Desc = {
+				{Str = 'K13', Offset = Vector(70, 0)},
+				{Str = 'C122', Offset = Vector(60, 25)},
+				{Str = '------', Offset = Vector(44, 25)},
+			}
+		},
+		Portrait = {Anim = 'BEve'},	
+		Name = {Str = 'Eve'},
+		Desc = {
+			{Str = 'First raw', Offset = Vector(-35, 0)},
+			{Str = 'Then saw', Offset = Vector(30, 0)},
+			{Str = 'And haw', Offset = Vector(-4, 16), ConditionKey='bc6'},
+		},
+		Thing = {
+			{Str = 'My Fruit', Offset = Vector(8, 0)},
+			{Str = 'My Fault', Offset = Vector(4, 25)},
+		},
+	},		
 	[10] = {
 		PlayerKey = IBS_PlayerKey.BEden,
 		LockCheck = {
@@ -496,7 +540,7 @@ local function RenderInfo(info, Y, lastInfo, nextInfo)
 	end
 end
 
-mod:AddCallback(ModCallbacks.MC_MAIN_MENU_RENDER, function()
+mod:AddPriorityCallback(ModCallbacks.MC_MAIN_MENU_RENDER, CallbackPriority.EARLY, function()
 	local id = CharacterMenu.GetSelectedCharacterID()
 	local info = nil
 	local lastInfo = nil
@@ -703,6 +747,7 @@ local PlayerChallenge = {
 [IBS_ChallengeID[3]] = IBS_PlayerKey.BCBA,
 [IBS_ChallengeID[4]] = IBS_PlayerKey.BJudas,
 [IBS_ChallengeID[5]] = IBS_PlayerKey.BXXX,
+[IBS_ChallengeID[6]] = IBS_PlayerKey.BEve,
 
 [IBS_ChallengeID[10]] = IBS_PlayerKey.BEden,
 [IBS_ChallengeID[11]] = IBS_PlayerKey.BLost,

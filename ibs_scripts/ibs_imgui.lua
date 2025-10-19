@@ -4,6 +4,7 @@ local mod = Isaac_BenightedSoul
 local IBS_PlayerKey = mod.IBS_PlayerKey
 local IBS_Curse = mod.IBS_Curse
 local Screens = mod.IBS_Lib.Screens
+local Ents = mod.IBS_Lib.Ents
 local Stats = mod.IBS_Lib.Stats
 local Levels = mod.IBS_Lib.Levels
 
@@ -370,6 +371,37 @@ MakeCharacterBar(IBS_PlayerKey.BXXX, Language('???', '???'), {
 	Greed = {'edge'},
 	FINISHED = {'secret_histories'},
 })
+MakeCharacterBar(IBS_PlayerKey.BEve, Language('夏娃', 'Eve'), {
+	Unlocked = Language('使用夏娃，在不激活巴比伦大淫妇 (包括皇后卡牌的效果) 的情况下死亡以解锁', 'Eve dies without activating Whore of Babylon (Tarot Card Queen included) to unlock'),
+	Heart = Language('解锁 "禁断之果"', 'For "The Forbidden Fruit"'),
+	Isaac = Language('解锁 "真实之眼"', 'For "The Eye of Truth"'),
+	BlueBaby = Language('解锁 "永乐大典"', 'For "Yongle"'),
+	-- Satan = Language('解锁 ""', 'For ""'),
+	-- Lamb = Language('解锁 ""', 'For ""'),
+	-- MegaSatan = Language('解锁 ""', 'For ""'),
+	BossRush = Language('解锁 "套作"', 'For "Reused Story"'),
+	Delirium = Language('解锁 "我果"和"我过"', 'For "My Fruit" and "My Fault"'),
+	Witness = Language('解锁 "偏方"', 'For "Folk Prescription"'),
+	Beast = Language('解锁 "焚烧不焚之神"', 'For "Burning of Unburnt God"'),
+	Greed = Language('解锁 "索斯星"', 'For "Zoth"'),
+	-- FINISHED = Language('解锁 ""', 'For ""'),
+},
+{
+	Unlocked = {'beve_unlock'},
+	Heart = {'ffruit'},
+	Isaac = {'the_eye_of_truth'},
+	BlueBaby = {'yongle'},
+	-- Satan = {'vein_miner'},
+	-- Lamb = {'vain_miner'},
+	-- MegaSatan = {'v7'},
+	BossRush = {'reused_story'},
+	Hush = {'beve_falsehood'},
+	Delirium = {'my_fruit_fault'},
+	Witness = {'folk_prescription'},
+	Beast = {'burning_of_unburnt_god'},
+	Greed = {'zoth'},
+	-- FINISHED = {'secret_histories'},
+})
 MakeCharacterBar(IBS_PlayerKey.BEden, Language('伊甸', 'Eden'), {
 	Unlocked = Language('伊甸/堕化伊甸在开局留在初始房间等待2分钟左右以解锁', 'Eden / Tainted Eden stays in the starting room at the start of a run for about 2 minutes to unlock'),
 	Heart = Language('解锁 "21点"', 'For "Blackjack"'),
@@ -476,6 +508,7 @@ do
 	MakeCheckBox(_AchievTab2, 'bc3', Language('牧地 !', 'Graze !'), Language('完成以强化昧化该隐&亚伯', 'Finish it to boost Benighted Cain & Abel'), {'bcain_babel_up'} )
 	MakeCheckBox(_AchievTab2, 'bc4', Language('逾越节', 'Passover'), Language('完成以强化昧化犹大', 'Finish it to boost Benighted Judas'), {'bjudas_up'} )
 	MakeCheckBox(_AchievTab2, 'bc5', Language('双重释放', 'Dualcast'), Language('完成以强化昧化???', 'Finish it to boost Benighted ???'), {'bxxx_up'} )
+	MakeCheckBox(_AchievTab2, 'bc6', Language('池沼魔谷', 'Marsh Rooms'), Language('完成以强化昧化夏娃', 'Finish it to boost Benighted Eve'), {'beve_up'} )
 	
 	MakeCheckBox(_AchievTab2, 'bc10', Language('天妒英才', 'Envery'), Language('完成以强化昧化伊甸', 'Finish it to boost Benighted Eden'), {'beden_up'} )
 	MakeCheckBox(_AchievTab2, 'bc11', Language('钥匙变炸弹', 'Keys are bomb'), Language('完成以强化昧化游魂', 'Finish it to boost Benighted Lost'), {'blost_up'} )
@@ -504,6 +537,7 @@ do
 local _Setting =  _Menu..'Setting' --设置板块
 local _SettingWindow =  _Menu..'SettingWindow' --设置窗口
 local _SettingTabBar = _Menu..'SettingTabBar' --设置点选框
+local _SettingTabD = _Menu..'SettingTabD' --难度栏
 local _SettingTabC = _Menu..'SettingTabC' --诅咒栏
 local _SettingTabS = _Menu..'SettingTabS' --可互动实体栏
 local _SettingTabB = _Menu..'SettingTabB' --头目栏
@@ -514,10 +548,79 @@ ImGui.CreateWindow(_SettingWindow, '\u{f013}'..(Language('设置', 'Settings')) 
 ImGui.LinkWindowToElement(_SettingWindow, _Setting)
 
 ImGui.AddTabBar(_SettingWindow, _SettingTabBar)
+ImGui.AddTab(_SettingTabBar, _SettingTabD, Language('难度', 'Difficulty') )
 ImGui.AddTab(_SettingTabBar, _SettingTabC, Language('诅咒', 'Curses') )
 ImGui.AddTab(_SettingTabBar, _SettingTabS, Language('可互动实体', 'Slots') )
 ImGui.AddTab(_SettingTabBar, _SettingTabB, Language('头目', 'Bosses') )
 ImGui.AddTab(_SettingTabBar, _SettingTabG, Language('杂项', 'Groceries') )
+
+
+----↓难度栏相关↓----
+do
+	--创建小数输入框
+	local function MakeFloatInput(parentId, KEY, name, step)
+		local input = parentId..KEY
+		ImGui.AddInputFloat(parentId, input, name, nil, 0, step, step)
+		ImGui.AddCallback(input, ImGuiCallback.Render, function()
+			ImGui.UpdateData(input, ImGuiData.Value, mod:GetIBSData('persis')[KEY])
+		end)	
+		ImGui.AddCallback(input, ImGuiCallback.DeactivatedAfterEdit, function(value)
+			if not IsSaveslotLoaded() then
+				return
+			end	
+			value = math.max(0, value)
+			local data = mod:GetIBSData('persis')
+			data[KEY] = value	
+			mod:SaveIBSData()
+			ImGui.UpdateData(_DebugTab1_Input, ImGuiData.Value, value)
+		end)		
+	end
+
+	MakeCheckBox(_SettingTabD, 'difficulty_enemy_hp_up', Language('敌人血量增长', 'Enemy Hp Increaser'), Language('将按层数增长', 'Increase by levels') )
+	MakeFloatInput(_SettingTabD, 'difficulty_enemy_level_mult', Language('普通敌人增长倍率', 'Mult For Non-boss'), 0.05)
+	MakeFloatInput(_SettingTabD, 'difficulty_boss_level_mult', Language('头目增长倍率', 'Mult For Boss'), 0.05)
+	
+	--敌人血量增长
+	local cache = {}
+	local function EnemyHpUp(npc)
+		if not mod:GetIBSData('persis')["difficulty_enemy_hp_up"] then return end
+		local key = GetPtrHash(npc) + npc.Type + npc.Variant + npc.SubType
+		if npc:IsActiveEnemy(false) and not cache[key] then
+			local mult = 0.3
+			if npc:IsBoss() then
+				mult = mod:GetIBSData('persis')["difficulty_boss_level_mult"] or mult
+			else
+				mult = mod:GetIBSData('persis')["difficulty_enemy_level_mult"] or mult
+			end
+			
+			mult = mult * math.max(0, game:GetLevel():GetStage() - 1) + 1
+			npc.MaxHitPoints = math.ceil(npc.MaxHitPoints * mult)
+			npc.HitPoints = math.ceil(npc.HitPoints * mult)
+			
+			cache[key] = EntityPtr(npc)
+		end
+	end
+	mod:AddPriorityCallback(ModCallbacks.MC_POST_NPC_INIT, -1000, function(_,npc)
+		EnemyHpUp(npc)
+	end)
+	mod:AddPriorityCallback(ModCallbacks.MC_NPC_UPDATE, -1000, function(_,npc)	
+		EnemyHpUp(npc)
+	end)
+	mod:AddPriorityCallback(ModCallbacks.MC_POST_UPDATE, -1000, function()
+		--清理缓存
+		for k,v in pairs(cache) do
+			local ent = v.Ref
+			if ent ~= nil then
+				if not ent:Exists() or ent:IsDead() then
+					cache[k] = nil
+				end
+			else
+				cache[k] = nil
+			end
+		end
+	end)
+end
+----↑诅咒栏相关↑----
 
 
 ----↓诅咒栏相关↓----
@@ -559,6 +662,38 @@ do
 	MakeCheckBox(_SettingTabG, 'envyRemove', Language('将女疾女户移出道具池', "Remove Ennnnnnvyyyyyy from item pools") )
 	MakeCheckBox(_SettingTabG, 'tipI', Language('角色菜单按键提示', 'Character menu control tip') )
 	MakeCheckBox(_SettingTabG, 'rewindCompat', Language('发光沙漏兼容', 'Glowing Hour Glass compatibility'), Language('对控制台指令"rewind"无效', 'No effect on CMD "rewind"') )
+	
+	--虚空增强(吸收饰品)
+	local function VoidUp(_,item, rng, player, flags)
+		if mod:GetIBSData('persis')["voidUp"] then
+			for _,ent in ipairs(Isaac.FindByType(5, 350)) do
+				local trinket = ent:ToPickup()
+				if trinket.SubType > 0 and trinket.Price == 0 then
+					player:AddSmeltedTrinket(trinket.SubType, trinket.Touched)
+					Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, trinket.Position, Vector.Zero, nil)						
+					trinket:Remove()
+				end
+			end
+		end
+	end
+	mod:AddCallback(ModCallbacks.MC_USE_ITEM, VoidUp, 477)
+
+
+	--无底坑增强(吸收饰品)
+	local function AbyssUp(_,item, rng, player, flags)
+		if mod:GetIBSData('persis')["abyssUp"] then
+			for _,ent in ipairs(Isaac.FindByType(5, 350)) do
+				local trinket = ent:ToPickup()
+				if trinket.SubType > 0 and trinket.Price == 0 then
+					local locust = Isaac.Spawn(3, FamiliarVariant.ABYSS_LOCUST, 2, trinket.Position, Vector.Zero, player):ToFamiliar()
+					locust.Player = player
+					Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, trinket.Position, Vector.Zero, nil)						
+					trinket:Remove()
+				end
+			end		
+		end
+	end
+	mod:AddCallback(ModCallbacks.MC_USE_ITEM, AbyssUp, 706)	
 end
 ----↑杂项栏相关↑----
 
@@ -1311,7 +1446,7 @@ do
 
 		local level = game:GetLevel()
 
-		for i = 1,169 do
+		for i = 0,168 do
 			local roomDesc = level:GetRoomByIdx(i)
 			if roomDesc then
 				roomDesc.DisplayFlags = roomDesc.DisplayFlags | (1<<0) | (1<<1) | (1<<2)
@@ -1378,9 +1513,12 @@ do
 		maggyPride = true, --用于表表抹解锁
 		lostDeath = 0, --用于表表游魂解锁
 		
-		troposphere = true, --用于对流层
+		troposphere = 515, --用于对流层
 		
 		--设置部分
+		difficulty_enemy_hp_up = false, --敌人血量增长
+		difficulty_enemy_level_mult = 0.2, --敌人血量每层增长
+		difficulty_boss_level_mult = 0.1, --boss敌人血量每层增长		
 		curse_moving = true, --动人诅咒
 		curse_d7 = true, --D7诅咒
 		slot_collectionBox = true, --募捐箱

@@ -29,6 +29,7 @@ mod.IBS_Achiev = {
 		BCBA = LoadPlayer('bcain_and_babel'),
 		BJudas = LoadPlayer('bjudas'),
 		BXXX = LoadPlayer('bxxx'),
+		BEve = LoadPlayer('beve'),
 		BEden = LoadPlayer('beden'),
 		BLost = LoadPlayer('blost'),
 		BKeeper = LoadPlayer('bkeeper'),
@@ -41,8 +42,9 @@ mod.IBS_Achiev = {
 		BCBA = LoadMark('bcain_and_babel'),
 		BJudas = LoadMark('bjudas'),
 		BXXX = LoadMark('bxxx'),
+		BEve = LoadMark('beve'),
 		BEden = LoadMark('beden'),
-		BEden = LoadMark('blost'),
+		BLost = LoadMark('blost'),
 		BKeeper = LoadMark('bkeeper'),
 	},
 	
@@ -53,6 +55,7 @@ mod.IBS_Achiev = {
 		[3] = LoadChallenge('3'),
 		[4] = LoadChallenge('4'),
 		[5] = LoadChallenge('5'),
+		[6] = LoadChallenge('6'),
 
 		[10] = LoadChallenge('10'),
 		[11] = LoadChallenge('11'),

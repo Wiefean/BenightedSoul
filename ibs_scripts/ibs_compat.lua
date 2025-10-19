@@ -14,20 +14,26 @@ local config = Isaac.GetItemConfig()
 mod.IBS_Compat = {}
 local IBS_Compat = mod.IBS_Compat
 
---时间机器(机器加速)
-if tmmc then
-	--使者是否加速同普通乞丐设置
-	tmmc.enable[IBS_SlotID.Envoy.Variant] = tmmc.enable[4] or false
-end
+--杂项加载项
+mod:AddPriorityCallback(ModCallbacks.MC_POST_MODS_LOADED, CallbackPriority.EARLY, function()
 
---GoodTrip
-if gt then
+	--时间机器(机器加速)
+	if tmmc then
+		--使者是否加速同普通乞丐设置
+		tmmc.enable[IBS_SlotID.Envoy.Variant] = tmmc.enable[4] or false
+	end
+	
+	--GoodTrip
+	if gt then
+		--牺牲一些严谨性换来稳定性
+		local oldfn = gt.pre_secret_room
+		function gt:pre_secret_room()
+			pcall(oldfn, self)
+		end
+	end
+	
+end)
 
---牺牲一些严谨性换来稳定性
-function gt:pre_secret_room()
-end
-
-end
 
 --东方幻想曲
 do
@@ -190,10 +196,8 @@ do
 end
 
 --加载项
-local THILoaded = false
-mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.IMPORTANT, function()
-	if (not THILoaded) and mod.IBS_Compat.THI:IsEnabled() then
-		THILoaded = true
+mod:AddPriorityCallback(ModCallbacks.MC_POST_MODS_LOADED, CallbackPriority.EARLY, function()
+	if mod.IBS_Compat.THI:IsEnabled() then
 
 		do --永乐大典
 			local Yongle = mod.IBS_Item.Yongle
@@ -247,6 +251,9 @@ mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.IMPO
 			
 			--我果<=>我过
 			d:AddFixedPair(5,100,IBS_ItemID.MyFruit, 5,100,IBS_ItemID.MyFault)
+			
+			--魔力8号球<=>灰白色母球
+			d:AddFixedPair(5,100,194, 5,100,IBS_ItemID.WhiteQBall)
 		end
 
 		do --疾病道具
@@ -298,10 +305,8 @@ do
 	end
 	
 	--加载项
-	local MGOLoaded = false
-	mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.IMPORTANT, function()
+	mod:AddPriorityCallback(ModCallbacks.MC_POST_MODS_LOADED, CallbackPriority.EARLY, function()
 		if (not MGOLoaded) and mod.IBS_Compat.MGO:IsEnabled() then
-			MGOLoaded = true
 			
 			do --冰霜充能球
 				local FrostOrb = ReverieMGO.Collectibles.FrostOrb
@@ -386,10 +391,8 @@ end
 --好道具跳舞
 do
 
-local EpicLoaded = false
-mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.LATE, function()
-	if (not EpicLoaded) and Epic then
-	
+mod:AddPriorityCallback(ModCallbacks.MC_POST_MODS_LOADED, CallbackPriority.EARLY, function()
+	if Epic then
 		
 		do
 			local oldfunc = Epic.OnPogMoment or function()end
@@ -437,8 +440,7 @@ mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.LATE
 				return result
 			end		
 		end
-		
-		EpicLoaded = true
+
 	end
 end)
 mod:AddCallback("PRE_CHECK_DANCE", function(_,pickup) --老鼠舞

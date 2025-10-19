@@ -18,6 +18,9 @@
 
 关于如何调用数据请参考"ibs_commons"相关函数以及其他用到数据的lua文件(懒得写了XD)
 
+新增非成就长久数据记得去"ibs_imgui"注册一下非成就表,
+防止一键解锁成就功能干扰数据
+
 发光沙漏兼容部分在"ibs_commons"(十分硬核)
 ]]
 
@@ -50,7 +53,7 @@ return {Unlocked = false,
 end
 
 
-local function Persis_Init() --此处可新增永久数据
+local function Persis_Init() --此处可新增长久数据
 	local Persis = {
 		isaacSatanDeath = false, --用于表表以撒解锁
 		maggySloth = false, --用于表表抹解锁
@@ -92,6 +95,12 @@ local function Persis_Init() --此处可新增永久数据
 		----------------------
 		-------设置部分-------
 		----------------------
+
+		--难度区开始--
+		difficulty_enemy_hp_up = false, --敌人血量增长
+		difficulty_enemy_level_mult = 0.3, --敌人血量每层增长
+		difficulty_boss_level_mult = 0.2, --boss敌人血量每层增长
+		--难度区结束--
 
 		--诅咒区开始--
 		curse_moving = true, --动人诅咒

@@ -55,37 +55,41 @@
 
 <!-- null costumes -->
 	<!-- bisaac -->
-	<costume id="7250" anm2path="bisaac_cross.anm2" type="none" priority="2" />
+	<costume id="7250" anm2path="bisaac_cross.anm2" type="none" priority="99" />
 	<costume id="7251" anm2path="bisaac_devil.anm2" type="none" priority="6" hasOverlay="true" />	
 	<costume id="7252" anm2path="bisaac_angel.anm2" type="none" priority="7" hasOverlay="true" />
 	<costume id="7253" anm2path="bisaac_both.anm2" type="none" priority="8" hasOverlay="true" />
 
 	<!-- bmaggy -->
-	<costume id="7254" anm2path="bmaggy_hair.anm2" type="none" priority="2" />
+	<costume id="7254" anm2path="bmaggy_hair.anm2" type="none" priority="99" />
 	
 	<!-- bcain -->
-	<costume id="7255" anm2path="bcain_hat.anm2" type="none" priority="2" />
+	<costume id="7255" anm2path="bcain_hat.anm2" type="none" priority="99" />
 	
 	<!-- babel -->
-	<costume id="7256" anm2path="babel_hair.anm2" type="none" priority="2" />
+	<costume id="7256" anm2path="babel_hair.anm2" type="none" priority="99" />
 
 	<!-- bjudas -->
-	<costume id="7257" anm2path="bjudas_mitre_and_mantle.anm2" type="none" priority="3" />
+	<costume id="7257" anm2path="bjudas_mitre_and_mantle.anm2" type="none" priority="99" />
 
 	<!-- bxxx -->
-	<costume id="7258" anm2path="bxxx_eye.anm2" type="none" priority="7" />
-	<costume anm2path="bxxx_bisaac.anm2" type="none" priority="7" />
-	<costume anm2path="bxxx_bmaggy.anm2" type="none" priority="7" />
-	<costume anm2path="bxxx_bcain.anm2" type="none" priority="7" />
-	<costume anm2path="bxxx_babel.anm2" type="none" priority="7" />
-	<costume anm2path="bxxx_bjudas.anm2" type="none" priority="7" />
-	<costume anm2path="bxxx_beden.anm2" type="none" priority="7" />
+	<costume id="7258" anm2path="bxxx_eye.anm2" type="none" priority="99" />
+	<costume anm2path="bxxx_bisaac.anm2" type="none" priority="99" />
+	<costume anm2path="bxxx_bmaggy.anm2" type="none" priority="99" />
+	<costume anm2path="bxxx_bcain.anm2" type="none" priority="99" />
+	<costume anm2path="bxxx_babel.anm2" type="none" priority="99" />
+	<costume anm2path="bxxx_bjudas.anm2" type="none" priority="99" />
+	<costume anm2path="bxxx_beden.anm2" type="none" priority="99" />
+
+	<!-- beve -->
+	<costume anm2path="beve_hair.anm2" type="none" priority="99" />
+	<costume anm2path="beve_hair2.anm2" type="none" priority="99" hasSkinAlt="true" />
 
 	<!-- beden -->
-	<costume id="7259" anm2path="beden_hair.anm2" type="none" priority="2" />
+	<costume id="7259" anm2path="beden_hair.anm2" type="none" priority="99" />
 	
 	<!-- blost -->
-	<costume id="7260" anm2path="blost_costume.anm2" type="none" priority="7" isFlying="true" />
+	<costume id="7260" anm2path="blost_costume.anm2" type="none" priority="99" isFlying="true" />
 
 	<!-- bkeeper -->
 	<costume id="7261" anm2path="bkeeper_rope.anm2" isFlying="true" hasOverlay="true" type="none" priority="777" />

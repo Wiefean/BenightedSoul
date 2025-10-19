@@ -29,7 +29,7 @@ function DustyBomb:DustyExplosion(player, bomb)
 	if data.DustyExplosion > 3 then return end
 		
 	for _,ent in pairs(Isaac.GetRoomEntities()) do
-		if ent:IsEnemy() and not ent:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then
+		if self._Ents:IsEnemy(ent, true) then
 			ent.HitPoints = ent.HitPoints - 0.12*ent.HitPoints
 			if ent.HitPoints <= 0 then
 				ent:Kill()
@@ -48,7 +48,7 @@ function DustyBomb:DustyExplosion(player, bomb)
 	--第三次爆炸
 	if data.DustyExplosion == 3 then
 		for _,ent in pairs(Isaac.GetRoomEntities()) do
-			if ent:IsEnemy() and not ent:IsBoss() and not ent:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then
+			if self._Ents:IsEnemy(ent, true) and not ent:IsBoss() then
 
 				--尘埃特效
 				for subType = 1,2 do				

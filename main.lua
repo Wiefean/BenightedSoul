@@ -7,7 +7,7 @@
 Isaac_BenightedSoul = RegisterMod("Benighted Soul",1)
 
 local mod = Isaac_BenightedSoul
-mod.Version = "0.10.5"
+mod.Version = "0.10.7"
 mod.Language = Options.Language
 mod.NameStr = "愚昧"
 if mod.Language ~= "zh" then mod.Language = "en" mod.NameStr = mod.Name end
@@ -66,7 +66,6 @@ LoadScript('ibs_entity')
 LoadScript('ibs_room')
 LoadScript('ibs_player')
 LoadScript('ibs_item')
-LoadScript('future')
 
 --角色菜单
 include("ibs_scripts.ibs_menu")

@@ -1,11 +1,17 @@
 --纸质硬币
 
 local mod = Isaac_BenightedSoul
+local IBS_ItemID = mod.IBS_ItemID
 
 local game = Game()
 local config = Isaac.GetItemConfig()
 
 local PaperPenny = mod.IBS_Class.Trinket(mod.IBS_TrinketID.PaperPenny)
+
+--黑名单
+PaperPenny.BlackList = {
+	[IBS_ItemID.UnburntGod] = true, --焚烧不焚之神
+}
 
 --获取随机书主动的ID
 function PaperPenny:GetBookActiveID(seed)
@@ -14,9 +20,11 @@ function PaperPenny:GetBookActiveID(seed)
 	local cache = {}
 
 	for id = 1, config:GetCollectibles().Size do
-		local itemConfig = config:GetCollectible(id)
-		if itemConfig and itemConfig:IsAvailable() and (itemConfig.Type == ItemType.ITEM_ACTIVE) and itemConfig:HasTags(ItemConfig.TAG_BOOK) and not itemConfig:HasTags(ItemConfig.TAG_QUEST) then
-			table.insert(cache, id)
+		if not self.BlackList[id] then		
+			local itemConfig = config:GetCollectible(id)
+			if itemConfig and itemConfig:IsAvailable() and (itemConfig.Type == ItemType.ITEM_ACTIVE) and itemConfig:HasTags(ItemConfig.TAG_BOOK) and not itemConfig:HasTags(ItemConfig.TAG_QUEST) then
+				table.insert(cache, id)
+			end
 		end
 	end	
 

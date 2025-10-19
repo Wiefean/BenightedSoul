@@ -391,7 +391,7 @@ function Screens:PlayPaperOnMainMenu(fileName, skipLanguageCheck)
 
 	table.insert(achievementQueue, fileName..'.png')
 end
-mod:AddCallback(ModCallbacks.MC_MAIN_MENU_RENDER, function()
+mod:AddPriorityCallback(ModCallbacks.MC_MAIN_MENU_RENDER, CallbackPriority.LATE, function()
 
 	--切换成就纸张
 	if #achievementQueue > 0 and spr:IsFinished('Out') then

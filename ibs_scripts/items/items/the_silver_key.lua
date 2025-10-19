@@ -53,11 +53,46 @@ end
 function SilverKey:GetData()
 	local data = self:GetIBSData('temp')
 	data.SilverKey = data.SilverKey or {
-		RoomType = -1,
+		Type = 0,
+		Variant = 0,
+		SubType = 0,
+		Shape = 0,
+		Doors = 0,
+		Difficulty = 0,
+		Mode = 0,
+
 		Time = game.TimeCounter,
 		Ban = 0,
 	}
 	return data.SilverKey
+end
+
+--是否可以重设房间
+function SilverKey:CanResetRoom(roomDesc)
+	local level = game:GetLevel()
+	
+	--检测楼层和维度
+	if (level:GetStage() == 13) or (level:GetDimension() ~= 0 and level:GetDimension() ~= 1) then
+		return false
+	end
+	
+	local data = self:GetData(); if data.Type <= 0 then return false end
+	
+	--排除一些房间
+	if not roomDesc.Data then return false end
+	if roomDesc.GridIndex < 0 then return false end
+	if roomDesc.SafeGridIndex == level:GetStartingRoomIndex() then return false end
+	if roomDesc.Data.Type == RoomType.ROOM_BOSS then return false end
+	if roomDesc.Data.Type == RoomType.ROOM_GREED_EXIT then return false end
+	if self._Levels:IsMirrorRoom(roomDesc.SafeGridIndex) then return false end
+	if self._Levels:IsMineShaftEntrance(roomDesc.SafeGridIndex) then return false end
+
+	--检查准备重设的房间门位置和形状是否吻合
+	if (roomDesc.Data.Shape == data.Shape) and (roomDesc.Data.Doors >= data.Doors) then
+		return true
+	end
+
+	return false
 end
 
 --清理房间充能
@@ -100,34 +135,54 @@ function SilverKey:OnUse(item, rng, player, flag, slot)
 
 	if (flag & UseFlag.USE_OWNED > 0) and (flag & UseFlag.USE_CARBATTERY <= 0) and (flag & UseFlag.USE_VOID <= 0) then
 		local room = game:GetRoom()
-		local roomType = room:GetType()
 		local data = self:GetData()
 		local list = self:GetCanRecoredList()
 		
 		--记录当前房间类型和当前时间
-		if list[data.RoomType] == nil then
-			if list[roomType] then
-				data.RoomType = roomType
+		if data.Type <= 0 then
+			local roomType = room:GetType()
+			local roomDesc = game:GetLevel():GetCurrentRoomDesc()
+			local roomData = (roomDesc and roomDesc.Data) or nil
+			if list[roomType] and roomData then
+				data.Type = roomType
+				data.Variant = roomData.Variant
+				data.SubType = roomData.Subtype
+				data.Shape = roomData.Shape
+				data.Doors = roomData.Doors
+				data.Difficulty = roomData.Difficulty
+				data.Mode = roomData.Mode
+				
 				data.Time = game.TimeCounter
 				data.Ban = roomType
 				return true
+			else
+				sfx:Play(187, 1, 30) --失败提示音
 			end
 		else
 			local door = self._Finds:ClosestDoor(player.Position)
 
 			--将普通房间变为记录的房间类型,并回溯时间
 			if door and door.TargetRoomIndex and door.Position:Distance(player.Position) <= 70 then
-				local desc = level:GetRoomByIdx(door.TargetRoomIndex)
-				if level:GetStage() ~= 13 and desc ~= nil and desc.GridIndex ~= level:GetStartingRoomIndex() and desc.GridIndex > 0 and (not desc.Clear) and desc.Data and (desc.Data.Type == 1 or list[desc.Data.Type] ~= nil) then
-					local roomData = desc.Data
+				local roomDesc = level:GetRoomByIdx(door.TargetRoomIndex)
+				if roomDesc ~= nil and roomDesc.Data ~= nil and self:CanResetRoom(roomDesc) then
+					local roomData = roomDesc.Data
+					local seed = rng:Next()
 					local newData = self._Levels:CreateRoomData{
-						Type = data.RoomType,
+						Seed = seed,
+						ReduceWeight = false,
+						Type = data.Type,
+						MinVariant = data.Variant,
+						MaxVariant = data.Variant,
+						SubType = data.SubType,
+						MinDifficulty = data.Difficulty,
+						MaxDifficulty = data.Difficulty,
+						Mode = data.Mode,
 						Shape = roomData.Shape,
 						Doors = roomData.Doors
-					}				
-					if newData then
-						desc.Data = newData
-						data.RoomType = -1
+					}
+					
+					if newData and self._Levels:ResetRoom(roomDesc, newData, seed) then
+						data.Type = 0
 						game.TimeCounter = data.Time
 
 						--开门
@@ -158,7 +213,6 @@ function SilverKey:OnUse(item, rng, player, flag, slot)
 				end
 			end
 		end
-		
 	end	
 	return {ShowAnim = false, Discharge = false}
 end
@@ -229,8 +283,8 @@ function SilverKey:OnActiveRender(player, slot, offset, alpha, scale)
 	local data = mod:GetIBSData("temp").SilverKey
 	if data then
 		local list = self:GetCanRecoredList()
-		if list[data.RoomType] ~= nil then
-			spr:SetFrame(list[data.RoomType])
+		if list[data.Type] ~= nil then
+			spr:SetFrame(list[data.Type])
 			spr.Scale = Vector(scale, scale)
 			
 			local color = Color(1,1,1,alpha)
@@ -239,7 +293,7 @@ function SilverKey:OnActiveRender(player, slot, offset, alpha, scale)
 			
 			spr:Render(offset + Vector(16*scale,10*scale))
 		else
-			data.RoomType = -1
+			data.Type = 0
 		end
 	end
 end

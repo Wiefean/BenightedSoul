@@ -93,6 +93,7 @@
 		<Item Name="Memento" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="DEEP MYSTERIES" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Maw Bank" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Folk Prescription" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -214,6 +215,7 @@
 		<Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Maw Bank" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Folk Prescription" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -288,6 +290,7 @@
 		<Item Name="Double Dosage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Deciduous Meat" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Curse Syringe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="White Q Ball" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -301,6 +304,7 @@
 		<Item Name="Double Dosage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Deciduous Meat" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Curse Syringe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="White Q Ball" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>	
 	
@@ -547,6 +551,7 @@
 		<Item Name="Pageant Father" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Memento" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Maw Bank" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="White Q Ball" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 
@@ -572,6 +577,7 @@
 		<Item Name="Falsehood of ???" Weight="1" DecreaseBy="1" RemoveOn="1" />	
 		<Item Name="Leaden Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Clash" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="White Q Ball" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</Pool>
 	
@@ -612,6 +618,7 @@
 		<Item Name="Alms" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Soul of Generosity" Weight="0.1" DecreaseBy="0.1" RemoveOn="0.1" />
 		<Item Name="Lown Tea" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Folk Prescription" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</Pool>
 	

@@ -819,7 +819,17 @@ Item = {
 	
 	[IBS_ItemID.MawBank]={
 		Name='巨口储蓄罐',
-		Desc='好多好多钱，购物后失效'
+		Desc='好多好多钱 , 购物后失效'
+	},
+	
+	[IBS_ItemID.FolkPrescription]={
+		Name='偏方',
+		Desc='别猜这是啥'
+	},
+	
+	[IBS_ItemID.WhiteQBall]={
+		Name='灰白色母球',
+		Desc='弹速下降 + 机遇上升'
 	},
 
 },

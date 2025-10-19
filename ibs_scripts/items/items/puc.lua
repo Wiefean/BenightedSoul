@@ -32,6 +32,13 @@ end
 function PUC:OnPickupFirstAppear(pickup)
 	if not PlayerManager.AnyoneHasCollectible(self.ID) then return end
 	if pickup.SubType <= 0 then return end
+	local itemConfig = config:GetCollectible(pickup.SubType)
+		
+	--非任务道具
+	if itemConfig and itemConfig:HasTags(ItemConfig.TAG_QUEST) then
+		return
+	end	
+	
 	local room = game:GetRoom()
 	local seed = pickup.InitSeed
 	local chance = 35; if PlayerManager.AnyoneHasCollectible(IBS_ItemID.Goatify) then chance = chance * 2 end
