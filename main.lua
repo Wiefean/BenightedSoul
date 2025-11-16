@@ -7,7 +7,7 @@
 Isaac_BenightedSoul = RegisterMod("Benighted Soul",1)
 
 local mod = Isaac_BenightedSoul
-mod.Version = "0.10.7"
+mod.Version = "0.10.9"
 mod.Language = Options.Language
 mod.NameStr = "愚昧"
 if mod.Language ~= "zh" then mod.Language = "en" mod.NameStr = mod.Name end

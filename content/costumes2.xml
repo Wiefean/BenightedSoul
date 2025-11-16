@@ -51,6 +51,8 @@
 	<costume id="85" anm2path="alms.anm2" type="passive" />
 	<!-- smile world -->
 	<costume id="101" anm2path="smile_world.anm2" type="passive" priority="1" />
+	<!-- loong -->
+	<costume id="163" anm2path="loong.anm2" type="passive" isFlying="true" priority="1" />
 
 
 <!-- null costumes -->

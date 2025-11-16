@@ -38,6 +38,7 @@ end
 
 --概率替换普通乞丐
 function Envoy:OnSlotInit2(slot)
+	if not self:GetIBSData('persis')["BEve"].MegaSatan then return end
 	if not self:GetIBSData('persis')['slot_envoy'] then return end
 	if not self:GetIBSData('temp').EnvoySpawned and RNG(slot.InitSeed):RandomInt(100) < 7 then		
 		Isaac.Spawn(6, self.Variant, 0, slot.Position, Vector.Zero, nil)

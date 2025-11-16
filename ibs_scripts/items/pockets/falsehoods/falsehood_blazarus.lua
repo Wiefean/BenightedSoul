@@ -60,8 +60,8 @@ function BLazarus:OnUse(card, player, flag)
 			if list then
 				local variant = list[player:GetCardRNG(self.ID):RandomInt(1, #list)]
 				if variant then
-					checkladder = true
 					Isaac.ExecuteCommand('goto s.'..cmd..'.'..variant)
+					checkladder = true
 					game:StartRoomTransition(-3, Direction.NO_DIRECTION, RoomTransitionAnim.TELEPORT, player)
 					self._Levels:QuitDebugRoomWhenExit()
 					SUCCESS = true

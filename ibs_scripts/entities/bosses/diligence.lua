@@ -20,15 +20,25 @@ local Diligence = mod.IBS_Class.Entity{
 
 --是否可出现
 function Diligence:CanAppear()
-	if not self:GetIBSData('persis')['boss_deligence_diligence'] then return false end
+	if not self:GetIBSData('persis')['boss_chastity'] then return false end
+	local level = game:GetLevel()
+	local room = game:GetRoom()
 	
-	--表表抹检测
-	if game:GetRoom():GetType() == RoomType.ROOM_MINIBOSS and PlayerManager.AnyoneIsPlayerType(mod.IBS_PlayerID.BMaggy) then
+	--前两层不出,除非回溯线
+	if level:GetStage() < 3 and not level:IsAscent() then
 		return false
 	end
-	if self:GetIBSData('persis')[IBS_PlayerKey.BCBA].FINISHED and (game:GetRoom():GetType() ~= RoomType.ROOM_BOSS) then
+
+	--表表抹检测
+	if room:GetType() == RoomType.ROOM_MINIBOSS and PlayerManager.AnyoneIsPlayerType(mod.IBS_PlayerID.BMaggy) then
+		return false
+	end
+	
+	--成就检测,非boss房
+	if self:GetIBSData('persis')[IBS_PlayerKey.BCBA].FINISHED and (room:GetType() ~= RoomType.ROOM_BOSS) then
 		return true
 	end
+	
 	return false
 end
 
@@ -242,18 +252,8 @@ function Diligence:OnNpcUpdate2(npc)
 		npc.Visible = true
 	end
 
-	local target = nil
+	local target = npc:GetPlayerTarget()
 	local vec = Vector.Zero
-
-	--在友好状态下目标改为最近的敌人,如果没有则仍为玩家
-	if friendly then
-		target = self._Finds:ClosestEnemy(npc.Position)
-		if target == nil then
-			target = self._Finds:ClosestPlayer(npc.Position)
-		end
-	else
-		target = self._Finds:ClosestPlayer(npc.Position)
-	end	
 
 	if target then
 		vec = target.Position - npc.Position
@@ -399,12 +399,12 @@ function Diligence:OnNpcDeath(npc)
 		local SeedBag = (mod.IBS_Pickup and mod.IBS_Pickup.SeedBag)
 	
 		--20%额外掉落农场
-		if int <= 20 then
+		if int <= 20 and not PlayerManager.AnyoneHasCollectible(IBS_ItemID.PortableFarm) then
 			Isaac.Spawn(5, 100, IBS_ItemID.PortableFarm, pos, Vector.Zero, nil)
 		end
 		
 		--25%额外掉落偶像
-		if int > 20 and int <= 40 then
+		if int > 20 and int <= 40 and not PlayerManager.AnyoneHasCollectible(IBS_ItemID.MODE) then
 			Isaac.Spawn(5, 100, IBS_ItemID.MODE, pos, Vector.Zero, nil)
 		end
 
@@ -417,12 +417,12 @@ function Diligence:OnNpcDeath(npc)
 		local itemPool = game:GetItemPool()
 	
 		--20%额外掉落熔炉
-		if int <= 20 then
+		if int <= 20 and not PlayerManager.AnyoneHasCollectible(479) then
 			Isaac.Spawn(5, 100, 479, pos, Vector.Zero, nil)
 		end
 		
 		--25%额外掉落灯
-		if int > 20 and int <= 40 then
+		if int > 20 and int <= 40 and not PlayerManager.AnyoneHasCollectible(IBS_ItemID.LODI) then
 			Isaac.Spawn(5, 100, IBS_ItemID.LODI, pos, Vector.Zero, nil)
 		end		
 		

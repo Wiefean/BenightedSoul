@@ -4,6 +4,7 @@
 local mod = Isaac_BenightedSoul
 local IBS_BossID = mod.IBS_BossID
 local IBS_PlayerKey = mod.IBS_PlayerKey
+local IBS_ItemID = mod.IBS_ItemID
 
 local game = Game()
 local sfx = SFXManager()
@@ -17,15 +18,25 @@ local Temperance = mod.IBS_Class.Entity{
 
 --是否可出现
 function Temperance:CanAppear()
-	if not self:GetIBSData('persis')['boss_temperance'] then return false end
-
-	--表表抹检测
-	if game:GetRoom():GetType() == RoomType.ROOM_MINIBOSS and PlayerManager.AnyoneIsPlayerType(mod.IBS_PlayerID.BMaggy) then
+	if not self:GetIBSData('persis')['boss_chastity'] then return false end
+	local level = game:GetLevel()
+	local room = game:GetRoom()
+	
+	--前两层不出,除非回溯线
+	if level:GetStage() < 3 and not level:IsAscent() then
 		return false
 	end
-	if self:GetIBSData('persis')[IBS_PlayerKey.BIsaac].FINISHED and (game:GetRoom():GetType() ~= RoomType.ROOM_BOSS) then
+
+	--表表抹检测
+	if room:GetType() == RoomType.ROOM_MINIBOSS and PlayerManager.AnyoneIsPlayerType(mod.IBS_PlayerID.BMaggy) then
+		return false
+	end
+	
+	--成就检测,非boss房
+	if self:GetIBSData('persis')[IBS_PlayerKey.BIsaac].FINISHED and (room:GetType() ~= RoomType.ROOM_BOSS) then
 		return true
 	end
+	
 	return false
 end
 
@@ -192,18 +203,8 @@ function Temperance:OnNpcUpdate(npc)
 	local vec = Vector.Zero
 	local A = Vector.Zero
 	local A2 = Vector.Zero
-	local target = nil
+	local target = npc:GetPlayerTarget()
 	local friendly = npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY)
-	
-	--在友好状态下目标改为最近的敌人,如果没有则仍为玩家
-	if friendly then
-		target = self._Finds:ClosestEnemy(npc.Position)
-		if target == nil then
-			target = self._Finds:ClosestPlayer(npc.Position)
-		end
-	else
-		target = self._Finds:ClosestPlayer(npc.Position)
-	end	
 
 	local dist = (npc.Position - target.Position):Length()
 	local dir = -1
@@ -368,9 +369,9 @@ function Temperance:OnNpcDeath(npc)
 		S = 8
 		local boneHeart = Isaac.Spawn(5, 10, 11, game:GetRoom():FindFreePickupSpawnPosition(npc.Position), Vector.Zero, nil)
 		boneHeart.Velocity = RandomVector() / 2
-	elseif int >= 34 and int < 67 then --33%节制之骨
+	elseif int >= 34 and int < 67 and not PlayerManager.AnyoneHasCollectible(IBS_ItemID.BOT) then --33%节制之骨
 		V = 100
-		S = mod.IBS_ItemID.BOT
+		S = IBS_ItemID.BOT
 	end
 
 	Isaac.Spawn(5, V, S, game:GetRoom():FindFreePickupSpawnPosition(npc.Position),  RandomVector() / 2, nil)

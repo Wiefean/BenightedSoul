@@ -783,4 +783,16 @@ function BCBA:PreUseBomb(player)
 end
 BCBA:AddPriorityCallback(ModCallbacks.MC_PRE_PLAYER_USE_BOMB, -9999, 'PreUseBomb')
 
+--副角色索敌优化
+function BCBA:OnPickupTarget(npc, target)
+	local player = (target and target:ToPlayer())
+	if player and self:IsSecondPlayer(player) then
+		local player2 = self:GetOtherTwin(player)
+		if player2 then
+			return player2
+		end
+	end
+end
+BCBA:AddPriorityCallback(ModCallbacks.MC_NPC_PICK_TARGET, -9999, 'OnPickupTarget')
+
 return BCBA

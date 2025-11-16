@@ -43,11 +43,11 @@ function BKeeper:OnPriceUpdate(variant, subType, shopItemID, price)
 	--0元购
 	if newPrice <= 0 then newPrice = -1000 end
 
-	if newPrice ~= price then	
+	if newPrice ~= price then
 		return newPrice
 	end
 end
-BKeeper:AddPriorityCallback(ModCallbacks.MC_GET_SHOP_ITEM_PRICE, CallbackPriority.IMPORTANT, 'OnPriceUpdate')
+BKeeper:AddPriorityCallback(IBS_CallbackID.GET_PICKUP_PRICE, 777, 'OnPriceUpdate')
 
 --变身
 function BKeeper:Benighted(player, fromMenu)

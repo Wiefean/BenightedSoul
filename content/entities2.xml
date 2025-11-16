@@ -6,19 +6,22 @@
     <entity name="IBS_Diligence" anm2path="bosses/mini/diligence.anm2" baseHP="35" shieldStrength="10" boss="1" champion="0" collisionDamage="2" collisionMass="1" collisionRadius="9" friction="1" id="46" variant="7250" subtype="1" numGridCollisionPoints="12" shadowSize="12" stageHP="5" tags="nodelirium" portrait="0" >
         <gibs amount="5" blood="1" bone="0" eye="0" gut="0" large="0" dust="0" />
     </entity>
-    <entity name="IBS_Fortitude" anm2path="bosses/mini/fortitude.anm2" baseHP="90" boss="1" champion="0" collisionDamage="0" collisionMass="70" collisionRadius="16" friction="1" id="48" variant="7251" subtype="0" numGridCollisionPoints="12" shadowSize="13" stageHP="15" shieldStrength="35" tags="nodelirium" portrait="1" >
+    <entity name="IBS_Chastity" anm2path="bosses/mini/chastity.anm2" baseHP="42" boss="1" champion="0" collisionDamage="0" collisionMass="30" collisionRadius="10" friction="1" id="47" variant="7251" subtype="0" numGridCollisionPoints="12" shadowSize="16" stageHP="14" shieldStrength="7" tags="nodelirium" portrait="1" >
+        <gibs amount="4" blood="0" bone="0" dust="1" eye="0" gut="0" large="0" rock="1"/>
+    </entity>	
+    <entity name="IBS_Fortitude" anm2path="bosses/mini/fortitude.anm2" baseHP="90" boss="1" champion="0" collisionDamage="0" collisionMass="70" collisionRadius="16" friction="1" id="48" variant="7252" subtype="0" numGridCollisionPoints="12" shadowSize="13" stageHP="15" shieldStrength="35" tags="nodelirium" portrait="2" >
         <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0" />
     </entity>
-    <entity name="IBS_Temperance" anm2path="bosses/mini/temperance.anm2" baseHP="49" boss="1" champion="0" collisionDamage="2" collisionMass="15" collisionRadius="13" friction="1" id="49" variant="7252" subtype="0" numGridCollisionPoints="12" shadowSize="12" stageHP="7" tags="nodelirium" portrait="2" >
+    <entity name="IBS_Temperance" anm2path="bosses/mini/temperance.anm2" baseHP="49" boss="1" champion="0" collisionDamage="2" collisionMass="15" collisionRadius="13" friction="1" id="49" variant="7253" subtype="0" numGridCollisionPoints="12" shadowSize="12" stageHP="7" tags="nodelirium" portrait="3" >
         <gibs amount="10" blood="0" bone="1" eye="0" gut="0" large="0" sound_bone="1" dust="1" />
     </entity>
-    <entity name="IBS_Generosity" anm2path="bosses/mini/generosity.anm2" baseHP="700" boss="1" champion="0" collisionDamage="0" collisionMass="15" collisionRadius="13" friction="1" id="50" variant="7253" subtype="0" numGridCollisionPoints="12" shadowSize="16" stageHP="0" tags="nodelirium" portrait="3" >
+    <entity name="IBS_Generosity" anm2path="bosses/mini/generosity.anm2" baseHP="700" boss="1" champion="0" collisionDamage="0" collisionMass="15" collisionRadius="13" friction="1" id="50" variant="7254" subtype="0" numGridCollisionPoints="12" shadowSize="16" stageHP="0" tags="nodelirium" portrait="4" >
         <gibs amount="6" blood="1" bone="1" eye="0" gut="1" large="0"/>
     </entity>
-    <entity name="IBS_GenerosityBum" anm2path="bosses/mini/generosity_bum.anm2" baseHP="14" boss="1" champion="0" collisionDamage="2" collisionMass="15" collisionRadius="13" friction="1" id="50" variant="7253" subtype="1" numGridCollisionPoints="12" shadowSize="16" stageHP="7" tags="nodelirium" portrait="3" >
+    <entity name="IBS_GenerosityBum" anm2path="bosses/mini/generosity_bum.anm2" baseHP="14" boss="1" champion="0" collisionDamage="2" collisionMass="15" collisionRadius="13" friction="1" id="50" variant="7254" subtype="1" numGridCollisionPoints="12" shadowSize="16" stageHP="7" tags="nodelirium" portrait="4" >
         <gibs amount="6" blood="1" bone="1" eye="0" gut="1" large="0"/>
     </entity>
-    <entity name="IBS_Humility" anm2path="bosses/mini/humility.anm2" baseHP="70" boss="1" champion="0" collisionDamage="2" collisionMass="7" collisionRadius="13" friction="1" id="52" variant="7254" subtype="0" numGridCollisionPoints="12" shadowSize="0" stageHP="10" tags="nodelirium" portrait="4" >
+    <entity name="IBS_Humility" anm2path="bosses/mini/humility.anm2" baseHP="70" boss="1" champion="0" collisionDamage="2" collisionMass="7" collisionRadius="13" friction="1" id="52" variant="7255" subtype="0" numGridCollisionPoints="12" shadowSize="0" stageHP="10" tags="nodelirium" portrait="5" >
         <gibs amount="10" blood="0" bone="0" eye="0" gut="0" large="0" dust="1" />
     </entity>
 
@@ -215,7 +218,13 @@
     <entity name="IBS_ChestMantle" anm2path="effects/chest_mantle.anm2" id="1000" variant="7258" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
-   <entity name="IBS_ShockWave" anm2path="effects/shock_wave.anm2" id="1000" variant="7259" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
+	<entity name="IBS_ShockWave" anm2path="effects/shock_wave.anm2" id="1000" variant="7259" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_ChastityShield" anm2path="effects/divine_intervention.anm2" id="1000" variant="7260" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="IBS_ChastityLaser" anm2path="effects/chastity_laser.anm2" id="1000" variant="7261" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
 	<entity name="IBS_Empty" id="1000" variant="7777" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="0" collisionRadius="0" friction="0" numGridCollisionPoints="0" shadowSize="0" stageHP="0"/>	

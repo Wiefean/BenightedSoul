@@ -10,6 +10,11 @@ local WhiteQBall = mod.IBS_Class.Item(mod.IBS_ItemID.WhiteQBall)
 --获得时
 function WhiteQBall:OnGainItem(item, charge, first, slot, varData, player)
 	if first then
+		local rng = player:GetCollectibleRNG(self.ID)
+		local itemPool = game:GetItemPool()
+		local id = itemPool:GetCardEx(rng:Next(), 0, 1, 0, false)
+		local pos = game:GetRoom():FindFreePickupSpawnPosition(player.Position, 0, true)
+		Isaac.Spawn(5, 300, id, pos, Vector.Zero, nil)
 		game:GetLevel():AddAngelRoomChance(1)
 	end
 end

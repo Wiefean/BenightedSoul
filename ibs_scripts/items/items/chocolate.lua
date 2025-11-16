@@ -31,6 +31,20 @@ function Chocolate:GetPlayerData(player)
 	return data.CHOCOLATE_PLAYER
 end
 
+--是否可用
+function Chocolate:CanUse()
+	local num = 0
+	for _,ent in ipairs(Isaac.GetRoomEntities()) do
+		if ent:IsEnemy() and ent:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then
+			num = num + 1
+			if num >= 2 then
+				return false
+			end
+		end
+	end
+	return true
+end
+
 --敌人受击变友好
 function Chocolate:OnHitEnemy(target, dmg, flags, source)
 	if self._Ents:IsEnemy(target, false, false, true) and source.Entity and source.Entity:ToTear() then
@@ -49,6 +63,7 @@ Chocolate:AddPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, -300, 'OnHitEnemy
 --双击发射
 function Chocolate:OnDoubleTap(player, type, dir)
 	if (type == 1) and not Input.IsActionPressed(ButtonAction.ACTION_MAP, player.ControllerIndex) then
+		if not self:CanUse() then return end
 		if player:HasCollectible(self.ID) and player:IsExtraAnimationFinished() and not player:IsCoopGhost() then
 			local data = self:GetPlayerData(player)
 			if data.Left > 0 then
@@ -71,9 +86,11 @@ Chocolate:AddCallback(mod.IBS_CallbackID.DOUBLE_TAP, 'OnDoubleTap')
 function Chocolate:ResetLeft(player)
 	if player:HasCollectible(self.ID) then
 		local data = self:GetPlayerData(player)
+		if data.Left < self.MaxLeft then		
+			player:SetColor(Color(92/255, 47/255, 22/255),20,2,true)
+			SFXManager():Play(SoundEffect.SOUND_BIRD_FLAP)
+		end
 		data.Left = self.MaxLeft
-		player:SetColor(Color(92/255, 47/255, 22/255),20,2,true)
-		SFXManager():Play(SoundEffect.SOUND_BIRD_FLAP)
 	end
 end
 

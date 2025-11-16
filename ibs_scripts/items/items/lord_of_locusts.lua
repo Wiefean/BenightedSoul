@@ -35,8 +35,10 @@ function LOL:OnTakeDamage(ent, dmg)
 			local rng = player:GetCollectibleRNG(self.ID)
 			
 			if data.Damage > 50 then
-				self:SpawnLocust(player)
-				data.Damage = data.Damage - 50
+				if player:GetCollectibleRNG(self.ID):RandomInt(100) < 50 then				
+					self:SpawnLocust(player)
+					data.Damage = data.Damage - 50
+				end
 			else
 				data.Damage = data.Damage + dmg
 			end

@@ -3132,7 +3132,7 @@ function BEden:GrowingGreed(variant, subType, shopItemID, price)
 		return newPrice
 	end
 end
-BEden:AddCallback(ModCallbacks.MC_GET_SHOP_ITEM_PRICE, 'GrowingGreed')
+BEden:AddPriorityCallback(IBS_CallbackID.GET_PICKUP_PRICE, 200, 'GrowingGreed')
 
 
 --立地升天

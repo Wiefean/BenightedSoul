@@ -168,6 +168,10 @@ mod.IBS_Item = {
 	MawBank = Load('maw_bank'),
 	FolkPrescription = Load('folk_prescription'),
 	WhiteQBall = Load('white_q_ball'),
+	DonaldDollar = Load('donald_dollar'),
+	TempFolder = Load('temp_folder'),
+	Loong = Load('loong'),
+	OOC = Load('chastity_oath'),
 
 }
 

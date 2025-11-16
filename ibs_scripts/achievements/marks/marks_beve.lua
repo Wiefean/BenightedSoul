@@ -21,18 +21,17 @@ BlueBaby = {
 	PaperNames = {'yongle'},
 	Items = {IBS_ItemID.Yongle},
 },
--- Satan = {
-	-- PaperNames = {'vein_miner'},
-	-- Items = {IBS_ItemID.VeinMiner},
--- },
--- Lamb = {
-	-- PaperNames = {'vain_miner'},
-	-- Items = {Items.VainMiner},
--- },
--- MegaSatan = {
-	-- PaperNames = {'czd6'},
-	-- Pockets = {IBS_PocketID.CuZnD6},
--- },
+Satan = {
+	PaperNames = {'curse_of_the_fool'},
+	Items = {IBS_ItemID.CurseoftheFool},
+},
+Lamb = {
+	PaperNames = {'the_lunatic'},
+	Trinkets = {IBS_TrinketID.TheLunatic},
+},
+MegaSatan = {
+	PaperNames = {'envoy'},
+},
 BossRush = {
 	PaperNames = {'reused_story'},
 	Items = {IBS_ItemID.ReusedStory},

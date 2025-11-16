@@ -2030,8 +2030,8 @@ for LANG,Table in pairs(IBS_EID) do
 					en = 'Wing',
 				},
 				desc = {
-					zh = '+ 0.3{{Speed}}移速，普通房间的门保持开启',
-					en = '+ 0.3 {{Speed}}spd, doors of normal rooms keep open',
+					zh = '+ 0.3{{Speed}}移速; 普通房间的门保持开启',
+					en = '+ 0.3 {{Speed}}spd; Doors of normal rooms keep open',
 				},
 				noGreed = true,
 			},

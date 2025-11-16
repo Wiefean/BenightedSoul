@@ -99,7 +99,7 @@ end
 
 --计算充能消耗
 function SecretAgent:GetDischarge(player)
-	local discharge = 3
+	local discharge = 4
 	if player:HasCollectible(116) then discharge = discharge - 1 end --9伏特
 	if discharge < 0 then discharge = 0 end
 	return discharge
@@ -367,6 +367,16 @@ function SecretAgent:OnActiveRender(player, slot, offset, alpha, scale)
 		end
 
 		Icon.Scale = Vector(scale, scale)
+		
+		--描边
+		if self._Players:GetSlotCharges(player, slot) >= 4 then
+			Icon.Color = Color(1,1,1,alpha,1,1,1)
+			Icon:Render(offset + Vector(16*scale,16*scale) + Vector(1,0))
+			Icon:Render(offset + Vector(16*scale,16*scale) + Vector(-1,0))
+			Icon:Render(offset + Vector(16*scale,16*scale) + Vector(0,1))
+			Icon:Render(offset + Vector(16*scale,16*scale) + Vector(0,-1))
+		end
+		
 		Icon.Color = Color(1,1,1,alpha)
 		Icon:Render(offset + Vector(16*scale,16*scale))
 	end

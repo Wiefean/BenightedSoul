@@ -70,10 +70,10 @@ local playerEID = {
 
 [IBS_PlayerID.BEve] = {
 	name='Benighted Eve',
-	info='Using pocket {{Collectible'..(IBS_ItemID.MyFruit)..'}}My Fruit at pocket turns it into {{Collectible'..(IBS_ItemID.MyFault)..'}}My Fault'..
+	info='Using pocket {{Collectible'..(IBS_ItemID.MyFruit)..'}}My Fruit turns it into {{Collectible'..(IBS_ItemID.MyFault)..'}}My Fault'..
 		 '#Return {{Collectible'..(IBS_ItemID.MyFruit)..'}}My Fruit with last used times in a new level'..
 		 '#!!! {{Collectible'..(IBS_ItemID.MyFruit)..'}}My Fruit can not be returned if exhausted',	
-	br='{{Collectible'..(IBS_ItemID.MyFruit)..'}} My Fruit\'s max-charge is fixed at 0 #{{Collectible'..(IBS_ItemID.MyFault)..'}} My Fault will be automatically triggered before taking penalt damage'
+	br='{{Collectible'..(IBS_ItemID.MyFruit)..'}} My Fruit\'s max-charge is fixed at 0#{{Collectible'..(IBS_ItemID.MyFault)..'}} My Fault will be automatically used before taking penalt damage'
 },
 
 [IBS_PlayerID.BEden] = {
@@ -238,7 +238,8 @@ local itemEID={
 	name="Valentinus Chocolate",
 	info="{{SoulHeart}} + 2"..
 		 "#Double-tapping a fire key creates a special tear that makes a normal enemy friendly with 2.14 x Hp"..
-		 "#Two shots for a room"
+		 "#Two shots for a room"..
+		 '#Can not be triggered with 2 friendly enemies'
 },
 
 [IBS_ItemID.Diamoond]={
@@ -301,6 +302,7 @@ local itemEID={
 	name="V7",
 	info="In the current room, spawns one of the friendly bosses below with 2x Hp:"..
 		 "#Deligence & Diligence"..
+		 "#Chastity"..
 		 "#Fortitude"..
 		 "#Temperance"..
 		 "#Generosity"..
@@ -505,7 +507,8 @@ local itemEID={
 
 [IBS_ItemID.LOL]={
 	name="Lord of The Locusts",
-	info="Clearing a room or dealing 50 damage spawns a random locust (not Abyss's one)"..
+	info="Clearing a room spawns a random locust (not Abyss's one)"..
+		 "#Dealing 50 damage has 50% chance to spawn one"..
 		 "#Grants immunity to damage from{{Trinket113}}Locust of War"
 },
 
@@ -1308,8 +1311,15 @@ local itemEID={
 
 [IBS_ItemID.DoubleDosage]={
 	name='Double Dosage',
-	info='#Copy other passive syringe items, including items gained after'..
-		 '#After picking up a syringe item, if Isaac has over 11 syringe items, dies',
+	info='#Duplicate other passive syringe items, including items gained after'..
+		 '#!!! After picking up a syringe item, if Isaac has over 11 syringe items, dies',
+},
+
+[IBS_ItemID.HolyInjection]={
+	name='Holy Injection',
+	info='#↑ + 2 {{Luck}}luck'..
+		 '#When a room is cleared, 3% chance to remove a {{BrokenHeart}}Broken Heart, and gain a {{HalfSoulHeart}}Half Soul Heart'..
+		 '#+ 1% chance for each {{Spun}}syringe or {{Seraphim}}angel item',
 },
 
 [IBS_ItemID.KilleR]={
@@ -1336,19 +1346,19 @@ local itemEID={
 	name='PUC',
 	info='#35% chance to add an item from {{IBSMOD}}IBS into cycle for a pedestal item'..
 		 '#Anyone with {{Collectible'..(IBS_ItemID.Goatify)..'}} Goatify doubles the chance'..
-		 '#No effect to quest items',
+		 '#No effect on quest items',
 },
 
 [IBS_ItemID.SaleBomb]={
 	name='Sale Bomb',
-	info='{{Bomb}} Bombs from Isaac will make each coin-priced pickups\' price decrease 1~2, and spawn {{Coin}}coins with the same number'
+	info='{{Bomb}} Bombs from Isaac will make coin price decrease 1~2, and spawn {{Coin}}coins with the same number'
 },
 
 [IBS_ItemID.Diecry]={
 	name='Diecry',
-	info='Gain {{Collectible1}}Sad Onion effect in the current room',
+	info='Grant {{Collectible1}}Sad Onion effect in the current room',
 	virtue='Inner wisps with less fire delay',
-	belial='Gain again',
+	belial='Double effect',
 },
 
 [IBS_ItemID.ReusedStory]={
@@ -1411,14 +1421,14 @@ local itemEID={
 	name='Secret Agent',
 	info='Select an item from Isaac to remove'..
 		 '#Using again to spawn the removed item',
-	virtue='Selecting empty slot as {{Collectible34}}Bible',
+	virtue='Selecting empty slot as {{Collectible33}}Bible',
 	belial='Selecting empty slot as {{Collectible51}}Pentagram',
 	void='No effect',
 },
 
 [IBS_ItemID.CurseoftheFool]={
 	name='Curse of the Fool',
-	info='When take damage 11 times, use {{Card'..Card.CARD_REVERSE_FOOL..'}}The Fool? and {{Card'..Card.CARD_FOOL..'}}The Fool',
+	info='When take damage 11 times, trigger {{Card'..Card.CARD_REVERSE_FOOL..'}}The Fool? and {{Card'..Card.CARD_FOOL..'}}The Fool',
 	seijaBuff={
 		desc = 'Spawn {{Card'..Card.CARD_DICE_SHARD..'}}Dice Shard as bonus',
 		data = {
@@ -1455,10 +1465,10 @@ local itemEID={
 
 [IBS_ItemID.MyFault]={
 	name='My Fault',
-	info='Become invincible for 0.5s'..
+	info='Provide 0.5s invincibility'..
 		 '#Spawn blood wave, enemies around it will lose 2x Isaac\'s {{Damage}}dmg Hp, and gain bleeding for 8s'..
 		 '#Hitting bleeding enemies spawns blood wave again on where they stand',
-	virtue='Outer wisps that does not shoot and exist only one room',
+	virtue='Outer wisps that do not shoot and exist only one room',
 	belial='Invincible time increases to 1s',
 },
 
@@ -1488,9 +1498,46 @@ local itemEID={
 
 [IBS_ItemID.FolkPrescription]={
 	name='Folk Prescription',
-	info='Ground decorations have 13% chance to be harvestable, whoever standing by makes it into a {{Pill}}pill'..
+	info='Ground decorations have 13% chance to be harvestable, standing by which turns it into a {{Pill}}pill'..
 		 '#!!! The effect of the pill becomes unidentified'..
 		 '#{{Pill}} Using non-negative pill heals 1 {{Hearts}}Red Hearts',
+},
+
+[IBS_ItemID.WhiteQBall]={
+	name='White Q Ball',
+	info='When gained, spawn a {{Rune}}rune'..
+		 '#↓ - 0.16 {{Shotspeed}}sspd'..
+		 '#{{AngelDevilChance}} + 15% {{DevilRoom}}devil chance, + 100% {{AngelRoom}}angel chance, till next {{AngelRoom}}Angel Room showing up',
+},
+
+[IBS_ItemID.DonaldDollar]={
+	name='Donald Dollar',
+	info='Most coins are {{Crafting3}}Dime'..
+		 '#!!! Collectible price x 7',
+},
+
+[IBS_ItemID.TempFolder]={
+	name='Temp Folder',
+	info='When gained, + 1 {{EmptyBoneHeart}}Bone Heart, and smelt copies of the current trinkets'..
+		 '#↑ The maximum of {{Coin}}coins, {{Key}}keys, and {{Bomb}}bombs + 49'..
+		 '#When entering a new level, drops the over-99 part up to 49'..
+		 '#If enough, spawn collectibles instead, each kind can be spawned at most one:'..
+		 '#{{Collectible74}}(25{{Coin}})，{{Collectibl623}}(5{{Key}})，{{Collectible19}}(10{{Bomb}})'
+},
+
+[IBS_ItemID.Loong]={
+	name='Loong',
+	info='Grant flight'..
+		 '#When attacking, spawn flames under Isaac',
+},
+
+[IBS_ItemID.OOC]={
+	name='Oath of CHastity',
+	info='When gained, + 3 {{SoulHeart}}Soul Hearts'..
+		 '#↑ + 3 {{Luck}}luck'..
+		 '#Kill Uriel and Gabriel'..
+		 '#For every level, the first 7 times penalt damage become non-penalt and hurt only half a heart'..
+		 '#!!! Lose this item when taking penalt damage',
 },
 
 }
@@ -1794,7 +1841,7 @@ local trinketEID={
 
 [IBS_TrinketID.WildMilk]={
 	name='Wild Milk',
-	info='The first penalt damage taken in a room decreases by 1, and becomes no-penalty with no invincible time',
+	info='The first penalt damage taken in a room decreases by 1, and becomes non-penalty with no invincible time',
 	mult={
 		numberToMultiply = 1,
 		maxMultiplier = 3,
@@ -1834,7 +1881,7 @@ local trinketEID={
 	name='For Screenshot',
 	info='When gained, replace the appearance of items in the current room with {{Quality4}}Q4 ones'..
 		 '#Losing this trinket or approaching the items to recover the appearance'..
-		 '#Get {{Player23}}Tainted Cain costume'..
+		 '#Grant {{Player23}}Tainted Cain costume'..
 		 '#Show {{Collectible710}}Bag of crafting UI (Useless)',
 	mult={
 		numberToMultiply = 114514,
@@ -1845,18 +1892,12 @@ local trinketEID={
 
 [IBS_TrinketID.TheLunatic]={
 	name='The Lunatic',
-	info='10% chance to add {{Collectible358}}The Wiz in cycle for new items'..
+	info='10% chance to add {{Collectible358}}The Wiz in cycle for items newly appeared'..
 		 '#No effect to quest items',
 	mult={
 		numberToMultiply = 10,
 		maxMultiplier = 3,
 	}
-},
-
-[IBS_ItemID.WhiteQBall]={
-	name='White Q Ball',
-	info='↓ - 0.16 {{Shotspeed}}sspd'..
-		 '#{{AngelDevilChance}} + 15% {{DevilRoom}}devil chance, + 100% {{AngelRoom}}angel chance, till next {{AngelRoom}}Angel Room showing up',
 },
 
 }
@@ -1999,7 +2040,8 @@ local cardEID={
 
 [IBS_PocketID.BLilith] = {
 	name='Falsehood of Lilith',
-	info='Remove a passive item with lowest quality from Isaac, and remove 15 items with the same quality from pools'..
+	info='Remove a passive item with lowest quality from Isaac'..
+		 '#Remove 15 items with the lowest quality from pools, and spawn one with the same quality'..
 		 '#No effect on quest items',
 	mimic={charge = 3, isRune = true},
 	player={[IBS_PlayerID.BXXX] = 'Orb: When entering a new room, remove an item with lowest quality from pools'},
@@ -2078,14 +2120,14 @@ local slotEID = {
 	name='Facer',
 	info='When touched for 1 second, Isaac takes 1 heart damage (Red Heart first), and spawn 5 coins'..
 		 '#36% chance to leave; Also leaves when touched for 4 times'..
-		 '#Spawn a trinket when leaving',
+		 '#Spawn a trinket when leaving:',
 },
 
 [IBS_SlotID.Envoy.Variant] = {
 	name='Envoy',
 	info='{{Coin}}After receiving 30 coins, return all coins, and triggers {{Collectible585}}Alabaster Box'..
 		 '#When destroyed, spawns Uriel / Gabriel who drops Key Piece'..
-		 '#!!! {{Player3}}{{Collectible619}}Judas with Birthright: Coins will not be counted',
+		 '#!!! {{Player3}}{{Collectible619}}Judas with Birthright: Coins given will not be counted',
 },
 
 }

@@ -19,6 +19,15 @@ function Ether:GetData(player)
 	return data.Ether
 end
 
+--获得时
+function Ether:OnGainItem(item, charge, first, slot, varData, player)
+	if first then
+		player:AddBlackHearts(2)
+		player:AddSoulHearts(2)
+	end
+end
+Ether:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, 'OnGainItem', Ether.ID)
+
 --圣光
 function Ether:OnPlayerUpdate(player)
 	local data = self._Ents:GetTempData(player).Ether

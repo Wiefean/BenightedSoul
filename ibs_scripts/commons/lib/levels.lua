@@ -204,6 +204,9 @@ function Levels:CreateRoomData(tbl)
 	local stbType = tbl.StbType
 	
 	--自动修正
+	if tbl.ReduceWeight == nil then
+		tbl.ReduceWeight = true
+	end	
 	if not stbType and tbl.Type then
 		if tbl.Type == RoomType.ROOM_DEFAULT then		
 			stbType = self:GetStbType(RNG(seed))
@@ -214,7 +217,7 @@ function Levels:CreateRoomData(tbl)
 
 	return RoomConfigHolder.GetRandomRoom(
 		seed,
-		tbl.ReduceWeight or true,
+		tbl.ReduceWeight,
 		stbType,
 		tbl.Type,
 		tbl.Shape or RoomShape.ROOMSHAPE_1x1,

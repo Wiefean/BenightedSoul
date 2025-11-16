@@ -109,7 +109,7 @@ if mod.IBS_Compat.THI:IsEnabled() then
 	})
 	
 	--虚弱敌人
-	function BJudas:OnPlayerUpdate(player)
+	function BJudas:OnPlayerUpdate2(player)
 		if player:IsFrame(90,0) then
 			local num = RuneSword:GetInsertedRuneNum(player, self.ID)
 			if num > 0 then			
@@ -121,7 +121,7 @@ if mod.IBS_Compat.THI:IsEnabled() then
 			end
 		end
 	end
-	BJudas:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, 'OnPlayerUpdate')
+	BJudas:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, 'OnPlayerUpdate2')
 	
 end
 

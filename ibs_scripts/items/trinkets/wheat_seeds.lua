@@ -33,16 +33,8 @@ WheatSeeds:AddCallback(mod.IBS_CallbackID.GREED_NEW_WAVE, 'OnRoomCleaned')
 --受伤吞下 
 function WheatSeeds:OnTakeDMG(ent, dmg, flag, source)
 	local player = ent:ToPlayer()
-	
 	if player then
-		for i = 0,1 do
-			local trinket = player:GetTrinket(0)
-			if (trinket == self.ID) or (trinket == self.ID + 32768) then
-				player:TryRemoveTrinket(trinket)
-				player:AddSmeltedTrinket(trinket, false)
-				SFXManager():Play(157)
-			end
-		end		
+		self._Players:SmeltTrinket(player, self.ID, true)
 	end
 end
 WheatSeeds:AddCallback(ModCallbacks.MC_POST_ENTITY_TAKE_DMG, 'OnTakeDMG')
@@ -51,14 +43,7 @@ WheatSeeds:AddCallback(ModCallbacks.MC_POST_ENTITY_TAKE_DMG, 'OnTakeDMG')
 function WheatSeeds:OnNewLevel()
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
-		for slot = 0,1 do
-			local trinket = player:GetTrinket(slot)
-			if (trinket == self.ID) or (trinket == self.ID + 32768) then
-				player:TryRemoveTrinket(trinket)
-				player:AddSmeltedTrinket(trinket, false)
-				SFXManager():Play(157)
-			end
-		end	
+		self._Players:SmeltTrinket(player, self.ID)
 	end
 end
 WheatSeeds:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, 'OnNewLevel')

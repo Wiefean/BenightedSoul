@@ -11,6 +11,9 @@ mod.IBS_Boss = {
 --勤劳
 Diligence = Load('diligence'),
 
+--贞洁
+Chastity = Load('chastity'),
+
 --坚韧
 Fortitude = Load('fortitude'),
 
@@ -173,6 +176,12 @@ ChestMantle = Load('chest_mantle'),
 
 --震荡波特供版
 ShockWave = Load('shock_wave'),
+
+--贞洁护盾
+ChastityShield = Load('chastity_shield'),
+
+--贞洁激光
+ChastityLaser = Load('chastity_laser'),
 
 --空实体
 Empty = Load('empty'),

@@ -86,6 +86,7 @@ local function Persis_Init() --此处可新增长久数据
 		bc3 = false,
 		bc4 = false,
 		bc5 = false,
+		bc6 = false,
 		bc10 = false,
 		bc11 = false,
 		bc13 = false,
@@ -101,6 +102,7 @@ local function Persis_Init() --此处可新增长久数据
 		difficulty_enemy_level_mult = 0.3, --敌人血量每层增长
 		difficulty_boss_level_mult = 0.2, --boss敌人血量每层增长
 		--难度区结束--
+
 
 		--诅咒区开始--
 		curse_moving = true, --动人诅咒
@@ -118,6 +120,7 @@ local function Persis_Init() --此处可新增长久数据
 		
 		--头目区开始--
 		boss_deligence_diligence = true, --勤劳
+		boss_chastity = true, --贞洁
 		boss_fortitude = true, --坚韧
 		boss_temperance = true, --节制
 		boss_generosity = true, --慷慨
@@ -133,6 +136,7 @@ local function Persis_Init() --此处可新增长久数据
 		otto = false, --女疾女户OTTO硅胶
 		envyRemove = false, --从池中移除女疾女户
 		tipI = true, --角色菜单提示
+		showPriceOver99 = true, --及百价格显示优化
 		rewindCompat = true, --发光沙漏兼容
 		--杂项区结束--
 

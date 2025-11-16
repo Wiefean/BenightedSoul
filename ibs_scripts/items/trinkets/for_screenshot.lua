@@ -94,7 +94,7 @@ local function RerollSequence(player)
 		local quality = GetQuality(value)
 		local seed = Random()
 		local pool = game:GetItemPool():GetRandomPool(RNG(seed))
-		Result = self._Pools:GetCollectibleWithQuality(seed, quality, pool, false, 25, true)
+		Result = mod.IBS_Lib.Pools:GetCollectibleWithQuality(seed, quality, pool, false, 25, true)
 	end
 end
 

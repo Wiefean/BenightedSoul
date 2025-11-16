@@ -831,6 +831,26 @@ Item = {
 		Name='灰白色母球',
 		Desc='弹速下降 + 机遇上升'
 	},
+	
+	[IBS_ItemID.DonaldDollar]={
+		Name='金圆券',
+		Desc='这本来是白色的'
+	},
+	
+	[IBS_ItemID.TempFolder]={
+		Name='临时文件夹',
+		Desc='暂时容纳'
+	},
+	
+	[IBS_ItemID.Loong]={
+		Name='龙',
+		Desc='这是那个 + 吗?'
+	},
+	
+	[IBS_ItemID.OOC]={
+		Name='贞洁之誓',
+		Desc='愿你守身如玉'
+	},
 
 },
 

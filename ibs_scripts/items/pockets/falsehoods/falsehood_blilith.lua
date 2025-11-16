@@ -17,7 +17,7 @@ function BLilith:GetLowestItem(player, seed)
 	local MAX = config:GetCollectibles().Size - 1
 	for id = -MAX, MAX do
 		local itemConfig = config:GetCollectible(id)
-		if itemConfig and itemConfig:IsAvailable() and itemConfig.Type ~= 3 and player:HasCollectible(id, true) and not itemConfig:HasTags(ItemConfig.TAG_QUEST) then
+		if itemConfig and itemConfig.Type ~= 3 and player:HasCollectible(id, true) and not itemConfig:HasTags(ItemConfig.TAG_QUEST) then
 			if itemConfig.Quality < lowest then
 				lowest = itemConfig.Quality
 				
@@ -40,10 +40,38 @@ function BLilith:GetLowestItem(player, seed)
 	end
 end
 
+--获取道具池中最低的品质
+function BLilith:GetLowestQualityInPool(seed)
+	local itemPool = game:GetItemPool()
+	local lowest = 114514 --非常好数字(悲)
+
+	local pool = self._Pools:GetRoomPool(self._Levels:GetRoomUniqueSeed())
+	for _,v in ipairs(itemPool:GetCollectiblesFromPool(pool)) do
+		local id = v.itemID
+		if itemPool:HasCollectible(id) then
+			local itemConfig = config:GetCollectible(id)
+			if itemConfig and itemConfig:IsAvailable() and not itemConfig:HasTags(ItemConfig.TAG_QUEST) then
+				if itemConfig.Quality < lowest then
+					lowest = itemConfig.Quality
+				end
+			end	
+		end
+	end
+
+	--如果没检测到,那就只剩早餐
+	if lowest == 114514 then
+		lowest = 1
+	end
+
+	return lowest
+end
+
 --使用效果
 function BLilith:OnUse(card, player, flag)
 	local rng = player:GetCardRNG(self.ID)
-	local item,quality = self:GetLowestItem(player, rng:Next())
+	local seed = rng:Next()
+	local item = self:GetLowestItem(player, seed)
+	local quality = self:GetLowestQualityInPool(seed)
 
 	if item then
 		player:RemoveCollectible(item, true)
@@ -53,27 +81,36 @@ function BLilith:OnUse(card, player, flag)
 		if itemConfig.GfxFileName then
 			AbandonedItem:Spawn(player.Position, itemConfig.GfxFileName, RandomVector() * 0.1 * math.random(10, 15))
 		end
-		
-		local itemPool = game:GetItemPool()
-		local pool = self._Pools:GetRoomPool(self._Levels:GetRoomUniqueSeed())
+	end
+	
+	local itemPool = game:GetItemPool()
+	local pool = self._Pools:GetRoomPool(self._Levels:GetRoomUniqueSeed())
 
-		--从池中移除同品质的15个道具
-		for i = 1,15 do
-			local id = self._Pools:GetCollectibleWithQuality(rng:Next(), quality, pool, true, 25, true)
-			local itemConfig = config:GetCollectible(id)
+	--从池中移除品质最低的15个道具
+	for i = 1,15 do
+		local id = self._Pools:GetCollectibleWithQuality(rng:Next(), quality, pool, true, 25, true)
+		local itemConfig = config:GetCollectible(id)
 
-			if itemConfig and not itemConfig:HasTags(ItemConfig.TAG_QUEST) then
-				itemPool:RemoveCollectible(id)
-				
-				--特效
-				if id ~= 25 and itemConfig.GfxFileName then
-					AbandonedItem:Spawn(player.Position, itemConfig.GfxFileName, RandomVector() * 0.1 * math.random(10, 15))
-				end
+		if itemConfig and not itemConfig:HasTags(ItemConfig.TAG_QUEST) then
+			itemPool:RemoveCollectible(id)
+			
+			--特效
+			if id ~= 25 and itemConfig.GfxFileName then
+				AbandonedItem:Spawn(player.Position, itemConfig.GfxFileName, RandomVector() * 0.1 * math.random(10, 15))
 			end
 		end
-
-		SFXManager():Play(267)
 	end
+
+	--生成一个同最低品质的道具
+	do
+		local id = self._Pools:GetCollectibleWithQuality(seed, quality, pool, true, 25, true)
+		local pos = game:GetRoom():FindFreePickupSpawnPosition(player.Position, 0, true)
+		local pickup = Isaac.Spawn(5, 100, id, pos, Vector.Zero, nil):ToPickup()
+		pickup.Wait = 60
+		itemPool:RemoveCollectible(id)
+	end
+
+	SFXManager():Play(267)
 end
 BLilith:AddCallback(ModCallbacks.MC_USE_CARD, 'OnUse', BLilith.ID)
 

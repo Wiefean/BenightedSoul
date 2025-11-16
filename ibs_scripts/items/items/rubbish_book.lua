@@ -10,9 +10,10 @@ function RubbishBook:OnUse(item, rng, player, flag, slot)
 
 	--正邪增强(东方mod)
 	if mod.IBS_Compat.THI:SeijaBuff(player) then
-		local seijaBLevel = mod.IBS_Compat.THI:GetSeijaBLevel(player)
-		if seijaBLevel > 0 then
-			player:AddCoins(seijaBLevel)
+		if mod.IBS_Compat.THI:SeijaBuff(player)	then
+			local seijaBLevel = mod.IBS_Compat.THI:GetSeijaBLevel(player)
+			local num = math.max(1, seijaBLevel)
+			player:AddCoins(num)
 		end
 	end
 

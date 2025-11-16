@@ -20,15 +20,25 @@ local Generosity = mod.IBS_Class.Entity{
 
 --是否可出现
 function Generosity:CanAppear()
-	if not self:GetIBSData('persis')['boss_generosity'] then return false end
-
-	--表表抹检测
-	if game:GetRoom():GetType() == RoomType.ROOM_MINIBOSS and PlayerManager.AnyoneIsPlayerType(mod.IBS_PlayerID.BMaggy) then
+	if not self:GetIBSData('persis')['boss_chastity'] then return false end
+	local level = game:GetLevel()
+	local room = game:GetRoom()
+	
+	--前两层不出,除非回溯线
+	if level:GetStage() < 3 and not level:IsAscent() then
 		return false
 	end
-	if self:GetIBSData('persis')[IBS_PlayerKey.BKeeper].FINISHED and (game:GetRoom():GetType() ~= RoomType.ROOM_BOSS) then
+
+	--表表抹检测
+	if room:GetType() == RoomType.ROOM_MINIBOSS and PlayerManager.AnyoneIsPlayerType(mod.IBS_PlayerID.BMaggy) then
+		return false
+	end
+	
+	--成就检测,非boss房
+	if self:GetIBSData('persis')[IBS_PlayerKey.BKeeper].FINISHED and (room:GetType() ~= RoomType.ROOM_BOSS) then
 		return true
 	end
+	
 	return false
 end
 
@@ -157,8 +167,10 @@ function Generosity:OnNpcUpdate1(npc)
 			npc.State = self.State.Bonus
 			spr:Play('Bonus', true)
 			
-			--友好状态下改为召唤乞丐
+			--友好状态下改为召唤友好乞丐
 			if friendly then
+				data.Wait = data.Wait * 2
+						
 				local bum = Isaac.Spawn(self.Type, self.Variant, self.SubType.Bum, npc.Position, RandomVector(), npc)
 				bum:AddCharmed(EntityRef(npc.SpawnerEntity or Isaac.GetPlayer(0)), -1)
 				Isaac.Spawn(1000, 15, 0, npc.Position, Vector.Zero, nil)
@@ -181,9 +193,9 @@ function Generosity:OnNpcUpdate1(npc)
 		local y = math.random(1, height-1)
 		data.Grid = x + y * width
 		
-		if not friendly then
+		--if not friendly then
 			data.BonusTimes = data.BonusTimes + 1
-		end
+		--end
 	end
 	
 	--召唤乞丐
@@ -239,7 +251,7 @@ function Generosity:OnNpcUpdate2(npc)
 				target:Remove()
 			end
 		else --跟随玩家
-			target = self._Finds:ClosestPlayer(npc.Position)
+			target = npc:GetPlayerTarget()
 			if target then		
 				local vec = target.Position - npc.Position
 				local A = vec:Resized(math.max(1, vec:Length() / 100))
@@ -247,10 +259,7 @@ function Generosity:OnNpcUpdate2(npc)
 			end
 		end
 	else --友好状态下发动自杀式袭击
-		local target = self._Finds:ClosestEnemy(npc.Position)
-		if target == nil then
-			target = self._Finds:ClosestPlayer(npc.Position)
-		end
+		local target = npc:GetPlayerTarget()
 		if target then
 			local vec = target.Position - npc.Position
 			local A = vec:Resized(1)
@@ -284,10 +293,14 @@ function Generosity:OnNpcDeath(npc)
 	if (npc.SpawnerType == EntityType.ENTITY_PLAYER) or game:IsGreedMode() then return end
 	if (npc.Variant ~= Generosity.Variant) then return end
 	
-	--掉落慷慨之魂
 	if npc.SubType == self.SubType.Generosity then
 		local pos = game:GetRoom():FindFreePickupSpawnPosition(npc.Position)
-		Isaac.Spawn(5, 100, IBS_ItemID.SOG, pos, Vector.Zero, nil)
+		--慷慨之魂,已有则换成审判
+		if PlayerManager.AnyoneHasCollectible(IBS_ItemID.SOG) then
+			Isaac.Spawn(5, 300, 21, pos, Vector.Zero, nil)
+		else
+			Isaac.Spawn(5, 100, IBS_ItemID.SOG, pos, Vector.Zero, nil)
+		end
 	end
 end
 Generosity:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, 'OnNpcDeath', 50)

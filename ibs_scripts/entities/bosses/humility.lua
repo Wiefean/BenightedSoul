@@ -20,15 +20,25 @@ local Humility = mod.IBS_Class.Entity{
 
 --是否可出现
 function Humility:CanAppear()
-	if not self:GetIBSData('persis')['boss_humility'] then return false end
-
-	--表表抹检测
-	if game:GetRoom():GetType() == RoomType.ROOM_MINIBOSS and PlayerManager.AnyoneIsPlayerType(mod.IBS_PlayerID.BMaggy) then
+	if not self:GetIBSData('persis')['boss_chastity'] then return false end
+	local level = game:GetLevel()
+	local room = game:GetRoom()
+	
+	--前两层不出,除非回溯线
+	if level:GetStage() < 3 and not level:IsAscent() then
 		return false
 	end
-	if self:GetIBSData('persis')[IBS_PlayerKey.BJudas].FINISHED and (game:GetRoom():GetType() ~= RoomType.ROOM_BOSS) then
+
+	--表表抹检测
+	if room:GetType() == RoomType.ROOM_MINIBOSS and PlayerManager.AnyoneIsPlayerType(mod.IBS_PlayerID.BMaggy) then
+		return false
+	end
+	
+	--成就检测,非boss房
+	if self:GetIBSData('persis')[IBS_PlayerKey.BJudas].FINISHED and (room:GetType() ~= RoomType.ROOM_BOSS) then
 		return true
 	end
+	
 	return false
 end
 
@@ -297,7 +307,7 @@ function Humility:OnNpcDeath(npc)
 	--50%符文
 	if int < 50 then 
 		S = game:GetItemPool():GetCard(npc.InitSeed, false, true, true)
-	elseif int >= 50 and int < 75 then --25%谦逊之径
+	elseif int >= 50 and int < 75 and not PlayerManager.AnyoneHasCollectible(IBS_ItemID.ROH) then --25%谦逊之径
 		V = 100
 		S = IBS_ItemID.ROH
 	end

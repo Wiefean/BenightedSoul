@@ -197,96 +197,98 @@ end
 
 --加载项
 mod:AddPriorityCallback(ModCallbacks.MC_POST_MODS_LOADED, CallbackPriority.EARLY, function()
-	if mod.IBS_Compat.THI:IsEnabled() then
+	if not mod.IBS_Compat.THI:IsEnabled() then return end
 
-		do --永乐大典
-			local Yongle = mod.IBS_Item.Yongle
-			Yongle.BlackList[THI.Collectibles.BookOfYears.Item] = true
-		end
-
-		do --镜像骰固定转换
-			local d = THI.Collectibles.DFlip
-
-			--圣饼<=>剩饼
-			d:AddFixedPair(5,100,108, 5,100,IBS_ItemID.Waster)
-
-			--钉子<=>备用钉子
-			d:AddFixedPair(5,100,83, 5,100,IBS_ItemID.ReservedNail)
-			
-			--诅咒屏障<=>神圣屏障
-			d:AddFixedPair(5,100,313, 5,100,IBS_ItemID.CursedMantle)
-
-			--该隐祭品<=>亚伯祭品
-			d:AddFixedPair(5,100,IBS_ItemID.Sacrifice, 5,100,IBS_ItemID.Sacrifice2)
-			
-			--未定义<=>已定义
-			d:AddFixedPair(5,100,324, 5,100,IBS_ItemID.Defined)
-			
-			--发光的心<=>诅咒之心
-			d:AddFixedPair(5,100,IBS_ItemID.GlowingHeart, 5,100,IBS_ItemID.CursedHeart)
-			
-			--规则卡<=>规则书
-			d:AddFixedPair(5,300,44, 5,100,IBS_ItemID.RulesBook)
-	
-			--GHD<=>DHG
-			d:AddFixedPair(5,100,IBS_ItemID.GHD, 5,100,IBS_ItemID.FGHD)
-	
-			--伤疤之秘<=>破碎之秘
-			d:AddFixedPair(5,100,IBS_ItemID.Edge2, 5,100,IBS_ItemID.Edge3)
-			
-			--连锁挖掘<=>帘锁挖掘
-			d:AddFixedPair(5,100,IBS_ItemID.VeinMiner, 5,100,IBS_ItemID.VainMiner)
-			
-			--盛装男孩<=>盛装教父
-			d:AddFixedPair(5,100,141, 5,100,IBS_ItemID.PageantFather)
-			
-			--肉<=>剥落古老肉
-			d:AddFixedPair(5,100,193, 5,100,IBS_ItemID.DeciduousMeat)
-			
-			--注射型圣水<=>诅咒针剂
-			d:AddFixedPair(5,100,IBS_ItemID.HolyInjection, 5,100,IBS_ItemID.CurseSyringe)
-			
-			--禁断之果<=>夏娃的伪忆
-			d:AddFixedPair(5,100,IBS_ItemID.ForbiddenFruit, 5,300,IBS_PocketID.BEve)
-			
-			--我果<=>我过
-			d:AddFixedPair(5,100,IBS_ItemID.MyFruit, 5,100,IBS_ItemID.MyFault)
-			
-			--魔力8号球<=>灰白色母球
-			d:AddFixedPair(5,100,194, 5,100,IBS_ItemID.WhiteQBall)
-		end
-
-		do --疾病道具
-			table.insert(Pools.DiseaseItemList, THI.Collectibles.Asthma.Item)
-			table.insert(Pools.DiseaseItemList, THI.Collectibles.ZombieInfestation.Item)
-		end
-		
-		do --饥饿
-			local Hunger = THI.Collectibles.Hunger
-			Hunger:SetCollectibleHunger(IBS_ItemID.Waster, 2)
-			Hunger:SetCollectibleHunger(IBS_ItemID.PurpleBubbles, 2)
-			Hunger:SetCollectibleHunger(IBS_ItemID.DreggyPie, 10)
-			Hunger:SetCollectibleHunger(IBS_ItemID.NeedleMushroom, 1)
-			Hunger:SetCollectibleHunger(IBS_ItemID.ForbiddenFruit, 6)
-			Hunger:SetCollectibleHunger(IBS_ItemID.Sacrifice, 5)
-			Hunger:SetCollectibleHunger(IBS_ItemID.Sacrifice2, 10)
-			Hunger:SetCollectibleHunger(IBS_ItemID.Ssstew, 6)
-			Hunger:SetCollectibleHunger(IBS_ItemID.Bread, 5)
-			Hunger:SetCollectibleHunger(IBS_ItemID.Alms, 3)
-			Hunger:SetCollectibleHunger(IBS_ItemID.CheeseCutter, 3)
-			Hunger:SetTrinketHunger(IBS_ItemID.LownTea, 3)
-			Hunger:SetTrinketHunger(IBS_TrinketID.RabbitHead, 4)
-			Hunger:SetTrinketHunger(IBS_TrinketID.WheatSeeds, 1)
-			Hunger:SetTrinketHunger(IBS_TrinketID.Neopolitan, 2)
-		end
-		
-		do --复印机
-			local PortableCopier = THI.Collectibles.PortableCopier
-			PortableCopier:AddPaperCollectible(IBS_ItemID.Blackjack)
-			PortableCopier:AddPaperTrinket(IBS_TrinketID.PaperPenny)
-		end
-		
+	do --永乐大典
+		local Yongle = mod.IBS_Item.Yongle
+		Yongle.BlackList[THI.Collectibles.BookOfYears.Item] = true
 	end
+
+	do --镜像骰固定转换
+		local d = THI.Collectibles.DFlip
+
+		--圣饼<=>剩饼
+		d:AddFixedPair(5,100,108, 5,100,IBS_ItemID.Waster)
+
+		--钉子<=>备用钉子
+		d:AddFixedPair(5,100,83, 5,100,IBS_ItemID.ReservedNail)
+		
+		--诅咒屏障<=>神圣屏障
+		d:AddFixedPair(5,100,313, 5,100,IBS_ItemID.CursedMantle)
+
+		--该隐祭品<=>亚伯祭品
+		d:AddFixedPair(5,100,IBS_ItemID.Sacrifice, 5,100,IBS_ItemID.Sacrifice2)
+		
+		--未定义<=>已定义
+		d:AddFixedPair(5,100,324, 5,100,IBS_ItemID.Defined)
+		
+		--发光的心<=>诅咒之心
+		d:AddFixedPair(5,100,IBS_ItemID.GlowingHeart, 5,100,IBS_ItemID.CursedHeart)
+		
+		--规则卡<=>规则书
+		d:AddFixedPair(5,300,44, 5,100,IBS_ItemID.RulesBook)
+
+		--GHD<=>DHG
+		d:AddFixedPair(5,100,IBS_ItemID.GHD, 5,100,IBS_ItemID.FGHD)
+
+		--伤疤之秘<=>破碎之秘
+		d:AddFixedPair(5,100,IBS_ItemID.Edge2, 5,100,IBS_ItemID.Edge3)
+		
+		--连锁挖掘<=>帘锁挖掘
+		d:AddFixedPair(5,100,IBS_ItemID.VeinMiner, 5,100,IBS_ItemID.VainMiner)
+		
+		--盛装男孩<=>盛装教父
+		d:AddFixedPair(5,100,141, 5,100,IBS_ItemID.PageantFather)
+		
+		--肉<=>剥落古老肉
+		d:AddFixedPair(5,100,193, 5,100,IBS_ItemID.DeciduousMeat)
+		
+		--注射型圣水<=>诅咒针剂
+		d:AddFixedPair(5,100,IBS_ItemID.HolyInjection, 5,100,IBS_ItemID.CurseSyringe)
+		
+		--禁断之果<=>夏娃的伪忆
+		d:AddFixedPair(5,100,IBS_ItemID.ForbiddenFruit, 5,300,IBS_PocketID.BEve)
+		
+		--我果<=>我过
+		d:AddFixedPair(5,100,IBS_ItemID.MyFruit, 5,100,IBS_ItemID.MyFault)
+		
+		--魔力8号球<=>灰白色母球
+		d:AddFixedPair(5,100,194, 5,100,IBS_ItemID.WhiteQBall)
+		
+		--血誓<=>贞洁之誓
+		d:AddFixedPair(5,100,569, 5,100,IBS_ItemID.OOC)
+	end
+
+	do --疾病道具
+		table.insert(Pools.DiseaseItemList, THI.Collectibles.Asthma.Item)
+		table.insert(Pools.DiseaseItemList, THI.Collectibles.ZombieInfestation.Item)
+	end
+	
+	do --饥饿
+		local Hunger = THI.Collectibles.Hunger
+		Hunger:SetCollectibleHunger(IBS_ItemID.Waster, 2)
+		Hunger:SetCollectibleHunger(IBS_ItemID.PurpleBubbles, 2)
+		Hunger:SetCollectibleHunger(IBS_ItemID.DreggyPie, 10)
+		Hunger:SetCollectibleHunger(IBS_ItemID.NeedleMushroom, 1)
+		Hunger:SetCollectibleHunger(IBS_ItemID.ForbiddenFruit, 6)
+		Hunger:SetCollectibleHunger(IBS_ItemID.Sacrifice, 5)
+		Hunger:SetCollectibleHunger(IBS_ItemID.Sacrifice2, 10)
+		Hunger:SetCollectibleHunger(IBS_ItemID.Ssstew, 6)
+		Hunger:SetCollectibleHunger(IBS_ItemID.Bread, 5)
+		Hunger:SetCollectibleHunger(IBS_ItemID.Alms, 3)
+		Hunger:SetCollectibleHunger(IBS_ItemID.CheeseCutter, 3)
+		Hunger:SetTrinketHunger(IBS_ItemID.LownTea, 3)
+		Hunger:SetTrinketHunger(IBS_TrinketID.RabbitHead, 4)
+		Hunger:SetTrinketHunger(IBS_TrinketID.WheatSeeds, 1)
+		Hunger:SetTrinketHunger(IBS_TrinketID.Neopolitan, 2)
+	end
+	
+	do --复印机
+		local PortableCopier = THI.Collectibles.PortableCopier
+		PortableCopier:AddPaperCollectible(IBS_ItemID.Blackjack)
+		PortableCopier:AddPaperTrinket(IBS_TrinketID.PaperPenny)
+	end
+
 end)
 
 

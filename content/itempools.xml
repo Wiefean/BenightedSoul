@@ -94,6 +94,10 @@
 		<Item Name="DEEP MYSTERIES" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Maw Bank" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Folk Prescription" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Donald Dollar" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Temp Folder" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Loong" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Oath of Chastity" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -160,7 +164,6 @@
 		<Item Name="Double Dosage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Holy Injection" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Kille R" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Vein Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="PUC" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Diecry" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -170,6 +173,9 @@
 		<Item Name="Memento" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="DEEP MYSTERIES" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Maw Bank" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Temp Folder" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Loong" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Oath of Chastity" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -216,6 +222,7 @@
 		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Maw Bank" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Folk Prescription" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Temp Folder" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -264,12 +271,12 @@
 		<Item Name="Sangen Summoning" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Peace Pipe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Signature Move" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Vein Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Burning of Unburnt God" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="My Fruit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Maw Bank" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Temp Folder" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 	
@@ -309,7 +316,7 @@
 	</Pool>	
 	
 	<Pool Name="secret">
-		<Item Name="D4D" Weight="0.3" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="D4D" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Shooting Stars Gazer" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.6" RemoveOn="0.01" />
 		<Item Name="Hypercube" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -348,7 +355,7 @@
 	</Pool>
 
 	<Pool Name="greedSecret">
-		<Item Name="D4D" Weight="0.3" DecreaseBy="1" RemoveOn="0.1" />	
+		<Item Name="D4D" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="Shooting Stars Gazer" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.6" RemoveOn="0.01" />
 		<Item Name="Hypercube" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -490,6 +497,7 @@
 		<Item Name="Light Barrier" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Holy Injection" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="My Fruit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Oath of Chastity" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 
@@ -514,6 +522,7 @@
 		<Item Name="Light Barrier" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Holy Injection" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="My Fruit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Oath of Chastity" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</Pool>
 
@@ -619,6 +628,7 @@
 		<Item Name="Soul of Generosity" Weight="0.1" DecreaseBy="0.1" RemoveOn="0.1" />
 		<Item Name="Lown Tea" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Folk Prescription" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Donald Dollar" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</Pool>
 	

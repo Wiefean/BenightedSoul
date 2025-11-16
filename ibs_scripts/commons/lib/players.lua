@@ -8,6 +8,7 @@ local Screens = mod.IBS_Lib.Screens
 
 local game = Game()
 local config = Isaac.GetItemConfig()
+local sfx = SFXManager()
 
 local Players = {}
 
@@ -97,6 +98,46 @@ function Players:AddShield(player, frames)
 	effect.Cooldown = (effect.Cooldown or 0) + frames
 end
 
+--吞下饰品
+function Players:SmeltTrinkets(player, playSound)
+	local SUCCESS = false
+	
+	for i = 0,1 do
+		local trinket = player:GetTrinket(0)
+		if trinket > 0 then
+			player:TryRemoveTrinket(trinket)
+			player:AddSmeltedTrinket(trinket, false)
+			SUCCESS = true
+		end
+	end	
+	
+	if playSound and SUCCESS then
+		sfx:Play(157)
+	end
+	
+	return SUCCESS
+end
+
+--吞下指定饰品(可选择是否忽略金饰品)
+function Players:SmeltTrinket(player, id, playSound, ignoreGolden)
+	local SUCCESS = false
+
+	for i = 0,1 do
+		local trinket = player:GetTrinket(0)
+		if trinket > 0 and (trinket == id or (ignoreGolden or trinket == id+32768)) then
+			player:TryRemoveTrinket(trinket)
+			player:AddSmeltedTrinket(trinket, false)
+			SUCCESS = true
+		end
+	end
+	
+	if playSound and SUCCESS then
+		sfx:Play(157)
+	end	
+	
+	return SUCCESS
+end
+
 --传送至特定位置
 function Players:TeleportToPosition(player, pos, showAnim, playSound, dmgCD)
 	if showAnim then
@@ -108,8 +149,8 @@ function Players:TeleportToPosition(player, pos, showAnim, playSound, dmgCD)
 	end
 	
 	if playSound then
-		SFXManager():Play(SoundEffect.SOUND_HELL_PORTAL1)
-		SFXManager():Play(SoundEffect.SOUND_HELL_PORTAL2)
+		sfx:Play(SoundEffect.SOUND_HELL_PORTAL1)
+		sfx:Play(SoundEffect.SOUND_HELL_PORTAL2)
 	end
 	
 	if dmgCD then
@@ -673,9 +714,9 @@ function Players:ChargeSlot(player, slot, amount, includeSpecial, force, showAni
 			local maxCharges = itemConfig.MaxCharges
 			
 			if curCharges < maxCharges then
-				SFXManager():Play(SoundEffect.SOUND_BEEP)
+				sfx:Play(SoundEffect.SOUND_BEEP)
 			elseif curCharges >= maxCharges then
-				SFXManager():Play(SoundEffect.SOUND_BATTERYCHARGE)
+				sfx:Play(SoundEffect.SOUND_BATTERYCHARGE)
 			end	
 		end	
 	end

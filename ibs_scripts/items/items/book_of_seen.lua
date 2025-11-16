@@ -71,7 +71,7 @@ function BookOfSeen:OnUse(item, rng, player, flag, slot)
 			
 			if not recorded then
 				local itemConfig = config:GetCollectible(id)
-				if itemConfig and itemConfig:IsAvailable() and (itemConfig.Type == ItemType.ITEM_ACTIVE) and itemConfig:HasTags(ItemConfig.TAG_BOOK) and not itemConfig:HasTags(ItemConfig.TAG_QUEST) then
+				if itemConfig and (itemConfig.Type == ItemType.ITEM_ACTIVE) and itemConfig:HasTags(ItemConfig.TAG_BOOK) and not itemConfig:HasTags(ItemConfig.TAG_QUEST) then
 					ent:SetColor(Color(1,1,1,1,1,1,1),6,3,true)
 					SFXManager():Play(171)
 					table.insert(data, id)

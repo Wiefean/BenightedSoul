@@ -164,6 +164,10 @@ RubbishBook = Isaac.GetItemIdByName("DEEP MYSTERIES"),
 MawBank = Isaac.GetItemIdByName("Maw Bank"),
 FolkPrescription = Isaac.GetItemIdByName("Folk Prescription"),
 WhiteQBall = Isaac.GetItemIdByName("White Q Ball"),
+DonaldDollar = Isaac.GetItemIdByName("Donald Dollar"),
+TempFolder = Isaac.GetItemIdByName("Temp Folder"),
+Loong = Isaac.GetItemIdByName("Loong"),
+OOC = Isaac.GetItemIdByName("Oath of Chastity"),
 
 }
 

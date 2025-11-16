@@ -15,6 +15,7 @@ mod.IBS_Callback = {
 	CheckIronHeart = Load('check_iron_heart'),
 	DevilAngelOpenState = Load('devil_angel_open_state'),
 	DoubTap = Load('double_tap'),
+	GetPickupPrice = Load('get_pickup_price'),
 	CanCollectPickup = Load('can_collect_pickup'),
 	PickupFirstAppear = Load('pickup_first_appear'),
 	BumDonation = Load('bum_donation'),

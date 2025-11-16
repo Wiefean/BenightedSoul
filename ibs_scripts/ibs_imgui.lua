@@ -376,24 +376,24 @@ MakeCharacterBar(IBS_PlayerKey.BEve, Language('夏娃', 'Eve'), {
 	Heart = Language('解锁 "禁断之果"', 'For "The Forbidden Fruit"'),
 	Isaac = Language('解锁 "真实之眼"', 'For "The Eye of Truth"'),
 	BlueBaby = Language('解锁 "永乐大典"', 'For "Yongle"'),
-	-- Satan = Language('解锁 ""', 'For ""'),
-	-- Lamb = Language('解锁 ""', 'For ""'),
-	-- MegaSatan = Language('解锁 ""', 'For ""'),
+	Satan = Language('解锁 "愚者之诅咒"', 'For "Curse of the Fool"'),
+	Lamb = Language('解锁 "可悲的疯人"', 'For "The Lunatic"'),
+	MegaSatan = Language('解锁 "使者"', 'For "Envoy"'),
 	BossRush = Language('解锁 "套作"', 'For "Reused Story"'),
 	Delirium = Language('解锁 "我果"和"我过"', 'For "My Fruit" and "My Fault"'),
 	Witness = Language('解锁 "偏方"', 'For "Folk Prescription"'),
 	Beast = Language('解锁 "焚烧不焚之神"', 'For "Burning of Unburnt God"'),
 	Greed = Language('解锁 "索斯星"', 'For "Zoth"'),
-	-- FINISHED = Language('解锁 ""', 'For ""'),
+	FINISHED = Language('解锁 "贞洁"', 'For "Chastity"'),
 },
 {
 	Unlocked = {'beve_unlock'},
 	Heart = {'ffruit'},
 	Isaac = {'the_eye_of_truth'},
 	BlueBaby = {'yongle'},
-	-- Satan = {'vein_miner'},
-	-- Lamb = {'vain_miner'},
-	-- MegaSatan = {'v7'},
+	Satan = {'curse_of_the_fool'},
+	Lamb = {'the_lunatic'},
+	MegaSatan = {'envoy'},
 	BossRush = {'reused_story'},
 	Hush = {'beve_falsehood'},
 	Delirium = {'my_fruit_fault'},
@@ -644,6 +644,7 @@ end
 ----↓头目栏相关↓----
 do
 	MakeCheckBox(_SettingTabB, 'boss_deligence_diligence', Language('勤勤 & 劳劳', 'Deligence & Diligence') )
+	MakeCheckBox(_SettingTabB, 'boss_chastity', Language('贞洁', 'Chastity') )
 	MakeCheckBox(_SettingTabB, 'boss_fortitude', Language('坚韧', 'Fortitude') )
 	MakeCheckBox(_SettingTabB, 'boss_temperance', Language('节制', 'Temperance') )
 	MakeCheckBox(_SettingTabB, 'boss_generosity', Language('慷慨', 'Generosity') )
@@ -661,6 +662,7 @@ do
 	MakeCheckBox(_SettingTabG, 'otto', Language('女疾女户特殊跳脸音效', "Ennnnnnvyyyyyy's special jump scare sfx") )
 	MakeCheckBox(_SettingTabG, 'envyRemove', Language('将女疾女户移出道具池', "Remove Ennnnnnvyyyyyy from item pools") )
 	MakeCheckBox(_SettingTabG, 'tipI', Language('角色菜单按键提示', 'Character menu control tip') )
+	MakeCheckBox(_SettingTabG, 'showPriceOver99', Language('及百价格显示优化', 'Show Price Over 99'), Language('不建议关闭，除非模组冲突', 'Keep it on unless mod conflicts') )
 	MakeCheckBox(_SettingTabG, 'rewindCompat', Language('发光沙漏兼容', 'Glowing Hour Glass compatibility'), Language('对控制台指令"rewind"无效', 'No effect on CMD "rewind"') )
 	
 	--虚空增强(吸收饰品)
@@ -694,6 +696,104 @@ do
 		end
 	end
 	mod:AddCallback(ModCallbacks.MC_USE_ITEM, AbyssUp, 706)	
+	
+	
+	do --及百价格显示优化
+
+		--临时数据
+		local function GetPriceData(pickup)
+			local data = Ents:GetTempData(pickup)
+			if not data.__SETTING_SHOWPRICEOVER99 then
+				local spr = Sprite()
+				spr:Load("gfx/ibs/ui/price.anm2", true)
+				spr:SetFrame('Shop', 0)
+				
+				data.__SETTING_SHOWPRICEOVER99 = {
+					Price = 0,
+					PriceSpr = spr,
+				}
+			end
+			return data.__SETTING_SHOWPRICEOVER99
+		end
+
+		--更新价格状态
+		local function UpdatePriceState(pickup)
+			local data = GetPriceData(pickup)
+		
+			--隐藏原来的价格
+			if data.Price ~= pickup.Price then
+				data.Price = pickup.Price
+				
+				local spr = pickup:GetPriceSprite()
+				if pickup.Price > 99 then
+					spr.Color.A = 0	
+				else
+					spr.Color.A = 1
+				end
+			end		
+		end
+
+		--拆分数字
+		local function SplitNumber(num)
+			local result = {}
+			
+			--算术取余法
+			-- while num > 0 do
+				-- table.insert(result, 1, num % 10)
+				-- num = num // 10
+			-- end
+			
+			--字符截取法(大概占用更低)
+			local str = tostring(num)
+			for i = 1,string.len(str) do
+				table.insert(result, tonumber(string.sub(str, i, i)))
+			end
+			
+			return result
+		end
+
+		--新房间触发,用于立刻隐藏原价格贴图
+		mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
+			for _,ent in ipairs(Isaac.FindByType(5)) do
+				local pickup = ent:ToPickup()
+				if pickup then
+					UpdatePriceState(pickup)
+				end
+			end
+		end)
+
+		--渲染数字
+		local function OnPickupRender(_,pickup, offset)
+			if not mod:GetIBSData('persis')["showPriceOver99"] then return end
+			local data = GetPriceData(pickup)
+			
+			UpdatePriceState(pickup)
+			
+			if pickup.Price > 99 then
+				local spr = pickup:GetPriceSprite()
+				local anim = (spr:GetAnimation() == "NumbersRed" and "ShopRed") or "Shop"
+				local PriceSpr = data.PriceSpr; PriceSpr:Play(anim)
+				local numbers = SplitNumber(pickup.Price)
+				table.insert(numbers, 10) --10表示美分符号
+
+				--获取尺寸和第一个数字的位置修正
+				local length = #numbers
+				local scale = math.max(0.4, 3 / length)
+				local firstOffset = offset + Vector(-6*scale*length, scale*length)
+
+				for k,v in ipairs(numbers) do
+					local offset2 = firstOffset + Vector(11*scale*k,0)
+					local pos = Screens:WorldToScreen(pickup.Position, offset2)
+					PriceSpr.Scale = Vector(scale,scale)
+					PriceSpr:SetFrame(v)
+					PriceSpr:Render(pos)
+				end
+			end
+		end
+		mod:AddCallback(ModCallbacks.MC_POST_PICKUP_RENDER, OnPickupRender)
+		
+	end
+	
 end
 ----↑杂项栏相关↑----
 
@@ -1526,6 +1626,7 @@ do
 		slot_facer = true, --换脸商
 		slot_envoy = true, --使者	
 		boss_deligence_diligence = true, --勤劳
+		boss_chastity = true, --贞洁
 		boss_fortitude = true, --坚韧
 		boss_temperance = true, --节制
 		boss_generosity = true, --慷慨
@@ -1537,6 +1638,7 @@ do
 		--otto = false, --女疾女户OTTO硅胶(故意保留了这一部分)
 		envyRemove = true, --从池中移除女疾女户
 		tipI = true, --角色菜单提示
+		showPriceOver99 = true, --及百价格显示优化
 		rewindCompat = true, --发光沙漏兼容
 	}
 	

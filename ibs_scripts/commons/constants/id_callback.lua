@@ -198,6 +198,20 @@ HOLD_ITEM_END = "IBS_CALLBACK_HOLD_ITEM_END",
 ]]
 
 
+--获取掉落物价格
+GET_PICKUP_PRICE = "IBS_CALLBACK_GET_PICKUP_PRICE",
+--[[提供参数:中类(Variant), 小类(SubType), 商品ID(整数), 价格]]
+--[[可输入参数:掉落物类型(Variant)]]
+--[[说明:
+返回数字即可修改价格
+主要用于本模组内的调整价格效果
+
+这个回调的起因是
+忏悔龙提供的获取掉落物价格回调("MC_GET_SHOP_ITEM_PRICE")
+会因为返回值而中断
+]]
+
+
 --是否能收集掉落物
 CAN_COLLECT_PICKUP = "IBS_CALLBACK_CAN_COLLECT_PICKUP",
 --[[提供参数:掉落物(实体), 收集者(实体 / nil)]]

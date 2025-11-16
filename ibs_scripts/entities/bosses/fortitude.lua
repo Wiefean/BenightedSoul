@@ -20,15 +20,25 @@ local Fortitude = mod.IBS_Class.Entity{
 
 --是否可出现
 function Fortitude:CanAppear()
-	if not self:GetIBSData('persis')['boss_fortitude'] then return false end
-
-	--表表抹检测
-	if game:GetRoom():GetType() == RoomType.ROOM_MINIBOSS and PlayerManager.AnyoneIsPlayerType(mod.IBS_PlayerID.BMaggy) then
+	if not self:GetIBSData('persis')['boss_chastity'] then return false end
+	local level = game:GetLevel()
+	local room = game:GetRoom()
+	
+	--前两层不出,除非回溯线
+	if level:GetStage() < 3 and not level:IsAscent() then
 		return false
 	end
-	if self:GetIBSData('persis')[IBS_PlayerKey.BMaggy].FINISHED and (game:GetRoom():GetType() ~= RoomType.ROOM_BOSS) then
+
+	--表表抹检测
+	if room:GetType() == RoomType.ROOM_MINIBOSS and PlayerManager.AnyoneIsPlayerType(mod.IBS_PlayerID.BMaggy) then
+		return false
+	end
+	
+	--成就检测,非boss房
+	if self:GetIBSData('persis')[IBS_PlayerKey.BMaggy].FINISHED and (room:GetType() ~= RoomType.ROOM_BOSS) then
 		return true
 	end
+	
 	return false
 end
 
@@ -96,18 +106,8 @@ function Fortitude:OnNpcUpdate(npc)
 	local data = self:GetData(npc)
 	local vec = Vector.Zero
 	local A = Vector.Zero
-	local target = nil
+	local target = npc:GetPlayerTarget()
 	local friendly = npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY)
-	
-	--在友好状态下目标改为最近的敌人,如果没有则仍为玩家
-	if friendly then
-		target = self._Finds:ClosestEnemy(npc.Position)
-		if target == nil then
-			target = self._Finds:ClosestPlayer(npc.Position)
-		end
-	else
-		target = self._Finds:ClosestPlayer(npc.Position)
-	end
 	
 	local dir = -1
 	local dashSpd = 35
@@ -245,17 +245,17 @@ function Fortitude:OnNpcDeath(npc)
 	if (npc.Variant ~= Fortitude.Variant) then return end
 	local int = npc:GetDropRNG():RandomInt(100)
 		
-	--2%金色祈者
-	local V = 300
-	local S = IBS_PocketID.GoldenPrayer
+	--33%神圣反击
+	local V = 350
+	local S = IBS_TrinketID.ToughHeart
 	
-	if int < 33 then --33%神圣反击
-		V = 350
-		S = IBS_TrinketID.DivineRetaliation
-	elseif int >= 33 and int < 66 then --33%硬心
+	if int < 2 then --2%金色祈者
+		V = 300
+		S = IBS_PocketID.GoldenPrayer
+	elseif int >= 2 and int < 35 then --33%硬心
 		V = 350
 		S = IBS_TrinketID.ToughHeart
-	elseif int >= 66 and int < 98 then --32%坚韧面具
+	elseif int >= 35 and int < 67 and not PlayerManager.AnyoneHasCollectible(IBS_ItemID.GOF) then --32%坚韧面具
 		V = 100
 		S = IBS_ItemID.GOF
 	end

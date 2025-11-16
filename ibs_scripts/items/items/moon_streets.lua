@@ -8,7 +8,16 @@ local sfx = SFXManager()
 
 local MoonStreets = mod.IBS_Class.Item(IBS_ItemID.MoonStreets)
 
+--防止无限循环
+local Timeout = 15
+mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
+	if Timeout > 0 then
+		Timeout = Timeout - 1
+	end
+end)
+
 function MoonStreets:OnNewRoom()
+	if Timeout > 0 then return end
 	if not PlayerManager.AnyoneHasCollectible(self.ID) then return end
 	local room = game:GetRoom()
 	local roomType = room:GetType()
@@ -56,6 +65,7 @@ function MoonStreets:OnNewRoom()
 		local roomDesc = rooms[rng:RandomInt(1,#rooms)] or rooms[1]
 		if roomDesc and roomDesc.Data then
 			game:StartRoomTransition(roomDesc.GridIndex, -1, RoomTransitionAnim.FADE, player)
+			Timeout = 15
 		end
 	end
 

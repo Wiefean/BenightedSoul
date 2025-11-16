@@ -1,4 +1,73 @@
 -----------------------------------
+2025.11
+v0.10.9
+
+美德小头目不会在前两层自然出现
+美德小头目不会掉落角色已拥有的道具
+
+新道具：贞洁之誓
+
+调整：
+ <道具>
+ 瓦伦丁巧克力：存在两个友好怪物时不能使用
+ 偏方：采集速度加快
+ 蝗虫领主：削弱
+ 以太之云：拾取时获得1魂心和黑心
+ 灰白色母球：拾取时生成1个符文
+ <口袋物品>
+ 莉莉丝的伪忆：强化
+ <敌人>
+ 贞洁：削弱；掉落调整
+
+New Item: Oath of Chastity
+
+Virtue mini-bosses won't appear naturally in the first two levels
+Virtue mini-bosses won't drop items held by Isaac
+
+Adjustments:
+ <Items>
+ Valentinus Chocolate: Can not be triggered with two friendly enemies
+ Folk Prescription: Harvest speed up
+ Lord or Locusts: Droop
+ Ether: + 1 Soul Heart and Black Heart when gained
+ White Q Ball: Spawn a rune when gained
+ <Pockets>
+ Falsehood of Lilith: Boost
+ <Enemy>
+ Chastity: Droop; Drops adjusted
+-----------------------------------
+2025.10
+v0.10.8
+
+新可配置项：及百价格显示优化
+
+新怪物：贞洁
+
+新道具：
+ 金圆券
+ 临时文件夹
+ 龙
+
+调整：
+ <道具>
+ 四维骰：8充能；权重提升
+ 秘密特工：4充能
+
+
+New Options: Show Price Over 99
+
+New Enemy: Chastity
+
+New Item: 
+ Donald Dollar
+ Temp Folder
+ Loong
+ 
+Adjustments:
+ <Items>
+ D4D: 8 Charge; Weight up
+ Secret Agent: Charge 4
+-----------------------------------
 2025.10
 v0.10.7
 

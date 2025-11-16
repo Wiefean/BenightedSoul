@@ -139,7 +139,7 @@
 	<passive id="137" name="Double Dosage" description="Do sage do" gfx="double_dosage.png" quality="2" craftquality="2" tags="offensive syringe" customtags="nometronome" />
 	<passive id="138" cache="luck" name="Holy Injection" description="Blessing is truely matter" gfx="holy_Injection.png" quality="2" craftquality="2" tags="nocantrip nolostbr syringe angel" customtags="nometronome" />
 	<passive id="139" cache="damage" name="Kille R" description="DMG Rp" gfx="kille_r.png" quality="1" craftquality="1" tags="offensive" />
-	<passive id="140" name="Vein Miner" description="Break Break Break !" gfx="vein_miner.png" bombs="5" quality="1" craftquality="1" tags="offensive" />
+	<passive id="140" name="Vein Miner" description="Break Break Break !" gfx="vein_miner.png" bombs="5" quality="1" craftquality="1" tags="offensive nogreed" />
 	<passive id="141" name="Vain Miner" description="Break Break Break ?" gfx="vain_miner.png" quality="3" craftquality="3" tags="offensive" customtags="nometronome" />
 	<passive id="142" name="PUC" description="Benighted Up" gfx="puc.png" quality="3" craftquality="3" tags="nocantrip offensive" customtags="nometronome" />
 	<passive id="143" name="Sale Bomb" description="Boom sale !" gfx="sale_bomb.png" quality="2" craftquality="2" tags="offensive" />
@@ -150,7 +150,7 @@
 	<passive id="148" name="Deciduous Meat" description="HP up?" gfx="deciduous_meat.png" quality="1" craftquality="1" maxhearts="2" hearts="2" tags="nolostbr" />
 	<passive id="149" cache="damage" name="Curse Syringe" description="Curse = DMG" gfx="curse_syringe.png" quality="1" craftquality="1" tags="nolostbr syringe" />
 	<passive id="150" name="Astro Vera" description="Max HP up" gfx="astro_vera.png" quality="3" craftquality="3" hearts="20" soulhearts="20" tags="nolostbr nocantrip" />
-	<active id="151" name="Secret Agent" description="Leave and come back" gfx="secret_agent.png" maxcharges="3" quality="3" craftquality="3" tags="offensive nocantrip" customtags="nometronome" />
+	<active id="151" name="Secret Agent" description="Leave and come back" gfx="secret_agent.png" maxcharges="4" quality="3" craftquality="3" tags="offensive nocantrip" customtags="nometronome" />
     <passive id="152" name="Curse of the Fool" gfx="curse_of_the_fool.png" description="Without beginning and end" quality="0" craftquality="0" tags="nolostbr nogreed nocantrip" customtags="nometronome"/>
 	<active id="153" name="Burning of Unburnt God" description="The Ritual of Blacksmith" gfx="burning_of_unburnt_god.png" maxcharges="3" quality="2" craftquality="2" tags="offensive book nocantrip" customtags="nometronome" />
 	<active id="154" name="My Fruit" description="The permitted fruit" gfx="my_fruit.png" quality="3" craftquality="3" chargetype="special" maxcharges="12" tags="offensive nocantrip" customtags="nometronome" />
@@ -160,6 +160,10 @@
     <passive id="158" name="Maw Bank" gfx="maw_bank.png" description="So many coins, effective until next pay" quality="1" craftquality="1" tags="offensive nocantrip" customtags="nometronome"/>
     <passive id="159" name="Folk Prescription" gfx="folk_prescription.png" description="Never guess what" quality="2" craftquality="2" tags="offensive nocantrip nogreed" customtags="nometronome"/>
     <passive id="160" cache="shotspeed" name="White Q Ball" gfx="white_q_ball.png" description="Shot speed down + chance up" quality="1" craftquality="1" tags="offensive summonable" />
+    <passive id="161" name="Donald Dollar" gfx="donald_dollar.png" description="This is white before" quality="1" craftquality="3" shopprice="1" tags="offensive poop nogreed" />
+    <passive id="162" customcache="maxcoins maxkeys maxbombs" name="Temp Folder" gfx="temp_folder.png" description="Contain temporary files" quality="1" craftquality="1" tags="offensive" />
+    <passive id="163" cache="flying" name="Loong" gfx="loong.png" description="Is it the + ?" quality="3" craftquality="3" tags="offensive summonable" />
+    <passive id="164" cache="luck" name="Oath of Chastity" gfx="chastity_oath.png" description="Wish you chastity" soulhearts="4" quality="3" craftquality="3" tags="offensive nolostbr nokeeper" />
 
 
 

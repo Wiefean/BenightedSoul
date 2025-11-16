@@ -12,6 +12,13 @@ Diligence = {
 	SubType = {Farmer = 0, Worker = 1},
 },
 
+--勤劳
+Chastity = {
+	Type = 47,
+	Variant = Isaac.GetEntityVariantByName('IBS_Chastity'),
+	SubType = 0,
+},
+
 --坚韧
 Fortitude = {
 	Type = 48,
@@ -312,6 +319,20 @@ ShockWave = {
 		HurtEnemyAndPlayer = 1,
 		OnlyHurtPlayer = 2,
 	},
+},
+
+--贞洁护盾
+ChastityShield = {
+	Type = 1000,
+	Variant = Isaac.GetEntityVariantByName('IBS_ChastityShield'),
+	SubType = Isaac.GetEntitySubTypeByName('IBS_ChastityShield'),
+},
+
+--贞洁激光
+ChastityLaser = {
+	Type = 1000,
+	Variant = Isaac.GetEntityVariantByName('IBS_ChastityLaser'),
+	SubType = Isaac.GetEntitySubTypeByName('IBS_ChastityLaser'),
 },
 
 --空实体

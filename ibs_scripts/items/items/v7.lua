@@ -2,6 +2,7 @@
 
 local mod = Isaac_BenightedSoul
 local IBS_Boss = mod.IBS_Boss
+local IBS_BossID = mod.IBS_BossID
 
 local game = Game()
 
@@ -10,6 +11,7 @@ local V7 = mod.IBS_Class.Item(mod.IBS_ItemID.V7)
 --召唤列表
 V7.SpawnList = {
 	IBS_Boss.Diligence, --勤劳
+	IBS_Boss.Chastity, --贞洁
 	IBS_Boss.Fortitude, --坚韧
 	IBS_Boss.Temperance, --节制
 	IBS_Boss.Generosity, --慷慨
@@ -25,7 +27,7 @@ function V7:OnUse(item, rng, player)
 	if key == 4 and game:GetLevel():GetStage() == 11 then key = 3 end
 
 	local virtue = self.SpawnList[key] or IBS_Boss.Temperance
-	--local virtue = IBS_Boss.Diligence
+	--local virtue = IBS_Boss.Chastity
 	
 	local SubType = {}
 	if type(virtue.SubType) == "number" then
@@ -44,6 +46,17 @@ function V7:OnUse(item, rng, player)
 		ent:AddEntityFlags(EntityFlag.FLAG_NO_SPIKE_DAMAGE)
 		ent.MaxHitPoints = ent.MaxHitPoints * 2
 		ent.HitPoints = ent.HitPoints * 2
+		
+		--谦逊带一个主教
+		if virtue.Variant == IBS_BossID.Humility.Variant then
+			local pos = game:GetRoom():FindFreePickupSpawnPosition(player.Position, 0, true)
+			local ent = Isaac.Spawn(805, 0, 0, pos, Vector.Zero, player)
+			ent:AddCharmed(EntityRef(player), -1)
+			ent:AddEntityFlags(EntityFlag.FLAG_NO_REWARD)
+			ent:AddEntityFlags(EntityFlag.FLAG_NO_SPIKE_DAMAGE)
+			ent.MaxHitPoints = ent.MaxHitPoints * 0.5
+			ent.HitPoints = ent.HitPoints * 0.5	
+		end		
 		
 		--烟雾
 		Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, ent.Position, Vector.Zero, nil)	

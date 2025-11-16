@@ -241,7 +241,8 @@ local itemEID={
 	name='瓦伦丁巧克力',
 	info='{{SoulHeart}} 魂心 + 2'..
 		 '#双击发射一颗特殊眼泪，将命中的非Boss敌人变为友好状态，并获得2.14倍血量'..
-		 '#两次机会，进入新房间重置'
+		 '#两次机会，进入新房间重置'..
+		 '#存在2个友好敌人时不能使用'
 },
 
 [IBS_ItemID.Diamoond]={
@@ -268,7 +269,8 @@ local itemEID={
 
 [IBS_ItemID.Ether]={
 	name='以太之云',
-	info='受伤后在本房间获得飞行，并降下圣光'..
+	info='拾取时，+ 1 {{BlackHeart}}黑心和{{SoulHeart}}魂心'..
+		 '#受伤后在本房间获得飞行，并降下圣光'..
 		 '#圣光造成角色伤害的2倍穿甲伤害'..
 		 '#圣光降落频率随角色在本房间的受伤次数递增',
 	trans={'LEVIATHAN', 'ANGEL'}
@@ -303,6 +305,7 @@ local itemEID={
 	name='美德七面骰',
 	info='在当前房间召唤一个友好的以下小Boss，具有双倍血量:'..
 		'#勤勤 & 劳劳'..
+		 '#贞洁'..
 		 '#坚韧'..
 		 '#节制'..
 		 '#慷慨'..
@@ -510,7 +513,7 @@ local itemEID={
 [IBS_ItemID.LOL]={
 	name='蝗虫领主',
 	info='清理房间后，生成1只天启蝗虫'..
-		 '#每造成50伤害，生成1只天启蝗虫'..
+		 '#每造成50伤害，有50%概率生成1只天启蝗虫'..
 		 '#角色不会受到{{Trinket113}}战争蝗虫的伤害',
 },
 
@@ -1337,7 +1340,7 @@ local itemEID={
 [IBS_ItemID.DoubleDosage]={
 	name='双倍剂量',
 	info='#复制其他被动注射器道具，对之后的道具也生效'..
-		 '#拾取注射器道具后，若拥有超过11个注射器道具，则立刻死亡',
+		 '#!!! 拾取注射器道具后，若拥有超过11个注射器道具，则立刻死亡',
 },
 
 [IBS_ItemID.HolyInjection]={
@@ -1523,15 +1526,46 @@ local itemEID={
 
 [IBS_ItemID.FolkPrescription]={
 	name='偏方',
-	info='地面装饰物有13%概率变为可采集状态，站在其附近一段时间可将其变为{{Pill}}药丸'..
+	info='地面装饰物有13%概率变为可采集状态：站在其附近一段时间可将其变为{{Pill}}药丸'..
 		 '#!!! 那个药丸的对应效果将变回未识别状态'..
 		 '#{{Pill}} 使用非负面药丸时，治疗1{{Heart}}红心',
 },
 
 [IBS_ItemID.WhiteQBall]={
 	name='灰白色母球',
-	info='↓ - 0.16 {{Shotspeed}}弹速'..
+	info='拾取时，生成1个{{Rune}}符文'..
+		 '#↓ - 0.16 {{Shotspeed}}弹速'..
 		 '#{{AngelDevilChance}} + 15% {{DevilRoom}}恶魔房开启率，+ 100% {{AngelRoom}}天使房转化率，直到下一次{{AngelRoom}}天使房开启',
+},
+
+[IBS_ItemID.DonaldDollar]={
+	name='金圆券',
+	info='大部分硬币变为 {{Crafting10}}铸币'..
+		 '#!!! 道具价格 x 7',
+},
+
+[IBS_ItemID.TempFolder]={
+	name='临时文件夹',
+	info='拾取时，+ 1 {{EmptyBoneHeart}}骨心，并熔炼当前饰品的复制'..
+		 '#↑ {{Coin}}硬币，{{Key}}钥匙和{{Bomb}}炸弹的上限 + 49'..
+		 '#进入新层时，丢下多余99的部分，最多49'..
+		 '#若准备丢下的足够多，改为生成以下对应道具，每种最多一个：'..
+		 '#{{Blank}} {{Collectible74}}(25{{Coin}})，{{Collectible623}}(5{{Key}})，{{Collectible19}}(10{{Bomb}})'
+},
+
+[IBS_ItemID.Loong]={
+	name='龙',
+	info='飞行'..
+		 '#攻击时，在角色位置留下火焰',
+},
+
+[IBS_ItemID.OOC]={
+	name='贞洁之誓',
+	info='拾取时，+ 2 {{SoulHeart}}魂心'..
+		 '#↑ + 3 {{Luck}}幸运'..
+		 '#秒杀乌列和加白列'..
+		 '#每层的前7次惩罚性伤害变为非惩罚性，并降低至半心'..
+		 '#!!! 受到惩罚性伤害时失去该道具',
 },
 
 }
@@ -2035,7 +2069,8 @@ local cardEID={
 
 [IBS_PocketID.BLilith] = {
 	name='莉莉丝的伪忆',
-	info='移除角色身上品质最低的被动道具，并从道具池中移除15个品质相同的道具'..
+	info='移除角色身上品质最低的被动道具'..
+		 '#从道具池中移除15个品质最低的道具，并生成1个品质相同的道具'..
 		 '#对任务道具无效',
 	mimic={charge = 3, isRune = true},
 	player={[IBS_PlayerID.BXXX] = '伪忆球：进入新房间时，从道具池中移除1个品质最低的道具'},
