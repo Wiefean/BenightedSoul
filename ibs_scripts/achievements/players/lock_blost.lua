@@ -10,6 +10,8 @@ local BLost = CharacterLock(mod.IBS_PlayerID.BLost, {'blost_unlock'} )
 
 --检测下一局玩家一是否为表里游魂
 function BLost:SeeLost(isContinue)
+	if game:IsGreedMode() then return end
+
 	if (not isContinue) and self:IsLocked() and not game:AchievementUnlocksDisallowed() then
 		local data = mod:GetIBSData("persis")
 
@@ -29,6 +31,7 @@ BLost:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, 'SeeLost')
 function BLost:OnTakeDamage(ent, dmg, flag, source)
 	if dmg <= 0 then return end
 	if self:IsUnlocked() then return end
+	if game:IsGreedMode() then return end
 	local player = ent:ToPlayer()
 	if not player then return end
 	local playerType = player:GetPlayerType()

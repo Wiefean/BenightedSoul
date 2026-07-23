@@ -98,6 +98,23 @@
 		<Item Name="Temp Folder" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Loong" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Oath of Chastity" Weight="0.5" DecreaseBy="0.5" RemoveOn="0.1" />
+		<Item Name="MM" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Mimic Infestation" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cardboard Mush" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Transmogrify" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Spirit Poop" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Calocybe gambosa" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Big Slurp" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bob's Rotten Hand" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Slow Start" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Broken R Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="DMG Transmitter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Posture!" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Music Box" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Jeweled Mask" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Choices Paradox" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="I Beg" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Broken TV" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -137,7 +154,6 @@
 		<Item Name="Edge" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Forge" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Alms" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Troposphere" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Model of Deligence" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Lamp of Diligence" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
 		<Item Name="Contact C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
@@ -176,6 +192,20 @@
 		<Item Name="Temp Folder" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Loong" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Oath of Chastity" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="MM" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cardboard Mush" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Transmogrify" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Big Slurp" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bob's Rotten Hand" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Slow Start" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Broken R Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="DMG Transmitter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Posture!" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Music Box" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Jeweled Mask" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Choices Paradox" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="I Beg" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Broken TV" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -223,6 +253,12 @@
 		<Item Name="Maw Bank" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Folk Prescription" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Temp Folder" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Troposphere" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Calocybe gambosa" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Mom's Old Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Beggar Medal" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="AD Time" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="DMG Transmitter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -255,7 +291,6 @@
 		<Item Name="Edge" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Another Karma" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Hoarding" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Troposphere" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Maxx C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="Sneaky C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Panacea" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -277,6 +312,13 @@
 		<Item Name="My Fruit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Maw Bank" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Temp Folder" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Big Slurp" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Mom's Old Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Beggar Medal" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Slow Start" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Broken R Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="AD Time" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="DMG Transmitter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 	
@@ -298,6 +340,7 @@
 		<Item Name="Deciduous Meat" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Curse Syringe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="White Q Ball" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Big Slurp" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -312,6 +355,7 @@
 		<Item Name="Deciduous Meat" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Curse Syringe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="White Q Ball" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Big Slurp" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>	
 	
@@ -351,6 +395,9 @@
 		<Item Name="Pageant Father" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Astro Vera" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Transmogrify" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Mom's Old Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Family Portrayal" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 
@@ -384,6 +431,9 @@
 		<Item Name="Vain Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Pageant Father" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Astro Vera" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Transmogrify" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Mom's Old Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Family Portrayal" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>	
 	
@@ -412,7 +462,9 @@
 		<Item Name="Curse Syringe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Curse of the Fool" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="My Fault" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
-
+		<Item Name="Mimic Infestation" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Armageddon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sere Talon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -432,11 +484,11 @@
 		<Item Name="Light Barrier" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Red Hook" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Hexa Vessel" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sere Talon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</Pool>
 	
 	<Pool Name="devil">
-		<Item Name="Ennnnnnvyyyyyy" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Cursed Mantle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Ether" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Bony Knife" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -452,11 +504,22 @@
 		<Item Name="Multiply" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Retaliating C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="False GHD" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Armageddon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Lord's Parasol" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bloody Rose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Preserved Fog" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Fiddle" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Whispering Earring" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Sere Talon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Music Box" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Jeweled Mask" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Choices Paradox" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Distinguished Cape" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Azazel The Wild" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</Pool>
 	
 	<Pool Name="greedDevil">
-		<Item Name="Ennnnnnvyyyyyy" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Cursed Mantle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Ether" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Bony Knife" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -470,13 +533,22 @@
 		<Item Name="Grail" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Multiply" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Retaliating C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bloody Rose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Preserved Fog" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Fiddle" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Whispering Earring" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Sere Talon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Music Box" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Jeweled Mask" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Choices Paradox" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Distinguished Cape" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Azazel The Wild" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>	
 	
 	<Pool Name="angel">
 		<Item Name="The Light D6" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="The Waster" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
 		<Item Name="Glowing Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Valentine Chocolate" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Ether" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
@@ -498,13 +570,14 @@
 		<Item Name="Holy Injection" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="My Fruit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Oath of Chastity" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="MM" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Blessing of Michael" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 
 	<Pool Name="greedAngel">
 		<Item Name="The Light D6" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="The Waster" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
 		<Item Name="Glowing Heart" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Ether" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
 		<Item Name="Wisper" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
@@ -523,6 +596,8 @@
 		<Item Name="Holy Injection" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="My Fruit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Oath of Chastity" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="MM" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Blessing of Michael" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</Pool>
 
@@ -539,7 +614,7 @@
 	</Pool>
 	
 	<Pool Name="shellGame">
-		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
+		
 
 	</Pool>
 	
@@ -561,10 +636,18 @@
 		<Item Name="Memento" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Maw Bank" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="White Q Ball" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Cardboard Mush" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Transmogrify" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Calocybe gambosa" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="DMG Transmitter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Music Box" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Jeweled Mask" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 
 	<Pool Name="ultraSecret">
+		<Item Name="Re-death" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Everlasting Regret" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Valentine Chocolate" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Tenebrosity" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Hell Kitchen" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
@@ -577,11 +660,14 @@
 		<Item Name="Vain Miner" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="My Fault" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Lord's Parasol" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bloody Rose" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Preserved Fog" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Whispering Earring" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 	
 	</Pool>
 
 	<Pool Name="goldenChest">
-		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
 		<Item Name="Guard of Fortitude" Weight="1" DecreaseBy="1" RemoveOn="1" />
 		<Item Name="Falsehood of ???" Weight="1" DecreaseBy="1" RemoveOn="1" />	
 		<Item Name="Leaden Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -591,7 +677,6 @@
 	</Pool>
 	
 	<Pool Name="redChest">
-		<Item Name="Ennnnnnvyyyyyy" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Weird Cranium" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Cursed Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Guppy's Potty" Weight="1" DecreaseBy="1" RemoveOn="0.1" />	
@@ -600,23 +685,24 @@
 		<Item Name="Red Hook" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Curse of the Fool" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="My Fault" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Bloody Rose" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Preserved Fog" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 
 	</Pool>
 	
 	<Pool Name="momsChest">	
-		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
 		<Item Name="Mom's Cheque" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Mom's Old Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</Pool>
 	
-	<Pool Name="oldChest">	
-		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
+	<Pool Name="oldChest">
 		<Item Name="Mom's Cheque" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Mom's Old Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</Pool>
 	
-	<Pool Name="woodenChest">	
-		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
+	<Pool Name="woodenChest">
 	
 	</Pool>
 	
@@ -629,7 +715,10 @@
 		<Item Name="Lown Tea" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Folk Prescription" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Donald Dollar" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-	
+		<Item Name="Spirit Poop" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Beggar Medal" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="I Beg" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		
 	</Pool>
 	
 	<Pool Name="demonBeggar">
@@ -640,12 +729,15 @@
 		<Item Name="Multiply" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Retaliating C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Curse Syringe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Beggar Medal" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Preserved Fog" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 	
 	<Pool Name="keyMaster">	
 		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
 		<Item Name="Treasure Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Beggar Medal" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 	
@@ -667,6 +759,7 @@
 		<Item Name="Confronting C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Retaliating C" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Deciduous Meat" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bob's Rotten Hand" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	

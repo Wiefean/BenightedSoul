@@ -19,6 +19,7 @@ function BigLight:GetLightData(effect)
 		HurtPlayer = false,
 		FollowEnemy = false,
 		FollowPlayer = false,
+		Volume = 1,
 		Timeout = 135
 	}
 	
@@ -26,7 +27,7 @@ function BigLight:GetLightData(effect)
 end
 
 --生成
-function BigLight:Spawn(spawner, dmg, scale, hurtPlayer, followEnemy, followPlayer, timeout, pos)
+function BigLight:Spawn(spawner, dmg, scale, hurtPlayer, followEnemy, followPlayer, timeout, pos, volume)
 	pos = pos or spawner.Position
 
 	local light = Isaac.Spawn(1000, self.Variant, 0, pos, Vector.Zero, spawner):ToEffect()
@@ -43,7 +44,8 @@ function BigLight:Spawn(spawner, dmg, scale, hurtPlayer, followEnemy, followPlay
 	--跟随玩家
 	if followPlayer then data.FollowPlayer = true end
 
-	data.timeout = timeout or 135
+	data.Timeout = timeout or 135
+	data.Volume = volume or 1
 
 	return light
 end
@@ -72,7 +74,7 @@ function BigLight:OnUpdate(effect)
 		
 		--出现音效
 		if spr:IsEventTriggered("sound") then
-			sfx:Play(SoundEffect.SOUND_DOGMA_LIGHT_APPEAR, 1.5, 30, false, 0.7)
+			sfx:Play(SoundEffect.SOUND_DOGMA_LIGHT_APPEAR, 1 * data.Volume, 30, false, 0.7)
 		end
 
 		--切换状态至静止
@@ -84,7 +86,7 @@ function BigLight:OnUpdate(effect)
 		end
 
 		if spr:IsPlaying("Idle") then
-			sfx:Play(SoundEffect.SOUND_HAND_LASERS, 0.5, 9, false, 2, 9)
+			sfx:Play(SoundEffect.SOUND_HAND_LASERS, 0.5 * data.Volume, 9, false, 2, 9)
 			
 			--对敌人造成伤害
 			for _,ent in pairs(Isaac.FindInRadius(effect.Position, effect.Scale * 20, EntityPartition.ENEMY)) do
@@ -93,18 +95,17 @@ function BigLight:OnUpdate(effect)
 				end
 			end
 			
+			--清除敌弹
+			for _,ent in ipairs(Isaac.FindInRadius(pos, effect.Scale * 20 + 10, EntityPartition.BULLET)) do
+				local proj = ent:ToProjectile()
+				if proj and not proj:HasProjectileFlags(ProjectileFlags.CANT_HIT_PLAYER) then
+					proj:Die()
+				end	
+			end
+			
 			--摧毁障碍物
-			local width = room:GetGridWidth()
-			local height = room:GetGridHeight()
-			for x = 1, width - 1 do
-				for y = 1, height - 1 do
-					local gridIndex = x + y * width
-					local gridEnt = room:GetGridEntity(gridIndex)
-					
-					if gridEnt and (gridEnt.Position:Distance(effect.Position) <= effect.Scale * 30) then
-						room:DestroyGrid(gridIndex, true)
-					end
-				end
+			for gridIdx,gridEnt in pairs(self._Finds:GridEntInRadius(effect.Position, effect.Scale * 30)) do
+				room:DestroyGrid(gridIdx, true)
 			end
 			
 			--对玩家造成伤害
@@ -112,7 +113,6 @@ function BigLight:OnUpdate(effect)
 				for _,ent in pairs(Isaac.FindInRadius(effect.Position, effect.Scale * 15, EntityPartition.PLAYER)) do
 					local player = ent:ToPlayer()
 					player:TakeDamage(2, 0, EntityRef(effect), 120)
-					player:SetMinDamageCooldown(120)
 				end
 			end			
 			

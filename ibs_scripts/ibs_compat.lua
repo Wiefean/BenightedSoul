@@ -257,6 +257,10 @@ mod:AddPriorityCallback(ModCallbacks.MC_POST_MODS_LOADED, CallbackPriority.EARLY
 		
 		--血誓<=>贞洁之誓
 		d:AddFixedPair(5,100,569, 5,100,IBS_ItemID.OOC)
+		
+		--悠悠<=>愤怒的悠悠
+		d:AddFixedPair(5,100,IBS_ItemID.MM, 5,350,IBS_TrinketID.MMS)
+		
 	end
 
 	do --疾病道具
@@ -308,7 +312,13 @@ do
 	
 	--加载项
 	mod:AddPriorityCallback(ModCallbacks.MC_POST_MODS_LOADED, CallbackPriority.EARLY, function()
-		if (not MGOLoaded) and mod.IBS_Compat.MGO:IsEnabled() then
+		if mod.IBS_Compat.MGO:IsEnabled() then
+			do --镜像骰固定转换
+				local d = THI.Collectibles.DFlip
+
+				--金圆券<=>经济泡沫
+				d:AddFixedPair(5,100,IBS_ItemID.DonaldDollar, 5,100,ReverieMGO.Collectibles.BubbleMoney.ID)
+			end
 			
 			do --冰霜充能球
 				local FrostOrb = ReverieMGO.Collectibles.FrostOrb
@@ -336,6 +346,10 @@ if EID then
 	EID:setModIndicatorIcon("IBSMOD")
 end
 
+--抽卡mod
+if JustGambling then
+	include("ibs_scripts.compats.gamb.main")
+end
 
 --缝纫机(跟班升级)
 do

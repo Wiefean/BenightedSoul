@@ -319,8 +319,30 @@
 
 	<!-- my fault -->
 	<wisp id="155" layer="2" hp="2" canShoot="false" flameColor="flame_dark_red" coreColor="core_black" />
-			
+
 	<!-- rubbish book -->
-	<wisp id="157" count="0" />				
+	<wisp id="157" count="0" />			
+	
+	<!-- transmogrify -->
+	<wisp id="168" layer="2" hp="2" canShoot="false" flameColor="flame_green" coreColor="core_green" />
+	
+	<!-- beggar medal -->
+	<wisp id="176" count="0" />				
+	
+	<!-- broken r key -->
+	<wisp id="178" count="0" />
+	
+	<!-- dmg transmitter -->
+	<wisp id="180" hp="5" damage="5" tearFlags="55" tearColor="tear_orange" flameColor="flame_orange" coreColor="core_yellow" />				
+
+	<!-- posture -->
+	<wisp id="181" count="0" />	
+	
+	<!-- i beg -->
+	<wisp id="195" count="0" />	
+	
+	<!-- broken tv -->
+	<wisp id="196" count="0" />	
+	
 	
 </wisps>

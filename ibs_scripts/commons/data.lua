@@ -65,9 +65,6 @@ local function Persis_Init() --此处可新增长久数据
 		maggyPride = false, --用于表表抹解锁
 		lostDeath = 0, --用于表表游魂解锁
 		
-		
-		troposphere = 515, --用于对流层
-		
 
 		----------------------
 		-------成就部分-------
@@ -87,6 +84,7 @@ local function Persis_Init() --此处可新增长久数据
 		bc4 = false,
 		bc5 = false,
 		bc6 = false,
+		bc7 = false,
 		bc10 = false,
 		bc11 = false,
 		bc13 = false,
@@ -124,6 +122,7 @@ local function Persis_Init() --此处可新增长久数据
 		boss_fortitude = true, --坚韧
 		boss_temperance = true, --节制
 		boss_generosity = true, --慷慨
+		boss_kindness = true, --宽容
 		boss_humility = true, --谦逊
 		--头目区结束--		
 		

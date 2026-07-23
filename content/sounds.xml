@@ -56,5 +56,17 @@
 	<sound name="惊天秘密">
 		<sample weight="1" path="rubbish_book.wav" />
 	</sound>
+	
+	<sound name="参孙暴怒结束提示">
+		<sample weight="1" path="samson_wrath_tick.wav" />
+	</sound>
+	
+	<sound name="宽容">
+		<sample weight="1" path="kindness.wav" />
+	</sound>
+	
+	<sound name="扫荡命中">
+		<sample weight="1" path="swing_hit.wav" />
+	</sound>
 
 </sounds>

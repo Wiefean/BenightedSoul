@@ -30,10 +30,7 @@ function DustyBomb:DustyExplosion(player, bomb)
 		
 	for _,ent in pairs(Isaac.GetRoomEntities()) do
 		if self._Ents:IsEnemy(ent, true) then
-			ent.HitPoints = ent.HitPoints - 0.12*ent.HitPoints
-			if ent.HitPoints <= 0 then
-				ent:Kill()
-			end
+			self._Ents:LoseHP(ent, 0.12*ent.HitPoints, true)
 
 			--尘埃特效
 			for subType = 1,2 do				

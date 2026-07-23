@@ -21,27 +21,30 @@ function Goatify:OnUse(item, rng, player, flag, slot)
 		goat.MaxHitPoints = 36
 		goat.HitPoints = goat.MaxHitPoints
 	else
-		for i = 1,rng:RandomInt(1,2) do
-			local pos = room:FindFreePickupSpawnPosition(player.Position, 0, true)	
-			local goat = Isaac.Spawn(891,0,0, pos, Vector.Zero, player)
-			goat:AddCharmed(EntityRef(player), -1)
-			goat.MaxHitPoints = goat.MaxHitPoints * 2
-			goat.HitPoints = goat.MaxHitPoints
-		end
-	end
+		local pos = room:FindFreePickupSpawnPosition(player.Position, 0, true)	
+		local goat = Isaac.Spawn(891,0,0, pos, Vector.Zero, player)
+		goat:AddCharmed(EntityRef(player), -1)
+		goat.MaxHitPoints = goat.MaxHitPoints * 2
+		goat.HitPoints = goat.MaxHitPoints
+	end	
 	
 	if player:HasCollectible(IBS_ItemID.Wheat, true) then
-		local num = player:GetCollectibleNum(IBS_ItemID.Wheat, true)
-
-		for i = 1,num do
-			player:RemoveCollectible(IBS_ItemID.Wheat, true)
-		end
-		
+		player:RemoveCollectible(IBS_ItemID.Wheat, true)
 		for _,goat in pairs(Isaac.FindByType(891,0,0)) do
-			goat:AddCharmed(EntityRef(player), -1)
-			goat.MaxHitPoints = goat.MaxHitPoints + 30*num
 			goat.HitPoints = goat.MaxHitPoints
 			goat:SetColor(Color(0, 1, 0, 1, 0, 0.25, 0),30,2,true)
+		end
+	else
+		for i = 0, game:GetNumPlayers() - 1 do
+			local p = Isaac.GetPlayer(i)
+			if p:HasCollectible(IBS_ItemID.Wheat, true) then			
+				p:RemoveCollectible(IBS_ItemID.Wheat, true)
+				for _,goat in pairs(Isaac.FindByType(891,0,0)) do
+					goat.HitPoints = goat.MaxHitPoints
+					goat:SetColor(Color(0, 1, 0, 1, 0, 0.25, 0),30,2,true)
+				end
+				break
+			end
 		end
 	end
 	

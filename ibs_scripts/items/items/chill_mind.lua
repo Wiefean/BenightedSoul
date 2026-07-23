@@ -4,6 +4,7 @@ local mod = Isaac_BenightedSoul
 
 local game = Game()
 local sfx = SFXManager()
+local config = Isaac.GetItemConfig()
 
 local ChillMind = mod.IBS_Class.Item(mod.IBS_ItemID.ChillMind)
 
@@ -36,6 +37,13 @@ ChillMind:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, 'OnNewRoom')
 function ChillMind:PrePickupCollision(pickup, other)
 	if pickup.Price <= 0 then return end
 	if pickup.SubType == 76 then return end
+	
+	--排除任务道具
+	local itemConfig = config:GetCollectible(pickup.SubType)
+	if itemConfig:HasTags(ItemConfig.TAG_QUEST) then
+		return
+	end
+	
 	if game:GetRoom():GetType() ~= RoomType.ROOM_SHOP then return end
 	local player = other:ToPlayer()
 	if player and player:HasCollectible(self.ID) then

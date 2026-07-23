@@ -9,9 +9,6 @@ local Bread = mod.IBS_Class.Item(mod.IBS_ItemID.Bread)
 function Bread:OnEvaluateCache(player, flag)
 	if player:HasCollectible(self.ID) then
 		local num = player:GetCollectibleNum(self.ID)
-		if flag == CacheFlag.CACHE_SPEED then
-			Stats:Speed(player, -0.02*num)
-		end
 		if flag == CacheFlag.CACHE_DAMAGE then
 			Stats:Damage(player, 0.3*num)
 		end	

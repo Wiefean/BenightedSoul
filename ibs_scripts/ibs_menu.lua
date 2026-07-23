@@ -119,7 +119,7 @@ local info_zh = {
 		Name = {Str = '抹大拉', Offset = Vector(-14, 0)},
 		Desc = {
 			{Str = '坚贞之心'},
-			{Str = '+', Offset = Vector(50, 0), ConditionKey = 'bc2'},
+			{Str = '+', Offset = Vector(48, 0), ConditionKey = 'bc2'},
 			{Str = '石破天惊', Offset = Vector(0, 16)},
 		},
 		Thing = {
@@ -198,11 +198,32 @@ local info_zh = {
 		Desc = {
 			{Str = '一回生', Offset = Vector(-20, 0)},
 			{Str = '二回熟', Offset = Vector(20, 0)},
-			{Str = '三回转', Offset = Vector(2, 16), ConditionKey='bc6'},
+			{Str = '三回食', Offset = Vector(2, 16), ConditionKey='bc6'},
 		},
 		Thing = {
 			{Str = '我果', Offset = Vector(22, 0)},
 			{Str = '我过', Offset = Vector(17, 25)},
+		},
+	},
+	[7] = {
+		PlayerKey = IBS_PlayerKey.BSamson,
+		LockCheck = {
+			Lock = lock.BSamson,
+			Desc = {
+				{Str = '记得参孙吗?', Offset = Vector(35, 0)},
+				{Str = '有两颗心的那个', Offset = Vector(20, 25)},
+			}
+		},
+		Portrait = {Anim = 'BSamson'},	
+		Name = {Str = '参孙', Offset = Vector(-3,0)},
+		Desc = {
+			{Str = '没有蒙眼'},
+			{Str = '迷信塔罗', Offset = Vector(0, 16)},
+			{Str = '+', Offset = Vector(48, 16), ConditionKey='bc7'},
+		},
+		Thing = {
+			{Str = '架势!', Offset = Vector(17, 0)},
+			{Str = '塔罗牌?', Offset = Vector(7, 25), ConditionKey='bc7'},
 		},
 	},	
 	[10] = {
@@ -384,13 +405,34 @@ local info_en = {
 		Desc = {
 			{Str = 'First raw', Offset = Vector(-35, 0)},
 			{Str = 'Then saw', Offset = Vector(30, 0)},
-			{Str = 'And haw', Offset = Vector(-4, 16), ConditionKey='bc6'},
+			{Str = 'And maw', Offset = Vector(-4, 16), ConditionKey='bc6'},
 		},
 		Thing = {
 			{Str = 'My Fruit', Offset = Vector(8, 0)},
 			{Str = 'My Fault', Offset = Vector(4, 25)},
 		},
-	},		
+	},
+	[7] = {
+		PlayerKey = IBS_PlayerKey.BSamson,
+		LockCheck = {
+			Lock = lock.BSamson,
+			Desc = {
+				{Str = 'Remember him?', Offset = Vector(15, 0)},
+				{Str = 'He has two hearts', Offset = Vector(0, 25)},
+			}
+		},
+		Portrait = {Anim = 'BSamson'},	
+		Name = {Str = 'Samson', Offset = Vector(-20,0)},
+		Desc = {
+			{Str = 'Not blindfolded', Offset = Vector(-20, 0)},
+			{Str = 'Superstitionist', Offset = Vector(-22, 16)},
+			{Str = '+', Offset = Vector(67, 16), ConditionKey='bc7'},
+		},
+		Thing = {
+			{Str = 'Posture!', Offset = Vector(5, 0)},
+			{Str = 'Tarot?', Offset = Vector(10, 25), ConditionKey='bc7'},
+		},
+	},	
 	[10] = {
 		PlayerKey = IBS_PlayerKey.BEden,
 		LockCheck = {
@@ -748,6 +790,7 @@ local PlayerChallenge = {
 [IBS_ChallengeID[4]] = IBS_PlayerKey.BJudas,
 [IBS_ChallengeID[5]] = IBS_PlayerKey.BXXX,
 [IBS_ChallengeID[6]] = IBS_PlayerKey.BEve,
+[IBS_ChallengeID[7]] = IBS_PlayerKey.BSamson,
 
 [IBS_ChallengeID[10]] = IBS_PlayerKey.BEden,
 [IBS_ChallengeID[11]] = IBS_PlayerKey.BLost,

@@ -44,6 +44,7 @@ function Envoy:OnSlotInit2(slot)
 		Isaac.Spawn(6, self.Variant, 0, slot.Position, Vector.Zero, nil)
 		slot:Remove()
 		self:GetIBSData('temp').EnvoySpawned = true
+		return true
 	end
 end
 Envoy:AddCallback(ModCallbacks.MC_POST_SLOT_INIT, 'OnSlotInit2', 4)

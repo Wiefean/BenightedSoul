@@ -2,7 +2,7 @@
 
 local mod = Isaac_BenightedSoul
 local IBS_PlayerKey = mod.IBS_PlayerKey
-local IBS_TrinketID = mod.IBS_TrinketID
+local IBS_ItemID = mod.IBS_ItemID
 local IBS_SlotID = mod.IBS_SlotID
 
 local game = Game()
@@ -17,15 +17,6 @@ local Facer = mod.IBS_Class.Slot{
 --装扮
 local Costume = Isaac.GetCostumeIdByPath('gfx/ibs/characters/no_face.anm2')
 
---饰品池
-Facer.TrinketList = {
-	IBS_TrinketID.CultistMask,
-	IBS_TrinketID.SsserpentHead,
-	IBS_TrinketID.ClericFace,
-	IBS_TrinketID.NlothsMask,
-	IBS_TrinketID.GremlinMask,
-}
-
 --概率替换隐藏或超隐中的卖血机
 function Facer:OnSlotInit2(slot)
 	if not self:GetIBSData('persis')['slot_facer'] then return end
@@ -35,6 +26,7 @@ function Facer:OnSlotInit2(slot)
 		if RNG(slot.InitSeed):RandomInt(100) < 24 then		
 			Isaac.Spawn(6, self.Variant, 0, slot.Position, Vector.Zero, nil)
 			slot:Remove()
+			return true
 		end
 	end
 end
@@ -62,16 +54,8 @@ function Facer:OnSlotUpdate(slot)
 	if spr:IsEventTriggered('Prize') then
 		local rng = slot:GetDropRNG()
 		if rng:RandomInt(100) < 36 or slot:GetPrizeType() >= 4 then
-			--生成脸饰品,然后跑路
-			local rng2 = RNG(slot.InitSeed)
-			local id = self.TrinketList[rng2:RandomInt(1,#self.TrinketList)] or IBS_TrinketID.CultistMask
-			
-			--5%概率金饰品
-			if rng2:RandomInt(100) < 5 then			
-				id = id + 32768
-			end
-
-			Isaac.Spawn(5,350,id, slot.Position, 2*RandomVector(), slot)
+			--生成奖励后跑路
+			Isaac.Spawn(5,100, IBS_ItemID.AFaces, slot.Position, 2*RandomVector(), slot)
 			spr:Play('Teleport', true)
 		end
 		for i = 1,5 do			

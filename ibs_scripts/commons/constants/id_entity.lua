@@ -156,6 +156,23 @@ AKEY47 = {
 	SubType = Isaac.GetEntitySubTypeByName('IBS_AKEY47'),
 },
 
+--卓越斗篷灵魂
+CapeSoul = {
+	Type = 3,
+	Variant = Isaac.GetEntityVariantByName('IBS_CapeSoul'),
+	SubType = Isaac.GetEntitySubTypeByName('IBS_CapeSoul'),
+},
+
+--夏娃宝
+EveBaby = {
+	Type = 3,
+	Variant = Isaac.GetEntityVariantByName('IBS_EveBaby'),
+	SubType = {
+		Twin = 0,
+		Single = 1,
+	},
+},
+
 }
 
 

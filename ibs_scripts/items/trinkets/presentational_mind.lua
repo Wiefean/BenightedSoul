@@ -6,7 +6,6 @@ local game = Game()
 
 local PresentationalMind = mod.IBS_Class.Trinket(mod.IBS_TrinketID.PresentationalMind)
 
---获得
 function PresentationalMind:OnDevilChance(chance)
 	if PlayerManager.AnyoneHasTrinket(self.ID) then
 		local mult = PlayerManager.GetTotalTrinketMultiplier(self.ID)

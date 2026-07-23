@@ -456,7 +456,7 @@ function BXXXOrb:OnFamiliarUpdate(familiar)
 			end
 		end
 
-		if num < 2 * #self:FindOrbs(player, self.SubType.BAbel, true) then
+		if num < #self:FindOrbs(player, self.SubType.BAbel, true) then
 			self:Trigger(familiar, self.SubType.BAbel)		
 		end
 	end

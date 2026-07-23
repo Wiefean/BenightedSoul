@@ -2,6 +2,7 @@
 
 local mod = Isaac_BenightedSoul
 local IBS_CallbackID = mod.IBS_CallbackID
+local IBS_CurseID = mod.IBS_CurseID
 local IBS_PlayerID = mod.IBS_PlayerID
 local IBS_ItemID = mod.IBS_ItemID
 local IBS_TrinketID = mod.IBS_TrinketID
@@ -9,11 +10,18 @@ local IBS_PocketID = mod.IBS_PocketID
 
 local LANG = mod.Language
 local config = Isaac.GetItemConfig()
+local game = Game()
 
 local Translations = {}
 
 --中文
 Translations['zh'] = {
+
+--诅咒
+Curse = {
+	[IBS_CurseID.Moving] = "动人诅咒",
+	[IBS_CurseID.D7] = "七面骰诅咒",
+},
 
 --角色
 Player = {
@@ -24,6 +32,7 @@ Player = {
 	[IBS_PlayerID.BJudas] = '犹大',
 	[IBS_PlayerID.BXXX] = '???',
 	[IBS_PlayerID.BEve] = '夏娃',
+	[IBS_PlayerID.BSamson] = '参孙',
 	[IBS_PlayerID.BEden] = '伊甸',
 	[IBS_PlayerID.BLost] = '游魂',
 	[IBS_PlayerID.BKeeper] = '店主',
@@ -40,6 +49,7 @@ Item = {
 		[IBS_PlayerID.BAbel]='在你那',
 		[IBS_PlayerID.BXXX]='沉浸',
 		[IBS_PlayerID.BEve]='果已过',
+		[IBS_PlayerID.BSamson]='猛虎下山',
 		[IBS_PlayerID.BEden]='氵卖神',
 		[IBS_PlayerID.BLost]='永恒心锁',
 		[IBS_PlayerID.BKeeper]='取决于你',
@@ -851,6 +861,171 @@ Item = {
 		Name='贞洁之誓',
 		Desc='愿你守身如玉'
 	},
+	
+	[IBS_ItemID.MM]={
+		Name='悠悠',
+		Desc='伤害上升'
+	},
+	
+	[IBS_ItemID.MimicInfestation]={
+		Name='遍地宝箱怪',
+		Desc='更多宝箱 ?'
+	},
+	
+	[IBS_ItemID.CardboardMush]={
+		Name='纸板蘑菇',
+		Desc='每张卡牌都有力量'
+	},
+	
+	[IBS_ItemID.Transmogrify]={
+		Name='变形术',
+		Desc='弱小重置'
+	},
+	
+	[IBS_ItemID.SpiritPoop]={
+		Name='精灵便便',
+		Desc='诅咒下降'
+	},
+	
+	[IBS_ItemID.CalocybeGambosa]={
+		Name='圣乔治蘑菇',
+		Desc='献祭上升'
+	},
+	
+	[IBS_ItemID.AFaces]={
+		Name='一张张脸',
+		Desc='脸上升'
+	},
+	
+	[IBS_ItemID.BigSlurp]={
+		Name='超大杯',
+		Desc='双倍果汁'
+	},
+	
+	[IBS_ItemID.BobsRottenHand]={
+		Name='鲍勃的烂手',
+		Desc='按一下就会爆炸射击'
+	},
+	
+	[IBS_ItemID.Armageddon]={
+		Name='哈米吉多顿',
+		Desc='车轮战提升'
+	},
+	
+	[IBS_ItemID.MomsOldKey]={
+		Name='妈妈的旧钥匙',
+		Desc='更旧的箱子'
+	},
+	
+	[IBS_ItemID.BeggarMedal]={
+		Name='乞丐章',
+		Desc='临时召唤乞丐'
+	},
+	
+	[IBS_ItemID.SlowStart]={
+		Name='慢启动',
+		Desc='那是因为我还没有启动'
+	},
+	
+	[IBS_ItemID.BrokenRKey]={
+		Name='损坏的R键',
+		Desc='重开 ?'
+	},
+	
+	[IBS_ItemID.ADTime]={
+		Name='广告时间',
+		Desc='看广告复活'
+	},
+	
+	[IBS_ItemID.DMGTransmitter]={
+		Name='伤害传输器',
+		Desc='伤害下降 + 伤害上升'
+	},
+	
+	[IBS_ItemID.Posture]={
+		Name='架势 !',
+		Desc='从塔罗牌学习技能'
+	},
+
+	[IBS_ItemID.BlessingOfMichael]={
+		Name='米迦勒的赐福',
+		Desc='天使们在等待'
+	},
+	
+	[IBS_ItemID.LordsParasol]={
+		Name='领主阳伞',
+		Desc='免费商店 , 怎么免费你别管'
+	},
+	
+	[IBS_ItemID.BloodyRose]={
+		Name='血染玫瑰',
+		Desc='执迷'
+	},
+	
+	[IBS_ItemID.PreservedFog]={
+		Name='腌制活雾',
+		Desc='愚行'
+	},
+	
+	[IBS_ItemID.Fiddle]={
+		Name='小提琴',
+		Desc='道具上升 + 道具下降'
+	},
+	
+	[IBS_ItemID.WhisperingEarring]={
+		Name='低语耳环',
+		Desc='只怪你自己'
+	},
+	
+	[IBS_ItemID.SereTalon]={
+		Name='原初之爪',
+		Desc='被诅咒的愿望'
+	},
+	
+	[IBS_ItemID.MusicBox]={
+		Name='音乐盒',
+		Desc='安可'
+	},
+	
+	[IBS_ItemID.JeweledMask]={
+		Name='宝石面具',
+		Desc='摧残夺目'
+	},
+	
+	[IBS_ItemID.ChoicesParadox]={
+		Name='选择悖论',
+		Desc='选吧'
+	},
+	
+	[IBS_ItemID.DistinguishedCape]={
+		Name='卓越斗篷',
+		Desc='灵体'
+	},
+	
+	[IBS_ItemID.AzazelTheWild]={
+		Name='阿撒泻勒的旷野',
+		Desc='阿撒泻勒上升'
+	},
+	
+	[IBS_ItemID.Kindness]={
+		Name='宽容',
+		Desc='愿你一笑而过'
+	},
+	
+	[IBS_ItemID.Beg]={
+		Name='乞讨',
+		Desc='全力以付'
+	},
+	
+	[IBS_ItemID.BrokenTV]={
+		Name='损坏的电视',
+		Desc='也许可以修'
+	},
+	
+	[IBS_ItemID.FamilyPortrayal]={
+		Name='全家祸',
+		Desc='...'
+	},
 
 },
 
@@ -1045,6 +1220,41 @@ Trinket = {
 		Name='可悲的疯人',
 		Desc='眼睛下降'
 	},
+	
+	[IBS_TrinketID.MMS]={
+		Name='愤怒的悠悠',
+		Desc='伤害上升 , 仅当天使死后'
+	},
+	
+	[IBS_TrinketID.TechSL]={
+		Name='科技SL',
+		Desc='撤销'
+	},
+	
+	[IBS_TrinketID.UnstableReagent]={
+		Name='不稳定试剂',
+		Desc='感觉不太靠谱'
+	},
+	
+	[IBS_TrinketID.EnvyToWin]={
+		Name='嫉妒致胜',
+		Desc='...---...'
+	},
+	
+	[IBS_TrinketID.BulkyWorm]={
+		Name='肥大虫',
+		Desc='大的来了 !'
+	},
+	
+	[IBS_TrinketID.ModelingClay]={
+		Name='塑型黏土 II',
+		Desc='需要参照物'
+	},
+	
+	[IBS_TrinketID.LithiumBattery]={
+		Name='锂电池',
+		Desc='消费充能'
+	},
 
 },
 
@@ -1151,10 +1361,28 @@ Pocket = {
 --英文
 Translations['en'] = {
 
+--诅咒
+Curse = {
+	[IBS_CurseID.Moving] = "Curse of the Moving!",
+	[IBS_CurseID.D7] = "Curse of D7!",
+},
+
+--角色
+Player = {
+	[IBS_PlayerID.BIsaac] = 'Benighted Isaac',
+	[IBS_PlayerID.BMaggy] = 'Benighted Magdalene',
+	[IBS_PlayerID.BCain] = 'Benighted Cain',
+	[IBS_PlayerID.BAbel] = 'Benighted Abel',
+	[IBS_PlayerID.BJudas] = 'Benighted Judas',
+	[IBS_PlayerID.BXXX] = 'Benighted ???',
+	[IBS_PlayerID.BEve] = 'Benighted Eve',
+	[IBS_PlayerID.BSamson] = 'Benighted Samson',
+	[IBS_PlayerID.BEden] = 'Benighted Eden',
+	[IBS_PlayerID.BLost] = 'Benighted Lost',
+	[IBS_PlayerID.BKeeper] = 'Benighted Keeper',
+},
 
 }
-
-
 ----翻译器开始----
 
 --测试时关闭,防止影响ID获取
@@ -1203,6 +1431,59 @@ local function Translation_Birthright(_,player, item)
 	end
 end
 mod:AddCallback(IBS_CallbackID.PICK_COLLECTIBLE, Translation_Birthright, CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+
+--诅咒翻译(曾因sticky变量无法输入弃用,但其实也没人在乎这个)
+local function Translation_Curse(_,title, subTitle, sticky, isCurse)
+	if isCurse and LANG == 'zh' then
+		for key,text in pairs(Translations['en'].Curse) do
+			if text == subTitle and Translations['zh'].Curse[key] then
+				game:GetHUD():ShowItemText(title, Translations['zh'].Curse[key].."！", true)
+				return false
+			end
+		end
+	end
+end
+mod:AddCallback(ModCallbacks.MC_PRE_ITEM_TEXT_DISPLAY, Translation_Curse)
+
+--小头目vs翻译
+local LOCKED = false
+local function Translation_VsMiniboss(_,title, subTitle, sticky, isCurse)
+	if LANG == 'zh' and not LOCKED then
+		local room = game:GetRoom()
+		local roomType = room:GetType()
+		local miniBoss = (roomType == RoomType.ROOM_MINIBOSS) or (roomType == RoomType.ROOM_DEVIL)
+		
+		--坎普斯也算小boss所以要判定恶魔房
+		if miniBoss and room:GetFrameCount() <= 2 then
+			--问号比较特殊
+			if string.sub(title, 1, 13) == "Benighted ???" then
+				local newTitle = string.gsub(title, "Benighted ", "", 1)
+				if newTitle ~= title then
+					LOCKED = true
+					game:GetHUD():ShowItemText(newTitle, subTitle)
+					LOCKED = false
+					return false
+				end
+			else
+				for key,text in pairs(Translations['en'].Player) do
+					if key ~= IBS_PlayerID.BXXX then
+						local newText = Translations['zh'].Player[key]
+						if newText then
+							local newTitle = string.gsub(title, text, newText, 1)
+							if newTitle ~= title then
+								LOCKED = true
+								game:GetHUD():ShowItemText(newTitle, subTitle)
+								LOCKED = false
+								return false
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+end
+mod:AddCallback(ModCallbacks.MC_PRE_ITEM_TEXT_DISPLAY, Translation_VsMiniboss)
 ----翻译器结束----
 
 

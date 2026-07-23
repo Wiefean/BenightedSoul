@@ -8,10 +8,10 @@ REPENTOGON is necessary
 https://steamcommunity.com/sharedfiles/filedetails/?id=3127536138
 
 - What's in it?
-· 9+1 characters with complete unlock-trees!
-· 150+ items!
-· 5+1 bosses!
-· 8 challenges!
+· 10+1 characters with complete unlock-trees!
+· 190+ items!
+· 6+1 bosses!
+· 10 challenges!
 · 2 curses!
 · More rooms!
 · More poops!
@@ -40,16 +40,18 @@ Reverie
 
 
 Start cry!</description>
-    <version>0.10.9.1</version>
+    <version>0.12.1.1</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>
     <tag id="Active Items"/>
     <tag id="Trinkets"/>
     <tag id="Cards"/>
+    <tag id="Pickups"/>
     <tag id="Player Characters"/>
     <tag id="Familiars"/>
     <tag id="Babies"/>
+    <tag id="Rooms"/>
     <tag id="Enemies"/>
     <tag id="Bosses"/>
     <tag id="Challenges"/>

@@ -12,15 +12,21 @@ local VainMiner = mod.IBS_Class.Item(mod.IBS_ItemID.VainMiner)
 --获取道具结果
 function VainMiner:GetItem(selectedID, seed)
 	local rng = RNG(seed)
+	local result = {}
 
 	if selectedID > 0 and rng:RandomInt(1000) > 109 then
 		for i = 1,2 do
 			local id = selectedID + (-1)^i
 			local itemConfig = config:GetCollectible(id)
 			if itemConfig and itemConfig:IsAvailable() and not itemConfig:HasTags(ItemConfig.TAG_QUEST) then			
-				return id
+				table.insert(result, id)
 			end
 		end
+	end
+
+	--抽取一个
+	if #result > 0 then
+		return result[RNG(seed):RandomInt(1,#result)]
 	end
 
 	--返回-1表示错误道具

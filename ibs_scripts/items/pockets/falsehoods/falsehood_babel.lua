@@ -14,8 +14,8 @@ function BAbel:OnUse(card, player, flag)
 		goat:AddCharmed(EntityRef(player), -1)
 		goat:AddEntityFlags(EntityFlag.FLAG_NO_SPIKE_DAMAGE)
 		goat:AddEntityFlags(EntityFlag.FLAG_NO_REWARD)
-		goat.MaxHitPoints = goat.MaxHitPoints * 7
-		goat.HitPoints = goat.HitPoints * 7
+		goat.MaxHitPoints = goat.MaxHitPoints * 2
+		goat.HitPoints = goat.HitPoints * 2
 	end
 end
 BAbel:AddCallback(ModCallbacks.MC_USE_CARD, 'OnUse', BAbel.ID)

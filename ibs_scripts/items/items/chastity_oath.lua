@@ -27,7 +27,7 @@ function OOC:OnNewLevel()
 		end
 	end
 end
-OOC:AddPriorityCallback(ModCallbacks.MC_POST_NEW_ROOM, -7777, 'OnNewLevel')
+OOC:AddPriorityCallback(ModCallbacks.MC_POST_NEW_LEVEL, -7777, 'OnNewLevel')
 
 --抵挡面前子弹,受伤清除子弹,爆炸伤害以半心替代
 function OOC:OnTakeDMG(ent, dmg, flag, source, cd)

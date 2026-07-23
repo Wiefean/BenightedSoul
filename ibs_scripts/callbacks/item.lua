@@ -63,18 +63,18 @@ end, PickupVariant.PICKUP_TAROTCARD)
 
 --更新饰品和口袋物品表
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
-    for k, trinket in pairs(RemovedTrinkets) do
+    for k, trinket in ipairs(RemovedTrinkets) do
         if (trinket.Timeout > 0) then
             trinket.Timeout = trinket.Timeout - 1
         else
-            RemovedTrinkets[k] = nil
+            table.remove(RemovedTrinkets, k)
         end 
     end
-    for k, card in pairs(PickedCards) do
+    for k, card in ipairs(PickedCards) do
         if (card.Timeout > 0) then
             card.Timeout = card.Timeout - 1
         else
-            PickedCards[k] = nil
+            table.remove(PickedCards, k)
         end 
     end	
 end)
@@ -105,7 +105,7 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_,player)
 
 				--检测举起的物品类型并回调
                 if (type == ItemType.ITEM_TRINKET) then
-                    for k, trinket in pairs(RemovedTrinkets) do --检测被移除的饰品去向是否是被玩家拾取
+                    for k, trinket in ipairs(RemovedTrinkets) do --检测被移除的饰品去向是否是被玩家拾取
                         if (trinket.ID == id or trinket.ID - 32768 == id) then --金饰品兼容
                             RunCallback_PickTrinket(player, id, trinket.ID > 32768, touched)
                             table.remove(RemovedTrinkets, k)

@@ -26,6 +26,8 @@ BCBA:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, 'OnCainInit')
 
 --该隐一层内踩献祭12次后进入解锁流程
 function BCBA:OnTakeDMG(ent, amount, flag)
+	if game:IsGreedMode() then return end
+
 	local player = ent:ToPlayer()
 
 	if player and (game:GetRoom():GetType() == RoomType.ROOM_SACRIFICE) and (flag & DamageFlag.DAMAGE_SPIKES) then
@@ -52,6 +54,7 @@ BCBA:AddCallback(ModCallbacks.MC_POST_ENTITY_TAKE_DMG, 'OnTakeDMG')
 --给予死亡回放
 function BCBA:OnPlayerUpdate(player)
 	if self:IsUnlocked() then return end
+	if game:IsGreedMode() then return end
 	if not self:GetIBSData('temp').cainSacrificeDone then return end
 	local playerType = player:GetPlayerType()
 	if (playerType == 2 or playerType == 23) and player:HasCollectible(CollectibleType.COLLECTIBLE_ABEL, true) and (player:GetActiveItem(ActiveSlot.SLOT_POCKET2) == 0) then
@@ -63,6 +66,7 @@ BCBA:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, 'OnPlayerUpdate')
 --死亡回放尝试解锁
 function BCBA:OnUseItem(item, rng, player, flags, slot)
 	if self:IsUnlocked() then return end
+	if game:IsGreedMode() then return end
 	if game:AchievementUnlocksDisallowed() then return end
 	if (game:GetLevel():GetStage() == 11) and (#Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.DIRT_PATCH) > 0) then
 		if self:GetIBSData('temp').cainSacrificeDone and (player:GetPlayerType() == 2) and player:HasCollectible(CollectibleType.COLLECTIBLE_ABEL, true) then

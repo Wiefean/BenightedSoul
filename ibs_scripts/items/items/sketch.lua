@@ -124,7 +124,7 @@ function Sketch:OnUse(item, rng, player, flags, slot)
 				local room = game:GetRoom()
 				local pos = room:FindFreePickupSpawnPosition((room:GetCenterPos()), 0, true)
 				local item = Isaac.Spawn(5, 100, data.ItemID, pos, Vector.Zero, nil):ToPickup()
-				item:Morph(5,100, data.ItemID, false, true, true)			
+				item:Morph(5,100, data.ItemID, false, true, true)	
 			end
 			data.Tag1 = nil
 			data.Tag2 = nil

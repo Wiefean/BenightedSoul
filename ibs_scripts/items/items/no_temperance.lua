@@ -159,14 +159,14 @@ function NoTemperance:OnEvaluateCache(player, flag)
 			Stats:Speed(player, 0.02*num)
 		end
 		if flag == CacheFlag.CACHE_DAMAGE then
-			Stats:Damage(player, 0.15*num)
+			Stats:Damage(player, 0.2*num)
 		end
 		if flag == CacheFlag.CACHE_LUCK then
 			Stats:Luck(player, 0.25*num)
 		end		
-		if flag == CacheFlag.CACHE_SHOTSPEED then
-			Stats:ShotSpeed(player, -0.02*num)
-		end
+		-- if flag == CacheFlag.CACHE_SHOTSPEED then
+			-- Stats:ShotSpeed(player, -0.02*num)
+		-- end
 	end
 end
 NoTemperance:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, 'OnEvaluateCache')

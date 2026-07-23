@@ -57,7 +57,7 @@ end
 function mod:IsStartingRun()
 	if game:GetFrameCount() <= 0 then
 		local level = game:GetLevel()
-		--非第一层,非回溯线
+		--第一层,非回溯线
 		if level:GetStage() == 1 and not level:IsAscent() then
 			return true
 		end
@@ -449,6 +449,7 @@ CommonClass('Effect', 'effect')
 CommonClass('Character', 'character')
 CommonClass('CharacterLock', 'CharacterLock')
 CommonClass('Challenge', 'challenge')
+CommonClass('SamsonSkill', 'samson_skill')
 CommonClass('Item', 'item')
 CommonClass('Trinket', 'trinket')
 CommonClass('Pocket', 'pocket')

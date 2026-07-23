@@ -125,7 +125,7 @@ function Envy:OnEvalueateCache(player, flag)
 		end
 	end	
 end
-Envy:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, 'OnEvalueateCache')
+Envy:AddPriorityCallback(ModCallbacks.MC_EVALUATE_CACHE, 100, 'OnEvalueateCache')
 
 --获取4级道具(用于替换贴图)
 local function Quality4(itemConfig)

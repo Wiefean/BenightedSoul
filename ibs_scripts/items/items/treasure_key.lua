@@ -46,8 +46,6 @@ TreasureKey.RoomList_JudasBr = {
 	40,
 }
 
-local checkladder = false
-
 --使用效果
 function TreasureKey:OnUse(item, rng, player, flags, slot)
 	if (flags & UseFlag.USE_CARBATTERY <= 0) and (flags & UseFlag.USE_VOID <= 0) then--拒绝车载电池和虚空
@@ -72,7 +70,6 @@ function TreasureKey:OnUse(item, rng, player, flags, slot)
 				local variant = list[rng:RandomInt(1, #list)] or 3
 				Isaac.ExecuteCommand('goto s.chest.'..variant)
 			end
-			checkladder = true
 			game:StartRoomTransition(-3, Direction.NO_DIRECTION, RoomTransitionAnim.TELEPORT, player)
 			self._Levels:QuitDebugRoomWhenExit()
 			
@@ -92,18 +89,6 @@ function TreasureKey:OnUse(item, rng, player, flags, slot)
 	return {Discharge = true, ShowAnim = false}
 end
 TreasureKey:AddCallback(ModCallbacks.MC_USE_ITEM, 'OnUse', TreasureKey.ID)
-
---生成梯子防止回不去
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
-	if checkladder and game:GetLevel():GetCurrentRoomIndex() == -3 then
-		local room = game:GetRoom()
-		if #Isaac.FindByType(1000, 156, 0) <= 0 then
-			local pos = room:FindFreePickupSpawnPosition(room:GetGridPosition(26))
-			Isaac.Spawn(1000, 156, 0, pos, Vector.Zero, nil)
-		end
-		checkladder = false
-	end
-end)
 
 --魂火熄灭
 function TreasureKey:OnWispKilled(familiar)

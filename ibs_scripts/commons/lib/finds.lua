@@ -123,4 +123,68 @@ function Finds:ClosestDoor(pos)
 end
 
 
+local CachedGrid = {}
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
+	for k,_ in pairs(CachedGrid) do
+		CachedGrid[k] = nil
+	end
+end)
+
+--范围内的网格实体(利用缓存机制应该可以提升性能)
+function Finds:GridEntInRadius(pos, radius, clearCacheWhenFind)
+	local result = {}
+	local room = game:GetRoom()
+
+	for gridIdx,gridPos in pairs(CachedGrid) do
+		local gridEnt = room:GetGridEntity(gridIdx)
+		if gridEnt then
+			if gridPos:DistanceSquared(pos) <= radius ^ 2 then			
+				result[gridIdx] = gridEnt
+				if clearCacheWhenFind then
+					CachedGrid[gridIdx] = nil
+				end
+			end
+		else
+			CachedGrid[gridIdx] = nil
+		end
+	end
+
+	local width = room:GetGridWidth()
+	local height = room:GetGridHeight()
+	for x = 1, width - 1 do
+		for y = 1, height - 1 do
+			local gridIdx = x + y * width
+			if not CachedGrid[gridIdx] and not result[gridIdx] then
+				local gridEnt = room:GetGridEntity(gridIdx)
+				if gridEnt and (gridEnt.Position:DistanceSquared(pos) <= radius ^ 2) then
+					result[gridIdx] = gridEnt
+					CachedGrid[gridIdx] = gridEnt.Position
+				end
+			end
+		end
+	end
+
+	return result
+end
+
+--莉莉宝(包括作孽双子和格罗)
+function Finds:IncubusFamiliars(player)
+	local result = {}
+
+	for _,ent in ipairs(Isaac.FindByType(3, -1, -1, true)) do
+		local variant = ent.Variant
+		if (variant == FamiliarVariant.INCUBUS) 
+			or (variant == FamiliarVariant.TWISTED_BABY)
+			or (variant == FamiliarVariant.UMBILICAL_BABY)
+		then
+			local familiar = ent:ToFamiliar()
+			if familiar and Ents:IsTheSame(familiar.Player, player) then
+				table.insert(result, familiar)
+			end
+		end	
+	end
+
+	return result
+end
+
 return Finds

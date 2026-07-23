@@ -103,57 +103,11 @@ function Sword:OnCollision(familiar, other)
 end
 Sword:AddCallback(ModCallbacks.MC_PRE_FAMILIAR_COLLISION, 'OnCollision', Sword.Variant)
 
---目标数据
-function Sword:GetTargetData(ent)
-	local data = self._Ents:GetTempData(ent)
-	data.SwordTarget = data.SwordTarget or {
-		SwordPtr = 0,
-		Timeout = 1
-	}
-
-	return data.SwordTarget
-end
-
---更新目标数据
-function Sword:UpdateTargetData(ent)
-	local data = self._Ents:GetTempData(ent).SwordTarget
-	
-	if data then
-		if data.Timeout > 0 then
-			data.Timeout = data.Timeout - 1
-		elseif (data.SwordPtr ~= 0) then
-			data.SwordPtr = 0
-		end
-	end
-end
-Sword:AddCallback(ModCallbacks.MC_NPC_UPDATE, 'UpdateTargetData')
-Sword:AddCallback(ModCallbacks.MC_POST_PROJECTILE_UPDATE, 'UpdateTargetData')
-
---是否应该分散攻击
-function Sword:ShouldDispersion(pos, ptr)
-	local num = 0
-
-	for _,ent in pairs(Isaac.GetRoomEntities()) do
-		if self._Ents:IsEnemy(ent) and (ent.Position:Distance(pos) <= 300) then
-			local data = self._Ents:GetTempData(ent).SwordTarget
-			if data then
-				if (data.SwordPtr == 0) or (data.SwordPtr == ptr) then
-					num = num + 1
-				end
-			else
-				num = num + 1
-			end
-		end
-	end
-
-	return num > 0
-end
 
 --查找目标
 function Sword:FindTarget(centerPos, familiar)
 	local closestEnt = nil
 	local closestDist = 114514
-	local ptr = GetPtrHash(familiar)
 	local player = familiar.Player
 	
 	--是否可以瞄准敌弹(宝宝弯勺或缝纫机mod蓝冠)
@@ -164,31 +118,13 @@ function Sword:FindTarget(centerPos, familiar)
 		local proj = ent:ToProjectile()
 		
 		if canTargetProj and (dist <= 200) and proj and not proj:HasProjectileFlags(ProjectileFlags.CANT_HIT_PLAYER) then
-			local data = self:GetTargetData(proj)
-			if (data.SwordPtr == 0) or (data.SwordPtr == ptr) then
-				if dist < closestDist then
-					closestDist = dist
-					closestEnt = proj
-					data.Timeout = 2
-					if (data.SwordPtr == 0) then data.SwordPtr = ptr end
-				end
+			if dist < closestDist then
+				closestDist = dist
+				closestEnt = proj
 			end
 		elseif (dist <= 300) and ((not closestEnt) or closestEnt.Type ~= 9) and self._Ents:IsEnemy(ent) then
-			if self:ShouldDispersion(centerPos, ptr) then
-				local data = self:GetTargetData(ent)
-				
-				if (data.SwordPtr == 0) or (data.SwordPtr == ptr) then
-					if dist < closestDist then
-						closestDist = dist
-						closestEnt = ent
-						data.Timeout = 2
-						if (data.SwordPtr == 0) then data.SwordPtr = ptr end
-					end
-				end
-			elseif dist < closestDist then
-				closestDist = dist
-				closestEnt = ent
-			end
+			closestDist = dist
+			closestEnt = ent
 		end
 	end
 
@@ -243,8 +179,7 @@ function Sword:OnUpdate(familiar)
 	end
 	
 	--大宝
-	if player:HasCollectible(247) then 
-		spr.Scale = Vector(0.8, 0.8) --贴图修正
+	if player:HasCollectible(247) then
 		
 		--攻速翻倍
 		if (spr:GetFrame() % 2 == 0) then
@@ -280,27 +215,7 @@ function Sword:OnTrailUpdate(effect)
 				end
 			elseif spr:IsPlaying("Attack") then
 				local frame = spr:GetFrame()
-				local offset = Vector.Zero
-				
-				if frame == 0 then offset = Vector(30,-38) end
-				if frame == 1 then offset = Vector(10,-34) end
-				if frame == 2 then offset = Vector(8,-34) end
-				if frame == 3 then offset = Vector(0,-30) end
-				if frame == 4 then offset = Vector(-6,-26) end
-				if frame == 5 then offset = Vector(-8,-22) end
-				if frame == 6 then offset = Vector(-10,-18) end
-				if frame == 7 then offset = Vector(-12,0) end
-				if frame == 8 then offset = Vector(-14,20) end
-				if frame == 9 then offset = Vector(0,20) end
-				if frame == 10 then offset = Vector(-14,20) end
-				if frame == 11 then offset = Vector(-12,0) end
-				if frame == 12 then offset = Vector(-10,-18) end
-				if frame == 13 then offset = Vector(-8,-22) end
-				if frame == 14 then offset = Vector(-6,-26) end
-				if frame == 15 then offset = Vector(0,-30) end
-				if frame == 16 then offset = Vector(8,-34) end
-				if frame == 17 then offset = Vector(10,-34) end
-				if frame == 18 then offset = Vector(30,-38) end
+				local offset = Vector(30,-38)
 				
 				if familiar.FlipX then offset.X = -offset.X end
 				

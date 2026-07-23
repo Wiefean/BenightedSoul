@@ -13,6 +13,7 @@ local BJudas = CharacterLock(mod.IBS_PlayerID.BJudas, {'bjudas_unlock', 'bc4'} )
 --一层隐藏房3块钱圣经
 function BJudas:OnNewRoom()
 	if self:IsUnlocked() then return end
+	if game:IsGreedMode() then return end
 	if game:AchievementUnlocksDisallowed() then return end
 	if game:GetLevel():GetStage() ~= 1 then return end
 	if not PlayerManager.AnyoneIsPlayerType(3) then return end --检测犹大
@@ -36,6 +37,7 @@ BJudas:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, 'OnNewRoom')
 --撒旦房间用圣经检测
 function BJudas:OnUseBible(item, rng, player, flag, slot)
 	if self:IsUnlocked() then return end
+	if game:IsGreedMode() then return end
 	local room = game:GetRoom()
 	if game:AchievementUnlocksDisallowed() then return end
 	if slot ~= 0 or room:GetBossID() ~= BossType.SATAN or room:IsClear() then return end

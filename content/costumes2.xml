@@ -51,6 +51,8 @@
 	<costume id="85" anm2path="alms.anm2" type="passive" />
 	<!-- smile world -->
 	<costume id="101" anm2path="smile_world.anm2" type="passive" priority="1" />
+	<!-- flex -->
+	<costume id="135" anm2path="flex.anm2" type="passive" />
 	<!-- loong -->
 	<costume id="163" anm2path="loong.anm2" type="passive" isFlying="true" priority="1" />
 
@@ -86,15 +88,18 @@
 	<!-- beve -->
 	<costume anm2path="beve_hair.anm2" type="none" priority="99" />
 	<costume anm2path="beve_hair2.anm2" type="none" priority="99" hasSkinAlt="true" />
+	
+	<!-- bsamson -->
+	<costume id="7259" anm2path="bsamson_hair.anm2" type="none" priority="99" />
 
 	<!-- beden -->
-	<costume id="7259" anm2path="beden_hair.anm2" type="none" priority="99" />
+	<costume id="7260" anm2path="beden_hair.anm2" type="none" priority="99" />
 	
 	<!-- blost -->
-	<costume id="7260" anm2path="blost_costume.anm2" type="none" priority="99" isFlying="true" />
+	<costume id="7261" anm2path="blost_costume.anm2" type="none" priority="99" isFlying="true" />
 
 	<!-- bkeeper -->
-	<costume id="7261" anm2path="bkeeper_rope.anm2" isFlying="true" hasOverlay="true" type="none" priority="777" />
+	<costume id="7262" anm2path="bkeeper_rope.anm2" isFlying="true" hasOverlay="true" type="none" priority="777" />
 
 	<!-- other -->
 	<costume anm2path="falsehood_bmaggy.anm2" type="none" priority="3" />

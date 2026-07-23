@@ -3,6 +3,7 @@
 local mod = Isaac_BenightedSoul
 local IBS_ItemID = mod.IBS_ItemID
 local CharacterLock = mod.IBS_Achiev.CharacterLock
+local EveBaby = mod.IBS_Familiar.EveBaby
 
 local game = Game()
 local sfx = SFXManager()
@@ -39,6 +40,7 @@ function BEve:Benighted(player, fromMenu)
 		player:AddControlsCooldown(100)
 		player.Visible = false
 		game:GetItemPool():RemoveCollectible(IBS_ItemID.MyFault)
+		player:AddCacheFlags(CacheFlag.CACHE_FAMILIARS, true)
 		self:DelayFunction(function()
 			player.Visible = true
 			player:AnimateTeleport()
@@ -122,6 +124,7 @@ function BEve:OnNewLevel()
 					player:SetPocketActiveItem(IBS_ItemID.MyFruit, slot, false)
 					player:SetActiveVarData(varData, slot)
 					player:SetActiveCharge(0, slot)
+					player:AddCacheFlags(CacheFlag.CACHE_FAMILIARS, true)
 				end
 			end
 		end
@@ -129,47 +132,40 @@ function BEve:OnNewLevel()
 end
 BEve:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, 'OnNewLevel')
 
---完成挑战后可主动切换副手
-function BEve:OnNewRoom()
-	if game:GetRoom():IsFirstVisit() then return end
-	
-	--挑战完成状态检测
-	if not self:GetIBSData('persis')['bc6'] then
-		return
+--属性
+function BEve:OnEvaluateCache(player, flag)
+	if flag == CacheFlag.CACHE_DAMAGE and player:GetPlayerType() == self.ID then
+		player.Damage = player.Damage * 0.75
 	end
-	
-	--初始房间检测
-	local level = game:GetLevel()
-	if level:GetCurrentRoomDesc().SafeGridIndex ~= level:GetStartingRoomIndex() then
-		return
-	end
-	
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
-		if player:GetPlayerType() == self.ID then
-			local slot = 2
-			local item = player:GetActiveItem(slot)
+
+	if flag & CacheFlag.CACHE_FAMILIARS > 0 then
+		if player:GetPlayerType() ~= self.ID then
+			player:CheckFamiliar(EveBaby.Variant, 0, RNG(1), nil, EveBaby.SubType.Twin)
+			player:CheckFamiliar(EveBaby.Variant, 0, RNG(1), nil, EveBaby.SubType.Single)		
+		else
+			if player:GetActiveItem(2) == IBS_ItemID.MyFruit then
 			
-			--没用过我果才可换
-			if item == mod.IBS_ItemID.MyFault and not self:GetIBSData('level').MyFruitTriggered then
-				local varData = player:GetActiveItemDesc(slot).VarData
-				if varData < 4 then
-					player:SetPocketActiveItem(IBS_ItemID.MyFruit, slot, false)
-					player:SetActiveVarData(varData, slot)
+				--挑战完成状态检测
+				if self:GetIBSData('persis')['bc6'] then
+					player:CheckFamiliar(EveBaby.Variant, 2, RNG(1), nil, EveBaby.SubType.Twin)
+				else
+					player:CheckFamiliar(EveBaby.Variant, 1, RNG(1), nil, EveBaby.SubType.Twin)
 				end
-			end
 			
-			--满充能我果才可换
-			if item == mod.IBS_ItemID.MyFruit and self._Players:GetSlotCharges(player, slot, true, true) >= 12 then
-				local varData = player:GetActiveItemDesc(slot).VarData
-				if varData < 4 then
-					player:SetPocketActiveItem(IBS_ItemID.MyFault, slot, false)
-					player:SetActiveVarData(varData, slot)
+				player:CheckFamiliar(EveBaby.Variant, 0, RNG(1), nil, EveBaby.SubType.Single)
+			else
+				player:CheckFamiliar(EveBaby.Variant, 0, RNG(1), nil, EveBaby.SubType.Twin)
+				
+				--挑战完成状态检测
+				if self:GetIBSData('persis')['bc6'] then
+					player:CheckFamiliar(EveBaby.Variant, 1, RNG(1), nil, EveBaby.SubType.Single)
+				else
+					player:CheckFamiliar(EveBaby.Variant, 0, RNG(1), nil, EveBaby.SubType.Single)
 				end
 			end
 		end
-	end	
+	end
 end
-BEve:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, 'OnNewRoom')
+BEve:AddPriorityCallback(ModCallbacks.MC_EVALUATE_CACHE, -233, 'OnEvaluateCache')
 
 return BEve

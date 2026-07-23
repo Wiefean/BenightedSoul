@@ -1,9 +1,9 @@
 <AnimatedActor>
-	<Info CreatedBy="robot" CreatedOn="2025/2/15 8:54:09" Version="140" Fps="30"/>
+	<Info CreatedBy="robot" CreatedOn="2026/3/31 21:37:16" Version="142" Fps="30"/>
 	<Content>
 		<Spritesheets>
 			<Spritesheet Path="bxxx_hud.png" Id="0"/>
-			<Spritesheet Path="..\..\EIDicons\ui_cardfronts.png" Id="1"/>
+			<Spritesheet Path="..\..\compats\EIDicons\ui_cardfronts.png" Id="1"/>
 		</Spritesheets>
 		<Layers>
 			<Layer Name="icon" Id="0" SpritesheetId="0"/>

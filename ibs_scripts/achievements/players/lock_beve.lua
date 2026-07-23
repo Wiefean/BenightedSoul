@@ -8,8 +8,8 @@ local sfx = SFXManager()
 
 local BEve = CharacterLock(mod.IBS_PlayerID.BEve, {'beve_unlock'} )
 
---死在以撒房间判定
 function BEve:OnPlayerKilled(ent)
+	if game:AchievementUnlocksDisallowed() then return end
 	local player = ent:ToPlayer()
 	if not player then return end
 	if not self:IsLocked() then return end

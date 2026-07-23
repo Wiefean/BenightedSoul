@@ -98,8 +98,6 @@ local function RerollSequence(player)
 	end
 end
 
-RerollSequence()
-
 --死亡时尝试复活为力里该隐
 function ForScreenshot:PrePlayerDeath(player)
 	if player:HasTrinket(self.ID) and player:GetPlayerType() ~= PlayerType.PLAYER_CAIN_B then

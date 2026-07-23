@@ -65,7 +65,7 @@ end)
 function FolkPrescription:OnDecoUpdate(gridEnt)
 	if not PlayerManager.AnyoneHasCollectible(self.ID) then return end
 	local desc = gridEnt.Desc
-	local seed = (desc and desc.SpawnSeed) or nil
+	local seed = (desc and desc.SpawnSeed) or nil; if not seed then return end
 	if CachedGrid[seed] or CachedGrid2[seed] then return end
 	
 	--缓存
@@ -136,7 +136,8 @@ function FolkPrescription:OnPlayerUpdate(player)
 	end
 
 	--采集
-	if data.Charge > self.MaxCharge + 45 then
+	local room = game:GetRoom()
+	if data.Charge > self.MaxCharge + 45 and room:GetGridEntity(gridIdx) then
 		data.Charge = 0
 		
 		local itemPool = game:GetItemPool()
@@ -153,7 +154,12 @@ function FolkPrescription:OnPlayerUpdate(player)
 			end
 		end
 		
-		game:GetRoom():RemoveGridEntity(gridIdx, 0, false)
+		room:RemoveGridEntity(gridIdx, 0, false)
+		
+		--清除缓存
+		local desc = gridEnt.Desc
+		local seed = (desc and desc.SpawnSeed) or nil; if not seed then return end
+		CachedGrid[seed] = nil
 	end
 end
 FolkPrescription:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, 'OnPlayerUpdate')

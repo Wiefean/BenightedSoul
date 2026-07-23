@@ -80,18 +80,19 @@ function ShockWave:OnInit(effect)
 		path = 'gfx/ibs/effects/effect_062_groundbreakmines.png'
 
 		--检测岩浆池
-		local width = room:GetGridWidth()
-		local height = room:GetGridHeight()		
-		for x = 1, width - 1 do
-			for y = 1, height - 1 do
-				local gridIndex = x + y * width
-				local gridEnt = room:GetGridEntity(gridIndex)
-				if gridEnt and gridEnt:ToPit() then
-					path = 'gfx/ibs/effects/effect_062_groundbreakmineslava.png'
-					break
-				end
-			end
-		end		
+		--为了性能弃用
+		-- local width = room:GetGridWidth()
+		-- local height = room:GetGridHeight()		
+		-- for x = 1, width - 1 do
+			-- for y = 1, height - 1 do
+				-- local gridIdx = x + y * width
+				-- local gridEnt = room:GetGridEntity(gridIdx)
+				-- if gridEnt and gridEnt:ToPit() then
+					-- path = 'gfx/ibs/effects/effect_062_groundbreakmineslava.png'
+					-- break
+				-- end
+			-- end
+		-- end
 	elseif bg == BackdropType.ASHPIT then
 		path = 'gfx/ibs/effects/effect_062_groundbreakmineslava.png'
 	elseif bg == BackdropType.DEPTHS or bg == BackdropType.NECROPOLIS or bg == BackdropType.DANK_DEPTHS then
@@ -221,24 +222,15 @@ function ShockWave:OnUpdate(effect)
 		end
 		
 		--摧毁障碍物
-		local width = room:GetGridWidth()
-		local height = room:GetGridHeight()
-		for x = 1, width - 1 do
-			for y = 1, height - 1 do
-				local gridIndex = x + y * width
-				local gridEnt = room:GetGridEntity(gridIndex)
-				
-				if gridEnt and (gridEnt.Position:Distance(effect.Position) <= scale * 30) then
-					if gridEnt:ToPit() then
-						--排除大撒旦房间
-						if room:GetBossID() ~= 55 then						
-							gridEnt:ToPit():MakeBridge(nil)
-						end
-					else					
-						gridEnt:Hurt(7)
-						room:DestroyGrid(gridIndex, false)
-					end
+		for gridIdx,gridEnt in pairs(self._Finds:GridEntInRadius(effect.Position, scale * 30)) do
+			if gridEnt:ToPit() then
+				--排除大撒旦房间
+				if room:GetBossID() ~= 55 then
+					gridEnt:ToPit():MakeBridge(nil)
 				end
+			else					
+				gridEnt:Hurt(7)
+				room:DestroyGrid(gridIdx, false)
 			end
 		end
 

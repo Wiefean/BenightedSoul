@@ -146,6 +146,7 @@ function Players:TeleportToPosition(player, pos, showAnim, playSound, dmgCD)
 		spr:Load(player:GetSprite():GetFilename(), true)
 		spr:Play("TeleportUp")
 		player:AnimateTeleport(false)
+		player:GetSprite():SetFrame(11)
 	end
 	
 	if playSound then
@@ -173,6 +174,28 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
 	end
 end)
 
+--获取玩家隐藏道具数量
+--[[
+忏悔龙修改后的api可以排除隐藏道具获取玩家身上的道具数量
+利用差值判断隐藏道具的数量
+]]
+function Players:GetHiddenCollectibleNum(player, id)
+	local num = player:GetCollectibleNum(id)
+	local realNum = player:GetCollectibleNum(id, true, true)
+	local hiddenNum = num - realNum
+	
+	--作一层保险
+	if hiddenNum > 0 then
+		return hiddenNum
+	end
+	
+	return 0
+end
+
+--玩家是否有隐藏道具
+function Players:HasHiddenCollectible(player, id)
+	return self:GetHiddenCollectibleNum(player, id) > 0
+end
 
 --以特定条件获取玩家身上的道具ID和符合条件的道具数量
 --(不建议频繁触发该函数)
@@ -237,6 +260,29 @@ function Players:AnyHasCollectible(item, ignoreEffect)
 	end
 	
 	return false
+end
+
+
+--获取玩家饰品数量(非倍率)
+function Players:GetTrinketNum(player, id)
+	local num = 0
+
+	--饰品栏的
+	for i = 0,1 do
+		local trinket = player:GetTrinket(i)
+		if trinket == id or trinket == id+32768 then
+			num = num + 1
+		end
+	end	
+	
+	--吞下的
+	local tbl = player:GetSmeltedTrinkets({id})
+	if tbl and tbl[id] then	
+		num = num + tbl[id].trinketAmount
+		num = num + tbl[id].goldenTrinketAmount
+	end
+	
+	return num
 end
 
 
@@ -1071,213 +1117,5 @@ end
 
 end
 
-
---[[
-do --隐藏道具魂火区(暂未使用,也没有进行测试)
-
---妙妙位置
-local GoodPosition = Vector(7250,7250)
-
---临时隐藏道具魂火数据
-local function GetPlayerSecretWispData(player)
-	local data = Ents:GetTempData(player)
-	data.SECRETITEMWISP_PLAYER = data.SECRETITEMWISP_PLAYER or {}
-
-	return data.SECRETITEMWISP_PLAYER
-end
-
---设置隐藏道具魂火
-local function SetSecretItemWisp(player, wisp)
-	Ents:GetTempData(wisp).SECRETITEMWISP = {Player = player}
-	wisp.Visible = false
-	wisp.Position = GoodPosition
-	wisp.Velocity = Vector.Zero	
-	wisp:RemoveFromOrbit()
-	wisp:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
-end
-
---添加或移除隐藏道具魂火(在ModCallbacks.MC_EVALUATE_CACHE中判断CacheFlag.CACHE_FAMILIARS以使用)
-function Players:EvaluateSecretItemWisp(player, item, num)
-	local data = GetPlayerSecretWispData(player)
-	if not data[item] then data[item] = 0 end
-	data[item] = math.max(0, (data[item] + num))
-	
-	for i = 1,num do
-		local wisp = player:AddItemWisp(item, GoodPosition)
-		SetSecretItemWisp(player, wisp)
-	end
-end
-
---计算隐藏道具魂火数量
-function Players:CountSecretItemWisps(player, item)
-	local data = Ents:GetTempData(player).SECRETITEMWISP_PLAYER
-	if data then
-		return data[item]
-	end
-	return 0
-end
-
-
-
---以下为又臭又长的处理道具魂火方法(明明直接给个添加隐藏道具的API就不用这么麻烦了,屑官方愣是不给)
---(其实就是把道具魂火集中在一个妙妙位置,再进行处理)
-
---查找隐藏道具魂火
-local function FindSecretItemWisps(player, item)
-	local result = {}
-	for _,familiar in pairs(Isaac.FindInRadius(GoodPosition, 50, EntityPartition.FAMILIAR)) do
-		if (familiar.Variant == FamiliarVariant.ITEM_WISP and familiar.SubType == item) then
-			local data = Ents:GetTempData(familiar).SECRETITEMWISP
-			if data and Ents:IsTheSame(data.Player, player) then
-				table.insert(result, familiar)
-			end
-		end	
-	end
-	return result
-end
-
---查找未处理的道具魂火
---(用于重新加载游戏,临时数据被清除时)
-local function FindRawItemWisps(player, item)
-	local result = {}
-	for _,familiar in pairs(Isaac.FindInRadius(GoodPosition, 50, EntityPartition.FAMILIAR)) do
-		if (familiar.Variant == FamiliarVariant.ITEM_WISP and familiar.SubType == item) then
-			local data = Ents:GetTempData(familiar).SECRETITEMWISP
-			if (not data) and Ents:IsTheSame(Ents:IsSpawnerPlayer(familiar, false), player) then
-				table.insert(result, familiar)
-			end
-		end	
-	end
-	return result
-end
-
---创造隐藏道具魂火
-local function MakeSecretItemWisps(player, item, num)
-	local rawWisps = FindRawItemWisps(player, item)
-	
-	if num <= #rawWisps then
-		local made = 0
-		for _,wisp in pairs(rawWisps) do
-			SetSecretItemWisp(wisp)
-			made = made + 1
-			if made >= num then break end
-		end
-	else
-		for _,wisp in pairs(rawWisps) do
-			SetSecretItemWisp(wisp)
-		end
-		for i = 1,(num - #rawWisps) do
-			local wisp = player:AddItemWisp(item, GoodPosition)
-			SetSecretItemWisp(player, wisp)
-		end		
-	end
-end
-
---更新隐藏道具魂火数据
-local function UpdateSecretItemWispData(_, player)
-	local data = Ents:GetTempData(player).SECRETITEMWISP_PLAYER
-	if data then
-		for item,num in pairs(data) do
-			local secretWisps = FindSecretItemWisps(player, item)
-			local diff = num - #secretWisps
-			
-			--少则添加,多则移除
-			if diff > 0 then
-				MakeSecretItemWisps(player, item, diff)
-			elseif diff < 0 then
-				local removed = 0
-				for _,wisp in pairs(secretWisps) do
-					wisp:Remove()
-					removed = removed + 1
-					if removed >= (-diff) then break end
-				end
-			end
-		end
-	end
-end
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, UpdateSecretItemWispData)
-
---刷新数据
-local function OnEvaluateCache(_,player, flag)
-	if (flag == CacheFlag.CACHE_FAMILIARS) then
-		local data = Ents:GetTempData(player).SECRETITEMWISP_PLAYER
-		if data then
-			for item,num in pairs(data) do
-				data[item] = 0
-			end
-		end
-	end
-end
-mod:AddPriorityCallback(ModCallbacks.MC_EVALUATE_CACHE, -725, OnEvaluateCache)
-
---初始化隐藏道具魂火
-mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, function(_,wisp)
-	if Ents:GetTempData(wisp).SECRETITEMWISP then SetSecretItemWisp(wisp) end
-end, FamiliarVariant.ITEM_WISP)
-
---保持隐藏道具魂火状态
-mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_,wisp)
-	if Ents:GetTempData(wisp).SECRETITEMWISP then
-		wisp.Visible = false
-		wisp.Position = GoodPosition
-		wisp.Velocity = Vector.Zero
-	end	
-end, FamiliarVariant.ITEM_WISP)
-
---无视隐藏道具魂火的碰撞
-mod:AddCallback(ModCallbacks.MC_PRE_FAMILIAR_COLLISION, function(_,wisp)
-	if Ents:GetTempData(wisp).SECRETITEMWISP then return true end
-end, FamiliarVariant.ITEM_WISP)
-
---无视隐藏道具魂火的伤害与被伤害
-mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_,ent, dmg, flag, source)
-	local familiar = ent:ToFamiliar() or (source and source.Entity and source.Entity:ToFamiliar())
-	if familiar and (familiar.Variant == FamiliarVariant.ITEM_WISP) and Ents:GetTempData(familiar).SECRETITEMWISP then
-		return false
-	end
-end)
-
---隐藏道具魂火熄灭时,移除音效和特效
-mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, function(_,familiar)
-    if (familiar.Variant == FamiliarVariant.ITEM_WISP) and Ents:GetTempData(familiar).SECRETITEMWISP then
-		SFXManager():Stop(SoundEffect.SOUND_STEAM_HALFSEC)
-		for _,effect in pairs(Isaac.FindInRadius(familiar.Position, 2, EntityPartition.EFFECT)) do
-			if (effect.Variant == EffectVariant.POOF01) or (effect.Variant == EffectVariant.TEAR_POOF_A) then
-				effect:Remove()
-			end
-		end
-    end
-end, EntityType.ENTITY_FAMILIAR)
-
---移除隐藏道具魂火与美德书联动发射的眼泪
-mod:AddCallback(ModCallbacks.MC_POST_TEAR_INIT, function(_,tear)
-	local familiar = (tear.SpawnerEntity and tear.SpawnerEntity:ToFamiliar())
-	if familiar and (familiar.Variant == FamiliarVariant.ITEM_WISP) and Ents:GetTempData(familiar).SECRETITEMWISP then
-		tear:Remove()
-	end
-end)
-
---在使用祭坛之前把隐藏道具魂火的归属玩家设为无,以此避免被移除
-mod:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, function()
-    for _,wisp in ipairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ITEM_WISP)) do
-        if Ents:GetTempData(wisp).SECRETITEMWISP then
-            wisp:ToFamiliar().Player = nil
-        end
-    end
-end, CollectibleType.COLLECTIBLE_SACRIFICIAL_ALTAR)
-
---使用祭坛之后再重新设置归属玩家
-mod:AddCallback(ModCallbacks.MC_USE_ITEM, function()
-    for _,wisp in ipairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ITEM_WISP)) do
-		local data = Ents:GetTempData(wisp).SECRETITEMWISP
-        if data then
-            wisp:ToFamiliar().Player = data.Player
-        end
-    end
-end, CollectibleType.COLLECTIBLE_SACRIFICIAL_ALTAR)
-
-
-end
-]]
 
 return Players

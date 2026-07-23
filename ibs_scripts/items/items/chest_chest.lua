@@ -28,8 +28,8 @@ function ChestChest:GetPlayerData(player)
 		data.ChestChest = {
 			Selection = 1,
 			LastSelection = 1,
-			TargetPtr = 0,
-			LastTargetPtr = 0,
+			TargetPtr = "",
+			LastTargetPtr = "",
 			Action = '',
 			LastAction = '',
 			Wait = 0,
@@ -289,7 +289,7 @@ function ChestChest:OnHUDRender()
 					data.HighLight.Scale = pickup.SpriteScale
 					data.HighLight.Color = Color(1, 1, 1, 1, 100/255, 100/255, 0)					
 					data.HighLight:Render(self._Screens:WorldToScreen(pickup.Position, Vector.Zero, true))
-					data.TargetPtr = GetPtrHash(pickup)
+					data.TargetPtr = tostring(GetPtrHash(pickup))
 				end
 			end
 

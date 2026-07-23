@@ -43,7 +43,7 @@ Interval:AddPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, 100000, 'OnTakeDMG
 local fnt = Font('font/terminus8.fnt')
 
 --提示
-function Interval:OnTrinketRender(slot, pos, scale, player)
+function Interval:OnTrinketRender(slot, pos, scale, player, offset)
 	local trinket = player:GetTrinket(slot)
 	if trinket ~= self.ID and trinket ~= self.ID + 32768 then return end
 	local item = player:GetActiveItem(0) if item == 0 then item = 'nil' end
@@ -59,7 +59,7 @@ function Interval:OnTrinketRender(slot, pos, scale, player)
 	end
 	
 	local color = (trinket == self.ID + 32768 and KColor(1,1,0,1)) or KColor(1,1,1,1)
-	fnt:DrawStringScaled('('..left..','..right..')', pos.X - 32*scale, pos.Y + 12*scale, scale, scale, color, 144, true)
+	fnt:DrawStringScaled('('..left..','..right..')', pos.X - 32*scale + offset.X, pos.Y + 12*scale + offset.Y, scale, scale, color, 144, true)
 
 	return true
 end

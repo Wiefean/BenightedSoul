@@ -789,7 +789,7 @@ function BLost:OnPEffectUpdate(player)
 		
 		--模拟摇杆(方便全向攻击)
 		if not player:HasCollectible(465) then
-			player:AddInnateCollectible(465)
+			player:AddInnateCollectible(465, 1)
 			player:RemoveCostume(config:GetCollectible(465))
 		end		
 	end	

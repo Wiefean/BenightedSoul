@@ -276,6 +276,7 @@ function MyFruit:OnUse(item, rng, player, flags, slot)
 			self:DelayFunction(function()					
 				player:SetPocketActiveItem(IBS_ItemID.MyFault, slot, false)
 				player:SetActiveVarData(varData+1, slot)
+				player:AddCacheFlags(CacheFlag.CACHE_FAMILIARS, true)
 			end, 1)
 		else	
 			--使用达4次时时移除

@@ -402,6 +402,37 @@ MakeCharacterBar(IBS_PlayerKey.BEve, Language('夏娃', 'Eve'), {
 	Greed = {'zoth'},
 	-- FINISHED = {'secret_histories'},
 })
+MakeCharacterBar(IBS_PlayerKey.BSamson, Language('参孙', 'Samson'), {
+	Unlocked = Language('使用参孙，累计两层不进入宝箱房，并击败妈妈以解锁', 'Samson skips Treasure Room in 2 levels, and defeats Mom to unlock'),
+	Heart = Language('解锁 "伤害传输器"', 'For "DMG Transmitter"'),
+	Isaac = Language('解锁 "宁静烟斗"', 'For "Peace Pipe"'),
+	BlueBaby = Language('解锁 "精灵便便"', 'For "Spirit Poop"'),
+	Satan = Language('解锁 "幸运附魔"', 'For "Luck Enchantment"'),
+	Lamb = Language('解锁 "招牌技"', 'For "Signature Move"'),
+	MegaSatan = Language('解锁 "抉择"：超级隐藏房布局', 'For "Choose": Super Secret Room layout'),
+	BossRush = Language('解锁 "哈米吉多顿"', 'For "Armageddon"'),
+	Delirium = Language('解锁 "架势"', 'For "Posture"'),
+	Witness = Language('解锁 "肥大虫"', 'For "Bulky Worm"'),
+	Beast = Language('解锁 "龙"', 'For "Loong"'),
+	Greed = Language('解锁 "巨口储蓄罐"', 'For "Maw Bank"'),
+	FINISHED = Language('解锁 "宽容"', 'For "Kindness"'),
+},
+{
+	Unlocked = {'bsamson_unlock'},
+	Heart = {'dmg_transmitter'},
+	Isaac = {'peace_pipe'},
+	BlueBaby = {'spirit_poop'},
+	Satan = {'luck_enchantment'},
+	Lamb = {'signature_move'},
+	MegaSatan = {'choose'},
+	BossRush = {'armageddon'},
+	Hush = {'bsamson_falsehood'},
+	Delirium = {'posture'},
+	Witness = {'bulky_worm'},
+	Beast = {'loong'},
+	Greed = {'maw_bank'},
+	-- FINISHED = {'secret_histories'},
+})
 MakeCharacterBar(IBS_PlayerKey.BEden, Language('伊甸', 'Eden'), {
 	Unlocked = Language('伊甸/堕化伊甸在开局留在初始房间等待2分钟左右以解锁', 'Eden / Tainted Eden stays in the starting room at the start of a run for about 2 minutes to unlock'),
 	Heart = Language('解锁 "21点"', 'For "Blackjack"'),
@@ -509,6 +540,7 @@ do
 	MakeCheckBox(_AchievTab2, 'bc4', Language('逾越节', 'Passover'), Language('完成以强化昧化犹大', 'Finish it to boost Benighted Judas'), {'bjudas_up'} )
 	MakeCheckBox(_AchievTab2, 'bc5', Language('双重释放', 'Dualcast'), Language('完成以强化昧化???', 'Finish it to boost Benighted ???'), {'bxxx_up'} )
 	MakeCheckBox(_AchievTab2, 'bc6', Language('池沼魔谷', 'Marsh Rooms'), Language('完成以强化昧化夏娃', 'Finish it to boost Benighted Eve'), {'beve_up'} )
+	MakeCheckBox(_AchievTab2, 'bc7', Language('背刺', 'Backstab'), Language('完成以强化昧化参孙', 'Finish it to boost Benighted Samson'), {'bsamson_up'} )
 	
 	MakeCheckBox(_AchievTab2, 'bc10', Language('天妒英才', 'Envery'), Language('完成以强化昧化伊甸', 'Finish it to boost Benighted Eden'), {'beden_up'} )
 	MakeCheckBox(_AchievTab2, 'bc11', Language('钥匙变炸弹', 'Keys are bomb'), Language('完成以强化昧化游魂', 'Finish it to boost Benighted Lost'), {'blost_up'} )
@@ -648,6 +680,7 @@ do
 	MakeCheckBox(_SettingTabB, 'boss_fortitude', Language('坚韧', 'Fortitude') )
 	MakeCheckBox(_SettingTabB, 'boss_temperance', Language('节制', 'Temperance') )
 	MakeCheckBox(_SettingTabB, 'boss_generosity', Language('慷慨', 'Generosity') )
+	MakeCheckBox(_SettingTabB, 'boss_kindness', Language('宽容', 'Kindness'), Language('实际上这是一个道具', 'Actually, it is an item') )
 	MakeCheckBox(_SettingTabB, 'boss_humility', Language('谦逊', 'Humility') )
 end
 ----↑头目栏相关↑----
@@ -1612,8 +1645,7 @@ do
 		maggyPride = true, --用于表表抹解锁
 		maggyPride = true, --用于表表抹解锁
 		lostDeath = 0, --用于表表游魂解锁
-		
-		troposphere = 515, --用于对流层
+
 		
 		--设置部分
 		difficulty_enemy_hp_up = false, --敌人血量增长
@@ -1630,6 +1662,7 @@ do
 		boss_fortitude = true, --坚韧
 		boss_temperance = true, --节制
 		boss_generosity = true, --慷慨
+		boss_kindness = true, --宽容
 		boss_humility = true, --谦逊		
 		voidUp = true, --虚空增强
 		abyssUp = true, --无底坑增强

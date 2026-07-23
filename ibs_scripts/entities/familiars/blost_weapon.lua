@@ -1041,7 +1041,7 @@ function BLostWeapon:OnUpdate()
 									laser:SetTimeout(15)
 									laser:SetMaxDistance(player.TearRange/5)
 									table.insert(data.CachedLasers, laser)
-								end, familiar.Position, vec:Normalized(), source, 1)								
+								end, familiar.Position, vec:Normalized(), source, 1)							
 								
 								--硬核后座
 								familiar.Position = familiar.Position - 0.3*offset

@@ -70,11 +70,25 @@ local playerEID = {
 
 [IBS_PlayerID.BEve] = {
 	name='Benighted Eve',
-	info='Using pocket {{Collectible'..(IBS_ItemID.MyFruit)..'}}My Fruit turns it into {{Collectible'..(IBS_ItemID.MyFault)..'}}My Fault'..
-		 '#Return {{Collectible'..(IBS_ItemID.MyFruit)..'}}My Fruit with last used times in a new level'..
+	info='Starts with familiar that blocks projectile and damage enemies'..
+		 '#Using pocket {{Collectible'..(IBS_ItemID.MyFruit)..'}}My Fruit turns it into {{Collectible'..(IBS_ItemID.MyFault)..'}}My Fault, and lose the familiar'..
+		 '#Return {{Collectible'..(IBS_ItemID.MyFruit)..'}}My Fruit with last used times in a new level, and refill the familiars'..
 		 '#!!! {{Collectible'..(IBS_ItemID.MyFruit)..'}}My Fruit can not be returned if exhausted',	
 	br='{{Collectible'..(IBS_ItemID.MyFruit)..'}} My Fruit\'s max-charge is fixed at 0#{{Collectible'..(IBS_ItemID.MyFault)..'}} My Fault will be automatically used before taking penalt damage'
 },
+
+[IBS_PlayerID.BSamson] = {
+	name='Benighted Samson',
+	info='Can not pick trinkets or pocket items, but can still buy tarot cards'..
+		 '#After cleaning {{BossRoom}}Boss Room, spawn a tarot card'..
+		 '#Change states with {{Collectible'..(IBS_ItemID.Posture)..'}}Posture'..
+		 '#{{IBSSamsonCalm}} Calm: When entering, + 3s sheild, not stackable'..
+		 '#{{IBSSamsonWrath}} Wrath: 14s duration; Double damage and penal hurt; Do attacks according to the cards of {{Collectible'..(IBS_ItemID.Posture)..'}}Posture'..
+		 '#{{IBSSamsonWrath}}Wrath passes faster when standing by'..
+		 '#!!! When taking penalt damage in {{IBSSamsonWrath}}Wrath, 50% chance to lose the selected card, except {{Card1}}The Fool ({{Luck}}Luck 10: 10%)',
+	br='When enter {{IBSSamsonWrath}} Wrath, + 1 charge for {{Collectible'..(IBS_ItemID.Posture)..'}}Posture'
+},
+
 
 [IBS_PlayerID.BEden] = {
 	name="Benighted Eden",
@@ -354,8 +368,8 @@ local itemEID={
 
 [IBS_ItemID.Circumcision]={
 	name="Circumcision",
-	info="↓ {{Speed}}spd - 0.7"..
-		 "#↑ {{Tears}}tears * 2"..
+	info="↓ {{Speed}}spd - 0.4"..
+		 "#↑ {{Tears}}tears + 2"..
 		 "#↑ {{Luck}}luck + 2"	
 },
 
@@ -492,7 +506,7 @@ local itemEID={
 	name="No Temperance?",
 	info="For each uninvolved gambling game:"..
 		 "#↑ {{Speed}}spd + 0.02"..
-		 "#↑ {{Damage}}dmg + 0.15"..
+		 "#↑ {{Damage}}dmg + 0.2"..
 		 "#↓ {{Shotspeed}}sspd - 0.02"..
 		 "#↑ {{Luck}}luck + 0.25"..
 		 "#For each {{ArcadeRoom}}Arcade Room not entered: 4 x stats above"
@@ -737,7 +751,7 @@ local itemEID={
 
 [IBS_ItemID.PortableFarm]={
 	name="PortableFarm",
-	info='Gulp holded {{Trinket'..(IBS_TrinketID.WheatSeeds)..'}}'..'Wheat Seeds, or spawn 1~2 ones',
+	info='Gulp {{Trinket'..(IBS_TrinketID.WheatSeeds)..'}}'..'Wheat Seeds',
 	virtue='Middle wisps that do not shoot tears and spawn {{Trinket'..(IBS_TrinketID.WheatSeeds)..'}}'..'Wheat Seeds when killed',
 	belial='No special effect',
 },
@@ -767,7 +781,7 @@ local itemEID={
 	name='Goatify',
 	info='Goats became friendly, gain fire, spikes and explosion immunity and will not be hurt in a cleared room'..
 		 '#When hurt, transform the non-boss attacker to a Goat'..
-		 "#When used, spawn 1~2 Goats with double Hp, and then consume {{Collectible'..(IBS_ItemID.Wheat)..'}}Wheat to increase Goats' Hp",
+		 "#When used, spawn a Goat with double Hp, and then consume 1 {{Collectible'..(IBS_ItemID.Wheat)..'}}Wheat from anyone to full Goats' Hp",
 	virtue='Middle wisps that do not shoot tears and spawn a Goat when killed',
 	belial='No special effect',
 },
@@ -886,11 +900,9 @@ local itemEID={
 
 [IBS_ItemID.Troposphere]={
 	name='Troposphere',
-	info='When picking up next active item, record it and remove it with this item, then gain the item recorded last time'..
-		 '#!!! Valid whoever has this item'..
-		 '#Record can be saved even next run'..
-		 '#No effect on pocket active items'..
-		 '#No effect on error or quest items',
+	info='In a new room, 33% chance to gain an extra vanilla active item (Similar to {{Trinket154}}Dice Bag)'..
+		 '#!!! When hurt, 33% chance to swap the first active item with the extra item, and lose Troposphere'..
+		 '#Only available to few vanilla items',
 },
 
 [IBS_ItemID.MODE]={
@@ -1165,7 +1177,7 @@ local itemEID={
 [IBS_ItemID.LuckEnchantment]={
 	name='Luck Enchantment',
 	info='↑ {{Luck}}luck + 3'..
-		 '#Enemies take extra (20% x {{Luck}}luck) damage'
+		 '#Enemies take extra 20% x {{Luck}}luck damage (absolute value)'
 },
 
 [IBS_ItemID.TheHornedAxe]={
@@ -1533,11 +1545,250 @@ local itemEID={
 
 [IBS_ItemID.OOC]={
 	name='Oath of CHastity',
-	info='When gained, + 3 {{SoulHeart}}Soul Hearts'..
+	info='When gained, + 2 {{SoulHeart}}Soul Hearts'..
 		 '#↑ + 3 {{Luck}}luck'..
-		 '#Kill Uriel and Gabriel'..
-		 '#For every level, the first 7 times penalt damage become non-penalt and hurt only half a heart'..
-		 '#!!! Lose this item when taking penalt damage',
+		 '#Kill Uriel and Gabriel instantly'..
+		 '#For every level, the first 7 times penal damage become non-penalt and hurt only half a heart'..
+		 '#!!! Lose this item when taking penal damage',
+},
+
+[IBS_ItemID.MM]={
+	name='MM',
+	info='↑ + 0.3 {{Damage}}dmg'..
+		 '#↑ + 0.1 {{Speed}}spd'..
+		 '#If picked up directly in {{AngelRoom}}Angel Room, gain two more',
+},
+
+[IBS_ItemID.MimicInfestation]={
+	name='Mimic Infestation',
+	info='Apply {{HauntedChest}}Haunted Chest effect to all chests'..
+		 '#When entering a new room, 6% chance to spawn a {{GoldenChest}}Golden Chest',
+	seijaBuff={
+		desc = '+ 6% chance; Be invincible when Polty exists',
+		data = {
+			append = function(x) 
+				return (x > 1 and "#+ "..(10*(x-1)).."% chance") or ''
+			end
+		},	
+	}		 
+},
+
+[IBS_ItemID.CardboardMush]={
+	name='Cardboard Mush',
+	info='When gained, spawn 3 cards'..
+		 '#When consuming cards, trigger {{Card12}}Strength',
+},
+
+[IBS_ItemID.Transmogrify]={
+	name='Transmogrify',
+	info='Reroll the closest item to {{Quality1}}Q1 item'..
+		 '#1% chance to {{Collectible'..(IBS_ItemID.CheeseCutter)..'}}Cheese Cutter',
+	virtue='Middle wisps that do not shoot; 10 % chance turns collided enemies to Fly',
+	belial='No special effect',
+	void='No effect',
+},
+
+[IBS_ItemID.SpiritPoop]={
+	name='Spirit Poop',
+	info='{{CurseRoom}}Curse Room will be replaced by {{SuperSecretRoom}} Super Secret Room'..
+		 '#{{SuperSecretRoom}} Open doors of Super Secret Room',
+},
+
+[IBS_ItemID.CalocybeGambosa]={
+	name='Calocybe gambosa',
+	info='When gained, + 3 {{SoulHeart}}Soul Hearts'..
+		 '#{{SacrificeRoom}} Spawn 2 extra spikes in Sacrifice Room',
+},
+
+[IBS_ItemID.AFaces]={
+	name='A Faces',
+	info='When gained, smelt one of trinkets below:',
+},
+
+[IBS_ItemID.BigSlurp]={
+	name='Big Slurp',
+	info='When gained, spawn 2 {{Collectible197}}Jesus Juice',
+},
+
+[IBS_ItemID.BobsRottenHand]={
+	name="Bob's Rotten Hand",
+	info="When attacking, fire an explosive tear with 100%{{Damage}}Isaac's dmg"..
+		 '#Needs stop attacking to fire next one',
+},
+
+[IBS_ItemID.Armageddon]={
+	name='Armageddon',
+	info='Spawn and reveal Boss Rush as a room for each level if possible'..
+		 '#In Boss Rush:'..
+		 '#{{Blank}} All items can be picked up'..
+		 '#{{Blank}} One more option in cycle for items'..
+		 '#{{Blank}} Enemies lose 12% HP per second',
+	seijaNerf="Do not spawn Boss Rush"
+},
+
+[IBS_ItemID.MomsOldKey]={
+	name="Mom's Old Key",
+	info='+ 2 {{Key}}keys in a new level'..
+		 '#50% {{Chest}}Common Chest turns into {{DirtyChest}}Old Chest',
+},
+
+[IBS_ItemID.BeggarMedal]={
+	name='Beggar Medal',
+	info='!!! {{ColorYellow}}SINGLE USE{{CR}}'..
+		 '#Gain {{Collectible144}}{{Collectible278}}{{Collectible388}}'..
+		 '#Lose them in a new level',
+	virtue='Gain item-wisp of {{Collectible'..(IBS_ItemID.SOG)..'}}Soul of Generosity',
+	belial='Keep {{Collectible278}}',
+},
+
+[IBS_ItemID.SlowStart]={
+	name='Slow Start',
+	info='↓ {{Speed}}spd - 0.5'..
+		 '#↑ 5 minutes later, {{Speed}}spd + 0.5, {{Damage}}dmg x 150%'..
+		 '#Reset the counter in a new level, the counter will decrease by 20s x level',
+},
+
+[IBS_ItemID.BrokenRKey]={
+	name='Broken R Key',
+	info='!!! {{ColorYellow}}SINGLE USE{{CR}}'..
+		 '#Drop level-num passive items with random items in cycle'..
+		 '#Reset game timer and item pools'..
+		 '#No effect on quest or error items',
+	virtue='No wisps#28% angel item in cycle',
+	belial='Gain {{Collectible51}}Pentagram',
+},
+
+[IBS_ItemID.ADTime]={
+	name='AD Time',
+	info='When Isaac dies, play the Credits, then revive Isaac with full health'..
+		 '#!!! Exiting before finished fails the revival',
+},
+
+[IBS_ItemID.DMGTransmitter]={
+	name='DMG Transmitter',
+	info='When used, lose 1 {{Damage}}dmg, enemies take 2 extra damage in the run'..
+		 '#!!! To use, {{Damage}}dmg must be above 3.5',
+	virtue='Inner wisps that fire {{Collectible494}} laser tears',
+	belial='Enemies take 1.3 extra damage in the run',
+},
+
+[IBS_ItemID.Posture]={
+	name='Posture！',
+	info='When gained, spawn {{Card1}}The Fool'..
+		 '#Charged by cleaning rooms, dealing damage or being hurt, and can be charged twice'..
+		 '#Collect tarot cards in a cleared room, most to 5'..
+		 '#When used, grant additional melee attack in 14 seconds',
+	virtue='No effect',
+	belial='No effect',		 
+	player={[IBS_PlayerID.BSamson] = "Switch to next card, different effects in different states; Grant extra slots for reversed tarot"}
+},
+
+[IBS_ItemID.BlessingOfMichael]={
+	name='Blessing of Michael',
+	info='When gained, remove {{AngelRoom}}angel items whose quality below {{Quality4}}4 from pools and spawn a {{Quality4}}Q4 {{AngelRoom}}angel item'..
+		 '#Boost vanilla {{Quality4}}Q4 {{AngelRoom}}angel item'..
+		 '#!!! In {{DevilRoom}}Devil Room, health-priced items can not be picked up',
+	seijaNerf='Gain the item inserted of spawning',
+},
+
+[IBS_ItemID.LordsParasol]={
+	name="Lord's Parasol",
+	info='{{Shop}} When entering a Shop for the first time, gain all priced items in it continually'..
+		 '#!!! {{ColorRed}}Active items will replace each other{{CR}}',
+},
+
+[IBS_ItemID.BloodyRose]={
+	name='Bloody Rose',
+	info='In a new room, spawn spiked items as options of items in it'..
+		 '#!!! {{ColorRed}}If there\'s a {{Quality2}}Q2 item, items with other quality can not be picked up{{CR}}',
+},
+
+[IBS_ItemID.PreservedFog]={
+	name='Preserved Fog',
+	info='When directly picking items up, remove 3 items with lowest and below-{{Quality3}}Q3 quality from pools (Activated also when picking up this item)'..
+		 '#!!! {{ColorRed}}The first item in a level will be replaced by {{Card41}}Black Rune{{CR}}',
+},
+
+[IBS_ItemID.Fiddle]={
+	name='Fiddle',
+	info='When entering a new level, spawn 2 random passive items'..
+		 '#!!! {{ColorRed}}Non-Quest items appear after entering in a room for 0.1 seconds will be removed, except in {{BossRoom}}Boss Room{{CR}}',
+},
+
+[IBS_ItemID.WhisperingEarring]={
+	name='Whispering Earring',
+	info='↑ {{Damage}} dmg x 1.5'..
+		 '#!!! {{ColorRed}}During the first 13 seconds in an uncleared room, reverse shooting controls randomly{{CR}}',
+},
+
+[IBS_ItemID.SereTalon]={
+	name='Sere Talon',
+	info="When gained, spawn 3 {{Card49}}Dice Shard"..
+		 '#{{Card49}} Dice Shard changes: Reroll items into {{Quality2}}Q2-or-above ones'..
+		 '#!!! {{ColorRed}}When using {{Card49}}Dice Shard, gain a random {{Quality0}}Q0 passive item{{CR}}',
+},
+
+[IBS_ItemID.MusicBox]={
+	name='Music Box',
+	info='When directly picking a passive offensive item up, spawn the corresponding item-wisp'..
+		 "#No effect on error or quest items",
+},
+
+[IBS_ItemID.JeweledMask]={
+	name='Jeweled Mask',
+	info='When entering a new level, spawn a copy of a passive item from Isaac (Items not turely held included)'..
+		 '#No effect on error or quest items'
+},
+
+[IBS_ItemID.ChoicesParadox]={
+	name='Choices Paradox',
+	info='When entering a new level, spawn 5 runes, but only one can be picked',
+},
+
+[IBS_ItemID.DistinguishedCape]={
+	name='Distinguished Cape',
+	info='Gain 3 soul familiars who mimic Isaac\'s tears with 30% {{Damage}}damage'..
+		 '#Before taking damage, kill a soul familiar inserted'..
+		 '#When entering a new level, refill 3 soul familiars',
+},
+
+[IBS_ItemID.AzazelTheWild]={
+	name='Azazel The Wild',
+	info='{{Collectible118}} When attacking, fire short brimestone every 3s'
+},
+
+[IBS_ItemID.Kindness]={
+	name='Kindness',
+	info='When attacking, randomly gain 1s sheild, but with 0.5s no control',
+	seijaBuff={
+		desc = 'Enable control when triggered',
+		data = {
+			append = function(x) 
+				return ''
+			end
+		},
+	},	
+},
+
+[IBS_ItemID.Beg]={
+	name='I Beg',
+	info='5% chance to remove a non-boss enemy, and then leave a {{Coin}}coin',
+	virtue='Spawn a common wisp if succeed',
+	belial='Spawn a {{Bomb}}bomb if succeed',
+},
+
+[IBS_ItemID.BrokenTV]={
+	name='Broken TV',
+	info='When used, dorp this item'..
+		 '#When entering {{Shop}}shop, 10% chance to cost all {{Coin}}coins, and turn this item into {{Collectible633}}Dogma'..
+		 '#{{Blank}} (At least 1 {{Coin}}coin to be triggered)',
+	virtue='Double chance',
+	belial='When used, lose this item and gain 1 {{Damage}}dmg',
+},
+
+[IBS_ItemID.FamilyPortrayal]={
+	name='Family Portrayal',
+	info='Gain all passive quest items, except {{Collectible668}}',
 },
 
 }
@@ -1900,6 +2151,80 @@ local trinketEID={
 	}
 },
 
+[IBS_TrinketID.MMS]={
+	name='MMS',
+	info='↑ When Uriel / Gabriel is killed, + 4 {{Damage}}dmg in the current level (Only count once)',
+	mult={
+		numberToMultiply = 4,
+		maxMultiplier = 3,
+	}
+},
+
+[IBS_TrinketID.TechSL]={
+	name='Tech SL',
+	info='When Isaac dies, crash the game (SERIOUSLY)',
+	mult={
+		numberToMultiply = 114514,
+		maxMultiplier = 3,
+		append = {'Trigger {{Collectible422}}Glowing Hourglass instead'}
+	}
+},
+
+[IBS_TrinketID.UnstableReagent]={
+	name='Unstable Reagent',
+	info='In a new level, trigger 3 pill effects randomly',
+	mult={
+		numberToMultiply = 3,
+		maxMultiplier = 3,
+	}
+},
+
+[IBS_TrinketID.EnvyToWin]={
+	name='Envy To Win',
+	info='When entering an uncleared {{BossRoom}}Boss or {{MiniBoss}}Mini-Boss Room, spawn Super Envy'..
+		 '#Killing envys has 50% chance to spawn coins',
+	mult={
+		numberToMultiply = 50,
+		maxMultiplier = 2,
+	}
+},
+
+[IBS_TrinketID.BulkyWorm]={
+	name='Bulky Worm',
+	info='+ 100% Tear scale',
+	mult={
+		numberToMultiply = 100,
+		maxMultiplier = 3,
+	}
+},
+
+[IBS_TrinketID.ModelingClay]={
+	name='ModelingClay II',
+	info='Put down near a passive item with {{Quality2}}Q2 or below to copy its effect'..
+		 '#No effect on error or quest items'..
+		 '#All {{Trinket'..(IBS_TrinketID.ModelingClay)..'}}Modeling Clay II share the effect',
+	mult={
+		numberToMultiply = 114514,
+		maxMultiplier = 3,
+		findReplace = {'{{Quality2}}Q2', '{{Quality3}}Q3', '{{Quality4}}Q4'},
+	}
+},
+
+[IBS_TrinketID.SamsonState]={
+	name='Samson State',
+	info='Show state',
+},
+
+[IBS_TrinketID.LithiumBattery]={
+	name='Lithium Battery',
+	info='When paying 5 {{Coin}}coins or more to buy a pickup, spawn Micro Battery',
+	mult={
+		numberToMultiply = 114514,
+		maxMultiplier = 3,
+		findReplace = {'5', '3', '1'},
+	}	
+},
+
 }
 --------------------------------------------------------
 --------------------------Card--------------------------
@@ -1960,9 +2285,9 @@ local cardEID={
 
 [IBS_PocketID.BAbel] = {
 	name="Falsehood of Abel",
-	info='Spawn 3 friendly Goats with 7x Hp',
+	info='Spawn 3 friendly Goats with 2x Hp',
 	mimic={charge = 4, isRune = true},
-	player={[IBS_PlayerID.BXXX] = "Orb: Every 7 seconds, spawn a tiny friendly goat up to two"},
+	player={[IBS_PlayerID.BXXX] = "Orb: Every 7 seconds, spawn a tiny friendly goat if not already"},
 	runeSword='When hurt, transform the non-boss attacker to a Goat',
 },
 
@@ -2120,7 +2445,8 @@ local slotEID = {
 	name='Facer',
 	info='When touched for 1 second, Isaac takes 1 heart damage (Red Heart first), and spawn 5 coins'..
 		 '#36% chance to leave; Also leaves when touched for 4 times'..
-		 '#Spawn a trinket when leaving:',
+		 '#Spawn {{Collectible'..(IBS_ItemID.AFaces)..'}} A Faces when leaving:'..
+		 '#The effect, smelt one of trinkets: ',
 },
 
 [IBS_SlotID.Envoy.Variant] = {
@@ -2131,8 +2457,297 @@ local slotEID = {
 },
 
 }
+
 --------------------------------------------------------
 
+local hoardingEID = {
+
+	FormList = {
+		[ItemConfig.TAG_GUPPY] = '{{Guppy}} 10% chance to spawn a blue fly when hurting an enemy',
+		
+		[ItemConfig.TAG_FLY] = '{{LordoftheFlies}} 50% chance to spawn a blue fly when killing an enemy',
+		
+		[ItemConfig.TAG_MUSHROOM] = '{{FunGuy}} When gained, 50% chance to gain {{Heart}}Health up',
+		
+		[ItemConfig.TAG_ANGEL] = '{{Seraphim}} When gained, + 1 {{SoulHeart}}Soul Heart',
+		
+		[ItemConfig.TAG_BOB] = '{{Bob}} Grants explosion immunity when this transformation is done',
+		
+		[ItemConfig.TAG_SYRINGE] = '{{Spun}} + 0.25 {{Damage}}dmg',
+		
+		[ItemConfig.TAG_MOM] = '{{Mom}} Enemies take 0.25 more damage',
+		
+		[ItemConfig.TAG_BABY] = '{{Conjoined}} + 0.15 {{Tears}}tears',
+		
+		[ItemConfig.TAG_DEVIL] = '{{Leviathan}} When gained, + 1 {{HalfBlackHeart}}Half Black Heart',
+		
+		[ItemConfig.TAG_POOP] = '{{OhCrap}} When this transformation is done, heal an extra {{Heart}}Heart from destroying a poop',
+
+		[ItemConfig.TAG_BOOK] = '{{Bookworm}} Provides (0.5 x maxCharges x componentNum) shield when using a book',
+		
+		[ItemConfig.TAG_SPIDER] = '{{SpiderBaby}} Spawns 2 blue spiders in a new room or a new greed wave',
+	},
+
+	StompyFrom = {
+		info = '{{Stompy}} + 20 collision damage',
+		[12] = true,
+		[302] = true,
+	},
+
+}
+
+BSamsonEID = {
+
+	[0] = {
+		Common = '(Unfinished)',
+		Calm = '(Unfinished)',
+		Wrath = '(Unfinished)',
+	},
+
+	[1] = {
+		Common = 'No effect',
+		BSamson = 'When changing rooms, select the last card',
+		Calm = '{{Battery}}{{1}} Enter {{IBSSamsonWrath}}Wrath',
+		Wrath = '{{Battery}}{{1}} Enter {{IBSSamsonCalm}}Calm',
+	},
+
+	[2] = {
+		Common = '↓{{Damage}}DMG x 50% (not stackable); Apply a mark to enemies hit by swing; Each mark let enemies take 1 more damage',
+		Calm = '{{Battery}}{{2}} Apply 10 marks to all enemies; Gain homing effect in the current room',
+		Wrath = '{{Battery}}{{2}} All enemies lose Hp equalling to 10x marks',
+	},
+
+	[3] = {
+		Common = 'Swing can destroy obstacles and doors',
+		Calm = '{{Battery}}{{1}} Enter {{IBSSamsonWrath}}Wrath',
+		Wrath = '{{Battery}}{{2}} Fire 8-dir shockwaves',
+	},
+
+	[4] = {
+		Common = 'Swing applies bleeding, 25% faster but in 10% smaller range',
+		Calm = '{{Battery}}{{2}} Enter {{IBSSamsonWrath}}Wrath; Gain {{Card4}}The Empress effect, if already then cost 1 charge inserted',
+		Wrath = '{{Battery}}{{0}} Enter {{IBSSamsonWrath}}Wrath',
+	},
+
+	[5] = {
+		Common = 'Swing 25% slower, + 1s sheild when hitting enemies, not stackable during sheilded',
+		Calm = '{{Battery}}{{2}} + 5s sheild',
+		Wrath = '{{Battery}}{{1}} Enter {{IBSSamsonCalm}}Calm',
+	},
+
+	[6] = {
+		Common = 'Petrify enemies firstly hit for 1s',
+		Calm = '{{Battery}}{{2}} Petrify all enemies for 5s',
+		Wrath = '{{Battery}}{{1}} Enter {{IBSSamsonCalm}}Calm',
+	},
+
+	[7] = {
+		Common = 'Swing num + 1; Enemies hit by plural swing have 6% chance to drop temporary {{HalfHeart}}Half Heart ({{Luck}}Luck 6: 12%)',
+		Calm = '{{Battery}}{{1}} Enter {{IBSSamsonWrath}}Wrath',
+		Wrath = '{{Battery}}{{3}} Enter {{IBSSamsonWrath}}Wrath, spawn a random temporary heart',
+	},
+
+	[8] = {
+		Common = 'Swing damage, size and distance will gradually increase until stopping attack or hitting border',
+		Calm = '{{Battery}}{{1}} Enter {{IBSSamsonWrath}}Wrath',
+		Wrath = '{{Battery}}{{1}} Enter {{IBSSamsonWrath}}Wrath',
+	},
+
+	[9] = {
+		Common = 'Swing with 50% lower damage (not stackable), fire tears to enemies hit',
+		Calm = '{{Battery}}{{2}} Enter {{IBSSamsonWrath}}Wrath, next card costs 0 charge',
+		Wrath = '{{Battery}}{{1}} Enter {{IBSSamsonWrath}}Calm, + 1 charge',
+	},
+
+	[10] = {
+		Common = '(Not stackable) Swing num + 2, but 50% slower',
+		Calm = '{{Battery}}{{3}} Fire 30 bouncing coin tears in random direction',
+		Wrath = '{{Battery}}{{0}} Enter {{IBSSamsonCalm}}Calm',
+	},
+
+	[11] = {
+		Common = 'Swing in 10% wider range; Grant Flight',
+		Calm = '{{Battery}}{{0}} Enter {{IBSSamsonCalm}}Wrath, teleport to a random enemy and swing',
+		Wrath = '{{Battery}}{{3}} Ditto, may repeat for a while',
+	},
+	
+	[12] = {
+		Common = 'Isaac becomes 10% bigger (not stackable)',
+		Calm = '{{Battery}}{{1}} Enter{{IBSSamsonWrath}} Wrath',
+		Wrath = '{{Battery}}{{3}} Enter {{IBSSamsonWrath}}Wrath, gain {{Card12}}Strength effect, up to 2',
+	},
+
+	[13] = {
+		Common = 'Grant flight',
+		Calm = '{{Battery}}{{0}} Switch to the last card',
+		Wrath = '{{Battery}}{{0}} Enter {{IBSSamsonWrath}}Wrath, switch to the last card',
+	},
+
+	[14] = {
+		Common = 'While swinging, deal 13%{{Damage}}damage to all enemies in {{Range}}range',
+		Calm = '{{Battery}}{{2}} Trigger {{Card14}}Death',
+		Wrath = '{{Battery}}{{2}} Ditto',
+	},
+
+	[15] = {
+		Common = 'Stopping swinging for 3s makes next swing in 25% wider range with 100% higher damage',
+		Calm = '{{Battery}}{{0}} + 1 charge, + 4s cooldown',
+		Wrath = '{{Battery}}{{0}} Enter {{IBSSamsonCalm}}Calm, + 1 charge, + 3s cooldown',
+	},
+
+	[16] = {
+		Common = '(Not stackable) Swing applies brimestone mark, 33% slower; Enemies with brimestone mark take extra 66% damage',
+		Calm = '{{Battery}}{{1}} Enter {{IBSSamsonWrath}}Wrath',
+		Wrath = '{{Battery}}{{2}} Enter {{IBSSamsonWrath}}Wrath, gain {{Card15}}The Devil effect',
+	},
+
+	[17] = {
+		Common = 'Explosion immunity; Swing has 16% chance to explode when hitting enemies, 200%{{Damage}}damage ({{Luck}}Luck 17：50%)',
+		Calm = '{{Battery}}{{2}} Enter {{IBSSamsonWrath}}Wrath, and explode',
+		Wrath = '{{Battery}}{{2}} Ditto',
+	},
+
+	[18] = {
+		Common = '↑{{Luck}}Luck + 1;Swing deals extra 200%{{Luck}}luck damage, fire a tear with the same damage (Invalid when luck is below 1)',
+		Calm = '{{Battery}}{{3}} Enter {{IBSSamsonWrath}}Wrath, + 1 {{Luck}}luck in the current level',
+		Wrath = '{{Battery}}{{0}} Enter {{IBSSamsonCalm}}Calm',
+	},
+
+	[19] = {
+		Common = 'Swing applies slowing, freezes enemies killed, 18% chance to directly freeze non-boss enemies ({{Luck}}41: 100%)',
+		Calm = '{{Battery}}{{0}} Next swing freezes non-boss enemies',
+		Wrath = '{{Battery}}{{1}} Enter {{IBSSamsonCalm}}Calm',
+	},
+
+	[20] = {
+		Common = 'Swing applies burning; Swing has 25% chance to fire a flame ({{Luck}}Luck 15: 100%)',
+		Calm = '{{Battery}}{{2}} Enter {{IBSSamsonWrath}}Wrath, fire flames around',
+		Wrath = '{{Battery}}{{2}} Ditto',
+	},
+
+	[21] = {
+		Common = 'Swing with 50% lower damage, enemies hit lose equal Hp, if below 20%, be killed instantly',
+		Calm = '{{Battery}}{{0}} Enter {{IBSSamsonWrath}}Wrath, + 2s cooldown',
+		Wrath = '{{Battery}}{{0}} Enter{{IBSSamsonCalm}}Calm, + 2s cooldown',
+	},
+
+	[22] = {
+		Common = 'No effect',
+		Calm = '{{Battery}}{{6}} Cosnume this card, spawn 5 other tarot cards',
+		Wrath = '{{Battery}}{{6}} Ditto',
+	},
+
+	[56] = {
+		Common = '↑ + 1 {{Damage}}dmg and {{Tears}}trans for each empty reversed tarot slot',
+	},
+
+	[57] = {
+		Common = '↑ {{Damage}}dmg x 200%; !!! When taking penal damage, gain 1 mark in the current level; Each mark cause extra half a heart hurt',
+	},
+
+	[58] = {
+		Common = 'Fire shockwaves after every 5 swing',
+	},
+
+	[59] = {
+		Common = 'Disable double {{Damage}}dmg and hurt from {{IBSSamsonWrath}}Wrath',
+	},
+	
+	[60] = {
+		Common = 'Stackable shield from {{IBSSamsonCalm}}Calm, but with less 1s',
+	},
+	
+	[61] = {
+		Common = '{{IBSSamsonCalm}}Calm provides invincibility inserted of sheild',
+	},
+
+	[62] = {
+		Common = '(Not stackable) Swing num - 2; Swing in 5% wider range with 20% higher damage for each kind of hearts',
+	},
+
+	[63] = {
+		Common = 'Swing 60% faster when standing by',
+	},
+
+	[64] = {
+		Common = '(Not stackable) Double charge from damage for {{Collectible'..(IBS_ItemID.Posture)..'}}Posture, but none form cleaning rooms anymore',
+	},
+
+	[65] = {
+		Common = '↑ For each {{Coin}}coin, + 0.04 {{Damage}}dmg',
+	},
+
+	[66] = {
+		Common = 'Before taking penal damage in {{IBSSamsonWrath}}Wrath, consume a random card instead; ↓If this one, - 1 {{Luck}}luck; ↑If another, + 0.25 {{Luck}}luck, and spawn the reversed version',
+	},
+
+	[67] = {
+		Common = '↓ {{Damage}}dmg x 75% (not stackable); Swing applies weakness',
+	},
+	
+	[68] = {
+		Common = 'The first swing applies midas after changing rooms',
+	},
+
+	[69] = {
+		Common = 'When taking penal damage in {{IBSSamsonWrath}}Wrath, do not lose cards anymore',
+	},
+
+	[70] = {
+		Common = 'Infinite {{IBSSamsonWrath}}Wrath duration',
+	},	
+
+	[71] = {
+		Common = ' Shield from {{IBSSamsonCalm}}Calm lasts 0.5s longer; Half {{IBSSamsonWrath}}Wrath duration (not stackable); When changing rooms, enter {{IBSSamsonCalm}}Calm and gain sheild',
+	},
+
+	[72] = {
+		Common = 'Explosion heals Isaac',
+	},	
+
+	[73] = {
+		Common = '↓ - 7 {{Luck}}luck; ↑ For each lost tarot, + 1 {{Luck}}luck; Enemies take extra 20% x {{Luck}}luck damage (absolute value)',
+	},
+
+	[74] = {
+		Common = 'When changing rooms, enter {{IBSSamsonWrath}}Wrath',
+	},
+
+	[75] = {
+		Common = '↑ When changing states, + 190% decaying {{Tears}}tears multiplier',
+	},
+
+	[76] = {
+		Common = 'When entering {{IBSSamsonWrath}}Calm, lower a light pillar following Isaac (no hurt), not available if exists',
+	},
+
+	[77] = {
+		Common = '↑ Automatically consume reversed tarot in other slots, + 0.5 {{Damage}}dmg and 21% {{Devil}}devil chance for each; Secret Exit keeps open',
+	},
+
+}
+
+local BlessingOfMichaelEID = {
+
+	[108] = 'Before taking damage, 25% chance to gain {{HalfSoulHeart}} Half Soul Heart',
+	
+	[313] = 'Gain an extra chance',
+	
+	[182] = '↑ {{Damage}}dmg x 140%',
+	
+	[331] = 'Enemies take extra 30% {{Damage}}Isaac\'s damage',
+	
+	[415] = 'When hurt or changing rooms, regain this item',
+	
+	[477] = 'Max-charge - 2',
+	
+	[643] = 'Every 2.5s, automatically fire beam with 50% damage but homing',
+	
+	[691] = 'When gained, remove items whose quality is below {{Quality2}} from pools',
+
+}
+
+--------------------------------------------------------
 
 return {
 	PlayerEID = playerEID,
@@ -2140,4 +2755,8 @@ return {
 	TrinketEID = trinketEID,
 	CardEID = cardEID,
 	SlotEID = slotEID,
+	
+	HoardingEID = hoardingEID,
+	BSamsonEID = BSamsonEID,
+	BlessingOfMichaelEID = BlessingOfMichaelEID,
 }

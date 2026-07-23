@@ -84,6 +84,7 @@ end
 
 --摧毁障碍物时触发
 function RichMines:OnRockDestory(gridEnt, gridType)
+	if not gridEnt then return end
 	if not IsRock(gridType) then return end
 	local pos = gridEnt.Position
 	for i = 0, game:GetNumPlayers() - 1 do

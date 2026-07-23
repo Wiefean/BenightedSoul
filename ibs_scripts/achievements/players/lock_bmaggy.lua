@@ -12,6 +12,7 @@ local BMaggy = CharacterLock(mod.IBS_PlayerID.BMaggy, {'bmaggy_unlock', 'bc2'} )
 --献祭房踩刺判定
 function BMaggy:OnTakeDMG(ent, amount, flag, source)
 	if self:IsUnlocked() then return end
+	if game:IsGreedMode() then return end
 	if game:GetRoom():GetType() ~= RoomType.ROOM_SACRIFICE then return end
 	local player = ent:ToPlayer()
 	
@@ -81,6 +82,8 @@ end
 
 --抹大拉进入献祭房判定
 function BMaggy:OnNewRoom()
+	if game:IsGreedMode() then return end
+
 	if self:IsLocked() and not game:AchievementUnlocksDisallowed() then
 		local room = game:GetRoom()
 		local data = self:GetIBSData('level')
@@ -115,6 +118,8 @@ BMaggy:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, 'OnNewRoom')
 
 --清理房间判定
 function BMaggy:OnRoomCleaned()
+	if game:IsGreedMode() then return end
+
 	if self:IsLocked() and not game:AchievementUnlocksDisallowed() then
 		local room = game:GetRoom()
 		local data = self:GetIBSData('level')
@@ -150,6 +155,8 @@ BMaggy:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, 'OnRoomCleaned')
 
 --尝试生成献祭房
 function BMaggy:TryGenerateSacrificeRoom()
+	if game:IsGreedMode() then return end
+
 	local level = game:GetLevel()
 	if level:GetStage() == 1 then return end
 	if self:GetIBSData('temp').GenerateSacrificeRoomForBMaggy == nil then return end
@@ -208,6 +215,8 @@ BMaggy:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, 'TryGenerateSacrificeRoom')
 
 --移除献祭房刺
 function BMaggy:OnSpikeUpdate(spike)
+	if game:IsGreedMode() then return end
+
 	if self:GetIBSData('temp').GenerateSacrificeRoomForBMaggy and not self:GetIBSData('level').SpikeForBMaggy and not game:GetRoom():IsFirstVisit() then
 		if spike.State ~= 1 then
 			spike.State = 1

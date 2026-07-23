@@ -18,6 +18,7 @@ function SeedBag:TryReplace(pickup)
 	if not self:GetIBSData('persis')["BCBA"].MegaSatan then return end
 	if pickup.Variant == 69 and pickup.SubType == 1 and RNG(pickup.InitSeed):RandomInt(100) < 10 then
 		pickup:Morph(5, self.Variant, self.SubType, true, true)
+		return true
 	end
 end
 SeedBag:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, 'TryReplace', 69)

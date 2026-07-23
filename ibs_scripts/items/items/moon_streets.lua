@@ -20,7 +20,14 @@ function MoonStreets:OnNewRoom()
 	if Timeout > 0 then return end
 	if not PlayerManager.AnyoneHasCollectible(self.ID) then return end
 	local room = game:GetRoom()
+	local level = game:GetLevel()
 	local roomType = room:GetType()
+	
+	--进入红房间不算
+	local roomDesc = level:GetCurrentRoomDesc()
+	if roomDesc and roomDesc.Flags & RoomDescriptor.FLAG_RED_ROOM > 0 then
+		return
+	end
 	
 	--进入三种隐藏房时自动开门(防卡关)
 	if roomType == 7 or roomType == 8 or roomType == 29 then
@@ -36,8 +43,6 @@ function MoonStreets:OnNewRoom()
 	if roomType ~= 1 then
 		return
 	end	
-	
-	local level = game:GetLevel()
 
 	--贪婪模式,不在主世界或镜世界
 	if game:IsGreedMode() or (level:GetDimension() ~= 0 and level:GetDimension() ~= 1) then
@@ -45,11 +50,16 @@ function MoonStreets:OnNewRoom()
 	end
 	
 	--非初始房间
-	if level:GetStartingRoomIndex() == level:GetCurrentRoomDesc().SafeGridIndex then return end
+	if level:GetStartingRoomIndex() == roomDesc.SafeGridIndex then return end
 
 	--获取未进入过的特殊房间
 	local rooms = self._Levels:GetRooms(function(desc)
-		if desc and desc.VisitedCount <= 0 and desc.Data and desc.Data.Type ~= 1 and desc.Data.Type ~= 29 then
+		if desc
+			and desc.VisitedCount <= 0
+			and desc.Data
+			and desc.Data.Type ~= 1
+			and desc.Data.Type ~= 29
+		then
 			--第六层忽略boss房
 			if desc.Data.Type == 5 and level:GetStage() == 6 then
 				return false

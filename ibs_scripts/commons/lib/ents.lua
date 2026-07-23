@@ -58,6 +58,22 @@ function Ents:IsEnemy(ent, includeInvulnerable, includeFriendly, ignoreBoss)
 	return false
 end
 
+--失去生命
+function Ents:LoseHP(ent, value, canDie)
+	if ent.Type == 950 and ent.Variant == 0 and ent.SubType == 0 then
+		--排除教条
+	elseif ent.Type == 907 and ent.Variant == 0 and ent.SubType == 0 then
+		--排除大基甸
+	else	
+		ent.HitPoints = ent.HitPoints - value
+		if ent.HitPoints <= 0 and canDie then
+			ent:Die()
+		end
+		return true
+	end
+	return false
+end
+
 --获取来源敌人
 --[[
 返回空值或敌人
@@ -145,7 +161,7 @@ end
 ]]
 
 --生成者是否为玩家(返回空值或玩家)
---[[输入: 实体, 是否包括莉莉宝/作孽双子]]
+--[[输入: 实体, 是否包括莉莉宝/作孽双子/格罗]]
 function Ents:IsSpawnerPlayer(ent, includeIncubus)
     local player = nil
 	
@@ -156,7 +172,12 @@ function Ents:IsSpawnerPlayer(ent, includeIncubus)
 	if (not player and includeIncubus) then
 		local spawner = ent.SpawnerEntity
 		if spawner and (spawner.Type == EntityType.ENTITY_FAMILIAR) then
-			if (spawner.Variant == FamiliarVariant.INCUBUS) or (spawner.Variant == FamiliarVariant.TWISTED_BABY) then
+			local variant = spawner.Variant
+		
+			if (variant == FamiliarVariant.INCUBUS) 
+				or (variant == FamiliarVariant.TWISTED_BABY)
+				or (variant == FamiliarVariant.UMBILICAL_BABY)
+			then
 				player = spawner:ToFamiliar().Player
 			end
 		end
@@ -164,6 +185,7 @@ function Ents:IsSpawnerPlayer(ent, includeIncubus)
 	
     return player
 end
+
 
 --复制动画(实为生成空实体效果)
 function Ents:CopyAnimation(ent, pos, duration, anim)

@@ -11,6 +11,7 @@
 local mod = Isaac_BenightedSoul
 local Players = mod.IBS_Lib.Players
 
+local game = Game()
 
 local Stats = {}
 
@@ -613,7 +614,15 @@ local function GetStatsData(player)
 		dmg = 0,
 		range = 0,
 		sspd = 0,
-		luck = 0
+		luck = 0,
+		
+		l_spd = 0,
+		l_tears = 0,
+		l_tearsMulti = 0,
+		l_dmg = 0,
+		l_range = 0,
+		l_sspd = 0,
+		l_luck = 0,		
 	}
 	return data.IBS_LIB_STATS	
 end	
@@ -679,6 +688,85 @@ function Stats:PersisLuck(player, value, evaluate)
 end
 
 
+
+--本层移速
+function Stats:LevelSpeed(player, value, evaluate)
+	local data = GetStatsData(player)
+	data.l_spd = data.l_spd + value
+	if evaluate then
+		player:AddCacheFlags(CacheFlag.CACHE_SPEED)
+		player:EvaluateItems()
+	end	
+end
+
+--本层射速修正
+function Stats:LevelTearsModifier(player, value, evaluate)
+	local data = GetStatsData(player)
+	data.l_tears = data.l_tears + value
+	if evaluate then
+		player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
+		player:EvaluateItems()
+	end
+end
+
+--本层攻击力
+function Stats:LevelDamage(player, value, evaluate)
+	local data = GetStatsData(player)
+	data.l_dmg = data.l_dmg + value
+	if evaluate then
+		player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
+		player:EvaluateItems()
+	end	
+end
+
+--本层射程
+function Stats:LevelRange(player, value, evaluate)
+	local data = GetStatsData(player)
+	data.l_range = data.l_range + value
+	if evaluate then
+		player:AddCacheFlags(CacheFlag.CACHE_RANGE)
+		player:EvaluateItems()
+	end	
+end
+
+--本层弹速
+function Stats:LevelShotSpeed(player, value, evaluate)
+	local data = GetStatsData(player)
+	data.l_sspd = data.l_sspd + value
+	if evaluate then
+		player:AddCacheFlags(CacheFlag.CACHE_SHOTSPEED)
+		player:EvaluateItems()
+	end	
+end
+
+--本层幸运
+function Stats:LevelLuck(player, value, evaluate)
+	local data = GetStatsData(player)
+	data.l_luck = data.l_luck + value
+	if evaluate then
+		player:AddCacheFlags(CacheFlag.CACHE_LUCK)
+		player:EvaluateItems()
+	end	
+end
+
+--新层重置楼层临时属性
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
+	for i = 0, game:GetNumPlayers() - 1 do
+		local player = Isaac.GetPlayer(i)
+		local data = Players:GetData(player).IBS_LIB_STATS
+		if data then	
+			data.l_spd = 0
+			data.l_tears = 0
+			data.l_dmg = 0
+			data.l_range = 0
+			data.l_sspd = 0
+			data.l_luck = 0
+			player:AddCacheFlags(CacheFlag.CACHE_ALL)
+			player:EvaluateItems()
+		end
+	end	
+end)
+
 --应用属性改动
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_,player, flag)
 	local data = Players:GetData(player).IBS_LIB_STATS
@@ -686,21 +774,27 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_,player, flag)
 	if data then	
 		if flag == CacheFlag.CACHE_SPEED then
 			Stats:Speed(player, data.spd)
+			Stats:Speed(player, data.l_spd)
 		end
 		if flag == CacheFlag.CACHE_FIREDELAY then
 			Stats:TearsModifier(player, data.tears)
+			Stats:TearsModifier(player, data.l_tears)
 		end
 		if flag == CacheFlag.CACHE_DAMAGE then
 			Stats:Damage(player, data.dmg)
+			Stats:Damage(player, data.l_dmg)
 		end
 		if flag == CacheFlag.CACHE_RANGE then
 			Stats:Range(player, data.range)
+			Stats:Range(player, data.l_range)
 		end
 		if flag == CacheFlag.CACHE_SHOTSPEED then
 			Stats:ShotSpeed(player, data.sspd)
+			Stats:ShotSpeed(player, data.l_sspd)
 		end
 		if flag == CacheFlag.CACHE_LUCK then
 			Stats:Luck(player, data.luck)
+			Stats:Luck(player, data.l_luck)
 		end
 	end	
 end)

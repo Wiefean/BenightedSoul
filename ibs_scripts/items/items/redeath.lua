@@ -31,11 +31,11 @@ function Redeath:OnUse(item, rng, player, flags, slot)
 			local itemPool = Game():GetItemPool()
 			local variant = 100
 			local subType = 0
-			local result = self.ReadyToRoll[rng:RandomInt(10) + 1] or 114514
+			local result = self.ReadyToRoll[rng:RandomInt(9) + 1] or 114514
 			
 			--箱子
 			if (result == 114514) then
-				variant = self.ChestVariant[rng:RandomInt(18) + 1] or PickupVariant.PICKUP_CHEST
+				variant = self.ChestVariant[rng:RandomInt(2) + 1] or PickupVariant.PICKUP_LOCKEDCHEST
 			else
 				variant = result
 			end

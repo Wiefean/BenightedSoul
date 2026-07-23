@@ -3,19 +3,31 @@
 local mod = Isaac_BenightedSoul
 local IBS_PlayerID = mod.IBS_PlayerID
 local Damage = mod.IBS_Class.Damage()
+local EveBaby = mod.IBS_Familiar.EveBaby
 
 local MyFault = mod.IBS_Class.Item(mod.IBS_ItemID.MyFault)
 
 local sfx = SFXManager()
 
+--查找目标
+function MyFault:FindTargets(pos, range)
+	local result = {}
+
+	for _,ent in ipairs(Isaac.GetRoomEntities()) do
+		if ent.Position:Distance(pos) <= range + ent.Size then
+			if self._Ents:IsEnemy(ent, true) then
+				table.insert(result, ent)
+			end
+		end
+	end
+		
+	return result
+end
+
 --血波
 function MyFault:BloodWave(dmg, pos, spawner, range)
-	for _,target in pairs(Isaac.FindInRadius(pos, range, EntityPartition.ENEMY)) do
-		if self._Ents:IsEnemy(target, true) then				
-			target.HitPoints = target.HitPoints - dmg
-			if target.HitPoints <= 0 then
-				target:Kill()
-			end
+	for _,target in ipairs(self:FindTargets(pos, range)) do
+		if self._Ents:LoseHP(target, dmg, true) then
 			target:SetBossStatusEffectCooldown(0)
 			target:AddBleeding(EntityRef(spawner), 240)
 			if target:GetBleedingCountdown() < 240 then
@@ -23,6 +35,14 @@ function MyFault:BloodWave(dmg, pos, spawner, range)
 			end
 		end
 	end
+	
+	--清除敌弹
+	for _,ent in ipairs(Isaac.FindInRadius(pos, range + 10, EntityPartition.BULLET)) do
+		local proj = ent:ToProjectile()
+		if proj and not proj:HasProjectileFlags(ProjectileFlags.CANT_HIT_PLAYER) then
+			proj:Die()
+		end	
+	end	
 	
 	--特效
 	for subType = 3,4 do
@@ -41,16 +61,26 @@ function MyFault:TriggerEffect(player)
 	end
 
 	local dmg = player.Damage * 2
-	local range = 80
+	local range = 70
 
-	for _,target in pairs(Isaac.FindInRadius(player.Position, range, EntityPartition.ENEMY)) do
-		if self._Ents:IsEnemy(target, true) and target:HasEntityFlags(EntityFlag.FLAG_BLEED_OUT) then	
+	for _,target in ipairs(self:FindTargets(player.Position, range)) do
+		if target:HasEntityFlags(EntityFlag.FLAG_BLEED_OUT) then	
 			self:BloodWave(dmg, target.Position, player, range)
 			target:SetBleedingCountdown(0)
 		end
 	end
 	
 	self:BloodWave(dmg, player.Position, player, range)
+	
+	for _,ent in pairs(Isaac.FindByType(3, EveBaby.Variant, EveBaby.SubType.Single)) do
+		for _,target in ipairs(self:FindTargets(ent.Position, range)) do
+			if target:HasEntityFlags(EntityFlag.FLAG_BLEED_OUT) then	
+				self:BloodWave(dmg, target.Position, player, range)
+				target:SetBleedingCountdown(0)
+			end
+		end
+		self:BloodWave(dmg, ent.Position, player, range)
+	end
 end
 
 --使用

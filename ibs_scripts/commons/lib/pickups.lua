@@ -82,6 +82,15 @@ function Pickups:RegisterChest(variant)
 	ChestVariant[variant] = true
 end
 
+--收集黑名单
+Pickups.CollectBlacklist = {
+	[PickupVariant.PICKUP_MEGACHEST] = true,
+	[PickupVariant.PICKUP_BIGCHEST] = true,
+	[PickupVariant.PICKUP_BROKEN_SHOVEL] = true,
+	[PickupVariant.PICKUP_TROPHY] = true,
+	[PickupVariant.PICKUP_MOMSCHEST] = true,
+}
+
 --是否能收集掉落物
 --[[输入: 掉落物(实体), 收集者(实体), 忽略掉落物等待时间(是否), 忽略价格(是否)]]
 --[[说明:
@@ -92,6 +101,12 @@ end
 ]]
 function Pickups:CanCollect(pickup, collector, ignoreWait, ignorePrice)
 	local variant = pickup.Variant
+	
+	--黑名单直接排除
+	if self.CollectBlacklist[variant] then
+		return false
+	end
+	
 	local subType = pickup.SubType
 	local player = (collector and collector:ToPlayer()) or nil
 	local familiar = (collector and collector:ToFamiliar()) or nil
@@ -238,7 +253,10 @@ end
 --临时掉落物数据
 local function GetPickupData(pickup)
 	local data = Ents:GetTempData(pickup)
-	data.IBS_LIB_PICKUPS = data.IBS_LIB_PICKUPS or {OriginalPosition = pickup.Position}
+	data.IBS_LIB_PICKUPS = data.IBS_LIB_PICKUPS or {
+		OriginalPosition = pickup.Position,
+		ResetPosWait = nil,
+	}
 	
 	return data.IBS_LIB_PICKUPS
 end
@@ -257,18 +275,29 @@ function Pickups:TryCollect(pickup, collector)
 			pickup:TryOpenChest(player)
 		else
 			local originalPos = pickup.Position
+			local data = GetPickupData(pickup)
 			pickup.Position = collector.Position
-			GetPickupData(pickup).OriginalPosition = originalPos
-			
-			--如果没有被拾取,还原位置(还是会有一瞬间的瑕疵)
-			mod:DelayFunction2(function()
-				if pickup:Exists() then
-					pickup.Position = originalPos
-				end
-			end, 0, nil, true)
+			pickup.Visible = false
+			data.OriginalPosition = originalPos
+			data.ResetPosWait = 1
 		end	
 	end
 end
+
+--尝试拾取后还原位置(还是有一瞬间的瑕疵)
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_,pickup)
+	local data = Ents:GetTempData(pickup).IBS_LIB_PICKUPS
+	if data and data.ResetPosWait then
+		if data.ResetPosWait > 0 then
+			data.ResetPosWait = data.ResetPosWait - 1
+		else
+			data.ResetPosWait = nil
+			data.ResetPos = false
+			pickup.Position = data.OriginalPosition
+			pickup.Visible = true
+		end
+	end
+end)
 
 --获取被临时移动前的位置
 --(主要用于播放掉落物动画)

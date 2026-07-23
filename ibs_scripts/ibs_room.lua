@@ -9,6 +9,7 @@ end
 
 mod.IBS_Room = {
 	Elegiast = Load('elegiast'),
+	Choose = Load('choose'),
 
 }
 

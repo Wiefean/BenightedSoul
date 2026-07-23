@@ -13,7 +13,7 @@ function Loong:OnPlayeUpdate(player)
 		fire.Parent = player
 		fire.CollisionDamage = math.max(3.5, player.Damage)
 		fire.Timeout = math.random(90,180)
-		fire.Scale = 0.5
+		fire.Scale = 0.5 --相当于伤害减半
 		fire:Update()
 	end
 end

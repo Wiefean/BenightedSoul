@@ -74,6 +74,12 @@ BLostWeapon = Load('blost_weapon'),
 --AKEY47
 AKEY47 = Load('akey47'),
 
+--卓越斗篷灵魂
+CapeSoul = Load('cape_soul'),
+
+--夏娃宝
+EveBaby = Load('eve_baby'),
+
 
 }
 

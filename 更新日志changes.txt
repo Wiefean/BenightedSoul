@@ -1,4 +1,362 @@
 -----------------------------------
+2026.7
+v0.12.1
+
+新饰品：锂电池
+
+调整：
+ <角色>
+ 昧化夏娃：能力更新
+ 昧化参孙：能力更新
+
+
+New Trinket: Lithium Battery
+
+Adjustments:
+ <Character>
+ Benighted Eve: Abilities update
+ Benighted Samson: Abilities update
+-----------------------------------
+2026.7
+v0.12.0
+
+新挑战：背刺
+
+新道具：全家祸
+
+调整：
+ <角色>
+ 昧化参孙：能力更新；解锁树更新
+ 
+New Item: Family Portrayal
+ 
+New Challenge: Backstab
+ 
+Adjustments:
+ <Character>
+ Benighted Samson: Abilities update; Unlcok-tree update
+-----------------------------------
+2026.7
+v0.11.6
+
+新道具：损坏的电视
+
+调整：
+ <角色>
+ 昧化参孙：能力更新；解锁树更新；现在需要解锁
+ 
+
+New Item: Broken TV
+
+Adjustments:
+ <Character>
+ Benighted Samson: Abilities update; Unlcok-tree update; Needs to be unlocked now
+-----------------------------------
+2026.7
+v0.11.5
+
+失去生命的效果不再影响大基甸
+
+调整：
+ <角色>
+ 昧化参孙：能力更新
+ 
+ <道具>
+ 架势：降低造成伤害提供的充能
+ 宝石面具：品质3
+ 变羊术：固定生成1只山羊；可从任意角色身上消耗小麦
+ 女疾女户：从恶魔，天使，箱子道具池移除
+ 血染玫瑰：生成的道具由血量价格改为尖刺环绕
+ 纸板蘑菇：拾取时生成3个卡牌
+
+
+Losing Hp from some effects won't be applie to Great Gideon anymore
+
+Adjustments:
+ <Character>
+ Benighted Samson: Abilities update
+ 
+ <Items>
+ Posture: Charge from dealing damage decreases
+ Jeweled Mask: Quality 3
+ Goatify: Spawn 1 Goat; Consume Wheat from anyone
+ Ennnnnnvyyyyyy: Removed from devil, angel and chest pools
+ Bloody Rose: Items spawn now are spiked instead of health-priced
+ Cardboard Mush: Spawn 3 cards when gained
+-----------------------------------
+2026.6
+v0.11.4
+
+新道具：
+ 阿撒泻勒的旷野
+ 宽容
+ 乞讨
+
+调整：
+ <角色>
+ 昧化参孙：能力更新
+ 
+ <道具>
+ 架势：可通过造成伤害充能
+ OvO：品质3
+ 不懂节制：不再影响弹速；伤害增加
+ 广告时间：满血复活
+ 伤害传输器：充能变为8
+ 圣乔治蘑菇：拾取时获得3魂心
+
+New Item: 
+ Azazel The Wild
+ Kindness
+ I Beg
+
+Adjustments:
+ <Character>
+ Benighted Samson: Abilities update
+ 
+ <Items>
+ Posture: Can be charged by dealing damage
+ OvO: Quality 3
+ No Temperance: No shot speed changes; Damage up 
+ AD Time: Revive with full health
+ DMG Transmitter: Charge 8
+ Calocybe gambosa: +3 Soul Hearts when gained
+-----------------------------------
+2026.5
+v0.11.3
+
+调整：
+ <角色>
+ 昧化参孙：能力更新
+ 
+ <道具>
+ 架势：品质2；效果更新
+ 宝石面具：不再复制主动道具
+ 小提琴：不会生成主动道具
+
+Adjustments:
+ <Character>
+ Benighted Samson: Abilities update
+ 
+ <Items>
+ Posture: Quality 2; Effects update
+ Jeweled Mask: Won't copy active items anymore
+ Fiddle: Do not spawn active items
+-----------------------------------
+2026.5
+v0.11.2
+
+调整：
+ <道具>
+ 慢启动：每经过一层，计时缩短20秒
+ 低语耳环：现在对鼠标操作也生效
+
+BUG修复：
+ 修复姿态指示器相关问题
+
+
+Adjustments:
+ <Items>
+ Slow Start: For each level, the counter decreases by 20s
+ Whispering Earring: Now available to mouse control
+ 
+BUG Patches:
+ Fixed an issue about Samson State
+-----------------------------------
+2026.5
+v0.11.1
+
+添加了一个房间
+
+新道具：
+ 米迦勒的赐福
+ 领主阳伞
+ 血染玫瑰
+ 腌制活雾
+ 小提琴
+ 低语耳环
+ 原初之爪
+ 音乐盒
+ 宝石面具
+ 选择悖论
+ 卓越斗篷
+
+调整：
+ <角色>
+ 昧化参孙：现在需要通过架势切换攻击
+
+
+Added a room
+
+New Items:
+ Blessing of Michael
+ Lord's Parasol
+ Bloody Rose
+ Preserved Fog
+ Fiddle
+ Whispering Earring
+ Sere Talon
+ Music Box
+ Jeweled Mask
+ Choices Paradox
+ Distinguished Cape
+ 
+Adjustments:
+ <Character>
+ Benighted Samson: Now chaning attacks needs Posture
+-----------------------------------
+2026.4
+v0.11.0
+
+新角色：昧化参孙 (未完成)
+
+新道具：
+ 广告时间
+ 伤害传输器
+ 架势！
+
+新饰品：塑型黏土II
+
+调整：
+ <道具>
+ 紫电护主之刃：独特跟班
+
+New Character: Benighted Samson (Unfinished)
+
+New Items:
+ AD Time
+ DMG Transmitter
+ Posture!
+
+New Trinket: Modeling Clay II
+
+Adjustments:
+ <Items>
+ Sword of Siberite: Unique Familiar
+-----------------------------------
+2026.2
+v0.10.14
+
+新道具：
+ 乞丐章
+ 慢启动
+ 损坏的R键
+ 
+调整：
+ 移动农场：强化
+ 面包：不减少移速
+ 
+New Items:
+ Beggar Medal
+ Slow Start
+ Broken R Key
+ 
+Adjustments:
+ Portable Farm: Boost
+ Bread: No speed down
+-----------------------------------
+2026.1
+v0.10.13
+
+模组兼容：以撒抽卡版
+
+Mod Compas: Just Gambling
+-----------------------------------
+2025.12
+v0.10.12
+
+添加了一些装扮
+
+新道具：
+ 哈米吉多顿
+ 妈妈的旧钥匙
+
+新饰品：嫉妒致胜
+
+
+Added some costumes
+
+New Items:
+ Armageddon
+ Mom's Old Key
+
+New Trinket: Envy To Win
+-----------------------------------
+2025.12
+v0.10.11
+
+新道具：
+ 超大杯
+ 鲍勃的烂手
+
+新饰品：不稳定试剂
+
+调整：
+ <道具>
+ 割礼：品质3；数值调整
+ 圣乔治蘑菇：生成的刺覆盖原位置的障碍物
+ 精灵便便：打开超级隐藏房的门
+
+BUG修复：
+ 修复我过击杀教条导致卡关的问题
+ 
+New Items:
+ Big Slurp
+ Bob's Rotten Hand
+ 
+New Trinket: Unstable Reagent
+ 
+Adjustments:
+ <Items>
+ Circumcision: Quality3; Value adjustments
+ Calocybe gambosa: Spikes spawned will cover obstacles on the spot
+ Spirit Poop: Open doors of Super Secret Room
+ 
+BUG Patches:
+ Fixed an issue that My Fault cause stuck when killing Dogma
+-----------------------------------
+2025.12
+v0.10.10
+
+新道具：
+ 悠悠
+ 宝箱怪遍地
+ 纸板蘑菇
+ 变形术
+ 精灵便便
+ 圣乔治蘑菇
+ 一张张脸
+
+新饰品：
+ 愤怒的悠悠
+ 科技SL
+
+调整：
+ <可互动实体>
+ 换脸商：生成道具而不是饰品
+ <道具>
+ 对流层：品质2；强化
+ 六魂容器：仅在有敌人时释放火焰
+
+New Items:
+ MM
+ Mimic Infestation
+ Cardboard Mush
+ Transmogrify
+ Spirit Poop
+ Calocybe gambosa
+ A Faces
+ 
+New Trinkets:
+ MMS
+ Tech SL
+
+Adjustments:
+ <Slot>
+ Facer: Spawn item instead of trinket
+ <Items>
+ Troposphere: Quality 2; Boost
+ Hexa Vessel: Release only when enemies exist
+-----------------------------------
 2025.11
 v0.10.9
 

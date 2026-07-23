@@ -16,6 +16,7 @@ function WhiteQBall:OnGainItem(item, charge, first, slot, varData, player)
 		local pos = game:GetRoom():FindFreePickupSpawnPosition(player.Position, 0, true)
 		Isaac.Spawn(5, 300, id, pos, Vector.Zero, nil)
 		game:GetLevel():AddAngelRoomChance(1)
+		self:GetIBSData('temp').WhiteQBallTriggered = nil
 	end
 end
 WhiteQBall:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, 'OnGainItem', WhiteQBall.ID)

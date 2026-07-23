@@ -4,6 +4,7 @@ local mod = Isaac_BenightedSoul
 local Marks = mod.IBS_Class.Marks
 local Levels = mod.IBS_Lib.Levels
 local Pools = mod.IBS_Lib.Pools
+local Ents = mod.IBS_Lib.Ents
 local IBS_ItemID = mod.IBS_ItemID
 local IBS_TrinketID = mod.IBS_TrinketID
 local IBS_PocketID = mod.IBS_PocketID
@@ -19,9 +20,15 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
 		local pickup = ent:ToPickup()
 		local id = pickup.SubType
 		if id > 10000 or id == 721 then
-			local seed = Levels:GetRoomUniqueSeed()
-			local new = game:GetItemPool():GetCollectible(Pools:GetRoomPool(seed), true, seed, 25)		
-			pickup:Morph(5,100,new, true, false, true)
+			local data = Ents:GetDataBySeed(pickup.InitSeed)
+			
+			if not data.CORRECTED_DATA_TRIGGERED then			
+				local seed = Levels:GetRoomUniqueSeed()
+				local new = game:GetItemPool():GetCollectible(Pools:GetRoomPool(seed), true, seed, 25)		
+				pickup:Morph(5,100,new, true, true, true)
+			end
+
+			data.CORRECTED_DATA_TRIGGERED = true
 		end
 	end
 end)

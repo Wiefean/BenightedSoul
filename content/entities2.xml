@@ -139,7 +139,10 @@
 	<entity name="IBS_BLostWeaponRed" anm2path="familiar/blost_mecha/weapon/red.anm2" id="3" variant="7255" subtype="8" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" customtags="familiarignorebffs" >
         <gibs amount="2" dust="1" />
     </entity>
-	<entity name="IBS_AKEY47" anm2path="familiar/akey47.anm2" id="3" variant="7256" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="16" friction="1" numGridCollisionPoints="12" shadowSize="12" stageHP="0" tags="familiarignorebffs"/>
+	<entity name="IBS_AKEY47" anm2path="familiar/akey47.anm2" id="3" variant="7256" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="16" friction="1" numGridCollisionPoints="12" shadowSize="12" stageHP="0" />
+	<entity name="IBS_CapeSoul" anm2path="familiar/cape_soul.anm2" id="3" variant="7257" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="16" friction="1" numGridCollisionPoints="12" shadowSize="12" stageHP="0"/>
+	<entity name="IBS_EveBaby" anm2path="familiar/eve_baby.anm2" id="3" variant="7258" subtype="0" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="0" friction="1" numGridCollisionPoints="12" shadowSize="12" stageHP="0" />
+	<entity name="IBS_EveBaby2" anm2path="familiar/eve_baby2.anm2" id="3" variant="7258" subtype="1" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="0" friction="1" numGridCollisionPoints="12" shadowSize="12" stageHP="0" />
 	
 	
 	<!-- pickups -->

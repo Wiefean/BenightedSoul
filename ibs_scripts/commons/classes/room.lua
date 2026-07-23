@@ -27,12 +27,12 @@ local Room = mod.Class(Component, function(self, info_tbl)
 	self.EnterFunc = info_tbl.EnterFunc
 
 	--是否在房间内
-	function self:IsInRoom(subType)
+	function self:IsInRoom()
 		local room = game:GetRoom()
 		local desc = game:GetLevel():GetCurrentRoomDesc()
 		if not desc.Data then return end
 		local roomData = desc.Data
-		if room:GetType() == self.Type and roomData.Variant == self.Variant and (roomData.SubType == subType or not subType) then
+		if room:GetType() == self.Type and roomData.Variant == self.Variant and (self.SubType == nil or roomData.Subtype == self.SubType) then
 			return true
 		end
 		return false

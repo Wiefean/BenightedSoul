@@ -42,18 +42,25 @@ function HexaVessel:OnPlayeUpdate(player)
 			local vel = (player.Position - wisp.Position)
 			local target = self._Finds:ClosestEnemy(player.Position)
 
-			--自瞄
-			if target and target.Position:Distance(player.Position) <= 300 then
-				vel = (target.Position - wisp.Position)
-			end		
+			--背景店长
+			if target == nil then
+				target = self._Finds:ClosestEntity(player.Position, 17)
+			end
 
-			local fire = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BLUE_FLAME, 0, wisp.Position, vel:Resized(0.01*math.random(666,1111)), player):ToEffect()
-			fire.Parent = player
-			fire.Color = Color(1,2,0,0.5,0,1,0)
-			fire.CollisionDamage = 3 + player.Damage
-			fire.Scale = 0.5*self._Maths:TearDamageToScale(fire.CollisionDamage)
-			fire.Timeout = 15 + 6 * math.floor(player.TearRange / 40)
-			wisp:Kill()
+			if target then
+				--自瞄
+				if target.Position:Distance(player.Position) <= 300 then
+					vel = (target.Position - wisp.Position)
+				end		
+
+				local fire = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BLUE_FLAME, 0, wisp.Position, vel:Resized(0.01*math.random(666,1111)), player):ToEffect()
+				fire.Parent = player
+				fire.Color = Color(1,2,0,0.5,0,1,0)
+				fire.CollisionDamage = 3 + player.Damage
+				fire.Scale = 0.5*self._Maths:TearDamageToScale(fire.CollisionDamage)
+				fire.Timeout = 15 + 6 * math.floor(player.TearRange / 40)
+				wisp:Kill()
+			end
 		end
 	end
 

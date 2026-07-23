@@ -7,7 +7,7 @@
 Isaac_BenightedSoul = RegisterMod("Benighted Soul",1)
 
 local mod = Isaac_BenightedSoul
-mod.Version = "0.10.9"
+mod.Version = "0.12.1"
 mod.Language = Options.Language
 mod.NameStr = "愚昧"
 if mod.Language ~= "zh" then mod.Language = "en" mod.NameStr = mod.Name end
@@ -52,6 +52,38 @@ mod:AddPriorityCallback(ModCallbacks.MC_POST_PLAYER_INIT, -7000, function()
         Isaac.ExecuteCommand("reloadshaders")
     end
 end)
+
+--根治卡在测试房间的问题
+do
+
+local game = Game()
+local lastRoomIdx = -3
+
+mod:AddPriorityCallback(ModCallbacks.MC_POST_NEW_ROOM, -7000, function()
+	local level = game:GetLevel()
+	local dimension = level:GetDimension()
+	
+	if (dimension == 0 or dimension == 1) and level:GetCurrentRoomIndex() >= 0 then	
+		lastRoomIdx = level:GetCurrentRoomIndex()
+	end
+end)
+
+local LOCKED = false
+mod:AddPriorityCallback(ModCallbacks.MC_PRE_ROOM_EXIT, -7000, function(_,player, newLevel)
+	if newLevel or LOCKED then return end
+	local game = Game()
+	local level = game:GetLevel()
+	local dimension = level:GetDimension()
+	
+	if (dimension == 0 or dimension == 1) and level:GetCurrentRoomIndex() == -3 then	
+		local idx = (lastRoomIdx >= 0 and lastRoomIdx) or level:GetStartingRoomIndex()
+		LOCKED = true
+		game:ChangeRoom(idx)
+		LOCKED = false
+	end
+end)
+
+end
 
 ----加载模组本体文件----
 local function LoadScript(fileName)

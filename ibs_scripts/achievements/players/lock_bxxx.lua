@@ -22,6 +22,8 @@ end
 
 --进入家层红房间触发
 function BXXX:OnNewRoom()
+	if game:IsGreedMode() then return end
+
 	if self:IsLocked() and not game:AchievementUnlocksDisallowed() then
 		local room = game:GetRoom()
 		local level = game:GetLevel()
@@ -45,6 +47,7 @@ BXXX:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, 'OnNewRoom')
 function BXXX:OnGainItem(item, charge, first, slot, varData, player)
 	if slot < 0 or slot > 1 then return end
 	if self:IsUnlocked() or game:AchievementUnlocksDisallowed() then return end
+	if game:IsGreedMode() then return end
 	local level = game:GetLevel()
 	if level:GetStage() == 13 and level:GetCurrentRoomDesc().SafeGridIndex == 94 then	
 		local playerType = player:GetPlayerType()

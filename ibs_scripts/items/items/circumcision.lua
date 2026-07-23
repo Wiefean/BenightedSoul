@@ -9,10 +9,10 @@ function Circumcision:OnEvaluateCache(player, flag)
 	if player:HasCollectible(self.ID) then
 		local num = player:GetCollectibleNum(self.ID)
 		if flag == CacheFlag.CACHE_SPEED then
-			Stats:Speed(player, -0.7*num)
+			Stats:Speed(player, -0.4*num)
 		end
 		if flag == CacheFlag.CACHE_FIREDELAY then
-			Stats:TearsMultiples(player, 2)
+			Stats:TearsModifier(player, 2*num)
 		end
 		if flag == CacheFlag.CACHE_LUCK then
 			Stats:Luck(player, 2*num)

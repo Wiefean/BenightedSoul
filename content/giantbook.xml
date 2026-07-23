@@ -5,5 +5,6 @@
 		<layer name="poof" r="228" g="228" b="228" a="255" />
 		<layer name="bg" r="228" g="228" b="228" a="153" />
 		<layer name="poof2" r="225" g="225" b="225" a="128" />
-	</entry>	
+	</entry>
+	<entry name="IBS_ADTime" anm2="ad_time.anm2" anim="Credits" />
 </giantbook>
