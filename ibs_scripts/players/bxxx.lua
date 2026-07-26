@@ -179,7 +179,7 @@ end
 --更新装扮
 function BXXX:UpdateCoustume(player, falsehood)
 	for k,v in pairs(FalsehoodList) do
-		if k <= IBS_PocketID.BJudas then
+		if v.Costume and v.Costume > 0 then
 			if k == falsehood then
 				player:AddNullCostume(v.Costume)
 			else

@@ -168,4 +168,13 @@ function BEve:OnEvaluateCache(player, flag)
 end
 BEve:AddPriorityCallback(ModCallbacks.MC_EVALUATE_CACHE, -233, 'OnEvaluateCache')
 
+--血泪效果
+function BEve:OnFireTear(tear)
+	local player = self._Ents:IsSpawnerPlayer(tear, true)
+    if player and player:GetPlayerType() == self.ID and player:GetActiveItem(2) == IBS_ItemID.MyFault then
+		self._Tears:ToBlood(tear)
+    end
+end
+BEve:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, 'OnFireTear')
+
 return BEve

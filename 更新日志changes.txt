@@ -1,5 +1,24 @@
 -----------------------------------
 2026.7
+v0.12.2
+
+新道具：
+ 根系之仪
+ 虫群之怒
+ 昆虫与花蜜
+ 奥利哈铁
+ 索多玛之灭
+ 单片镜
+ 
+New Items:
+ Rites of The Roots
+ Rage of Swarm
+ Insects and Nectars
+ Orichaliron
+ Disaster of Sodom
+ Monocle
+-----------------------------------
+2026.7
 v0.12.1
 
 新饰品：锂电池

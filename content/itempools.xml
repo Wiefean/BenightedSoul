@@ -115,6 +115,9 @@
 		<Item Name="Choices Paradox" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="I Beg" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Broken TV" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Rites of The Roots" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Rage of Swarm" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Insects and Nectars" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -205,7 +208,10 @@
 		<Item Name="Jeweled Mask" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Choices Paradox" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="I Beg" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Rites of The Roots" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Broken TV" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Rage of Swarm" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Insects and Nectars" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -224,7 +230,7 @@
 		<Item Name="Super B" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Dreggy Pie" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Mom's Cheque" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Sword of Siberite" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Sword of Siberite" Weight="0.1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Gold Experience" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Profane Weapon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="China" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
@@ -259,6 +265,9 @@
 		<Item Name="Beggar Medal" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="AD Time" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="DMG Transmitter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Rites of The Roots" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Insects and Nectars" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Orichaliron" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -319,6 +328,9 @@
 		<Item Name="Broken R Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="AD Time" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="DMG Transmitter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Rites of The Roots" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Insects and Nectars" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Orichaliron" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 	
@@ -341,6 +353,8 @@
 		<Item Name="Curse Syringe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="White Q Ball" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Big Slurp" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Monocle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Orichaliron" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -356,6 +370,8 @@
 		<Item Name="Curse Syringe" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="White Q Ball" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Big Slurp" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Monocle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Orichaliron" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>	
 	
@@ -398,6 +414,7 @@
 		<Item Name="Transmogrify" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Mom's Old Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Family Portrayal" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Disaster of Sodom" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 
@@ -434,6 +451,7 @@
 		<Item Name="Transmogrify" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Mom's Old Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Family Portrayal" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Disaster of Sodom" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>	
 	
@@ -465,6 +483,7 @@
 		<Item Name="Mimic Infestation" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Armageddon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Sere Talon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Disaster of Sodom" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
 	</Pool>
 	
@@ -485,6 +504,7 @@
 		<Item Name="Red Hook" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Hexa Vessel" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Sere Talon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Disaster of Sodom" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</Pool>
 	
@@ -642,6 +662,7 @@
 		<Item Name="DMG Transmitter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Music Box" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Jeweled Mask" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Monocle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 
@@ -664,6 +685,7 @@
 		<Item Name="Bloody Rose" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Preserved Fog" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Whispering Earring" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Rage of Swarm" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</Pool>
 
@@ -687,6 +709,7 @@
 		<Item Name="My Fault" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Bloody Rose" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 		<Item Name="Preserved Fog" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Disaster of Sodom" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 	
@@ -738,6 +761,7 @@
 		<Item Name="Ennnnnnvyyyyyy" Weight="0.6" DecreaseBy="0.1" RemoveOn="0.01" />
 		<Item Name="Treasure Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Beggar Medal" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Insects and Nectars" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
 	</Pool>
 	

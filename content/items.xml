@@ -197,6 +197,12 @@
     <active id="195" name="I Beg" gfx="beg.png" description="Do your begst" quality="1" craftquality="1" tags="offensive nocantrip nometronome" />
     <active id="196" name="Broken TV" gfx="broken_tv.png" description="Maybe it can be repaired" quality="1" craftquality="1" tags="offensive nocantrip nometronome" />
     <passive id="197" name="Family Portrayal" gfx="family_portrayal.png" description="..." quality="3" craftquality="3" tags="offensive" customtags="noeden nocantrip nometronome" />
+	<passive id="198" name="Rites of The Roots" gfx="rites_of_the_roots.png" description="Rise From Sacrifice" quality="2" craftquality="2" tags="nolostbr" customtags="nometronome" />
+    <passive id="199" name="Rage of Swarm" gfx="rage_of_swarm.png" description="Once His Anger Rises" quality="2" craftquality="2" tags="offensive fly" customtags="nometronome" />
+    <passive id="200" name="Insects and Nectars" gfx="insects_and_nectars.png" description="Sweet Temptation" quality="2" craftquality="2" tags="nolostbr fly" customtags="nometronome" />
+	<passive id="201" cache="luck" name="Orichaliron" gfx="orichaliron.png" description="Luck up + Defense up?" quality="2" craftquality="2" tags="summonable" />
+	<active id="202" name="Disaster of Sodom" gfx="disaster_of_sodom.png" description="Destruction and Remnants" quality="1" craftquality="1" tags="offensive nocantrip" />
+	<passive id="203" cache="range" name="Monocle" gfx="monocle.png" description="Well-read" quality="3" craftquality="3" tags="offensive book" />
 
 
 	<trinket name="Bottle Shard" description="He really did it" gfx="bottleshard.png" />

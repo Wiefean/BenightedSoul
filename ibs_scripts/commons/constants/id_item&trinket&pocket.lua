@@ -201,6 +201,12 @@ Kindness = Isaac.GetItemIdByName("Kindness"),
 Beg = Isaac.GetItemIdByName("I Beg"),
 BrokenTV = Isaac.GetItemIdByName("Broken TV"),
 FamilyPortrayal = Isaac.GetItemIdByName("Family Portrayal"),
+RitesOfTheRoots = Isaac.GetItemIdByName("Rites of The Roots"),
+RageOfSwarm = Isaac.GetItemIdByName("Rage of Swarm"),
+Nectars = Isaac.GetItemIdByName("Insects and Nectars"),
+Orichaliron = Isaac.GetItemIdByName("Orichaliron"),
+DisasterOfSodom = Isaac.GetItemIdByName("Disaster of Sodom"),
+Monocle = Isaac.GetItemIdByName("Monocle"),
 
 }
 

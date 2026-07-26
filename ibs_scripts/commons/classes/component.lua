@@ -42,12 +42,20 @@ local Component = mod.Class(function(self)
 
 	do --回调(这种回调方式可以使得函数被外部修改时,内部自动回应修改)
 		function self:AddCallback(callback, funcKey, optional)
+			if callback == nil then
+				error("callback id is nil", 2)
+			end
+		
 			local function func(mod, ...)
 				return self[funcKey](self, ...)
 			end
 			mod:AddCallback(callback, func, optional)
 		end
 		function self:AddPriorityCallback(callback, priority, funcKey, optional)
+			if callback == nil then
+				error("callback id is nil", 2)
+			end		
+		
 			local function func(mod, ...)
 				return self[funcKey](self, ...)
 			end

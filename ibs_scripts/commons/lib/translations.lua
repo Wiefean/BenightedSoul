@@ -1027,6 +1027,36 @@ Item = {
 		Desc='...'
 	},
 
+	[IBS_ItemID.RitesOfTheRoots]={
+		Name='根系之仪',
+		Desc='从献祭中升起'
+	},
+
+	[IBS_ItemID.RageOfSwarm]={
+		Name='虫群之怒',
+		Desc='好汉怒火起'
+	},
+
+	[IBS_ItemID.Nectars]={
+		Name='昆虫与花蜜',
+		Desc='甜蜜的诱惑'
+	},
+
+	[IBS_ItemID.Orichaliron]={
+		Name='奥利哈铁',
+		Desc='幸运上升 + 防御上升 ?'
+	},
+
+	[IBS_ItemID.DisasterOfSodom]={
+		Name='索多玛之灭',
+		Desc='毁灭与残余'
+	},
+
+	[IBS_ItemID.Monocle]={
+		Name='单片镜',
+		Desc='博览群书'
+	},
+
 },
 
 --饰品

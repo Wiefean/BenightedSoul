@@ -41,14 +41,27 @@ end
 function Pools:GetRoomPool(seed)
 	if not seed then seed = game:GetSeeds():GetStartSeed() end
     local itemPool = game:GetItemPool()
-
+	
 	--混沌
 	if PlayerManager.AnyoneHasCollectible(402) then
 		return itemPool:GetRandomPool(RNG(seed))
+	end	
+	
+    local room = game:GetRoom()
+	
+	if room.GetItemPool then
+		local pool = room:GetItemPool(seed)
+	
+		if (pool < 0) then
+			pool = ItemPoolType.POOL_TREASURE
+		end	
+	
+		return self:ToGreed(pool)
 	end
+	
+	--------以下内容应该不会用到--------
 
     local level = game:GetLevel()
-    local room = game:GetRoom()
     local roomType = room:GetType()
     local pool = itemPool:GetPoolForRoom(roomType, seed)
 

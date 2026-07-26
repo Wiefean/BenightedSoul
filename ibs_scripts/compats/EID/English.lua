@@ -79,12 +79,12 @@ local playerEID = {
 
 [IBS_PlayerID.BSamson] = {
 	name='Benighted Samson',
-	info='Can not pick trinkets or pocket items, but can still buy tarot cards'..
+	info='Can not pick up trinkets or pocket items, but can still buy tarot cards'..
 		 '#After cleaning {{BossRoom}}Boss Room, spawn a tarot card'..
 		 '#Change states with {{Collectible'..(IBS_ItemID.Posture)..'}}Posture'..
-		 '#{{IBSSamsonCalm}} Calm: When entering, + 3s sheild, not stackable'..
-		 '#{{IBSSamsonWrath}} Wrath: 14s duration; Double damage and penal hurt; Do attacks according to the cards of {{Collectible'..(IBS_ItemID.Posture)..'}}Posture'..
-		 '#{{IBSSamsonWrath}}Wrath passes faster when standing by'..
+		 '#{{IBSSamsonCalm}} Calm: When switching to this state, + 3s sheild, not stackable'..
+		 '#{{IBSSamsonWrath}} Wrath: 14s duration; Double damage and penal hurt; Can do melee attack of {{Collectible'..(IBS_ItemID.Posture)..'}}Posture'..
+		 '#{{IBSSamsonWrath}}Wrath passes 5x faster when standing by'..
 		 '#!!! When taking penalt damage in {{IBSSamsonWrath}}Wrath, 50% chance to lose the selected card, except {{Card1}}The Fool ({{Luck}}Luck 10: 10%)',
 	br='When enter {{IBSSamsonWrath}} Wrath, + 1 charge for {{Collectible'..(IBS_ItemID.Posture)..'}}Posture'
 },
@@ -965,7 +965,7 @@ local itemEID={
 [IBS_ItemID.SneakyC]={
 	name='Sneaky C',
 	info='Spawn {{Trinket113}}Locust of War trinket'..
-		 '#Auto-smelts {{Trinket113}}Locust of War trinket'..
+		 '#Auto-smelt {{Trinket113}}Locust of War trinket'..
 		 '#Double-tapping '..EID.ButtonToIconMap[ButtonAction.ACTION_DROP]..' drop key drops all smelted {{Trinket113}}Locust of War trinkets'..
 		 '#In an uncleared room, every 4 seconds, {{Trinket113}}Locust of War trinket spawns a Locust of War entity'..
 		 '#In the current room, for every enemy newly appears, 25% chance to spawn a Locust of War entity',
@@ -1789,6 +1789,46 @@ local itemEID={
 [IBS_ItemID.FamilyPortrayal]={
 	name='Family Portrayal',
 	info='Gain all passive quest items, except {{Collectible668}}',
+},
+
+[IBS_ItemID.RitesOfTheRoots]={
+	name='Rites of The Roots',
+	info='{{SacrificeRoom}} Add an extra sacrificial room on new level'..
+	'#The added sacrificial room extra includes {{Confessional}}confessional and {{Beggar}}beggars.',
+},
+
+[IBS_ItemID.RageOfSwarm]={
+	name='Rage of Swarm',
+	info='50% blue flies become {{Trinket113}}Locust of War'..
+	'#Trinket about Locust and fly item Quality less than {{Quality2}}2 will be replaced by {{Trinket186}}Apollyons Best Friend'..
+	'#!!! Effective on items owned'..
+	'#Auto-smelt {{Trinket186}}Apollyons Best Friend',
+},
+
+[IBS_ItemID.Nectars]={
+	name='Insects and Nectars',
+	info='{{Collectible9}} Spawn blue flies equal to the number of fly items the character had after entering new room.'..
+	'#10% chance it drops a temporary {{HalfHeart}}half heart when Blue Fly disappears',
+},
+
+[IBS_ItemID.Orichaliron]={
+	name='Orichaliron',
+	info='{{Luck}} Luck + 2'..
+	'#{{SoulHeart}} If skip Soul Heart pickup ({{BlackHeart}}Black Heart excluded) throughout the level, + 4 {{SoulHeart}}Soul Hearts',
+},
+
+[IBS_ItemID.DisasterOfSodom]={
+	name='Disaster of Sodom',
+	info='!!! {{ColorYellow}}SINGLE USE{{CR}}'..
+	'#!!! Remove items from the current item pool until only one item of each quality remains',
+	virtue='1 Petrified tear wisp and 1 simple wisp',
+	belial='not be SINGLE USE anymore!',
+},
+
+[IBS_ItemID.Monocle]={
+	name='Monocle',
+	info='↑ +1.5{{Range}}Range'..
+	'#Get 2 extra {{Collectible'..IBS_ItemID.Monocle..'}} Monocle when Pick up',
 },
 
 }

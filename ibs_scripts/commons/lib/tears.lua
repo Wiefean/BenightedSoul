@@ -4,6 +4,12 @@ local mod = Isaac_BenightedSoul
 
 local Tears = {}
 
+
+--眼泪伤害转眼泪大小
+function Tears:DamageToScale(dmg)
+    return dmg ^ 0.5 * 0.23 + dmg * 0.01 + 0.55
+end
+
 --血泪
 Tears.BloodVariant = {
 	[TearVariant.BLUE] = TearVariant.BLOOD,
@@ -14,9 +20,13 @@ Tears.BloodVariant = {
 	[TearVariant.GLAUCOMA_BLOOD] = TearVariant.GLAUCOMA_BLOOD
 }
 
---眼泪伤害转眼泪大小
-function Tears:DamageToScale(dmg)
-    return dmg ^ 0.5 * 0.23 + dmg * 0.01 + 0.55
+--转换为血泪
+function Tears:ToBlood(tear)
+	local blood = self.BloodVariant[tear.Variant]
+	if blood then	
+		tear:ChangeVariant(blood)
+		tear:Update()
+	end
 end
 
 --转换为剖腹产眼泪

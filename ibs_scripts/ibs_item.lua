@@ -205,6 +205,12 @@ mod.IBS_Item = {
 	Beg = Load('beg'),
 	BrokenTV = Load('broken_tv'),
 	FamilyPortion = Load('family_portrayal'),
+	RitesOfTheRoots = Load('rites_of_the_roots'),
+	RageOfSwarm = Load('rage_of_swarm'),
+	Nectars = Load('insects_and_nectars'),
+	Orichaliron = Load('orichaliron'),
+	DisasterOfSodom = Load('disaster_of_sodom'),
+	Monocle = Load('monocle'),	
 
 }
 

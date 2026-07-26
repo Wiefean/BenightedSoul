@@ -344,5 +344,7 @@
 	<!-- broken tv -->
 	<wisp id="196" count="0" />	
 	
+	<!-- disaster of sodom -->
+	<wisp id="202" hp="5" tearFlags="5" tearColor="tear_grey" flameColor="flame_white" coreColor="core_grey" />	
 	
 </wisps>

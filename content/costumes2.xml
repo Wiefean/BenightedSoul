@@ -83,7 +83,11 @@
 	<costume anm2path="bxxx_bcain.anm2" type="none" priority="99" />
 	<costume anm2path="bxxx_babel.anm2" type="none" priority="99" />
 	<costume anm2path="bxxx_bjudas.anm2" type="none" priority="99" />
+	<costume anm2path="bxxx_beve.anm2" type="none" priority="99" />
+	<costume anm2path="bxxx_bsamson.anm2" type="none" priority="99" />
 	<costume anm2path="bxxx_beden.anm2" type="none" priority="99" />
+	<costume anm2path="bxxx_blost.anm2" type="none" priority="99" />
+	<costume anm2path="bxxx_bkeeper.anm2" type="none" priority="99" />
 
 	<!-- beve -->
 	<costume anm2path="beve_hair.anm2" type="none" priority="99" />

@@ -85,9 +85,9 @@ local playerEID = {
 	name='昧化参孙',
 	info='不能拾取饰品和口袋物品，但可以购买塔罗牌'..
 		 '#清理{{BossRoom}}头目房后，生成塔罗牌'..
-		 '#{{IBSSamsonCalm}} 平静：进入时获得3秒护盾，不可叠加'..
+		 '#{{IBSSamsonCalm}} 平静：切入时获得3秒护盾，不可叠加'..
 		 '#{{IBSSamsonWrath}} 暴怒：14秒后恢复平静；伤害和受到的惩罚性伤害翻倍；可使用{{Collectible'..(IBS_ItemID.Posture)..'}}架势的攻击'..
-		 '#站立不动时加速{{IBSSamsonWrath}}暴怒流逝'..
+		 '#站立不动时{{IBSSamsonWrath}}暴怒5倍速流逝'..
 		 '#!!! {{IBSSamsonWrath}}暴怒时受到惩罚性伤害有50%概率失去选中的牌，除了{{Card1}}愚者 ({{Luck}}幸运10: 10%)',
 	br='由{{IBSSamsonCalm}}平静进入{{IBSSamsonWrath}}暴怒时，恢复{{Collectible'..(IBS_ItemID.Posture)..'}}架势1点充能'
 },
@@ -1503,7 +1503,7 @@ local itemEID={
 	name='我过',
 	info='无敌0.5秒'..
 		 '#产生一次血波，使周围的敌人失去 {{Damage}}角色伤害x2 的生命，并获得8秒流血'..
-		 '#命中流血的敌人时会在其位置再产生一次血波，并刷新流血持续时间',
+		 '#命中流血的敌人时会在其位置再产生一次血波',
 	virtue='不发射眼泪的外环单房间魂火',
 	belial='无敌时间延长至1秒',
 },
@@ -1814,6 +1814,46 @@ local itemEID={
 [IBS_ItemID.FamilyPortrayal]={
 	name='全家祸',
 	info='获得原版所有被动任务道具，除了{{Collectible668}}爸爸的便条',
+},
+
+[IBS_ItemID.RitesOfTheRoots]={
+	name='根系之仪',
+	info='{{SacrificeRoom}} 为每层添加1个献祭房'..
+	'#被添加的献祭房额外包含{{Confessional}}忏悔机与{{Beggar}}乞丐',
+},
+
+[IBS_ItemID.RageOfSwarm]={
+	name='虫群之怒',
+	info='蓝苍蝇有50%概率变为{{Trinket113}}战争蝗虫'..
+	'#将蝗虫饰品与品质{{Quality2}}2及以下的苍蝇道具变为{{ColorYellow}}金色的{{CR}}{{Trinket186}}亚玻伦的挚友'..
+	'#!!! 对已持有的道具也生效'..
+	'#自动吞下{{Trinket186}}亚玻伦的挚友',
+},
+
+[IBS_ItemID.Nectars]={
+	name='昆虫与花蜜',
+	info='{{Collectible9}} 进入新房间后，生成角色持有苍蝇套件数量的蓝苍蝇'..
+	'#蓝苍蝇消失时有10%概率掉落临时的{{HalfHeart}}半红心',
+},
+
+[IBS_ItemID.Orichaliron]={
+	name='奥利哈铁',
+	info='↑ +2{{Luck}}幸运'..
+	'#{{SoulHeart}} 进入新楼层时，如果上层未拾取过魂心掉落物 (不包括{{BlackHeart}}黑心)，+ 4{{SoulHeart}}魂心',
+},
+
+[IBS_ItemID.DisasterOfSodom]={
+	name='索多玛之灭',
+	info='!!! {{ColorYellow}}一次性{{CR}}'..
+	'#!!! 移除当前房间道具池内的道具直到每个品质只剩1个道具',
+	virtue='1个石化泪弹魂火与1个普通魂火',
+	belial='!!! 不再一次性！',
+},
+
+[IBS_ItemID.Monocle]={
+	name='单片镜',
+	info='↑ +1.5{{Range}}射程'..
+	'#拾起时，额外获得2个{{Collectible'..IBS_ItemID.Monocle..'}}单片镜',
 },
 
 }
