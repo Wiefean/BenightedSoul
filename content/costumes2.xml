@@ -95,15 +95,18 @@
 	
 	<!-- bsamson -->
 	<costume id="7259" anm2path="bsamson_hair.anm2" type="none" priority="99" />
+	
+	<!-- bazazel -->
+	<costume id="7260" anm2path="bazazel_head.anm2" type="none" priority="99" />
 
 	<!-- beden -->
-	<costume id="7260" anm2path="beden_hair.anm2" type="none" priority="99" />
+	<costume id="7261" anm2path="beden_hair.anm2" type="none" priority="99" />
 	
 	<!-- blost -->
-	<costume id="7261" anm2path="blost_costume.anm2" type="none" priority="99" isFlying="true" />
+	<costume id="7262" anm2path="blost_costume.anm2" type="none" priority="99" isFlying="true" />
 
 	<!-- bkeeper -->
-	<costume id="7262" anm2path="bkeeper_rope.anm2" isFlying="true" hasOverlay="true" type="none" priority="777" />
+	<costume id="7263" anm2path="bkeeper_rope.anm2" isFlying="true" hasOverlay="true" type="none" priority="777" />
 
 	<!-- other -->
 	<costume anm2path="falsehood_bmaggy.anm2" type="none" priority="3" />

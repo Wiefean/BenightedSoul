@@ -19,7 +19,7 @@ local playerEID = {
 	info="Skip {{AngelRoom}} Angel Room to transform {{TreasureRoom}} Treasure Room into {{DevilRoom}} Devil Room next level"..
 		 "#Skip {{DevilRoom}} Devil Room to transform {{Shop}} Shop into {{AngelRoom}} Angel Room next level",
 	br="Grants flight#Two more options in cycle in Devil/Angel Room"..
-		 "Devil Room / Angel Shop no longer replaces {{TreasureRoom}}Treasure Room / {{Shop}}Shop, but {{SecretRoom}}Secret / {{SuperSecretRoom}}Super Secret Room"
+		 "#If not in Greed Mode, Devil Room / Angel Shop no longer replaces {{TreasureRoom}}Treasure Room / {{Shop}}Shop, but {{SecretRoom}}Secret / {{SuperSecretRoom}}Super Secret Room"
 },
 
 [IBS_PlayerID.BMaggy] = {
@@ -1788,7 +1788,7 @@ local itemEID={
 
 [IBS_ItemID.FamilyPortrayal]={
 	name='Family Portrayal',
-	info='Gain all passive quest items, except {{Collectible668}}',
+	info='Gain all passive quest items, except {{Collectible668}}#{{HardMode}}This item will be rerolled automatically if not on Hard Mode',
 },
 
 [IBS_ItemID.RitesOfTheRoots]={
@@ -1800,35 +1800,35 @@ local itemEID={
 [IBS_ItemID.RageOfSwarm]={
 	name='Rage of Swarm',
 	info='50% blue flies become {{Trinket113}}Locust of War'..
-	'#Trinket about Locust and fly item Quality less than {{Quality2}}2 will be replaced by {{Trinket186}}Apollyons Best Friend'..
+	'#Locust trinkets and fly items with quality {{Quality2}}2 or below will be replaced by golden {{Trinket186}}Apollyons Best Friend'..
 	'#!!! Effective on items owned'..
 	'#Auto-smelt {{Trinket186}}Apollyons Best Friend',
 },
 
 [IBS_ItemID.Nectars]={
 	name='Insects and Nectars',
-	info='{{Collectible9}} Spawn blue flies equal to the number of fly items the character had after entering new room.'..
-	'#10% chance it drops a temporary {{HalfHeart}}half heart when Blue Fly disappears',
+	info='{{Collectible9}} Spawn blue flies equal to the number of fly items owned after entering new room.'..
+	'#10% chance to spawn a temporary {{HalfHeart}}half heart when Blue Fly disappears',
 },
 
 [IBS_ItemID.Orichaliron]={
 	name='Orichaliron',
 	info='{{Luck}} Luck + 2'..
-	'#{{SoulHeart}} If skip Soul Heart pickup ({{BlackHeart}}Black Heart excluded) throughout the level, + 4 {{SoulHeart}}Soul Hearts',
+	'#{{SoulHeart}} If skipped Soul Heart pickups ({{BlackHeart}}Black Heart excluded) throughout the level, + 4 {{SoulHeart}}Soul Hearts next level',
 },
 
 [IBS_ItemID.DisasterOfSodom]={
 	name='Disaster of Sodom',
 	info='!!! {{ColorYellow}}SINGLE USE{{CR}}'..
-	'#!!! Remove items from the current item pool until only one item of each quality remains',
-	virtue='1 Petrified tear wisp and 1 simple wisp',
-	belial='not be SINGLE USE anymore!',
+	'#!!! Remove items from the current pool until only one item of each quality remains',
+	virtue='1 petrified tear wisp and 1 common wisp',
+	belial='No SINGLE USE anymore!',
 },
 
 [IBS_ItemID.Monocle]={
 	name='Monocle',
 	info='↑ +1.5{{Range}}Range'..
-	'#Get 2 extra {{Collectible'..IBS_ItemID.Monocle..'}} Monocle when Pick up',
+	'#Gain 2 more {{Collectible'..IBS_ItemID.Monocle..'}} Monocle when picked up',
 },
 
 }
@@ -2333,7 +2333,7 @@ local cardEID={
 
 [IBS_PocketID.BJudas] = {
 	name="Falsehood of Judas",
-	info="Darken surroundings for 3 seconds, during which next attact will fire a spectral, piercing and burning tear with 1300% Isaac's{{Damage}}dmg"..
+	info="In 3 seconds, the next attack will fire a spectral, piercing and burning tear with 1300% Isaac's{{Damage}}dmg"..
 		 "#If the tear hits, gain another one {{Card"..(IBS_PocketID.BJudas).."}}",
 	mimic={charge = 1, isRune = true},
 	player={[IBS_PlayerID.BXXX] = "Orb: Every 2 seconds, weaken enemies around for 1.5 seconds"},
@@ -2353,7 +2353,7 @@ local cardEID={
 	name="Falsehood of Samson",
 	info="Record times of taking damage"..
 		 '#Stop recording at mext {{BossRoom}}Boss Room, and gain:'..
-		 '#↑ {{Tears}}tears and {{Damage}}dmg up x (100% + 15% x times), MAX:300%, decreasing'..
+		 '#↑ {{Tears}}tears and {{Damage}}dmg x (100% + 15% x times), MAX:300%, decreasing'..
 		 '#↑ {{Shotspeed}}sspd + 1, until stats above decrease to normal'..
 		 '#Using this in {{BossRoom}}Boss Room will recover decreased stats above',
 	mimic={charge = 6, isRune = true},
@@ -2397,7 +2397,7 @@ local cardEID={
 [IBS_PocketID.BLost] = {
 	name="Falsehood of the Lost",
 	info="Transform chests even opened into Eternal Chests"..
-		 "#!!! No effect on Eternal Chest",
+		 "#No effect on Eternal Chest",
 	mimic={charge = 6, isRune = true},
 	player={[IBS_PlayerID.BXXX] = "Orb: When a room is cleared, 20% chance to spawn a common chest"},
 	runeSword='25% chance to fire key tears',	
@@ -2430,7 +2430,7 @@ local cardEID={
 
 [IBS_PocketID.BApollyon] = {
 	name='Falsehood of Apollyon',
-	info='Spawn 3 other runes consumed recently, if not enough, spawn {{Card41}}Black Rune instead#!!! No effect on Jera',
+	info='Spawn 3 other runes consumed recently, if not enough, spawn {{Card41}}Black Rune instead#No effect on Jera',
 	mimic={charge = 12, isRune = true},
 	player={[IBS_PlayerID.BXXX] = 'Orb: When cosuming other runes, cost 5{{IBSMemory}}Memories to trigger its effect once more'},
 	runeSword='When inserted, trigger the effect of this rune',

@@ -1,4 +1,26 @@
 -----------------------------------
+2026.8
+v0.12.3
+
+新角色：昧化阿撒泻勒 (未完成)
+
+调整：
+ <敌人>
+ 慷慨：掉落调整
+ <道具>
+ 阿撒泻勒的旷野：间隔降低为1.5秒
+ 全家祸：只在困难模式出现
+
+
+New Character: Benighted Azazel (Unfinished)
+
+Adjustments:
+ <Enemy>
+ Generosity: Drops adjusted
+ <Items>
+ Azazel The Wild: Interval decrees to 1.5s
+ Familiar Portrayal: Only exist on Hard Mode
+-----------------------------------
 2026.7
 v0.12.2
 

@@ -22,8 +22,8 @@ local playerEID = {
 	name='昧化以撒',
 	info='跳过{{AngelRoom}}天使房会使下一层的{{TreasureRoom}}宝箱房变为{{DevilRoom}}恶魔房'..
 		 '#跳过{{DevilRoom}}恶魔房会使下一层的{{Shop}}商店变为{{AngelRoom}}天使商店',
-	br = '飞行#恶魔/天使房中道具选择 + 2'..
-		 '#恶魔房/天使商店不再替换{{TreasureRoom}}宝箱房/{{Shop}}商店，而是{{SecretRoom}}隐藏房/{{SuperSecretRoom}}超级隐藏房 ({{GreedMode}}贪婪模式下不生效)'
+	br = '飞行#恶魔/天使房中道具轮换选择 + 2'..
+		 '#非贪婪模式下，恶魔房/天使商店不再替换{{TreasureRoom}}宝箱房/{{Shop}}商店，而是{{SecretRoom}}隐藏房/{{SuperSecretRoom}}超级隐藏房 ({{GreedMode}}贪婪模式下不生效)'
 },
 
 [IBS_PlayerID.BMaggy] = {
@@ -191,7 +191,7 @@ local itemEID={
 		 '#等级达到一定值：'..
 		 '#{{Blank}} 2：↓{{Luck}}失去幸运加成'..
 		 '#{{Blank}} 3：↓{{Damage}}失去伤害加成'..
-		 '#{{Blank}} 4：品质高于{{Quality2}}2的道具都被替换为该道具'
+		 '#{{Blank}} 4：品质高于{{Quality2}}2的道具将被替换为该道具'
 },
 
 [IBS_ItemID.GlowingHeart]={
@@ -1813,7 +1813,7 @@ local itemEID={
 
 [IBS_ItemID.FamilyPortrayal]={
 	name='全家祸',
-	info='获得原版所有被动任务道具，除了{{Collectible668}}爸爸的便条',
+	info='获得原版所有被动任务道具，除了{{Collectible668}}爸爸的便条#{{HardMode}} 这个道具在非困难模式会被自动重置',
 },
 
 [IBS_ItemID.RitesOfTheRoots]={
@@ -1873,7 +1873,7 @@ local trinketEID={
 
 [IBS_TrinketID.DadsPromise]={
 	name='爸爸的约定',
-	info='{{BossRoom}} 在进入新层后的 (60 + 15 x 楼层数) 秒内完成Boss房，生成1个{{Card49}}骰子碎片',
+	info='{{BossRoom}} 如果在进入新层后的 (60 + 15 x 楼层数) 秒内完成Boss房，则生成{{Card49}}骰子碎片',
 	mult={findReplace = {'15','20','25'}}
 },
 
@@ -1891,7 +1891,7 @@ local trinketEID={
 
 [IBS_TrinketID.DivineRetaliation]={
 	name='神圣反击',
-	info='30%概率免疫泪弹伤害#被泪弹击中时，将周围的所有泪弹变为火焰',
+	info='30%概率免疫敌弹伤害#受到敌弹伤害时，将周围的所有敌弹变为火焰',
 	mult={
 		numberToMultiply = 30,
 		maxMultiplier = 3,
@@ -2304,7 +2304,7 @@ local cardEID={
 
 [IBS_PocketID.GoldenPrayer] = {
 	name='金色祈者',
-	info='获得28临时{{IBSIronHeart}}坚贞之心#消耗后，完成下一个{{BossRoom}}Boss房会再次生成该卡牌',
+	info='获得28临时{{IBSIronHeart}}坚贞之心#消耗后，完成下一个{{BossRoom}}头目房会再次生成该卡牌',
 	mimic={charge = 6, isRune = false},
 	player={[IBS_PlayerID.BMaggy]='恢复所有已损失的{{IBSIronHeart}}坚贞之心上限'}
 },
@@ -2359,8 +2359,8 @@ local cardEID={
 
 [IBS_PocketID.BJudas] = {
 	name='犹大的伪忆',
-	info='环境变暗3秒，期间下次攻击将发射一颗穿透幽灵燃烧眼泪，具有1300%{{Damage}}角色伤害'..
-		 '#成功命中第一个敌人后，再获得一个{{Card'..(IBS_PocketID.BJudas)..'}}犹大的伪忆',
+	info='3秒内，下次攻击将发射一颗穿透幽灵燃烧眼泪，具有1300%{{Damage}}角色伤害'..
+		 '#命中敌人后，再获得一个{{Card'..(IBS_PocketID.BJudas)..'}}犹大的伪忆',
 	mimic={charge = 1, isRune = true},
 	player={[IBS_PlayerID.BXXX] = '伪忆球：每隔2秒，虚弱角色周围的敌人1.5秒'},				
 	runeSword='每隔3秒，虚弱角色周围的敌人1.5秒',
@@ -2369,7 +2369,7 @@ local cardEID={
 [IBS_PocketID.BEve] = {
 	name='夏娃的伪忆',
 	info='清除诅咒，并获得一个祝福'..
-		 '#若已有所有祝福，移除三个{{BrokenHeart}}碎心',
+		 '#若已有所有祝福，移除3个{{BrokenHeart}}碎心',
 	mimic={charge = 6, isRune = true},
 	player={[IBS_PlayerID.BXXX] = '伪忆球：每隔0.4秒，清除一个角色附近的敌弹'},
 	runeSword='清理{{BossRoom}}头目房后，清除诅咒',
@@ -2378,7 +2378,7 @@ local cardEID={
 [IBS_PocketID.BSamson] = {
 	name='参孙的伪忆',
 	info='使用后，开始记录受伤次数'..
-		 '#到达下一个{{BossRoom}}Boss房时停止记录，并获得：'..
+		 '#在下一个{{BossRoom}}Boss房停止记录，并获得：'..
 		 '#↑ {{Tears}}射速和{{Damage}}伤害 x (100% + 15% x 计数)倍率，最高300%，并不断衰减'..
 		 '#↑ {{Shotspeed}}弹速 + 1，直到以上属性衰减完毕'..
 		 '#在{{BossRoom}}Boss房使用时，恢复属性已衰减部分',
@@ -2389,9 +2389,9 @@ local cardEID={
 
 [IBS_PocketID.BAzazel] = {
 	name='阿撒泻勒的伪忆',
-	info='受到1心伤害，再获得一个该伪忆，并增加一次计数'..
+	info='受到1心伤害，再获得一个该伪忆，并增加计数'..
 		 '#每当计数增加时，触发一次奖励，类似{{SacrificeRoom}}献祭房'..
-		 '#进入新层后，自动移除角色身上的该伪忆，除非计数达到11以上，并重置计数',
+		 '#进入新层时重置计数，若此时计数低于12则移除角色身上的该伪忆',
 	mimic={charge = 6, isRune = true},
 	player={[IBS_PlayerID.BXXX] = '伪忆球：具有7 + 当前计数的碰撞伤害；每隔3秒，令附近的敌人流血3秒'},
 	runeSword='受到地刺伤害时增加1计数；不可叠加',
@@ -2399,13 +2399,13 @@ local cardEID={
 
 [IBS_PocketID.BLazarus] = {
 	name='拉撒路的伪忆',
-	info='传送至一个优质临时房间：'..
+	info='传送至一个临时的优质房间：'..
 		 '#{{Shop}} <-> {{TreasureRoom}}'..
 		 '#{{SecretRoom}} <-> {{SuperSecretRoom}}'..
 		 '#{{ArcadeRoom}} <-> {{CurseRoom}}'..
 		 '#{{UltraSecretRoom}} <-> {{Planetarium}}'..
 		 '#成功传送后获得1{{BrokenHeart}}碎心，否则获得2{{SoulHeart}}魂心'..
-		 '#!!! 由{{Collectible263}}透明符文等触发时或已处于临时房间时不传送',
+		 '#!!! 由{{Collectible263}}透明符文等效果触发或已处于临时房间时不传送',
 	mimic={charge = 12, isRune = true},
 	player={[IBS_PlayerID.BXXX] = '伪忆球：进入新的特殊房间时，获得5{{IBSMemory}}记忆碎片'},
 	runeSword='进入新的特殊房间时，获得1{{HalfSoulHeart}}半魂心',
@@ -2423,7 +2423,7 @@ local cardEID={
 [IBS_PocketID.BLost] = {
 	name='游魂的伪忆',
 	info='将箱子和空箱子变为永恒箱子，否则生成一个永恒箱子'..
-		 '#!!! 对永恒箱子无效',
+		 '#对永恒箱子无效',
 	mimic={charge = 6, isRune = true},
 	player={[IBS_PlayerID.BXXX] = '伪忆球：清理房间后，20%概率生成一个普通箱子'},
 	runeSword='25%概率发射钥匙眼泪',
@@ -2456,7 +2456,7 @@ local cardEID={
 
 [IBS_PocketID.BApollyon] = {
 	name='亚波伦的伪忆',
-	info='生成最近三次消耗的其他符文，不足三个时会以{{Card41}}黑符文代替#!!! 对收获符文无效',
+	info='生成最近三次消耗的其他符文，不足三个时会以{{Card41}}黑符文代替#对收获符文无效',
 	mimic={charge = 12, isRune = true},
 	player={[IBS_PlayerID.BXXX] = '伪忆球：消耗其他符文时，耗费5{{IBSMemory}}记忆碎片额外触发一次其效果'},
 	runeSword='镶嵌时，触发该符文的效果',
@@ -2464,7 +2464,7 @@ local cardEID={
 
 [IBS_PocketID.BForgotten] = {
 	name='遗骸的伪忆',
-	info='生成三个已从道具池中移除的品质为{{Quality2}}2及以上的道具的魂火，与12个骨头环绕物',
+	info='生成三个已从道具池中移除的品质{{Quality2}}2及以上的道具的魂火，与12个骨头环绕物',
 	mimic={charge = 6, isRune = true},
 	player={[IBS_PlayerID.BXXX] = '伪忆球：每隔5秒，生成骨头环绕物，其上限为该球数量的六倍'},
 	runeSword='击杀敌人时，有18%概率生成友好的骷髅仔',
@@ -2483,7 +2483,7 @@ local cardEID={
 
 [IBS_PocketID.BJBE] = {
 	name='雅各和以扫的伪忆',
-	info='将距离最近的道具变为两个品质减少一的道具',
+	info='将距离最近的道具变为两个品质减少1的道具',
 	mimic={charge = 12, isRune = true},
 	player={[IBS_PlayerID.BXXX] = '伪忆球：复制最近使用的两个其他伪忆对应伪忆球的能力'},
 	runeSword='镶嵌时，复制角色身上品质最低的非任务道具两次',

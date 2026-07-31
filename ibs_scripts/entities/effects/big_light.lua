@@ -96,7 +96,7 @@ function BigLight:OnUpdate(effect)
 			end
 			
 			--清除敌弹
-			for _,ent in ipairs(Isaac.FindInRadius(pos, effect.Scale * 20 + 10, EntityPartition.BULLET)) do
+			for _,ent in ipairs(Isaac.FindInRadius(effect.Position, effect.Scale * 20 + 10, EntityPartition.BULLET)) do
 				local proj = ent:ToProjectile()
 				if proj and not proj:HasProjectileFlags(ProjectileFlags.CANT_HIT_PLAYER) then
 					proj:Die()

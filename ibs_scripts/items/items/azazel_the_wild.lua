@@ -10,7 +10,7 @@ local AzazelTheWild = mod.IBS_Class.Item(mod.IBS_ItemID.AzazelTheWild)
 
 
 function AzazelTheWild:OnPlayerUpdate(player)
-	if player:HasCollectible(self.ID) and player:IsFrame(90,0) and self._Players:IsShooting(player) then
+	if player:HasCollectible(self.ID) and player:IsFrame(50,0) and self._Players:IsShooting(player) then
 		local vec = self._Players:GetAimingVector(player)
 		
 		self._Players:FireBrimstones(player, function(laser)

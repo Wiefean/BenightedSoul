@@ -7,8 +7,9 @@
 	<player name="Benighted ???" modcostume="7258" birthright="Irresistible" skin="bxxx/bxxx.png" healthtype="1" hp="0" armor="6" nameimage="bxxx_name.png" portrait="bxxx.png" noshake="true" skinColor="2" costumeSuffix="bluebaby" nomarks="true" hidden="true" />
 	<player name="Benighted Eve" birthright="Fruit fore fault" skin="beve/beve.png" hp="4" nameimage="beve_name.png" portrait="beve.png" skinColor="-1" costumeSuffix="beve" nomarks="true" hidden="true" />
 	<player name="Benighted Samson" modcostume="7259" birthright="Rushdown" skin="bsamson/bsamson.png" hp="6" nameimage="bsamson_name.png" portrait="bsamson.png" skinColor="-1" costumeSuffix="bsamson" nomarks="true" hidden="true" speedmodifier="0.1" rangemodifier="-1.5" shotspeedmodifier ="0.31" firedelaymodifier = "-0.55" />
-	<player name="Benighted Eden" modcostume="7260" birthright="Blasphemy" skin="beden/beden.png" hp="6" nameimage="beden_name.png" portrait="beden.png" skinColor="-1" costumeSuffix="beden" nomarks="true" hidden="true" />
-	<player name="Benighted Lost" modcostume="7261" birthright="Eternal Lock" skin="blost/blost.png" armor="1" healthtype="2" coins="1" nameimage="blost_name.png" portrait="blost.png" skinColor="0" nomarks="true" hidden="true" />
-	<player name="Benighted Keeper" modcostume="7262" birthright="Depends on you" skin="bkeeper/bkeeper.png" healthtype="3" hp="2" coins="70" nameimage="bkeeper_name.png" portrait="bkeeper.png" noshake="true" skinColor="5" costumeSuffix="keeper" nomarks="true" hidden="true" speedmodifier="-0.2" luckmodifier="-7" />
+	<player name="Benighted Azazel" modcostume="7260" birthright="" skin="bazazel/bazazel.png" canShoot="false" armor="2" black="4" nameimage="bazazel_name.png" portrait="bazazel.png" skinColor="1" costumeSuffix="bazazel" nomarks="true" hidden="false" />
+	<player name="Benighted Eden" modcostume="7261" birthright="Blasphemy" skin="beden/beden.png" hp="6" nameimage="beden_name.png" portrait="beden.png" skinColor="-1" costumeSuffix="beden" nomarks="true" hidden="true" />
+	<player name="Benighted Lost" modcostume="7262" birthright="Eternal Lock" skin="blost/blost.png" armor="1" healthtype="2" coins="1" nameimage="blost_name.png" portrait="blost.png" skinColor="0" nomarks="true" hidden="true" />
+	<player name="Benighted Keeper" modcostume="7263" birthright="Depends on you" skin="bkeeper/bkeeper.png" healthtype="3" hp="2" coins="70" nameimage="bkeeper_name.png" portrait="bkeeper.png" noshake="true" skinColor="5" costumeSuffix="keeper" nomarks="true" hidden="true" speedmodifier="-0.2" luckmodifier="-7" />
 
 </players>

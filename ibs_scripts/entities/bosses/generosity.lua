@@ -295,11 +295,15 @@ function Generosity:OnNpcDeath(npc)
 	
 	if npc.SubType == self.SubType.Generosity then
 		local pos = game:GetRoom():FindFreePickupSpawnPosition(npc.Position)
-		--慷慨之魂,已有则换成审判
-		if PlayerManager.AnyoneHasCollectible(IBS_ItemID.SOG) then
-			Isaac.Spawn(5, 300, 21, pos, Vector.Zero, nil)
-		else
+		local int = npc:GetDropRNG():RandomInt(100)
+		
+		--33%慷慨之魂
+		if int < 33 and not PlayerManager.AnyoneHasCollectible(IBS_ItemID.SOG) then		
 			Isaac.Spawn(5, 100, IBS_ItemID.SOG, pos, Vector.Zero, nil)
+		else
+			--67%审判卡+店长伪忆
+			Isaac.Spawn(5, 300, 21, pos, RandomVector(), nil)
+			Isaac.Spawn(5, 300, IBS_PocketID.BKeeper, pos, RandomVector(), nil)
 		end
 	end
 end

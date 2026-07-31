@@ -14,6 +14,7 @@ mod.IBS_Player = {
 	BXXX = Load('bxxx'),
 	BEve = Load('beve'),
 	BSamson = Load('bsamson'),
+	BAzazel = Load('bazazel'),
 	BEden = Load('beden'),
 	BLost = Load('blost'),
 	BKeeper = Load('bkeeper'),
