@@ -8,6 +8,7 @@ SubType = {
 ]]
 
 local mod = Isaac_BenightedSoul
+local IBS_PlayerID = mod.IBS_PlayerID
 local IBS_EffectID = mod.IBS_EffectID
 local IronHeart = mod.IBS_Class.IronHeart()
 
@@ -183,6 +184,11 @@ function ShockWave:OnUpdate(effect)
 								--贪婪达4则恢复更多
 								if sinData and sinData.Greed >= 4 then
 									recover = recover + 0.3
+								end
+								
+								--表表抹
+								if player:GetPlayerType() == IBS_PlayerID.BMaggy and player:HasCollectible(619) then
+									recover = recover * 2
 								end
 								
 								IHData.Recover = IHData.Recover + recover

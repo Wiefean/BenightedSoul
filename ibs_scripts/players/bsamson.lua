@@ -64,8 +64,6 @@ function BSamson:Benighted(player, fromMenu)
 		self:GetPostureCards(player)[1] = 1
 		mod.IBS_Item.Posture:RefreshList(player)
 		
-		player:AnimateCollectible(mod.IBS_ItemID.Posture, "Pickup")
-		
 		--如果完成了对应挑战,生成倒卡
 		if self:GetIBSData('persis')['bc7'] then
 			local room = game:GetRoom()

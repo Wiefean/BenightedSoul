@@ -56,11 +56,11 @@ function FamilyPortrayal:UpdateRenderFlags(pickup)
 		if flags & AnimRenderFlags.STATIC <= 0 then		
 			spr:SetRenderFlags(flags | AnimRenderFlags.STATIC)
 		end
-		self._Ents:GetTempData(pickup).LastIsBrokenTV = true
+		self._Ents:GetTempData(pickup).LastIsFamilyPortrayal = true
 	else
-		if self._Ents:GetTempData(pickup).LastIsBrokenTV and flags & AnimRenderFlags.STATIC > 0 then
+		if self._Ents:GetTempData(pickup).LastIsFamilyPortrayal and flags & AnimRenderFlags.STATIC > 0 then
 			spr:SetRenderFlags(flags &~ AnimRenderFlags.STATIC)
-			self._Ents:GetTempData(pickup).LastIsBrokenTV = nil
+			self._Ents:GetTempData(pickup).LastIsFamilyPortrayal = nil
 		end
 	end
 end

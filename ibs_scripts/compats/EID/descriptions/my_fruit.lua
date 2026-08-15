@@ -9,7 +9,7 @@ local BlessList = {
 			en = 'Foreknown',
 		},
 		desc = {
-			zh = '清理房间后有50%概率生成正塔罗牌',
+			zh = '清理房间后有50%概率生成正位塔罗牌',
 			en = 'When a room is cleared, 50% chance to spawn a common tarot card',
 		},
 	},

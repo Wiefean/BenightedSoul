@@ -88,7 +88,7 @@ BEden.SkillTreeInfo = {
 					Name = '[御血]',
 					Max = 6,
 					Desc = {
-						{'受伤时丢下半红心, 并释放血波', '被命中的敌人将掉落心(1.5秒)'},
+						{'受伤时失去并生成半红心, 并释放血波', '被命中的敌人将掉落心(1.5秒)'},
 						{'吞下乌鸦的心', '血波对敌人施加硫磺标记'},
 						{'+ 2 心之容器', '普通房间内红心受伤,', '不再影响天使/恶魔房开启率'},
 						{'血波伤害 + 50%', '血波范围 + 25%,', '对敌人施加流血效果'},
@@ -97,7 +97,7 @@ BEden.SkillTreeInfo = {
 					},
 					GreedMax = 6,
 					GreedDesc = {
-						{'受伤时丢下半红心, 并释放血波', '被命中的敌人将掉落心(1.5秒)'},
+						{'受伤时失去并生成半红心, 并释放血波', '被命中的敌人将掉落心(1.5秒)'},
 						{'吞下乌鸦的心', '血波对敌人施加硫磺标记'},
 						{'+ 3 心之容器'},
 						{'血波伤害 + 50%', '血波范围 + 25%,', '对敌人施加流血效果'},
@@ -113,7 +113,7 @@ BEden.SkillTreeInfo = {
 						{'+ 1 钥匙', '+ 30 硬币'},
 						{'生成大便', '生成死鸟'},
 						{'生成小孩的心脏', '生成阿撒泻勒的残角'},
-						{'生成拉萨路的魂石,', '生成游魂的魂石'},
+						{'生成拉撒路的魂石,', '生成游魂的魂石'},
 						{'吞下银币', '吞下失落摇篮曲'},
 						{'获得2骨心和1魂心', '进入新Boss房:', '触发亚波伦的魂石', '触发伯大尼的魂石'},
 						{'获得长子名分', '心上限 - 3'},
@@ -125,7 +125,7 @@ BEden.SkillTreeInfo = {
 						{'生成小孩的心脏', '生成阿撒泻勒的残角'},
 						{'生成拉萨路的魂石,', '生成游魂的魂石'},
 						{'生成深口袋', '吞下失落摇篮曲'},
-						{'获得2骨心和1魂心', '进入新Boss房或Boss波次:', '触发亚波伦的魂石', '触发伯大尼的魂石'},
+						{'获得2骨心和1魂心', '进入新的Boss波次:', '触发亚波伦的魂石', '触发伯大尼的魂石'},
 						{'获得长子名分', '心上限 - 3'},
 					},
 				},
@@ -195,13 +195,13 @@ BEden.SkillTreeInfo = {
 					Max = 4,
 					Desc = {
 						{'进入宝箱房不扣除星象房开启率'},
-						{'星星道具点数价值 + 40%'},
+						{'星星道具点数价值 x 200%'},
 						{'生成望远镜片'},
 						{'星象房开启率 + 100%'},
 					},
 					GreedMax = 2,
 					GreedDesc = {
-						{'星星道具点数价值 + 25%'},
+						{'星星道具点数价值 x 300%'},
 						{'白色宝箱房变为星象房'},
 					},
 				},
@@ -221,15 +221,15 @@ BEden.SkillTreeInfo = {
 					Desc = {
 						{'在第三层自动激活', '无法激活[所谓正道]', '无法激活[行歧路者]'},
 						{'道具点数价值 + 25%'},
-						{'当前层具有诅咒时:', '所有属性 + 25%'},
+						{'道具点数价值 + 25%', '当前层具有诅咒时:', '所有属性 + 25%'},
 						{'在Boss房时:', '所有属性 + 25%'},
 						{'所有属性 + 25%'},
 					},
 					GreedDesc = {
 						{'在第二层自动激活', '无法激活[所谓正道]', '无法激活[行歧路者]'},
 						{'道具点数价值 + 25%'},
-						{'当前层具有诅咒时:', '所有属性 + 25%'},
-						{'在Boss房, Boss波次或额外波次时:', '所有属性 + 25%'},
+						{'道具点数价值 + 25%, 当前层具有诅咒时:', '所有属性 + 25%'},
+						{'在Boss波次或额外波次时:', '所有属性 + 25%'},
 						{'所有属性 + 25%'},
 					},
 				},					
@@ -273,7 +273,7 @@ BEden.SkillTreeInfo = {
 					Max = 6,
 					Desc = {
 						{'道具价格减少1硬币'},
-						{'物品价格减少1硬币'},
+						{'掉落物价格减少1硬币'},
 						{'生成屁股硬币', '生成腐烂硬币'},
 						{'吞下假币'},
 						{'生成染血硬币', '生成焦灼硬币', '生成扁平硬币'},
@@ -294,7 +294,7 @@ BEden.SkillTreeInfo = {
 					Max = 6,
 					Desc = {
 						{'激活将视为一次恶魔交易', '无法激活[我行我素]', '无法激活[所谓正道] (除非二元性)'},
-						{'品质低于2的道具失去点数价值', '道具点数价值 + 60%'},
+						{'品质低于2的道具失去点数价值', '道具点数价值 + 66.6%'},
 						{'进入新层:', '获得6点数和13硬币'},
 						{'吞下犹大的舌头'},
 						{'每层都会遇到黑暗诅咒', '不会遇到其他诅咒'},
@@ -303,7 +303,7 @@ BEden.SkillTreeInfo = {
 					GreedMax = 5,
 					GreedDesc = {
 						{'激活将视为一次恶魔交易', '无法激活[我行我素]', '无法激活[行歧路者] (除非二元性)'},
-						{'品质低于2的道具失去点数价值', '道具点数价值 + 60%'},
+						{'品质低于2的道具失去点数价值', '道具点数价值 + 66.6%'},
 						{'进入新层:', '获得6点数和13硬币'},
 						{'吞下犹大的舌头', '每层都会遇到黑暗诅咒', '不会遇到其他诅咒'},
 						{'在第7层获得鬼牌'},
@@ -363,7 +363,7 @@ BEden.SkillTreeInfo = {
 					Name = '[Shrug It Off]',
 					Max = 3,
 					Desc = {
-						{'Secret Exit keeps open', 'Curse of Moving immunity'},
+						{'Secret Exit keeps open', 'Curse of the Moving immunity'},
 						{"Boss Rush and Blue Worm keep open"},
 						{'Gain:', 'Polaroid, Negative', 'Key Piece 1&2'},
 					},
@@ -378,7 +378,7 @@ BEden.SkillTreeInfo = {
 					Desc = {
 						{'When hurt, drop half a Red Heart to', 'release bloody wave', 'Enemies hit will drop hearts(1.5s)'},
 						{'Gulp Crow Heart', 'Wave can brimestone-ly mark enemies'},
-						{'+ 2 Heart Container', 'Red Heart damaged in default room,', "won't decrease room chance"},
+						{'+ 2 Heart Container', 'Red Heart damaged in default room,', "won't decrease devil chance"},
 						{'Wave damage + 50%', 'range + 25%', 'bleeds enemies'},
 						{'Every 10s, heal half a Red Heart', 'until half-full'},
 						{'Maximum Hearts + 6'},
@@ -403,7 +403,7 @@ BEden.SkillTreeInfo = {
 						{'Spawn Soul of Lazarus,', 'Spawn Soul of the Lost'},
 						{'Gulp Silver Dollar', 'Gulp Forgotten Lullaby'},
 						{'Gain 2 Bone Hearts and 1 Soul Heart', 'New Boss Room:', 'Trigger Soul of Apollyon', 'Trigger Soul of Bethany'},
-						{'Gain Birthright', 'Maximum Hearts - 6'},
+						{'Gain Birthright', 'Maximum Hearts - 3'},
 					},
 					GreedDesc = {
 						{'+ 1 Bomb', '+ 1 Heart Container'},
@@ -412,8 +412,8 @@ BEden.SkillTreeInfo = {
 						{"Spawn Child's Heart", "Spawn Azazel's Stump"},
 						{'Spawn Soul of Lazarus,', 'Spawn Soul of the Lost'},
 						{'Spawn Deep Pockets', 'Gulp Forgotten Lullaby'},
-						{'Gain 2 Bone Hearts and 1 Soul Heart', 'New Boss Room or Boss wave:', 'Trigger Soul of Apollyon', 'Trigger Soul of Bethany'},
-						{'Gain Birthright', 'Maximum Hearts - 6'},
+						{'Gain 2 Bone Hearts and 1 Soul Heart', 'New boss wave:', 'Trigger Soul of Apollyon', 'Trigger Soul of Bethany'},
+						{'Gain Birthright', 'Maximum Hearts - 3'},
 					},					
 				},
 				[5] = {
@@ -429,9 +429,9 @@ BEden.SkillTreeInfo = {
 					Max = 5,
 					Desc = {
 						{'Items to 7 points at least', 'Invalid [My Path]', 'Invalid [Another Path] unless Duality'},
-						{'New level if not do evil last level:', 'Points + 21'},
-						{'New level if not do evil last level:', 'Holy Card and Soul Heart'},
-						{'New level if not do evil last level:', 'Clear curses'},
+						{'New level if no evil last level:', 'Points + 21'},
+						{'New level if no evil last level:', 'Holy Card and Soul Heart'},
+						{'New level if no evil last level:', 'Clear curses'},
 						{'Angel and devil chance + 100%', 'Gain Joker in a new level after 6th'},
 					},
 					GreedMax = 4,
@@ -469,10 +469,10 @@ BEden.SkillTreeInfo = {
 					Name = '[All For One]',
 					Max = 5,
 					Desc = {
-						{'Consume a pill:', 'Points + 1', '3 points most through this for a level'},
-						{'Consume a card:', 'Points + 1', '5 points most through this for a level'},
-						{'Consume a rune:', 'Points + 1', '9 points most through this for a level'},
-						{'Consume other pocket items:', 'Points + 1', '15 points most through this for a level'},
+						{'Consume a pill:', 'Points + 1', '3 points most from this skill for a level'},
+						{'Consume a card:', 'Points + 2', '5 points most from this skill for a level'},
+						{'Consume a rune:', 'Points + 4', '9 points most from this skill for a level'},
+						{'Consume other pocket items:', 'Points + 5', '15 points most through this for a level'},
 						{'Consume 7 points to smelt a trinket', 'A smelted trinket to 5 points', '25 points most through this for a level'},
 					},
 				},
@@ -481,7 +481,7 @@ BEden.SkillTreeInfo = {
 					Max = 4,
 					Desc = {
 						{"Entering Treasure Room won't", " decrease Planetarium chance"},
-						{'Star items to points + 40%'},
+						{'Star items to points x 200%'},
 						{'Spawn Telescope Lens'},
 						{'Planetarium chance + 100%'},
 					},
@@ -505,17 +505,17 @@ BEden.SkillTreeInfo = {
 					Name = '[My Path]',
 					Max = 5,
 					Desc = {
-						{'Auto-valid at 3th level', 'Invalid[The Path]', 'Invalid[Another Path]'},
+						{'Auto-activated at 3th level', 'Invalid[The Path]', 'Invalid[Another Path]'},
 						{'Items to points + 25%'},
-						{'With level curses:', 'stats + 25%'},
-						{'In Boos Room:', 'stats + 25%'},
+						{'Items to points + 25%', 'With level curses:', 'stats + 25%'},
+						{'In Boss Room:', 'stats + 25%'},
 						{'stats + 25%'},
 					},
 					GreedDesc = {
-						{'Auto-valid at 2th level', 'Invalid[The Path]', 'Invalid[Another Path]'},
+						{'Auto-activated at 2th level', 'Invalid[The Path]', 'Invalid[Another Path]'},
 						{'Items to points + 25%'},
-						{'With level curses:', 'stats + 25%'},
-						{'In Boos Room:', 'stats + 25%'},
+						{'Items to points + 25%', 'With level curses:', 'stats + 25%'},
+						{'In boss wave or extra wave:', 'stats + 25%'},
 						{'stats + 25%'},
 					},
 					
@@ -581,7 +581,7 @@ BEden.SkillTreeInfo = {
 					Max = 6,
 					Desc = {
 						{'Regarded as a devil deal', 'Invalid[My Path]', 'Invalid[The Path] unless Duality'},
-						{'Below-2-quality items to no points', 'Items to points + 60%'},
+						{'Below-2-quality items to no points', 'Items to points + 66.6%'},
 						{'New level:', '6 points and 13 coins'},
 						{"Gulp Judas' Tongue"},
 						{'Curse of Darkness for each level', 'No other curses'},
@@ -590,7 +590,7 @@ BEden.SkillTreeInfo = {
 					GreedMax = 5,
 					GreedDesc = {
 						{'Regarded as a devil deal', 'Invalid[My Path]', 'Invalid[The Path] unless Duality'},
-						{'Below-2-quality items to no points', 'Items to points + 60%'},
+						{'Below-2-quality items to no points', 'Items to points + 66.6%'},
 						{'New level:', '6 points and 13 coins'},
 						{"Gulp Judas' Tongue", 'Curse of Darkness for each level', 'No other curses'},
 						{'Gain Joker at 7th level'},
@@ -1292,21 +1292,29 @@ function BEden:GetItemPointValue(id, player, isTrinket, isSmeltedTrinket)
 			--星盘效果
 			if (greed and data.astrolabe >= 1) or data.astrolabe >= 2 then
 				if itemConfig:HasTags(ItemConfig.TAG_STARS) then
-					local mult = (greed and 1.25) or 1.4
-					value = math.ceil(value * mult)
+					if greed then
+						value = value * 3
+					else					
+						value = value * 2
+					end
 				end
 			end
 
 			if data.my_path > 0 then
 				--我行我素2级
 				if data.my_path >= 2 then
-					value = math.ceil(value * 1.25)
+					value = value * 1.25
 				end
+				
+				--我行我素3级
+				if data.my_path >= 3 then
+					value = value * 1.25
+				end				
 			else
 				--行歧路者2级
 				if data.another_path >= 2 then
 					if quality >= 2 then
-						value = math.ceil(value * 1.6)
+						value = value * 1.666
 					else
 						value = 0
 					end
@@ -1319,7 +1327,7 @@ function BEden:GetItemPointValue(id, player, isTrinket, isSmeltedTrinket)
 			end
 		end
 
-		return value
+		return math.ceil(value)
 	end	
 	
 	return 0
@@ -1522,7 +1530,7 @@ function BEden:GetSkillsSectionCost(player, row, column)
 		
 		--备用电池
 		if column == 3 and data.battery < 1 then
-			return 49
+			return 28
 		end
 	elseif row == 2 then
 		--耸肩无视
@@ -1636,7 +1644,7 @@ function BEden:GetSkillsSectionCost(player, row, column)
 		--行歧路者
 		if column == 3 and data.another_path < ((greed and 5) or 6) then
 			if data.my_path <= 0 and (data.the_path <= 0 or duality) then
-				return 6 + (6 * data.another_path)
+				return math.max(1, 6 * data.another_path)
 			end
 		end		
 	end

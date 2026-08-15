@@ -118,7 +118,8 @@
 		<Item Name="Rites of The Roots" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Rage of Swarm" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Insects and Nectars" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		
+		<Item Name="Toy Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Key Walker" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="greedTreasure">
@@ -212,7 +213,8 @@
 		<Item Name="Broken TV" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Rage of Swarm" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Insects and Nectars" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		
+		<Item Name="Toy Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Key Walker" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="planetarium">
@@ -230,7 +232,6 @@
 		<Item Name="Super B" Weight="0.5" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Dreggy Pie" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Mom's Cheque" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-		<Item Name="Sword of Siberite" Weight="0.1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Gold Experience" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Profane Weapon" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="China" Weight="1" DecreaseBy="1" RemoveOn="0.1" />		
@@ -695,6 +696,7 @@
 		<Item Name="Leaden Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Clash" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="White Q Ball" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Toy Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
 	</Pool>
 	
@@ -762,7 +764,8 @@
 		<Item Name="Treasure Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Beggar Medal" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Insects and Nectars" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-
+		<Item Name="Toy Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Key Walker" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="batteryBum">

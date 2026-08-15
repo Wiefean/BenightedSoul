@@ -210,7 +210,9 @@ mod.IBS_Item = {
 	Nectars = Load('insects_and_nectars'),
 	Orichaliron = Load('orichaliron'),
 	DisasterOfSodom = Load('disaster_of_sodom'),
-	Monocle = Load('monocle'),	
+	Monocle = Load('monocle'),
+	ToyKeys = Load('toy_keys'),
+	KeyWalker = Load('key_walker'),
 
 }
 

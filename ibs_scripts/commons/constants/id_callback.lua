@@ -3,8 +3,19 @@
 Isaac_BenightedSoul.IBS_CallbackID = {
 
 
---镜子被破坏(弃用)
--- MIRROR_BROKEN = "IBS_CALLBACK_MIRROR_BROKEN",
+--硬币数量变动
+NUM_CHANGE_COIN = "IBS_CALLBACK_NUM_CHANGE_COIN",
+--[[提供参数:变动数值]]
+
+
+--炸弹数量变动
+NUM_CHANGE_BOMB = "IBS_CALLBACK_NUM_CHANGE_BOMB",
+--[[提供参数:变动数值]]
+
+
+--钥匙数量变动
+NUM_CHANGE_KEY = "IBS_CALLBACK_NUM_CHANGE_KEY",
+--[[提供参数:变动数值]]
 
 
 --变身昧化角色

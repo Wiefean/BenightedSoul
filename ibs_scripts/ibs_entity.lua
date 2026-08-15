@@ -104,6 +104,8 @@ Relic = Load('relic'),
 --勤劳小麦
 DeligenceWheat = Load('deligence_wheat'),
 
+--钥匙行者
+KeyWalker = Load('key_walker'),
 
 }
 

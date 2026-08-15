@@ -92,12 +92,29 @@ BLost.RareChestList = {
 	PickupVariant.PICKUP_ETERNALCHEST,
 	PickupVariant.PICKUP_ETERNALCHEST,
 	PickupVariant.PICKUP_ETERNALCHEST,
+	PickupVariant.PICKUP_ETERNALCHEST,
+	PickupVariant.PICKUP_ETERNALCHEST,
+	PickupVariant.PICKUP_ETERNALCHEST,
+	PickupVariant.PICKUP_ETERNALCHEST,
+	PickupVariant.PICKUP_ETERNALCHEST,
+	PickupVariant.PICKUP_ETERNALCHEST,
 	PickupVariant.PICKUP_ETERNALCHEST,	
+	PickupVariant.PICKUP_ETERNALCHEST,	
+	
 	PickupVariant.PICKUP_OLDCHEST,
 	PickupVariant.PICKUP_OLDCHEST,
 	PickupVariant.PICKUP_OLDCHEST,
 	PickupVariant.PICKUP_OLDCHEST,
 	PickupVariant.PICKUP_OLDCHEST,
+	PickupVariant.PICKUP_OLDCHEST,
+	PickupVariant.PICKUP_OLDCHEST,
+	PickupVariant.PICKUP_OLDCHEST,
+	PickupVariant.PICKUP_OLDCHEST,
+	PickupVariant.PICKUP_OLDCHEST,	
+	PickupVariant.PICKUP_OLDCHEST,	
+	PickupVariant.PICKUP_OLDCHEST,	
+	PickupVariant.PICKUP_OLDCHEST,	
+	
 	PickupVariant.PICKUP_REDCHEST,
 	PickupVariant.PICKUP_REDCHEST,
 	PickupVariant.PICKUP_REDCHEST,
@@ -108,6 +125,28 @@ BLost.RareChestList = {
 	PickupVariant.PICKUP_REDCHEST,
 	PickupVariant.PICKUP_REDCHEST,
 	PickupVariant.PICKUP_REDCHEST,		
+	PickupVariant.PICKUP_REDCHEST,		
+	PickupVariant.PICKUP_REDCHEST,		
+	PickupVariant.PICKUP_REDCHEST,		
+	PickupVariant.PICKUP_REDCHEST,	
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,	
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,		
+	PickupVariant.PICKUP_REDCHEST,		
+	PickupVariant.PICKUP_REDCHEST,		
+	PickupVariant.PICKUP_REDCHEST,		
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	
 	PickupVariant.PICKUP_WOODENCHEST,
 	PickupVariant.PICKUP_WOODENCHEST,
 	PickupVariant.PICKUP_WOODENCHEST,
@@ -122,6 +161,27 @@ BLost.RareChestList = {
 	PickupVariant.PICKUP_WOODENCHEST,
 	PickupVariant.PICKUP_WOODENCHEST,
 	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	
 	PickupVariant.PICKUP_MEGACHEST,
 }
 
@@ -336,7 +396,7 @@ function BLost:GetChestDurability(slot, chestName)
 		elseif chestName == "Golden" then
 			return 140,90
 		elseif chestName == "Red" then
-			return 120,66
+			return 123,66
 		end
 	end
 	
@@ -384,9 +444,9 @@ function BLost:GetChestDurability(slot, chestName)
 		elseif chestName == "Haunted" then
 			return 60,60
 		elseif chestName == "Golden" then
-			return 100,75
+			return 120,75
 		elseif chestName == "Red" then
-			return 90,66
+			return 99,66
 		end	
 	end
 
@@ -400,7 +460,7 @@ function BLost:GetRepairCost(slot, chestName, left, max)
 	if chestName == "Common" then
 		mult = 0.7
 	elseif chestName == "Spike" then
-		mult = 1.5
+		mult = 1
 	elseif chestName == "Mega" then
 		mult = 4
 	elseif chestName == "Haunted" then
@@ -465,7 +525,7 @@ function BLost:CanRepair(player, slot)
 end
 
 --获取护甲受伤无敌帧
-function BLost:GetArmorInvincibleFrames(chestName, megaLevel)
+function BLost:GetArmorInvincibleFrames(chestName)
 	if chestName == "Common" then
 		return 90
 	elseif chestName == "Stone" then
@@ -477,13 +537,13 @@ function BLost:GetArmorInvincibleFrames(chestName, megaLevel)
 	elseif chestName == "Wooden" then
 		return 60
 	elseif chestName == "Mega" then
-		return 30 + 6*(megaLevel or 0)
+		return 30
 	elseif chestName == "Old" then
 		return 102
 	elseif chestName == "Golden" then
 		return 60
 	elseif chestName == "Red" then
-		return 66
+		return 69
 	elseif chestName == "Mom" then
 		return 42
 	end
@@ -497,11 +557,11 @@ BLost.HeartValueForRed = {
 	[HeartSubType.HEART_SOUL] = 6,
 	[HeartSubType.HEART_ETERNAL] = 14,
 	[HeartSubType.HEART_DOUBLEPACK] = 8,
-	[HeartSubType.HEART_BLACK] = 12,
-	[HeartSubType.HEART_GOLDEN] = 14,
+	[HeartSubType.HEART_BLACK] = 13,
+	[HeartSubType.HEART_GOLDEN] = 12,
 	[HeartSubType.HEART_HALF_SOUL] = 3,
-	[HeartSubType.HEART_SCARED] = 4,
-	[HeartSubType.HEART_BLENDED] = 14,
+	[HeartSubType.HEART_SCARED] = 5,
+	[HeartSubType.HEART_BLENDED] = 12,
 	[HeartSubType.HEART_BONE] = 12,
 	[HeartSubType.HEART_ROTTEN] = 5,
 }
@@ -511,7 +571,7 @@ function BLost:TryAbsorbHeart(player, slot, heart)
 	if player:GetPlayerType() ~= self.ID then return false end
 	local pickup = (heart ~= nil) and heart:ToPickup()
 	if not pickup then return false end
-	local value = self.HeartValueForRed[pickup.SubType]
+	local value = self.HeartValueForRed[pickup.SubType] or 6
 	local mecha = self:GetMechaData(player)
 	
 	if mecha[slot].Chest == 'Red' and value ~= nil then
@@ -553,7 +613,7 @@ function BLost:OnTakeDMG(ent, dmg)
 		local armor = self:GetMechaData(player)[2]
 		if armor.Chest ~= nil and armor.Chest ~= "None" and armor.Left > 0 then
 			armor.Left = armor.Left - 1
-			player:SetMinDamageCooldown(self:GetArmorInvincibleFrames(armor.Chest, self:GetMegaLevel(player)))
+			player:SetMinDamageCooldown(self:GetArmorInvincibleFrames(armor.Chest))
 			
 			--特效
 			local effect = ChestMantle:Spawn(player)
@@ -569,7 +629,7 @@ function BLost:OnTakeDMG(ent, dmg)
 			--红箱护甲加伤
 			if armor.Chest == 'Red' then
 				local data = self:GetData(player)
-				data.TempDMG = math.min(6, data.TempDMG + 0.3)
+				data.TempDMG = data.TempDMG + 0.06
 				effect.Color = Color(1,0,0,1)
 				sfx:Play(277, 1, 2, false, 0.666)
 			else
@@ -720,14 +780,14 @@ function BLost:OnEvaluateCache(player, flag)
 	if flag == CacheFlag.CACHE_DAMAGE then
 		local mult = 0.7
 		if armor.Chest == 'Haunted' then
-			mult = 1.2
+			mult = 1.3
 		end
-		player.Damage = player.Damage * mult + (data.TempDMG or 0)
+		player.Damage = player.Damage * mult * (1 + (data.TempDMG or 0))
 	end
 
 	if flag == CacheFlag.CACHE_LUCK then
 		if armor.Chest == 'Golden' then
-			Stats:Luck(player, 1)
+			Stats:Luck(player, 7)
 		end
 	end
 
@@ -1039,7 +1099,7 @@ function BLost:OnHUDRender()
 					local color = Color(1,1,1,0.5)
 					
 					--颜色表示耐久损耗程度
-					if percent then
+					if percent and percent > 0 then
 						if percent > 0.7 then
 							color = Color(0,1,0,0.5) --绿
 						elseif percent > 0.35 and percent <= 0.7 then

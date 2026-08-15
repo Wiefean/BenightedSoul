@@ -142,8 +142,8 @@ function BKeeper:OnTakeDMG(ent, dmg, flag, source, cd)
 		--硬核不掉房率
 		if game:GetDebugFlags() & DebugFlag.INFINITE_HP <= 0 then --检测debug3
 			--致命伤优先消耗心币
-			if player:GetHearts() <= 2 and data.HeartTokens >= 14 then
-				data.HeartTokens = data.HeartTokens - 14
+			if player:GetHearts() <= 2 and data.HeartTokens > 0 then
+				data.HeartTokens = 0
 				return {Damage = 1, DamageFlags = flag | DamageFlag.DAMAGE_FAKE, DamageCountdown = cd}
 			else	
 				if not Damage:IsPlayerSelfDamage(player, flag, source) then
@@ -383,7 +383,7 @@ BKeeper.PoolForPennyTrinket = {
 			{Pool = ItemPoolType.POOL_DEVIL, Times = 4},
 		},	
 		[TrinketType.TRINKET_COUNTERFEIT_PENNY] = {
-			{Pool = ItemPoolType.POOL_SHOP, Times = 2},
+			{Pool = ItemPoolType.POOL_SHOP, Times = 1},
 		},
 		[TrinketType.TRINKET_BLESSED_PENNY] = {
 			{Pool = ItemPoolType.POOL_ANGEL, Times = 8},
@@ -392,7 +392,7 @@ BKeeper.PoolForPennyTrinket = {
 			{Pool = ItemPoolType.POOL_DEVIL, Times = 8},
 		},
 		[IBS_TrinketID.GlitchedPenny] = {
-			{Pool = "Random", Times = 2},
+			{Pool = "Random", Times = 1},
 		},
 	},
 
@@ -601,12 +601,17 @@ function BKeeper:OnBumDonation(ent, pickup)
 		data.Donations = data.Donations + 1
 
 		--每达到一定次数时给予一个心容
-		if self.HeartLimitStage[data.Donations] then
+		local stage = self.HeartLimitStage[data.Donations]
+		if stage then
 			for i = 0, game:GetNumPlayers() - 1 do
 				local player = Isaac.GetPlayer(i)
 				if player:GetPlayerType() == self.ID then
 					player:AddMaxHearts(2, true)
 					player:AddHearts(2, true)
+					if stage == 4 and not player:HasCollectible(260) then
+						player:AddCollectible(260)
+						game:GetItemPool():RemoveCollectible(260)
+					end
 					sfx:Play(268)
 				end
 			end

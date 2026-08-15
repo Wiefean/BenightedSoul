@@ -69,4 +69,8 @@
 		<sample weight="1" path="swing_hit.wav" />
 	</sound>
 
+	<sound name="钥匙行者">
+		<sample weight="1" path="key_walker.wav" />
+	</sound>
+
 </sounds>

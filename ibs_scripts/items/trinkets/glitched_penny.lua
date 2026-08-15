@@ -12,7 +12,7 @@ function GlitchedPenny:PreCoinCollision(pickup, other)
 	local player = other:ToPlayer()
 	if player and player:HasTrinket(self.ID) and self._Pickups:CanCollect(pickup, player) then
 		local rng = RNG(pickup.InitSeed)
-		local chance = rng:RandomInt(math.min(100, 10 + 5 * player:GetTrinketMultiplier(self.ID)), 100)
+		local chance = rng:RandomInt(math.min(50, 10 + 5 * player:GetTrinketMultiplier(self.ID)))
 		if rng:RandomInt(100) < chance then
 			pickup:Morph(5, 20, 0, true, false)
 			return true

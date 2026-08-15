@@ -207,6 +207,8 @@ Nectars = Isaac.GetItemIdByName("Insects and Nectars"),
 Orichaliron = Isaac.GetItemIdByName("Orichaliron"),
 DisasterOfSodom = Isaac.GetItemIdByName("Disaster of Sodom"),
 Monocle = Isaac.GetItemIdByName("Monocle"),
+ToyKeys = Isaac.GetItemIdByName("Toy Keys"),
+KeyWalker = Isaac.GetItemIdByName("Key Walker"),
 
 }
 

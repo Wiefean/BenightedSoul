@@ -4,12 +4,13 @@
     <directory>benighted soul</directory>
     <id>3290493485</id>
     <description>!!!ATTENTION!!!
+REP+ is unrecommended, it may cause unknown issues
 REPENTOGON is necessary
 https://steamcommunity.com/sharedfiles/filedetails/?id=3127536138
 
 - What's in it?
 · 10+1 characters with complete unlock-trees!
-· 190+ items!
+· 200+ items!
 · 6+1 bosses!
 · 10 challenges!
 · 2 curses!
@@ -40,7 +41,7 @@ Reverie
 
 
 Start cry!</description>
-    <version>0.12.3.0</version>
+    <version>0.12.4.0</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>

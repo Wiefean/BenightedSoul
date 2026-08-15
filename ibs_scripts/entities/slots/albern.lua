@@ -14,7 +14,13 @@ local Albern = mod.IBS_Class.Slot{
 }
 
 --箱子池(没错写这么长就是故意的)
-Albern.ChestList = {
+Albern.RareChestList = {
+	PickupVariant.PICKUP_ETERNALCHEST,
+	PickupVariant.PICKUP_ETERNALCHEST,
+	PickupVariant.PICKUP_ETERNALCHEST,
+	PickupVariant.PICKUP_ETERNALCHEST,
+	PickupVariant.PICKUP_ETERNALCHEST,
+	PickupVariant.PICKUP_ETERNALCHEST,
 	PickupVariant.PICKUP_ETERNALCHEST,
 	PickupVariant.PICKUP_ETERNALCHEST,
 	PickupVariant.PICKUP_ETERNALCHEST,
@@ -29,30 +35,8 @@ Albern.ChestList = {
 	PickupVariant.PICKUP_ETERNALCHEST,
 	PickupVariant.PICKUP_ETERNALCHEST,
 	PickupVariant.PICKUP_ETERNALCHEST,	
-	PickupVariant.PICKUP_ETERNALCHEST,
-	PickupVariant.PICKUP_ETERNALCHEST,
-	PickupVariant.PICKUP_ETERNALCHEST,
-	PickupVariant.PICKUP_ETERNALCHEST,
-	PickupVariant.PICKUP_ETERNALCHEST,
-	PickupVariant.PICKUP_ETERNALCHEST,
-	PickupVariant.PICKUP_ETERNALCHEST,
-	PickupVariant.PICKUP_ETERNALCHEST,
-	PickupVariant.PICKUP_ETERNALCHEST,
-	PickupVariant.PICKUP_ETERNALCHEST,
-	PickupVariant.PICKUP_ETERNALCHEST,
-	PickupVariant.PICKUP_ETERNALCHEST,
-	PickupVariant.PICKUP_ETERNALCHEST,
-	PickupVariant.PICKUP_ETERNALCHEST,		
-	PickupVariant.PICKUP_OLDCHEST,
-	PickupVariant.PICKUP_OLDCHEST,
-	PickupVariant.PICKUP_OLDCHEST,
-	PickupVariant.PICKUP_OLDCHEST,
-	PickupVariant.PICKUP_OLDCHEST,
-	PickupVariant.PICKUP_OLDCHEST,
-	PickupVariant.PICKUP_OLDCHEST,
-	PickupVariant.PICKUP_OLDCHEST,
-	PickupVariant.PICKUP_OLDCHEST,
-	PickupVariant.PICKUP_OLDCHEST,
+	PickupVariant.PICKUP_ETERNALCHEST,	
+	
 	PickupVariant.PICKUP_OLDCHEST,
 	PickupVariant.PICKUP_OLDCHEST,
 	PickupVariant.PICKUP_OLDCHEST,
@@ -63,6 +47,42 @@ Albern.ChestList = {
 	PickupVariant.PICKUP_OLDCHEST,
 	PickupVariant.PICKUP_OLDCHEST,
 	PickupVariant.PICKUP_OLDCHEST,	
+	PickupVariant.PICKUP_OLDCHEST,	
+	PickupVariant.PICKUP_OLDCHEST,	
+	PickupVariant.PICKUP_OLDCHEST,	
+	
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,	
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,		
+	PickupVariant.PICKUP_REDCHEST,		
+	PickupVariant.PICKUP_REDCHEST,		
+	PickupVariant.PICKUP_REDCHEST,		
+	PickupVariant.PICKUP_REDCHEST,	
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,	
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,		
+	PickupVariant.PICKUP_REDCHEST,		
+	PickupVariant.PICKUP_REDCHEST,		
+	PickupVariant.PICKUP_REDCHEST,		
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	PickupVariant.PICKUP_REDCHEST,
+	
 	PickupVariant.PICKUP_WOODENCHEST,
 	PickupVariant.PICKUP_WOODENCHEST,
 	PickupVariant.PICKUP_WOODENCHEST,
@@ -90,7 +110,14 @@ Albern.ChestList = {
 	PickupVariant.PICKUP_WOODENCHEST,
 	PickupVariant.PICKUP_WOODENCHEST,
 	PickupVariant.PICKUP_WOODENCHEST,
-	PickupVariant.PICKUP_WOODENCHEST,	
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	PickupVariant.PICKUP_WOODENCHEST,
+	
 	PickupVariant.PICKUP_MEGACHEST,
 }
 
@@ -122,7 +149,7 @@ function Albern:OnSlotUpdate(slot)
 			local pickup = Isaac.Spawn(5, 100, id, slot.Position, Vector.Zero, nil):ToPickup()
 			pickup.Wait = 45			
 		else		
-			local pool = self.ChestList
+			local pool = self.RareChestList
 			local variant = pool[rng:RandomInt(1,#pool)] or PickupVariant.PICKUP_ETERNALCHEST
 			local pickup = Isaac.Spawn(5,variant,0, slot.Position, RandomVector(), nil):ToPickup()
 			pickup.Wait = 45

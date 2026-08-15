@@ -121,7 +121,6 @@ BLostWeapon.ChestInfo = {
 	},	
 	[BLostWeapon.SubType.Golden] = {
 		MaxCharge = 100,
-		ClearChargeInNewRoom = true,
 		AutoTargetRadius = 200,
 		Directional = true,
 		OffestUp = Vector(0,-15),

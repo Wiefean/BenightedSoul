@@ -28,8 +28,10 @@ end
 --爆炸
 function Skill:Explode(player, pos)
 	local scale = player.SpriteScale.X
-	local hurtSelf = self:HasCard(player, 72) --有倒塔时开启自伤(因为倒塔可以爆炸回血)
-	game:BombExplosionEffects(pos, player.Damage * 2, player.TearFlags, self.SwingColor, player, 0.8*scale, true, hurtSelf)
+	local bomb = player:FireBomb(pos, RandomVector(), player)
+	bomb.ExplosionDamage = player.Damage * 2
+	bomb.RadiusMultiplier = 0.8 * scale
+	bomb:SetExplosionCountdown(0)
 end
 
 --攻击

@@ -152,7 +152,7 @@
 	<passive id="150" name="Astro Vera" description="Max HP up" gfx="astro_vera.png" quality="3" craftquality="3" hearts="20" soulhearts="20" tags="nolostbr nocantrip" />
 	<active id="151" name="Secret Agent" description="Leave and come back" gfx="secret_agent.png" maxcharges="4" quality="3" craftquality="3" tags="offensive nocantrip" customtags="nometronome" />
     <passive id="152" name="Curse of the Fool" gfx="curse_of_the_fool.png" description="Without beginning and end" quality="0" craftquality="0" tags="nolostbr nogreed nocantrip" customtags="nometronome"/>
-	<active id="153" name="Burning of Unburnt God" description="The Ritual of Blacksmith" gfx="burning_of_unburnt_god.png" maxcharges="3" quality="2" craftquality="2" tags="offensive book nocantrip" customtags="nometronome" />
+	<active id="153" name="Burning of Unburnt God" description="The Ritual of Blacksmith" gfx="burning_of_unburnt_god.png" maxcharges="3" quality="3" craftquality="3" tags="offensive book nocantrip" customtags="nometronome" />
 	<active id="154" name="My Fruit" description="The permitted fruit" gfx="my_fruit.png" quality="3" craftquality="3" chargetype="special" maxcharges="12" tags="offensive nocantrip" customtags="nometronome" />
 	<active id="155" name="My Fault" description="The permitted fault" gfx="my_fault.png" quality="2" craftquality="2" chargetype="timed" maxcharges="90" tags="offensive nocantrip" customtags="nometronome" />
     <passive id="156" cache="damage" name="Memento" gfx="memento.png" description="Remnants of something" quality="2" craftquality="2" tags="offensive nocantrip" customtags="nometronome"/>
@@ -203,6 +203,10 @@
 	<passive id="201" cache="luck" name="Orichaliron" gfx="orichaliron.png" description="Luck up + Defense up?" quality="2" craftquality="2" tags="summonable" />
 	<active id="202" name="Disaster of Sodom" gfx="disaster_of_sodom.png" description="Destruction and Remnants" quality="1" craftquality="1" tags="offensive nocantrip" />
 	<passive id="203" cache="range" name="Monocle" gfx="monocle.png" description="Well-read" quality="3" craftquality="3" tags="offensive book" />
+	<passive id="204" name="Toy Keys" gfx="toy_keys.png" description="Prize keys" quality="2" craftquality="2" keys="5" tags="offensive summonable" />
+	<passive id="205" name="Key Walker" gfx="key_walker.png" description="Homing keys" quality="3" craftquality="3" keys="5" tags="offensive summonable" />
+
+
 
 
 	<trinket name="Bottle Shard" description="He really did it" gfx="bottleshard.png" />

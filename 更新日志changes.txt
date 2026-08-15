@@ -1,5 +1,33 @@
 -----------------------------------
 2026.8
+v0.12.4
+
+新道具：
+ 玩具钥匙
+ 钥匙行者
+
+调整：
+ <角色>
+ 昧化伊甸：能力调整
+ 昧化游魂：能力调整
+ 昧化店主：能力调整
+ <道具>
+ 焚烧不焚之神：品质3
+
+
+New Items:
+ Toy Keys
+ Key Walker
+
+Adjustments
+ <Characters>
+ Benighted Eden: Abilities adjustments
+ Benighted Lost: Abilities adjustments
+ Benighted Keeper: Abilities adjustments
+ <Items>
+ Burning of Unburnt God: Quality 3
+-----------------------------------
+2026.8
 v0.12.3
 
 新角色：昧化阿撒泻勒 (未完成)

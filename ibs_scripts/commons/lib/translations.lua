@@ -1056,6 +1056,16 @@ Item = {
 		Name='单片镜',
 		Desc='博览群书'
 	},
+	
+	[IBS_ItemID.ToyKeys]={
+		Name='玩具钥匙',
+		Desc='奖品钥匙'
+	},
+	
+	[IBS_ItemID.KeyWalker]={
+		Name='钥匙行者',
+		Desc='追踪钥匙'
+	},
 
 },
 

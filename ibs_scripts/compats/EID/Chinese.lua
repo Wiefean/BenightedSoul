@@ -89,7 +89,7 @@ local playerEID = {
 		 '#{{IBSSamsonWrath}} 暴怒：14秒后恢复平静；伤害和受到的惩罚性伤害翻倍；可使用{{Collectible'..(IBS_ItemID.Posture)..'}}架势的攻击'..
 		 '#站立不动时{{IBSSamsonWrath}}暴怒5倍速流逝'..
 		 '#!!! {{IBSSamsonWrath}}暴怒时受到惩罚性伤害有50%概率失去选中的牌，除了{{Card1}}愚者 ({{Luck}}幸运10: 10%)',
-	br='由{{IBSSamsonCalm}}平静进入{{IBSSamsonWrath}}暴怒时，恢复{{Collectible'..(IBS_ItemID.Posture)..'}}架势1点充能'
+	br='由{{IBSSamsonCalm}}平静进入{{IBSSamsonWrath}}暴怒时，恢复{{Collectible'..(IBS_ItemID.Posture)..'}}架势1充能'
 },
 
 [IBS_PlayerID.BEden] = {
@@ -122,9 +122,9 @@ local playerEID = {
 		 '#自动吞下硬币饰品'..
 		 '#硬币饰品将影响乞丐道具池'..
 		 '#道具价格 x 300%，可通过捐助乞丐降低'..
-		 '#心免费，且拾取后将被储存，受致命伤时消耗14点抵消；与机器或乞丐交互受伤时消耗2点抵消'..
+		 '#心免费，且拾取后将被储存，与机器或乞丐交互受伤时消耗2点抵消；受致命伤时消耗所有心币抵消'..
 		 '#捐助乞丐一定次数后获得硬币心之容器，最多7个',
-	br='通过捐助乞丐最多可达到12硬币心之容器#硬币饰品有33.3%概率变为金色'
+	br='通过捐助乞丐最多可达到12硬币心#硬币饰品有33.3%概率变为金色版本'
 },
 
 
@@ -239,7 +239,7 @@ local itemEID={
 
 [IBS_ItemID.Defined]={
 	name='已定义',
-	info='在清理房间后充能'..
+	info='通过清理房间充能'..
 		 '#无需满充能即可使用'..
 		 '#选择传送至一个特定类型的房间(充能消耗与类型有关)，若与本层已经进入过的房间类型相同则不消耗充能',
 	virtue='无魂火#充能消耗 - 1',
@@ -390,7 +390,7 @@ local itemEID={
 
 [IBS_ItemID.DustyBomb]={
 	name='尘埃炸弹',
-	info='+ 3{{Bomb}}炸弹'..
+	info='+ 3 {{Bomb}}炸弹'..
 		 '#免疫来自角色炸弹的爆炸'..
 		 '#角色炸弹一触即发'..
 		 '#切换房间刷新，角色炸弹前三次爆炸时，所有敌人失去12%当前血量；第三次爆炸还会消灭非头目敌人'
@@ -902,7 +902,7 @@ local itemEID={
 	belial='生成的乞丐必定是恶魔乞丐',
 	void='无效',
 	player={
-		[IBS_PlayerID.BKeeper]='没有道具时，选择消耗一个硬币饰品代替；若消耗的是金饰品，触发两次效果'
+		[IBS_PlayerID.BKeeper]='没有道具时，选择消耗一个硬币饰品代替；若消耗的是金饰品，双倍效果'
 	}
 },
 
@@ -1502,7 +1502,7 @@ local itemEID={
 [IBS_ItemID.MyFault]={
 	name='我过',
 	info='无敌0.5秒'..
-		 '#产生一次血波，使周围的敌人失去 {{Damage}}角色伤害x2 的生命，并获得8秒流血'..
+		 '#产生一次血波，使周围的敌人失去 {{Damage}}角色伤害x2 点血量，并获得8秒流血'..
 		 '#命中流血的敌人时会在其位置再产生一次血波',
 	virtue='不发射眼泪的外环单房间魂火',
 	belial='无敌时间延长至1秒',
@@ -1534,9 +1534,9 @@ local itemEID={
 
 [IBS_ItemID.FolkPrescription]={
 	name='偏方',
-	info='地面装饰物有13%概率变为可采集状态：站在其附近一段时间可将其变为{{Pill}}药丸'..
-		 '#!!! 那个药丸的对应效果将变回未识别状态'..
-		 '#{{Pill}} 使用非负面药丸时，治疗1{{Heart}}红心',
+	info='地面装饰物有13%概率变为可采集状态：站在其附近一段时间可将其变为{{Pill}}胶囊'..
+		 '#!!! 那个胶囊的对应效果将变回未识别状态'..
+		 '#{{Pill}} 使用非负面胶囊时，治疗1{{Heart}}红心',
 },
 
 [IBS_ItemID.WhiteQBall]={
@@ -1571,7 +1571,7 @@ local itemEID={
 	name='贞洁之誓',
 	info='拾取时，+ 2 {{SoulHeart}}魂心'..
 		 '#↑ + 3 {{Luck}}幸运'..
-		 '#秒杀乌列和加白列'..
+		 '#秒杀乌列和加百列'..
 		 '#每层的前7次惩罚性伤害变为非惩罚性，并降低至半心'..
 		 '#!!! 受到惩罚性伤害时失去该道具',
 },
@@ -1718,7 +1718,7 @@ local itemEID={
 [IBS_ItemID.LordsParasol]={
 	name="领主阳伞",
 	info='{{Shop}} 首次进入一个商店时，持续获得其中的道具'..
-		 '#!!! {{ColorRed}}若获得的道具为主动，会替换持有的主动道具{{CR}}',
+		 '#!!! {{ColorRed}}若获得的道具为主动道具，会替换持有的主动道具{{CR}}',
 },
 
 [IBS_ItemID.BloodyRose]={
@@ -1778,7 +1778,7 @@ local itemEID={
 
 [IBS_ItemID.AzazelTheWild]={
 	name='阿撒泻勒的旷野',
-	info='{{Collectible118}} 攻击时，每隔3秒，发射短程硫磺火'
+	info='{{Collectible118}} 攻击时，每隔1.5秒，发射短程硫磺火'
 },
 
 [IBS_ItemID.Kindness]={
@@ -1854,6 +1854,27 @@ local itemEID={
 	name='单片镜',
 	info='↑ +1.5{{Range}}射程'..
 	'#拾起时，额外获得2个{{Collectible'..IBS_ItemID.Monocle..'}}单片镜',
+},
+
+[IBS_ItemID.Monocle]={
+	name='单片镜',
+	info='↑ +1.5{{Range}}射程'..
+	'#拾起时，额外获得2个{{Collectible'..IBS_ItemID.Monocle..'}}单片镜',
+},
+
+[IBS_ItemID.ToyKeys]={
+	name='玩具钥匙',
+	info='+ 5 {{Key}}钥匙'..
+	'#{{Chest}}普通箱子有50%概率变为{{GoldenChest}}金箱子'..
+	'#失去{{Key}}钥匙时生成0~3个掉落物，每层最多63个',
+},
+
+[IBS_ItemID.KeyWalker]={
+	name='钥匙行者',
+	info='+ 5 {{Key}}钥匙'..
+	'#在有敌人的房间里，每隔6秒扔出1~3个{{Key}}钥匙，它们会变成追击敌人的钥匙行者：'..
+	'#具有 (1 + 0.1 x 钥匙数量) 点碰撞伤害'..
+	'#12秒后变回{{Key}}钥匙',
 },
 
 }
@@ -1942,7 +1963,7 @@ local trinketEID={
 
 [IBS_TrinketID.Export]={
 	name='出口产品',
-	info='50%概率恶魔房中额外生成金钱代价的天使房道具，天使房中额外生成血量代价的恶魔房道具(不算作恶魔交易)',
+	info='50%概率恶魔房中额外生成硬币代价的天使房道具，天使房中额外生成血量代价的恶魔房道具(不算作恶魔交易)',
 	mult={
 		numberToMultiply = 50,
 		maxMultiplier = 2,
@@ -1961,7 +1982,7 @@ local trinketEID={
 [IBS_TrinketID.Barren]={
 	name='贫瘠',
 	info='敌人受到的伤害增加50%'..
-		 '#角色受到的伤害增加半心'..
+		 '#角色额外受到半心伤害'..
 		 '#心，硬币，钥匙，炸弹掉落物在会3秒内消失',
 	mult={
 		numberToMultiply = 3,
@@ -2000,7 +2021,7 @@ local trinketEID={
 
 [IBS_TrinketID.Interval]={
 	name='区间',
-	info='额外造成角色第一主动道具与最后获得的道具ID差额0.5%的伤害',
+	info='敌人额外受到角色第一主动道具与最后获得的道具ID差额0.5%的伤害',
 	mult={
 		numberToMultiply = 0.5,
 		maxMultiplier = 3,
@@ -2021,14 +2042,14 @@ local trinketEID={
 
 [IBS_TrinketID.WheatSeeds]={
 	name='小麦种子',
-	info='吞下并清理房间后，变为麦苗I#受伤或进入新层时自动吞下该饰品',
+	info='受伤或进入新层时自动吞下该饰品#吞下状态下，清理房间后变为麦苗I',
 },
 
 [IBS_TrinketID.CorruptedDeck]={
 	name='腐蚀套牌',
-	info='获得时，生成两个正塔罗牌'..
-		 '#清理房间后6%概率生成一个正塔罗牌'..
-		 '#消耗任意塔罗牌时，房间内点数更低的正塔罗牌将变为逆塔罗牌',
+	info='获得时，生成两个正位塔罗牌'..
+		 '#清理房间后6%概率生成一个正位塔罗牌'..
+		 '#消耗任意塔罗牌时，房间内点数更低的正塔罗牌将变为逆位塔罗牌',
 	mult={
 		numberToMultiply = 6,
 		maxMultiplier = 3,
@@ -2086,7 +2107,7 @@ local trinketEID={
 
 [IBS_TrinketID.NlothsMask]={
 	name='恩洛斯的脸',
-	info='下一个底座道具将被替换为1个{{Collectible515}}神秘礼物，然后移除该饰品'..
+	info='用{{Collectible515}}1个神秘礼物替换下一个底座道具，然后移除该饰品'..
 		 '#对错误道具和任务道具无效',
 	mult={
 		numberToMultiply = 1,
@@ -2105,7 +2126,7 @@ local trinketEID={
 
 [IBS_TrinketID.OldPenny]={
 	name='古老硬币',
-	info='拾取硬币时，游戏计时减少 (5 x 面值) 秒，若游戏计时少于10分钟，有25%概率生成一个随机掉落物',
+	info='拾取硬币时，游戏计时减少 (5 x 面值) 秒，若游戏计时少于10分钟，25%概率生成一个随机掉落物',
 	mult={
 		numberToMultiply = 5,
 		maxMultiplier = 3,
@@ -2114,7 +2135,7 @@ local trinketEID={
 
 [IBS_TrinketID.CrackCallback]={
 	name='踩背腿',
-	info='角色免疫践踏和落石的伤害'..
+	info='免疫践踏和落石的伤害'..
 		 '#受伤时，有30%概率触发{{Card3}}女祭司的效果',
 	mult={
 		numberToMultiply = 30,
@@ -2167,7 +2188,7 @@ local trinketEID={
 [IBS_TrinketID.BlackCharm]={
 	name='黑魔咒',
 	info='↑ 若本层进入过{{CurseRoom}}诅咒房，+ 0.6 {{Damage}}伤害'..
-		 '#↑ 具有诅咒时，+ 2.4 {{Damage}}伤害',
+		 '#↑ 本层有诅咒时，+ 2.4 {{Damage}}伤害',
 	mult={
 		numberToMultiply = 0.6,
 		maxMultiplier = 3,
@@ -2176,8 +2197,8 @@ local trinketEID={
 
 [IBS_TrinketID.WarHospital]={
 	name='战地医院',
-	info='该饰品在地上时，持续为接近的血量低于75%的友好怪物或跟班恢复5%血量'..
-		 '#该饰品在未清理的房间不会被拾取',
+	info='该饰品在地上时，持续为附近血量低于75%的友好怪物或跟班恢复5%血量'..
+		 '#该饰品在未清理的房间不能被拾取',
 	mult={
 		numberToMultiply = 5,
 		maxMultiplier = 3,
@@ -2195,7 +2216,7 @@ local trinketEID={
 
 [IBS_TrinketID.ForScreenshot]={
 	name='截图用具',
-	info='拾取后，将房间内的道具外观变为{{Quality4}}4级道具'..
+	info='将房间内的道具外观变为{{Quality4}}4级道具'..
 		 '#失去该饰品或接近道具时复原外观'..
 		 '#获得{{Player23}}堕化该隐的装扮'..
 		 '#显示{{Collectible710}}合成宝袋UI (无用)',
@@ -2237,7 +2258,7 @@ local trinketEID={
 
 [IBS_TrinketID.UnstableReagent]={
 	name='不稳定试剂',
-	info='进入新层时，随机触发3种药丸效果',
+	info='进入新层时，随机触发3种胶囊效果',
 	mult={
 		numberToMultiply = 3,
 		maxMultiplier = 3,
@@ -2329,7 +2350,7 @@ local cardEID={
 	name='以撒的伪忆',
 	info='以房间内道具平均品质重置道具为恶魔/天使房道具',
 	mimic={charge = 4, isRune = true},
-	player={[IBS_PlayerID.BXXX] = '伪忆球：若接触的道具的品质小于等于该球数量，则消耗3{{IBSMemory}}记忆碎片将其重置为相同品质的道具'},
+	player={[IBS_PlayerID.BXXX] = '伪忆球：若该球接触的道具的品质小于等于该球数量，则消耗3{{IBSMemory}}记忆碎片将其重置为相同品质的道具'},
 	runeSword='恶魔/天使房中道具选择 + 2；不可叠加',
 },
 
@@ -2345,7 +2366,7 @@ local cardEID={
 	name='该隐的伪忆',
 	info='吞下4个{{Trinket'..(IBS_TrinketID.WheatSeeds)..'}}小麦种子',
 	mimic={charge = 4, isRune = true},
-	player={[IBS_PlayerID.BXXX] = '伪忆球：清理房间后，33%概率吞下{{Trinket'..(IBS_TrinketID.WheatSeeds)..'}}小麦种子，否则生成1个'},
+	player={[IBS_PlayerID.BXXX] = '伪忆球：清理房间后，33%概率吞下{{Trinket'..(IBS_TrinketID.WheatSeeds)..'}}小麦种子，否则生成一个'},
 	runeSword='种子袋有40%概率替换福袋或黑福袋，最高80%',	
 },
 
@@ -2450,7 +2471,7 @@ local cardEID={
 		 '#10%{{Card53}}先祖召唤'..
 		 '#5%{{Crafting11}}幸运币',
 	mimic={charge = 6, isRune = true},
-	player={[IBS_PlayerID.BXXX] = '伪忆球：每秒向最近的敌人发射眼泪，造成 (1 + 0.1 x 捐助乞丐次数) 的伤害'},
+	player={[IBS_PlayerID.BXXX] = '伪忆球：每秒向最近的敌人发射追踪眼泪，造成 (1 + 0.1 x 捐助乞丐次数) 的伤害'},
 	runeSword='获得{{Collectible'..(IBS_ItemID.SOG)..'}}慷慨之魂的效果',
 },
 
@@ -2458,7 +2479,7 @@ local cardEID={
 	name='亚波伦的伪忆',
 	info='生成最近三次消耗的其他符文，不足三个时会以{{Card41}}黑符文代替#对收获符文无效',
 	mimic={charge = 12, isRune = true},
-	player={[IBS_PlayerID.BXXX] = '伪忆球：消耗其他符文时，耗费5{{IBSMemory}}记忆碎片额外触发一次其效果'},
+	player={[IBS_PlayerID.BXXX] = '伪忆球：消耗其他符文时，用5{{IBSMemory}}记忆碎片额外触发一次其效果'},
 	runeSword='镶嵌时，触发该符文的效果',
 },
 
@@ -2466,7 +2487,7 @@ local cardEID={
 	name='遗骸的伪忆',
 	info='生成三个已从道具池中移除的品质{{Quality2}}2及以上的道具的魂火，与12个骨头环绕物',
 	mimic={charge = 6, isRune = true},
-	player={[IBS_PlayerID.BXXX] = '伪忆球：每隔5秒，生成骨头环绕物，其上限为该球数量的六倍'},
+	player={[IBS_PlayerID.BXXX] = '伪忆球：每隔5秒，生成骨头环绕物，上限为该球数量的六倍'},
 	runeSword='击杀敌人时，有18%概率生成友好的骷髅仔',
 },
 
@@ -2557,7 +2578,7 @@ local hoardingEID = {
 
 	},
 
-	--践踏套装(不包括变大药丸)
+	--践踏套装(不包括变大药)
 	StompyFrom = {
 		info = '{{Stompy}} + 20碰撞伤害',
 		[12] = true, --大蘑菇
@@ -2595,13 +2616,13 @@ BSamsonEID = {
 	[3] = {
 		Common = '近战攻击可以摧毁障碍物和门',
 		Calm = '{{Battery}}{{1}} 进入{{IBSSamsonWrath}}暴怒',
-		Wrath = '{{Battery}}{{2}} 发射8向震荡波',
+		Wrath = '{{Battery}}{{2}} 释放8向震荡波',
 	},
 	
 	--皇后
 	[4] = {
 		Common = '近战造成流血，攻速提升25%，但范围减少10%',
-		Calm = '{{Battery}}{{2}} 进入{{IBSSamsonWrath}}暴怒，获得{{Card4}}皇后的效果 (不叠加)，若已有则改为1充能',
+		Calm = '{{Battery}}{{2}} 进入{{IBSSamsonWrath}}暴怒，获得{{Card4}}皇后效果 (不叠加)，若已有则改为1充能',
 		Wrath = '{{Battery}}{{0}} 进入{{IBSSamsonWrath}}暴怒',
 	},
 	
@@ -2686,7 +2707,7 @@ BSamsonEID = {
 	[16] = {
 		Common = '(不叠加) 近战施加硫磺标记，攻速降低33%；有硫磺标记的敌人额外受到66%伤害',
 		Calm = '{{Battery}}{{1}} 进入{{IBSSamsonWrath}}暴怒',
-		Wrath = '{{Battery}}{{2}} 进入{{IBSSamsonWrath}}暴怒，获得{{Card16}}恶魔的效果',
+		Wrath = '{{Battery}}{{2}} 进入{{IBSSamsonWrath}}暴怒，获得{{Card16}}恶魔效果',
 	},
 	
 	--塔
@@ -2698,7 +2719,7 @@ BSamsonEID = {
 	
 	--星星
 	[18] = {
-		Common = '↑{{Luck}}幸运 + 1；近战额外造成200%{{Luck}}幸运的伤害，附带具有等量伤害的眼泪 (幸运低于1时失效)',
+		Common = '↑{{Luck}}幸运 + 1；近战额外造成200%{{Luck}}幸运的伤害，附带具有等量伤害的眼泪 (幸运低于1时不发射)',
 		Calm = '{{Battery}}{{3}} 进入{{IBSSamsonWrath}}暴怒，在本层 + 1{{Luck}}幸运',
 		Wrath = '{{Battery}}{{0}} 进入{{IBSSamsonCalm}}平静',
 	},
@@ -2727,7 +2748,7 @@ BSamsonEID = {
 	--世界
 	[22] = {
 		Common = '无效果',
-		Calm = '{{Battery}}{{6}} 消耗该牌，生成5张其他的正塔罗牌',
+		Calm = '{{Battery}}{{6}} 消耗该牌，生成5张其他的正位塔罗牌',
 		Wrath = '{{Battery}}{{6}} 同上',
 	},
 
@@ -2798,7 +2819,7 @@ BSamsonEID = {
 	
 	--倒死亡
 	[69] = {
-		Common = '{{IBSSamsonWrath}}暴怒期间，受到惩罚性伤害不再消耗牌',
+		Common = '{{IBSSamsonWrath}}暴怒期间受伤不再消耗牌',
 	},
 	
 	--倒节制
@@ -2813,7 +2834,7 @@ BSamsonEID = {
 
 	--倒塔
 	[72] = {
-		Common = '爆炸会治疗角色',
+		Common = '爆炸会治疗角色{{HalfHeart}}半红心',
 	},	
 	
 	--倒星星

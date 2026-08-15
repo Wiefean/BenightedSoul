@@ -351,15 +351,20 @@ function ChestChest:OnHUDRender()
 					data.Charge = data.Charge + 1
 					
 					
-					if not red and not store then
-						--长子权
-						if player:HasCollectible(619) then 
-							data.Charge = data.Charge + 1
-						end
-						
+					if not red and not store then						
 						--已清理房间
 						if room:IsClear() then
-							data.Charge = data.Charge + 3
+							data.Charge = data.Charge + 4
+							
+							--长子权
+							if player:HasCollectible(619) then 
+								data.Charge = data.Charge + 1
+							end
+						else
+							--长子权
+							if player:HasCollectible(619) then 
+								data.Charge = data.Charge + 1
+							end						
 						end
 					end
 				else
@@ -382,9 +387,8 @@ function ChestChest:OnHUDRender()
 							if not mega[tostring(chest.Variant)] then
 								selected.Max = selected.Max + 1
 								
-								--若为大箱或妈箱则额外增加上限并回满耐久
+								--若为大箱或妈箱则回满耐久
 								if chestName == 'Mega' or chestName == 'Mom' then
-									selected.Max = selected.Max + 2
 									selected.Left = selected.Max
 								end
 							end
@@ -403,6 +407,11 @@ function ChestChest:OnHUDRender()
 									mult = 0.5		
 								end
 								initDura = math.ceil(mult*initDura)
+							end
+							
+							--鬼箱触发神圣卡
+							if chestName == "Haunted" then
+								player:UseCard(51, UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER | UseFlag.USE_MIMIC)
 							end
 							
 							selected.Chest = chestName

@@ -64,7 +64,7 @@ local PickupMemoryValue = {
 		[BombSubType.BOMB_GOLDEN] = 21,
 		[BombSubType.BOMB_SUPERTROLL] = -1,
 		[BombSubType.BOMB_GOLDENTROLL] = -1,
-		[BombSubType.BOMB_GIGA] = 10,
+		[BombSubType.BOMB_GIGA] = 21,
 		["Other"] = 5
 	},
 
@@ -77,8 +77,8 @@ local PickupMemoryValue = {
 	[PickupVariant.PICKUP_PILL] = 2,
 
 	[PickupVariant.PICKUP_LIL_BATTERY] = {
-		[BatterySubType.BATTERY_NORMAL] = 3,
-		[BatterySubType.BATTERY_MICRO] = 1,
+		[BatterySubType.BATTERY_NORMAL] = 4,
+		[BatterySubType.BATTERY_MICRO] = 2,
 		[BatterySubType.BATTERY_MEGA] = 12,
 		[BatterySubType.BATTERY_GOLDEN] = 21,
 		["Other"] = 5
@@ -124,9 +124,9 @@ local PickupMemoryValue = {
 		elseif (cardType == ItemConfig.CARDTYPE_SPECIAL) then
 			return 4
 		elseif (cardType == ItemConfig.CARDTYPE_SPECIAL_OBJECT) then
-			return 5
-		elseif (cardType == ItemConfig.CARDTYPE_TAROT_REVERSE) then
 			return 7
+		elseif (cardType == ItemConfig.CARDTYPE_TAROT_REVERSE) then
+			return 5
 		end	
 
 		return 4

@@ -23,6 +23,7 @@ mod.IBS_Callback = {
 
 --回调合集
 mod.IBS_Callbacks = {
+	NumChange = Load('num_change'),
 	Item = Load('item'),
 	Greed = Load('greed'),
 	Grid = Load('grid'),

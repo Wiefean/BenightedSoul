@@ -29,7 +29,7 @@ local playerEID = {
 		 '#Release shockwave to recover {{IBSIronHeart}} Iron Heart'..
 		 '#Kill sins to gain boosts'..
 		 '#{{MiniBoss}}Mini-Boss Room will replace {{SacrificeRoom}}Sacrifice Room',
-	br="{{IBSIronHeart}} Doubles iron heart recovery from shockwave"
+	br="{{IBSIronHeart}} Doubles {{IBSIronHeart}} Iron Heart recovery from shockwave"
 },
 
 [IBS_PlayerID.BCain] = {
@@ -85,8 +85,8 @@ local playerEID = {
 		 '#{{IBSSamsonCalm}} Calm: When switching to this state, + 3s sheild, not stackable'..
 		 '#{{IBSSamsonWrath}} Wrath: 14s duration; Double damage and penal hurt; Can do melee attack of {{Collectible'..(IBS_ItemID.Posture)..'}}Posture'..
 		 '#{{IBSSamsonWrath}}Wrath passes 5x faster when standing by'..
-		 '#!!! When taking penalt damage in {{IBSSamsonWrath}}Wrath, 50% chance to lose the selected card, except {{Card1}}The Fool ({{Luck}}Luck 10: 10%)',
-	br='When enter {{IBSSamsonWrath}} Wrath, + 1 charge for {{Collectible'..(IBS_ItemID.Posture)..'}}Posture'
+		 '#!!! When taking penalt damage in {{IBSSamsonWrath}}Wrath, 50% chance to consume the selected card, except {{Card1}}The Fool ({{Luck}}Luck 10: 10%)',
+	br='When entering {{IBSSamsonWrath}} Wrath from {{IBSSamsonCalm}} Calm, + 1 charge for {{Collectible'..(IBS_ItemID.Posture)..'}}Posture'
 },
 
 
@@ -120,7 +120,7 @@ local playerEID = {
 		 '#Gulp penny trinkets'..
 		 '#Penny trinkets may affect beggar pools'..
 		 '#Price x 300%, but can be decreased by donations to beggars'..
-		 '#Hearts are free, and will be stored when picked; cost 14 for deadly damage and 2 for damage form slots or beggars'..
+		 '#Hearts are free, and will be stored when picked; Cost 2 for damage form slots or beggars and all for deadly damage'..
 		 '#Donating to beggars increases the maximum of coin health containers until 7',
 	br='Through donations to beggars, the maximum of coin health containers can reach 12; Penny trinkets have 33.3% chance to become golden'
 },
@@ -725,7 +725,7 @@ local itemEID={
 	name="Molekale",
 	info="The effect is determined by the last gained item's quality except it self:"..
 		 '#{{Quality0}} 0 and below: A {{Bomb}}bomb and a key {{Key}} for any new item gained'..
-		 '#{{Quality1}} 1: 6 killed enemies spawn a {{Coin}}coin; 3 picked coins heal half a heart{{HalfHeart}}'..
+		 '#{{Quality1}} 1: 6 killed enemies spawn a {{Coin}}coin; 3 picked coins heal {{HalfHeart}}half a heart'..
 		 '#{{Quality2}} 2: When hurt or entering a new {{BossRoom}}Boss Room, spawn a Blood Baby'..
 		 '#{{Quality3}} 3: When changing rooms, become invincible for 5 seconds'..
 		 '#{{Quality4}} 4 and above: Enemies around get {{BrimstoneCurse}}Brimstone Mark; Attacking is accompanied with homing brimestone',
@@ -1754,7 +1754,7 @@ local itemEID={
 
 [IBS_ItemID.AzazelTheWild]={
 	name='Azazel The Wild',
-	info='{{Collectible118}} When attacking, fire short brimestone every 3s'
+	info='{{Collectible118}} When attacking, fire short brimestone every 1.5s'
 },
 
 [IBS_ItemID.Kindness]={
@@ -1779,7 +1779,7 @@ local itemEID={
 
 [IBS_ItemID.BrokenTV]={
 	name='Broken TV',
-	info='When used, dorp this item'..
+	info='When used, drop this item'..
 		 '#When entering {{Shop}}shop, 10% chance to cost all {{Coin}}coins, and turn this item into {{Collectible633}}Dogma'..
 		 '#{{Blank}} (At least 1 {{Coin}}coin to be triggered)',
 	virtue='Double chance',
@@ -1829,6 +1829,21 @@ local itemEID={
 	name='Monocle',
 	info='↑ +1.5{{Range}}Range'..
 	'#Gain 2 more {{Collectible'..IBS_ItemID.Monocle..'}} Monocle when picked up',
+},
+
+[IBS_ItemID.ToyKeys]={
+	name='Toy Keys',
+	info='+ 5 {{Key}}keys'..
+	'#50% {{Chest}}Common Chest become {{GoldenChest}}Golden Chest'..
+	'#Losing {{Key}}keys spawns 0~3 pickups, 63 at most for each level',
+},
+
+[IBS_ItemID.KeyWalker]={
+	name='Key Walker',
+	info='+ 5 {{Key}}keys'..
+	'#In a room with enemies, every 6 seconds, drop 1~3 {{Key}}keys, which will become Key Walker targeting enemies:'..
+	'#Has (1 + 0.1 x {{Key}}keys) collision damage'..
+	'#Be {{Key}}key back after 10 seconds',
 },
 
 }
@@ -2012,8 +2027,8 @@ local trinketEID={
 
 [IBS_TrinketID.GlitchedPenny]={
 	name='Glitched Penny',
-	info='When picking up a common coin, 5~100% chance to reroll it into a random coin',
-	mult={findReplace = {'5','10','15'}}
+	info='When picking up a common coin, 15~100% chance to reroll it into a random coin',
+	mult={findReplace = {'15','20','25'}}
 },
 
 [IBS_TrinketID.StarryPenny]={
@@ -2170,7 +2185,7 @@ local trinketEID={
 
 [IBS_TrinketID.ForScreenshot]={
 	name='For Screenshot',
-	info='When gained, replace the appearance of items in the current room with {{Quality4}}Q4 ones'..
+	info='Replace the appearance of items in the current room with {{Quality4}}Q4 ones'..
 		 '#Losing this trinket or approaching the items to recover the appearance'..
 		 '#Grant {{Player23}}Tainted Cain costume'..
 		 '#Show {{Collectible710}}Bag of crafting UI (Useless)',
@@ -2231,7 +2246,7 @@ local trinketEID={
 
 [IBS_TrinketID.BulkyWorm]={
 	name='Bulky Worm',
-	info='+ 100% Tear scale',
+	info='+ 100% tear scale',
 	mult={
 		numberToMultiply = 100,
 		maxMultiplier = 3,
@@ -2424,7 +2439,7 @@ local cardEID={
 		 '#10%{{Card53}}Ancient Recall'..
 		 '#5%{{Crafting11}}Lucky Penny',
 	mimic={charge = 6, isRune = true},
-	player={[IBS_PlayerID.BXXX] = 'Orb: Every second, fire a tear with (1 + 0.1 x donations) damage to the closest enemy'},
+	player={[IBS_PlayerID.BXXX] = 'Orb: Every second, fire a homing tear with (1 + 0.1 x donations) damage to the closest enemy'},
 	runeSword='Grant effect of {{Collectible'..(IBS_ItemID.SOG)..'}}Soul of Generosity',
 },
 
@@ -2582,7 +2597,7 @@ BSamsonEID = {
 	},
 
 	[7] = {
-		Common = 'Swing num + 1; Enemies hit by plural swing have 6% chance to drop temporary {{HalfHeart}}Half Heart ({{Luck}}Luck 6: 12%)',
+		Common = 'Swing num + 1; Enemies hit by plural swings have 6% chance to drop temporary {{HalfHeart}}Half Heart ({{Luck}}Luck 6: 12%)',
 		Calm = '{{Battery}}{{1}} Enter {{IBSSamsonWrath}}Wrath',
 		Wrath = '{{Battery}}{{3}} Enter {{IBSSamsonWrath}}Wrath, spawn a random temporary heart',
 	},
@@ -2624,7 +2639,7 @@ BSamsonEID = {
 	},
 
 	[14] = {
-		Common = 'While swinging, deal 13%{{Damage}}damage to all enemies in {{Range}}range',
+		Common = 'While swinging, deal 13% {{Damage}}damage to all enemies in {{Range}}range',
 		Calm = '{{Battery}}{{2}} Trigger {{Card14}}Death',
 		Wrath = '{{Battery}}{{2}} Ditto',
 	},
@@ -2673,16 +2688,16 @@ BSamsonEID = {
 
 	[22] = {
 		Common = 'No effect',
-		Calm = '{{Battery}}{{6}} Cosnume this card, spawn 5 other tarot cards',
+		Calm = '{{Battery}}{{6}} Cosnume this card, spawn 5 other common tarot cards',
 		Wrath = '{{Battery}}{{6}} Ditto',
 	},
 
 	[56] = {
-		Common = '↑ + 1 {{Damage}}dmg and {{Tears}}trans for each empty reversed tarot slot',
+		Common = '↑ + 1 {{Damage}}dmg and {{Tears}}tears for each empty reversed tarot slot',
 	},
 
 	[57] = {
-		Common = '↑ {{Damage}}dmg x 200%; !!! When taking penal damage, gain 1 mark in the current level; Each mark cause extra half a heart hurt',
+		Common = '↑ {{Damage}}dmg x 200%; !!! When taking penal damage, gain 1 mark in the current level; Each mark causes extra half a heart hurt',
 	},
 
 	[58] = {
@@ -2730,7 +2745,7 @@ BSamsonEID = {
 	},
 
 	[69] = {
-		Common = 'When taking penal damage in {{IBSSamsonWrath}}Wrath, do not lose cards anymore',
+		Common = 'Taking damage in {{IBSSamsonWrath}}Wrath will not consume cards anymore',
 	},
 
 	[70] = {
@@ -2738,15 +2753,15 @@ BSamsonEID = {
 	},	
 
 	[71] = {
-		Common = ' Shield from {{IBSSamsonCalm}}Calm lasts 0.5s longer; Half {{IBSSamsonWrath}}Wrath duration (not stackable); When changing rooms, enter {{IBSSamsonCalm}}Calm and gain sheild',
+		Common = 'Shield from {{IBSSamsonCalm}}Calm lasts 0.5s longer; Half {{IBSSamsonWrath}}Wrath duration (not stackable); When changing rooms, enter {{IBSSamsonCalm}}Calm and gain sheild',
 	},
 
 	[72] = {
-		Common = 'Explosion heals Isaac',
+		Common = 'Explosion heals Isaac {{HalfHeart}}half a heart',
 	},	
 
 	[73] = {
-		Common = '↓ - 7 {{Luck}}luck; ↑ For each lost tarot, + 1 {{Luck}}luck; Enemies take extra 20% x {{Luck}}luck damage (absolute value)',
+		Common = '↓ - 7 {{Luck}}luck; ↑ For each consumed tarot card, + 1 {{Luck}}luck; Enemies take extra 20% x {{Luck}}luck damage (absolute value)',
 	},
 
 	[74] = {

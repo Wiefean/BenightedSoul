@@ -210,6 +210,15 @@ DeligenceWheat = {
 	SubType = Isaac.GetEntitySubTypeByName('IBS_DeligenceWheat'),
 },
 
+--钥匙行者
+KeyWalker = {
+	Type = 5,
+	Variant = Isaac.GetEntityVariantByName('IBS_KeyWalker'),
+	SubType = {
+		Common = 0,
+		Golden = 1,
+	},
+},
 
 }
 

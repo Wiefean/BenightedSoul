@@ -248,7 +248,7 @@ MakeCharacterBar(IBS_PlayerKey.BIsaac, Language('以撒', 'Isaac'),
 	FINISHED = {'boss_temperance'},
 })
 MakeCharacterBar(IBS_PlayerKey.BMaggy, Language('抹大拉', 'Magdalene'), {
-	Unlocked = Language('抹大拉/堕化抹大拉重新进入一个未使用的献祭房并完成遭遇战(每层最多一次)，重复7次以解锁', 'Magdalene / Tainted Magdalene re-enters an unused Sacrifice Room and finishes the encounter(only once for a level) for 7 times to unlock'),
+	Unlocked = Language('使用抹大拉/堕化抹大拉，重新进入一个未使用的献祭房并完成遭遇战(每层最多一次)，重复7次以解锁', 'Magdalene / Tainted Magdalene re-enters an unused Sacrifice Room and finishes the encounter(only once for a level) for 7 times to unlock'),
 	Heart = Language('解锁 "铅制心脏"', 'For "Leaden Heart"'),
 	Isaac = Language('解锁 "教堂玻璃窗"', 'For "Cathedral Window"'),
 	BlueBaby = Language('解锁 "瓷"', 'For "China"'),
@@ -279,7 +279,7 @@ MakeCharacterBar(IBS_PlayerKey.BMaggy, Language('抹大拉', 'Magdalene'), {
 	FINISHED = {'boss_fortitude'},
 })
 MakeCharacterBar(IBS_PlayerKey.BCBA, Language('该隐&亚伯', 'Cain & Abel'), {
-	Unlocked = Language('该隐/堕化该隐单层献祭12次获取道具死亡回放，并携带亚伯在之后暗室的墓地使用死亡回味以解锁', 'Cain / Tainted Cain sacrifices for 12 times to gain Re-death, and then use Re-death in the graveyard of Dark Room with Abel to unlock'),
+	Unlocked = Language('该隐/堕化该隐单层献祭12次，之后在暗室的墓地使用死亡回放以解锁 (不要弄丢亚伯)', 'Cain / Tainted Cain sacrifices for 12 times in a level, and then use Re-death in the graveyard of Dark Room with Abel to unlock (Do not drop Abel)'),
 	Heart = Language('解锁 "死亡回放"', 'For "Re-death"'),
 	Isaac = Language('解锁 "兔头"', 'For "Rabbit Head"'),
 	BlueBaby = Language('解锁 "不受欢迎的祭品"', 'For "Unwelcome Sacrifice"'),
@@ -310,7 +310,7 @@ MakeCharacterBar(IBS_PlayerKey.BCBA, Language('该隐&亚伯', 'Cain & Abel'), {
 	--FINISHED = {''},
 })
 MakeCharacterBar(IBS_PlayerKey.BJudas, Language('犹大', 'Judas'), {
-	Unlocked = Language('使用犹大在第一层进入隐藏房花费3硬币获取圣经后，在撒但房间使用圣经以解锁', 'Judas pays 3 coins for The Bible in the Secret Room of the first level, and then use The Bible in Satan\'s room to unlock'),
+	Unlocked = Language('犹大进入第一层的隐藏房，之后在撒但房间使用圣经以解锁', 'Judas enters Secret Room of the first level, and then uses The Bible in Satan\'s room to unlock'),
 	Heart = Language('解锁 "晦涩之心"', 'For "Tenebrosity"'),
 	Isaac = Language('解锁 "表观思维"', 'For ""Presentational Mind'),
 	BlueBaby = Language('解锁 "出口产品"', 'For "Export"'),
@@ -341,7 +341,7 @@ MakeCharacterBar(IBS_PlayerKey.BJudas, Language('犹大', 'Judas'), {
 	--FINISHED = {''},
 })
 MakeCharacterBar(IBS_PlayerKey.BXXX, Language('???', '???'), {
-	Unlocked = Language('使用???/堕化???进入家层的红房间获取薇艺以解锁', '??? / Tainted ??? gets Falowerse in the red room of Home to unlock'),
+	Unlocked = Language('使用???/堕化???进入家层的红房间拾取薇艺以解锁', '??? / Tainted ??? gets Falowerse in the red room of Home to unlock'),
 	Heart = Language('解锁 "割礼"', 'For "Circumcision"'),
 	Isaac = Language('解锁 "金针菇"', 'For "Needle Mushroom"'),
 	BlueBaby = Language('解锁 "悼歌之冬"和"挽歌儿小姐"', 'For "Elegiast Winter" and "Nenia Dea"'),

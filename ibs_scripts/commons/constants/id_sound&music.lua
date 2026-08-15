@@ -23,5 +23,6 @@ RubbishBook = Isaac.GetSoundIdByName('惊天秘密'),
 SamsonWrathTick = Isaac.GetSoundIdByName('参孙暴怒结束提示'),
 Kindness = Isaac.GetSoundIdByName('宽容'),
 SwingHit = Isaac.GetSoundIdByName('扫荡命中'),
+KeyWalker = Isaac.GetSoundIdByName('钥匙行者'),
 
 }
