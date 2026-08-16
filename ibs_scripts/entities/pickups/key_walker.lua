@@ -35,7 +35,7 @@ function KeyWalker:OnPickupUpdate(pickup)
 		
 		--碰撞伤害
 		if pickup:IsFrame(7,0) then
-			local dmg = 1 + 0.1 * Isaac.GetPlayer(0):GetNumKeys()
+			local dmg = 3 + 0.1 * Isaac.GetPlayer(0):GetNumKeys()
 			
 			--金钥匙
 			if golden then
@@ -76,5 +76,13 @@ function KeyWalker:OnPickupUpdate(pickup)
 end
 KeyWalker:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, 'OnPickupUpdate', KeyWalker.Variant)
 
+--忽略玩家碰撞
+function KeyWalker:OnCollision(pickup, collider)
+	local player = collider:ToPlayer()
+	if player then
+		return true
+	end	
+end
+KeyWalker:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, 'OnCollision', KeyWalker.Variant)
 
 return KeyWalker

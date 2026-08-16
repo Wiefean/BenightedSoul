@@ -618,16 +618,21 @@ do
 		if not mod:GetIBSData('persis')["difficulty_enemy_hp_up"] then return end
 		local key = GetPtrHash(npc) + npc.Type + npc.Variant + npc.SubType
 		if npc:IsActiveEnemy(false) and not cache[key] then
-			local mult = 0.3
-			if npc:IsBoss() then
-				mult = mod:GetIBSData('persis')["difficulty_boss_level_mult"] or mult
-			else
-				mult = mod:GetIBSData('persis')["difficulty_enemy_level_mult"] or mult
+		
+			--精神错乱房间只增长一次
+			local room = game:GetRoom()
+			if room:GetBossID() ~= BossType.DELIRIUM or room:GetFrameCount() < 2 then				
+				local mult = 0.3
+				if npc:IsBoss() then
+					mult = mod:GetIBSData('persis')["difficulty_boss_level_mult"] or mult
+				else
+					mult = mod:GetIBSData('persis')["difficulty_enemy_level_mult"] or mult
+				end
+				
+				mult = mult * math.max(0, game:GetLevel():GetStage() - 1) + 1
+				npc.MaxHitPoints = math.ceil(npc.MaxHitPoints * mult)
+				npc.HitPoints = math.ceil(npc.HitPoints * mult)
 			end
-			
-			mult = mult * math.max(0, game:GetLevel():GetStage() - 1) + 1
-			npc.MaxHitPoints = math.ceil(npc.MaxHitPoints * mult)
-			npc.HitPoints = math.ceil(npc.HitPoints * mult)
 			
 			cache[key] = EntityPtr(npc)
 		end

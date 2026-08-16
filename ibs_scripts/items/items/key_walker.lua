@@ -8,11 +8,27 @@ local sfx = SFXManager()
 
 local KeyWalker = mod.IBS_Class.Item(mod.IBS_ItemID.KeyWalker)
 
+--获取数据
+function KeyWalker:GetData(player)
+	local data = self._Ents:GetTempData(player)
+	data.KeyWalker = data.KeyWalker or {
+		CD = 0,
+	}
+	return data.KeyWalker
+end
+
 --角色更新
 function KeyWalker:OnPlayerUpdate(player)
-	if player:IsFrame(180,0) and player:HasCollectible(self.ID) then	
+	if not player:HasCollectible(self.ID) then return end
+	local data = self:GetData(player)
+
+	if data.CD > 0 then
+		data.CD = data.CD - 1
+	else		
 		local target = self._Finds:ClosestEnemy(player.Position)
 		if target then
+			data.CD = 360
+		
 			local num = player:GetCollectibleRNG(self.ID):RandomInt(3) + 1
 			for i = 1,num do
 				--金钥匙

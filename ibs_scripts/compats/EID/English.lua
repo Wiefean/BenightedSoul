@@ -1575,7 +1575,7 @@ local itemEID={
 
 [IBS_ItemID.CardboardMush]={
 	name='Cardboard Mush',
-	info='When gained, spawn 3 cards'..
+	info='When gained, spawn 3 special cards'..
 		 '#When consuming cards, trigger {{Card12}}Strength',
 },
 
@@ -1842,8 +1842,8 @@ local itemEID={
 	name='Key Walker',
 	info='+ 5 {{Key}}keys'..
 	'#In a room with enemies, every 6 seconds, drop 1~3 {{Key}}keys, which will become Key Walker targeting enemies:'..
-	'#Has (1 + 0.1 x {{Key}}keys) collision damage'..
-	'#Be {{Key}}key back after 10 seconds',
+	'#Has (3 + 0.1 x {{Key}}keys) collision damage'..
+	'#Be {{Key}}key back after 12 seconds',
 },
 
 }

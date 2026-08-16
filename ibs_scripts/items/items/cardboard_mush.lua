@@ -15,7 +15,7 @@ function CardboardMush:OnGain(item, charge, first, slot, varData, player)
 		local itemPool = game:GetItemPool()
 		local rng = player:GetCollectibleRNG(self.ID)
 		for i = 1,3 do
-			local card = itemPool:GetCardEx(rng:Next(), 1, 0, 1, false)
+			local card = itemPool:GetCardEx(rng:Next(), 1, 0, 0, false)
 			local pos = room:FindFreePickupSpawnPosition(player.Position, 0, true)
 			Isaac.Spawn(5, 300, card, pos, Vector.Zero, nil)
 		end
