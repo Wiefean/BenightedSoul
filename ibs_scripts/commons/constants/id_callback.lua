@@ -223,6 +223,20 @@ GET_PICKUP_PRICE = "IBS_CALLBACK_GET_PICKUP_PRICE",
 ]]
 
 
+--获取心上限
+GET_HEART_LIMIT = "IBS_CALLBACK_GET_HEART_LIMIT",
+--[[提供参数:玩家(实体), 心上限, 是否为店主]]
+--[[可输入参数:角色ID]]
+--[[说明:
+返回数字即可修改心上限
+主要用于本模组内的调整心上限效果
+
+这个回调的起因是
+忏悔龙提供的获取心上限回调("MC_PLAYER_GET_HEART_LIMIT")
+会因为返回值而中断
+]]
+
+
 --是否能收集掉落物
 CAN_COLLECT_PICKUP = "IBS_CALLBACK_CAN_COLLECT_PICKUP",
 --[[提供参数:掉落物(实体), 收集者(实体 / nil)]]

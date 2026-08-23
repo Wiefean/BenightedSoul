@@ -14,7 +14,7 @@ function LithiumBattery:OnPurchasePickup(pickup, player, price)
 		if price >= 7 - 2 * mult then
 			local room = game:GetRoom()
 			local pos = room:FindFreePickupSpawnPosition(room:GetCenterPos(), 0, true)		
-			Isaac.Spawn(5, 90, 1, pos, Vector.Zero, player)
+			Isaac.Spawn(5, 90, 2, pos, Vector.Zero, player)
 		end
 	end
 end

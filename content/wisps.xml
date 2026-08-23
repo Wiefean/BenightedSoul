@@ -347,4 +347,7 @@
 	<!-- disaster of sodom -->
 	<wisp id="202" hp="5" tearFlags="5" tearColor="tear_grey" flameColor="flame_white" coreColor="core_grey" />	
 	
+	<!-- mr dynamax -->
+	<wisp id="207" count="0" />		
+	
 </wisps>

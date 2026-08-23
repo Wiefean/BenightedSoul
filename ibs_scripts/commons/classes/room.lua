@@ -45,7 +45,7 @@ local Room = mod.Class(Component, function(self, info_tbl)
 		if not desc.Data then return end
 		local roomData = desc.Data
 		if type(self.EnterFunc) == 'function' and room:GetType() == self.Type and roomData.Variant == self.Variant then
-			self:EnterFunc(room:IsFirstVisit(), room,roomData)
+			self:EnterFunc(room:IsFirstVisit(), room, roomData)
 		end
 	end
 	self:AddPriorityCallback(ModCallbacks.MC_POST_NEW_ROOM, -10^7, '_RoomInit')	

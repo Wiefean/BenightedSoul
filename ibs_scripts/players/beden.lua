@@ -826,7 +826,7 @@ function BEden:OnHeartLimit(player, limit)
 
 	return limit
 end
-BEden:AddCallback(ModCallbacks.MC_PLAYER_GET_HEART_LIMIT, 'OnHeartLimit', BEden.ID)
+BEden:AddPriorityCallback(ModCallbacks.MC_PLAYER_GET_HEART_LIMIT, -10^7, 'OnHeartLimit', BEden.ID)
 
 
 --新房间检测角色

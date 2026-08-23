@@ -28,7 +28,8 @@ local playerEID = {
 
 [IBS_PlayerID.BMaggy] = {
 	name='昧化抹大拉',
-	info='心上限为7'..
+	info='{{SoulHeart}} 魂心角色'..
+		 '#心上限为7'..
 		 '#具有可承伤的{{IBSIronHeart}}坚贞之心'..
 		 '#蓄力释放震荡波，命中敌人可恢复{{IBSIronHeart}}坚贞之心'..
 		 '#击杀7宗罪以获得一些增强效果'..
@@ -63,7 +64,8 @@ local playerEID = {
 
 [IBS_PlayerID.BXXX] = {
 	name='昧化???',
-	info='↑ 每个{{IBSMemory}}记忆碎片提供额外1%{{Tears}}射速'..
+	info='{{SoulHeart}} 魂心角色'..
+		 '#↑ 每个{{IBSMemory}}记忆碎片提供额外1%{{Tears}}射速'..
 		 '#按下'..EID.ButtonToIconMap[ButtonAction.ACTION_DROP]..'丢弃键以切换'..EID.ButtonToIconMap[ButtonAction.ACTION_BOMB]..'炸弹键的效果：'..
 		 '#储存/使用伪忆'..
 		 '#消耗21{{IBSMemory}}记忆碎片生成伪忆三选一'..
@@ -105,7 +107,8 @@ local playerEID = {
 
 [IBS_PlayerID.BLost] = {
 	name='昧化游魂',
-	info='飞行'..
+	info='{{EmptyHeart}} 无心角色'..
+		 '#飞行'..
 		 '#跟班道具将被移出道具池'..
 		 '#幽灵眼泪'..
 		 '#10%概率发射伤害+1的钥匙眼泪({{Luck}}幸运10：50%)'..
@@ -117,7 +120,8 @@ local playerEID = {
 
 [IBS_PlayerID.BKeeper] = {
 	name='昧化店主',
-	info='飞行'..
+	info='{{CoinHeart}} 硬币心角色'..
+		 '#飞行'..
 		 '#双发眼泪'..
 		 '#自动吞下硬币饰品'..
 		 '#硬币饰品将影响乞丐道具池'..
@@ -127,6 +131,16 @@ local playerEID = {
 	br='通过捐助乞丐最多可达到12硬币心#硬币饰品有33.3%概率变为金色版本'
 },
 
+[IBS_PlayerID.BForgotten] = {
+	name='昧化遗骸',
+	info='{{SoulHeart}} 魂心角色；没有魂心时，{{EmptyBoneHeart}}骨心会变为魂心'..
+		 '#飞行'..
+		 '#{{Collectible213}}{{Collectible597}}{{Collectible'..(IBS_ItemID.BOT)..'}}'..
+		 '#心上限为6'..
+		 '#{{Bomb}} 炸弹上限为9；炸弹伤害降低；使用炸弹时瞬移并引爆炸弹；清理房间后获得2炸弹'..
+		 '#{{Shop}}商店，{{TreasureRoom}}宝箱房和{{CurseRoom}}诅咒房将被替换为特殊的{{SuperSecretRoom}}超级隐藏房',
+	br='心上限 + 6#{{Bomb}} 炸弹上限 + 90#↑ {{Tears}} 射速翻倍#↓ {{Damage}}伤害减半',
+},
 
 }
 --------------------------------------------------------
@@ -242,7 +256,7 @@ local itemEID={
 	info='通过清理房间充能'..
 		 '#无需满充能即可使用'..
 		 '#选择传送至一个特定类型的房间(充能消耗与类型有关)，若与本层已经进入过的房间类型相同则不消耗充能',
-	virtue='无魂火#充能消耗 - 1',
+	virtue='充能消耗 - 1',
 	belial='充能消耗 - 1',
 	void='无效',
 	seijaNerf='20%变为{{Collectible324}}未定义',
@@ -262,7 +276,7 @@ local itemEID={
 	info='防爆'..
 		 '#33%概率眼泪变为{{Burning}}火焰或{{Slow}}减速眼泪，伤害 + 1，并可破坏障碍物'..
 		 '#{{Luck}} 幸运不会影响概率'..
-		 '#{{Freezing}} 冰冻同时被点燃和减速的非Boss敌人'
+		 '#{{Freezing}} 冰冻同时被点燃和减速的非头目敌人'
 },
 
 [IBS_ItemID.Cranium]={
@@ -282,7 +296,7 @@ local itemEID={
 [IBS_ItemID.Ether]={
 	name='以太之云',
 	info='拾取时，+ 1 {{BlackHeart}}黑心和{{SoulHeart}}魂心'..
-		 '#受伤后在本房间获得飞行，并降下圣光'..
+		 '#受伤后在本房间获得飞行，并不断降下圣光'..
 		 '#圣光造成角色伤害的2倍穿甲伤害'..
 		 '#圣光降落频率随角色在本房间的受伤次数递增',
 	trans={'LEVIATHAN', 'ANGEL'}
@@ -290,9 +304,9 @@ local itemEID={
 
 [IBS_ItemID.Wisper]={
 	name='魂火之灵',
-	info='抵挡敌弹的环绕物跟班'..
+	info='阻挡敌弹的环绕物跟班'..
 		 '#造成角色伤害3倍的碰撞伤害'..
-		 '#击杀敌人有30%概率生成普通魂火({{Luck}}幸运7:100%)',
+		 '#被接触过的敌人死亡后，有30%概率生成普通魂火({{Luck}}幸运7:100%)',
 	trans={'ANGEL'}
 },
 
@@ -362,7 +376,7 @@ local itemEID={
 
 [IBS_ItemID.BonyKnife]={
 	name='骨刀',
-	info='在当前房间中，{{Damage}}攻击力降低25%(不叠加)，获得{{Collectible114}}妈妈的菜刀效果',
+	info='在当前房间中，{{Damage}}伤害 x 75%(不叠加)，获得{{Collectible114}}妈妈的菜刀效果',
 	virtue='不发射眼泪的内环魂火#熄灭时，触发该道具的效果',
 	belial='刀附带火焰'	
 },
@@ -384,7 +398,7 @@ local itemEID={
 	info='将空底座道具重置为一个以下掉落物:'..
 		 '#金箱子，旧箱子，黑福袋，金饰品，道具'..
 		 '#重置出的掉落物在20秒后消失，且有尖刺环绕',
-	virtue='无魂火#掉落物不消失',
+	virtue='掉落物不消失',
 	belial='掉落物无尖刺环绕'
 },
 
@@ -393,7 +407,7 @@ local itemEID={
 	info='+ 3 {{Bomb}}炸弹'..
 		 '#免疫来自角色炸弹的爆炸'..
 		 '#角色炸弹一触即发'..
-		 '#切换房间刷新，角色炸弹前三次爆炸时，所有敌人失去12%当前血量；第三次爆炸还会消灭非头目敌人'
+		 '#(切换房间刷新) 角色炸弹前三次爆炸时，所有敌人失去12%当前血量；第三次爆炸还会消灭非头目敌人'
 },
 
 [IBS_ItemID.NeedleMushroom]={
@@ -445,7 +459,7 @@ local itemEID={
 		 '#{{Quality1}}1级道具和{{Quality3}}3级道具将被移出道具池'..
 		 '#本局不再遇到{{CurseUnknown}}未知诅咒和{{CurseBlind}}致盲诅咒',
 	virtue='2个内环魂火，发射毒性眼泪',
-	belial='移除角色身上品质{{Quality1}}或{{Quality3}}的道具，每移除一个提升一定{{Damage}}伤害'
+	belial='移除角色身上品质{{Quality1}}或{{Quality3}}的道具，每移除一个提升一些{{Damage}}伤害'
 },
 
 [IBS_ItemID.Sword]={
@@ -459,7 +473,7 @@ local itemEID={
 
 [IBS_ItemID.Regret]={
 	name='死不瞑目',
-	info='角色每次死亡都会获得:'..
+	info='角色死亡后:'..
 		 '#↑ {{Speed}}移速 + 0.1'..
 		 '#↑ {{Tears}}射速 + 0.35'..
 		 '#↑ {{Damage}}伤害 + 1',
@@ -476,10 +490,10 @@ local itemEID={
 [IBS_ItemID.Sacrifice]={
 	name='不受欢迎的祭品',
 	info='1.7秒后，在使用位置降下一道大光柱，并产生爆炸'..
-		 '#光柱造成每帧70%{{Damage}}角色伤害，并摧毁周围的障碍物，持续3.5秒'..
+		 '#光柱造成每帧70%{{Damage}}伤害，并摧毁周围的障碍物，持续3.5秒'..
 		 '#!!! 光柱也会伤害角色'..
 		 '#若使用过{{Collectible'..(IBS_ItemID.Sacrifice2)..'}}受欢迎的祭品，则光柱不再伤害角色，且追踪敌人',
-	virtue='无魂火#光柱不再伤害角色，且追踪敌人',
+	virtue='光柱不再伤害角色，且追踪敌人',
 	belial='光柱更大，还会追踪角色'
 },
 
@@ -488,9 +502,9 @@ local itemEID={
 	info='进入恶魔/天使房以充能'..
 		 '#若使用过{{Collectible'..(IBS_ItemID.Sacrifice)..'}}不受欢迎的祭品，立刻充能'..
 		 '#!!! {{ColorYellow}}一次性{{CR}}'..
-		 '#使用后:'..
+		 '#使用后，本局中:'..
 		 '#为新房间内品质最高的道具，生成品质相同的，一个血量代价的恶魔房道具，和一个硬币代价的天使房道具作为额外选择',
-	virtue='无魂火#立刻充能',
+	virtue='立刻充能',
 	belial='立刻充能'
 },
 
@@ -532,9 +546,9 @@ local itemEID={
 [IBS_ItemID.Falowerse]={
 	name='薇艺',
 	info='按住 '..EID.ButtonToIconMap[ButtonAction.ACTION_DROP]..' 丢弃键触碰掉落物时, 将其分解为{{IBSMemory}}记忆碎片'..
-		 '#消耗21{{IBSMemory}}记忆碎片生成3个伪忆，但只能拿1个'..
-		 '#角色死亡时，变为 {{Player'..(IBS_PlayerID.BXXX)..'}} 昧化???，失去该道具，并重新开始本层',
-	virtue='无魂火',
+		 '#消耗21{{IBSMemory}}记忆碎片生成伪忆三选一'..
+		 '#角色死亡时，复活为 {{Player'..(IBS_PlayerID.BXXX)..'}} 昧化???，失去该道具，并重新开始本层',
+	virtue='无效',
 	belial='无效',
 	player={[IBS_PlayerID.BXXX] = '伪忆球上限提升至6，并失去该道具'}
 },
@@ -549,7 +563,7 @@ local itemEID={
 	name='黄金体验',
 	info='获得1{{BrokenHeart}}碎心'..
 		 '#提供等同于{{BrokenHeart}}碎心数量的硬币心之容器'..
-		 ' (类似{{Player14}}店主的，但只能通过拾取{{Coin}}硬币恢复)'..
+		 ' (类似{{Player14}}店主，但只能通过拾取{{Coin}}硬币恢复)'..
 		 '#!!! {{ColorYellow}}不能阻止死亡{{CR}}',
 	player={
 		[PlayerType.PLAYER_KEEPER] = '效果改为吞下{{Trinket156}}妈妈的吻',
@@ -717,7 +731,7 @@ local itemEID={
 		 '#没有对应标签或标签重复时记为"空"'..
 		 '#记录两个标签后，再使用两次可以生成具有相同标签的被动道具'..
 		 '#!!! 影响道具池',
-	virtue='无魂火#至少{{Quality2}}2级道具',
+	virtue='至少{{Quality2}}2级道具',
 	belial='没有对应道具时，以{{Collectible51}}五芒星代替',
 	void='无效',
 	seijaNerf='75%画不出道具',
@@ -955,7 +969,7 @@ local itemEID={
 	name='增殖的G',
 	info='可使用2次'..
 		 '#房间内每新生成一个敌人，获得一个品质不低于{{Quality2}}2的随机道具魂火',
-	virtue='无魂火#提升道具魂火的血量',
+	virtue='提升道具魂火的血量',
 	belial='道具魂火将来自恶魔道具池',
 	void='无效',
 },
@@ -1039,7 +1053,7 @@ local itemEID={
 		 '#角色属性不会低于基础{{Player0}}以撒'..
 		 '#将所有疾病道具移出道具池'..
 		 '#移除角色身上的疾病道具，每移除一个生成一个{{TreasureRoom}}宝箱房道具',
-	virtue='无魂火#改为生成{{AngelRoom}}天使房道具',
+	virtue='改为生成{{AngelRoom}}天使房道具',
 	belial='改为生成{{DevilRoom}}恶魔房道具',
 },
 
@@ -1148,7 +1162,7 @@ local itemEID={
 		 '#再次使用时，尝试将距离最近的房间重置为记录的房间，并回溯游戏计时'..
 		 '#!!! 进入新层时，与上一次记录过的房间类型相同的房间将变为普通房间'..
 		 '#所有{{Collectible'..(IBS_ItemID.SilverKey)..'}}'..'银之钥共享记录',
-	virtue='无魂火#可记录{{AngelRoom}}天使房',
+	virtue='可记录{{AngelRoom}}天使房',
 	belial='可记录{{DevilRoom}}恶魔房',
 	void='无效',
 	greed='贪婪模式：无效'
@@ -1180,7 +1194,7 @@ local itemEID={
 	name='破损的迷途之镜',
 	info='!!! {{ColorYellow}}一次性{{CR}}'..
 		 '#消耗10{{Coin}}硬币，移除{{CurseLost}}迷途诅咒，并获得{{Collectible'..(IBS_ItemID.WilderingMirror)..'}}迷途之镜',
-	virtue='无魂火',
+	virtue='无效',
 	belial='无效',
 },
 
@@ -1275,7 +1289,7 @@ local itemEID={
 		 '#充能未满时使用，将吸收饰品和品质{{Quality1}}1及以下的道具以充能 (包括正在拾取的)'..
 		 '#可为额外充能条充能'..
 		 '#充能已满时使用，将重置品质{{Quality3}}3及以下的道具为品质+1的随机道具，但不会超过3',
-	virtue='无魂火#道具池为{{AngelRoom}}天使房',
+	virtue='道具池为{{AngelRoom}}天使房',
 	belial='道具池为{{DevilRoom}}恶魔房',
 	void='无效',
 },
@@ -1286,7 +1300,7 @@ local itemEID={
 		 '#即将受伤时充能1~3格，若满充能且伤害具有惩罚性则自动触发该道具效果'..
 		 '#三次可用；清理{{BossRoom}}Boss房后恢复一次'..
 		 '#!!! {{ColorYellow}}次数耗尽后移除{{CR}}',
-	virtue='无魂火#即将受伤时，额外充能1格',
+	virtue='即将受伤时，额外充能1格',
 	belial='无特殊效果',
 	void='不限次数',
 },
@@ -1311,7 +1325,7 @@ local itemEID={
 	info='清理房间后增加3计数 (大房间为6)'..
 		 '#消耗1计数，选择将一个道具移出道具池，并减少游戏计时5秒'..
 		 '#!!! 同时也会从角色身上移除选择的道具，但会返还 (品质^2 + 1)计数',
-	virtue='无魂火#↑ + 0.005 {{Tears}}射速',
+	virtue='↑ + 0.005 {{Tears}}射速',
 	belial='↑ + 0.01 {{Damage}}伤害',
 	void='无效'
 },
@@ -1516,8 +1530,8 @@ local itemEID={
 [IBS_ItemID.RubbishBook]={
 	name='惊天秘密',
 	info='如此这般这般如此',
-	virtue='无魂火',
-	belial='无效果',
+	virtue='无效',
+	belial='无效',
 	seijaBuff={
 		desc = '+ %s{{Coin}}硬币',
 		data = {
@@ -1678,7 +1692,7 @@ local itemEID={
 		 '#丢下等同于楼层数的被动道具，具有随机道具作为轮换'..
 		 '#重置游戏计时和道具池'..
 		 '#对错误道具和任务道具无效',
-	virtue='无魂火#28%概率为天使房道具',
+	virtue='28%概率为天使房道具',
 	belial='额外获得{{Collectible51}}五芒星',
 },
 
@@ -1872,9 +1886,51 @@ local itemEID={
 [IBS_ItemID.KeyWalker]={
 	name='钥匙行者',
 	info='+ 5 {{Key}}钥匙'..
+	'#攻击时吸引{{Key}}钥匙'..
 	'#在有敌人的房间里，每隔6秒扔出1~3个{{Key}}钥匙，它们会变成追击敌人的钥匙行者：'..
-	'#具有 (3 + 0.1 x 钥匙数量) 点碰撞伤害'..
+	'#具有 (2 + 0.1 x 钥匙数量) 点碰撞伤害'..
 	'#12秒后变回{{Key}}钥匙',
+},
+
+[IBS_ItemID.SpiderKeys]={
+	name='蜘蛛钥匙',
+	info='+ 5 {{Key}}钥匙'..
+	'#失去{{Key}}钥匙时生成3个蓝蜘蛛'..
+	'#蓝蜘蛛死亡时有10%概率生成{{Key}}钥匙'
+},
+
+[IBS_ItemID.MrDynamax]={
+	name='极巨化钥士',
+	info='!!! {{ColorYellow}}一次性{{CR}}'..
+	'#生成头目车轮战房间',
+	virtue='+ 99 {{Key}}钥匙',
+	belial='失去{{Key}}所有钥匙，每个提供0.13{{Damage}}伤害',
+},
+
+[IBS_ItemID.BrimstoneKeys]={
+	name='硫磺火钥匙',
+	info='+ 6 {{Key}}钥匙'..
+	'#失去{{Key}}钥匙时发射十字硫磺火',
+	seijaBuff={
+		desc = '触发时获得%s{{HalfBlackHeart}}半黑心',
+		data = {
+			args = function(x) return x end
+		}
+	},
+},
+
+[IBS_ItemID.BobsBlessing]={
+	name='鲍勃的祝福',
+	info='+ 5 {{Key}}钥匙'..
+	'#{{Key}} 钥匙数量大于0时防爆'..
+	'#受到爆炸时失去1{{Key}}钥匙',
+},
+
+[IBS_ItemID.MrKey]={
+	name='钥匙先生',
+	info='+ 1 {{Key}}钥匙'..
+	'#{{MegaChest}} 大箱子只需要1{{Key}}钥匙开启'..
+	'#{{KeyBeggar}} 钥匙乞丐有50%概率{{Key}}返还钥匙',
 },
 
 }
@@ -2485,7 +2541,7 @@ local cardEID={
 
 [IBS_PocketID.BForgotten] = {
 	name='遗骸的伪忆',
-	info='生成三个已从道具池中移除的品质{{Quality2}}2及以上的道具的魂火，与12个骨头环绕物',
+	info='生成三个已从道具池中移除的品质{{Quality2}}2及以上的道具的魂火，与6个骨头环绕物',
 	mimic={charge = 6, isRune = true},
 	player={[IBS_PlayerID.BXXX] = '伪忆球：每隔5秒，生成骨头环绕物，上限为该球数量的六倍'},
 	runeSword='击杀敌人时，有18%概率生成友好的骷髅仔',
@@ -2547,356 +2603,11 @@ local slotEID = {
 }
 --------------------------------------------------------
 
---收集癖
-local hoardingEID = {
 
-	--套装列表(不包括成人和践踏套装)
-	FormList = {
-		[ItemConfig.TAG_GUPPY] = '{{Guppy}} 敌人受伤时有10%概率生成蓝苍蝇',
-
-		[ItemConfig.TAG_FLY] = '{{LordoftheFlies}} 敌人死亡时有50%概率生成蓝苍蝇',
-		
-		[ItemConfig.TAG_MUSHROOM] ='{{FunGuy}} 获得时有50%概率获得1{{Heart}}心之容器',
-		
-		[ItemConfig.TAG_ANGEL] = '{{Seraphim}} 获得时，+ 1{{SoulHeart}}魂心',
-		
-		[ItemConfig.TAG_BOB] = '{{Bob}} 集齐套装时免疫爆炸',
-		
-		[ItemConfig.TAG_SYRINGE] = '{{Spun}} + 0.25 {{Damage}}伤害',
-		
-		[ItemConfig.TAG_MOM] = '{{Mom}} 敌人额外受到0.25伤害',
-		
-		[ItemConfig.TAG_BABY] = '{{Conjoined}} + 0.15 {{Tears}}射速',
-		
-		[ItemConfig.TAG_DEVIL] = '{{Leviathan}} 获得时，+ 1 {{HalfBlackHeart}}半黑心',
-		
-		[ItemConfig.TAG_POOP] = '{{OhCrap}} 集齐套装时，摧毁大便额外恢复1{{Heart}}红心',
-		
-		[ItemConfig.TAG_BOOK] = '{{Bookworm}} 使用书时获得(0.5 x 最大充能 x 套件数量)秒的护盾',
-		
-		[ItemConfig.TAG_SPIDER] = '{{SpiderBaby}} 在新房间或新贪婪波次生成2只蓝蜘蛛',
-
-	},
-
-	--践踏套装(不包括变大药)
-	StompyFrom = {
-		info = '{{Stompy}} + 20碰撞伤害',
-		[12] = true, --大蘑菇
-		[302] = true, --狮子座
-	},
-
-}
-
---昧化参孙技能信息
-BSamsonEID = {
-
-	--占位符
-	[0] = {
-		Common = '(未完成)',
-		Calm = '(未完成)',
-		Wrath = '(未完成)',
-	},
-
-	--愚者
-	[1] = {
-		Common = '无效果',
-		BSamson = '切换房间时，选中最后一张牌',
-		Calm = '{{Battery}}{{1}} 进入{{IBSSamsonWrath}}暴怒',
-		Wrath = '{{Battery}}{{1}} 进入{{IBSSamsonCalm}}平静',
-	},
-	
-	--魔术师
-	[2] = {
-		Common = '↓{{Damage}}伤害 x 50% (不叠加)：对近战命中的敌人施加一层标记；每层标记会使敌人额外受到1伤害',
-		Calm = '{{Battery}}{{2}} 对所有敌人施加十层标记；在本房间获得追踪效果',
-		Wrath = '{{Battery}}{{2}} 所有敌人失去标记层数十倍的血量',
-	},
-
-	--女祭司
-	[3] = {
-		Common = '近战攻击可以摧毁障碍物和门',
-		Calm = '{{Battery}}{{1}} 进入{{IBSSamsonWrath}}暴怒',
-		Wrath = '{{Battery}}{{2}} 释放8向震荡波',
-	},
-	
-	--皇后
-	[4] = {
-		Common = '近战造成流血，攻速提升25%，但范围减少10%',
-		Calm = '{{Battery}}{{2}} 进入{{IBSSamsonWrath}}暴怒，获得{{Card4}}皇后效果 (不叠加)，若已有则改为1充能',
-		Wrath = '{{Battery}}{{0}} 进入{{IBSSamsonWrath}}暴怒',
-	},
-	
-	--皇帝
-	[5] = {
-		Common = '近战攻速降低25%，命中敌人时提供1秒护盾，护盾持续期间不可再叠加',
-		Calm = '{{Battery}}{{3}} 获得5秒护盾',
-		Wrath = '{{Battery}}{{1}} 进入{{IBSSamsonCalm}}平静',
-	},
-	
-	--教皇
-	[6] = {
-		Common = '首次被近战命中的敌人石化1秒',
-		Calm = '{{Battery}}{{3}} 对所有敌人施加5秒石化',
-		Wrath = '{{Battery}}{{1}} 进入{{IBSSamsonCalm}}平静',
-	},
-	
-	--恋人
-	[7] = {
-		Common = '近战数量 + 1；被多个近战同时命中的敌人有6%概率掉落消逝的{{HalfHeart}}半红心 ({{Luck}}幸运6：12%)',
-		Calm = '{{Battery}}{{1}} 进入{{IBSSamsonWrath}}暴怒',
-		Wrath = '{{Battery}}{{3}} 进入{{IBSSamsonWrath}}暴怒，生成消逝的随机心',
-	},
-	
-	--战车
-	[8] = {
-		Common = '近战伤害，大小和距离会逐渐增加，直到停止攻击或达边界',
-		Calm = '{{Battery}}{{1}} 进入{{IBSSamsonWrath}}暴怒',
-		Wrath = '{{Battery}}{{1}} 进入{{IBSSamsonWrath}}暴怒',
-	},
-	
-	--正义
-	[9] = {
-		Common = '近战伤害降低50%(不叠加)，对命中的敌人发射眼泪',
-		Calm = '{{Battery}}{{2}} 进入{{IBSSamsonWrath}}暴怒，下一张牌的充能消耗降低为0',
-		Wrath = '{{Battery}}{{1}} 进入{{IBSSamsonCalm}}平静，恢复1充能',
-	},
-	
-	--隐者
-	[10] = {
-		Common = '(不叠加) 近战数量 + 2，攻速降低50%',
-		Calm = '{{Battery}}{{3}} 发射30个随机方向的弹射硬币眼泪',
-		Wrath = '{{Battery}}{{0}} 进入{{IBSSamsonCalm}}平静',
-	},
-	
-	--命运之轮
-	[11] = {
-		Common = '近战范围增加10%；飞行',
-		Calm = '{{Battery}}{{0}} 进入{{IBSSamsonWrath}}暴怒，传送至随机敌人附近发动近战攻击',
-		Wrath = '{{Battery}}{{3}} 同上，概率重复多次',
-	},
-	
-	--力量
-	[12] = {
-		Common = '角色体型增加10% (不叠加)',
-		Calm = '{{Battery}}{{1}} 进入{{IBSSamsonWrath}}暴怒',
-		Wrath = '{{Battery}}{{3}} 进入{{IBSSamsonWrath}}暴怒，获得{{Card12}}力量效果，最多叠加2次',
-	},
-	
-	--倒吊人
-	[13] = {
-		Common = '飞行',
-		Calm = '{{Battery}}{{0}} 切换至最后一张牌',
-		Wrath = '{{Battery}}{{0}} 进入{{IBSSamsonWrath}}暴怒，切换至最后一张牌',
-	},
-	
-	--死亡
-	[14] = {
-		Common = '近战攻击时，对{{Range}}射程内的所有敌人造成13%{{Damage}}伤害',
-		Calm = '{{Battery}}{{2}} 触发{{Card14}}死亡的效果',
-		Wrath = '{{Battery}}{{2}} 同上',
-	},
-	
-	--节制
-	[15] = {
-		Common = '停止近战3秒后，下一次近战的伤害提升100%，范围增加25%',
-		Calm = '{{Battery}}{{0}} 恢复1充能，4秒冷却',
-		Wrath = '{{Battery}}{{0}} 进入{{IBSSamsonCalm}}平静，恢复1充能，3秒冷却',
-	},
-
-	--恶魔
-	[16] = {
-		Common = '(不叠加) 近战施加硫磺标记，攻速降低33%；有硫磺标记的敌人额外受到66%伤害',
-		Calm = '{{Battery}}{{1}} 进入{{IBSSamsonWrath}}暴怒',
-		Wrath = '{{Battery}}{{2}} 进入{{IBSSamsonWrath}}暴怒，获得{{Card16}}恶魔效果',
-	},
-	
-	--塔
-	[17] = {
-		Common = '免疫爆炸；近战命中时有16%概率爆炸，造成200%{{Damage}}伤害 ({{Luck}}幸运17：50%)',
-		Calm = '{{Battery}}{{2}} 进入{{IBSSamsonWrath}}暴怒，原地爆炸',
-		Wrath = '{{Battery}}{{2}} 同上',
-	},
-	
-	--星星
-	[18] = {
-		Common = '↑{{Luck}}幸运 + 1；近战额外造成200%{{Luck}}幸运的伤害，附带具有等量伤害的眼泪 (幸运低于1时不发射)',
-		Calm = '{{Battery}}{{3}} 进入{{IBSSamsonWrath}}暴怒，在本层 + 1{{Luck}}幸运',
-		Wrath = '{{Battery}}{{0}} 进入{{IBSSamsonCalm}}平静',
-	},
-	
-	--月亮
-	[19] = {
-		Common = '近战施加减速，冻结击杀的敌人，18%概率直接冻结非头目敌人 ({{Luck}}幸运41：100%)',
-		Calm = '{{Battery}}{{0}} 下一次近战攻击会冻结非头目敌人',
-		Wrath = '{{Battery}}{{1}} 进入{{IBSSamsonCalm}}平静',
-	},
-	
-	--太阳
-	[20] = {
-		Common = '近战命中的敌人会被点燃；近战有25%概率释放火焰 ({{Luck}}幸运15：100%)',
-		Calm = '{{Battery}}{{2}} 进入{{IBSSamsonWrath}}暴怒，释放一圈火焰',
-		Wrath = '{{Battery}}{{2}} 同上',
-	},
-	
-	--审判
-	[21] = {
-		Common = '(不叠加) 近战伤害降低50%，命中的敌人会失去等量生命，若血量低于20%则直接死亡',
-		Calm = '{{Battery}}{{0}} 进入{{IBSSamsonWrath}}暴怒，2秒冷却',
-		Wrath = '{{Battery}}{{0}} 进入{{IBSSamsonCalm}}平静，2秒冷却',
-	},
-	
-	--世界
-	[22] = {
-		Common = '无效果',
-		Calm = '{{Battery}}{{6}} 消耗该牌，生成5张其他的正位塔罗牌',
-		Wrath = '{{Battery}}{{6}} 同上',
-	},
-
-	--倒愚者
-	[56] = {
-		Common = '↑ 每个空的逆位塔罗牌槽位提供1{{Damage}}伤害和{{Tears}}射速',
-	},
-	
-	--倒魔术师
-	[57] = {
-		Common = '↑ {{Damage}}伤害 x 200%；!!! 受到惩罚性伤害时，在本层获得一层标记；每层标记会使自身额外受到半心伤害',
-	},
-	
-	--倒女祭司
-	[58] = {
-		Common = '每近战攻击5次，释放震荡波',
-	},
-	
-	--倒皇后
-	[59] = {
-		Common = '{{IBSSamsonWrath}}暴怒不再翻倍{{Damage}}伤害和受伤',
-	},
-	
-	--倒皇帝
-	[60] = {
-		Common = '{{IBSSamsonCalm}}平静护盾可以叠加，但持续时间缩短1秒',
-	},
-	
-	--倒教皇
-	[61] = {
-		Common = '{{IBSSamsonCalm}}平静提供的护盾改为无敌时间',
-	},
-	
-	--倒恋人
-	[62] = {
-		Common = '(不叠加) 近战数量 - 2；每有一种心，近战伤害提升20%，范围增加5%',
-	},
-	
-	--倒战车
-	[63] = {
-		Common = '站立不动时，近战攻速提升60%',
-	},
-	
-	--倒正义
-	[64] = {
-		Common = '(不叠加){{Collectible'..(IBS_ItemID.Posture)..'}}架势伤害充能量翻倍，但清理房间不再为其充能',
-	},
-	
-	--倒隐者
-	[65] = {
-		Common = '↑ 每有1个{{Coin}}硬币，+ 0.04 {{Damage}}伤害',
-	},
-	
-	--倒命运之轮
-	[66] = {
-		Common = '{{IBSSamsonWrath}}暴怒期间，即将受到惩罚性伤害时，消耗随机牌代替；↓这张牌被消耗时 - 1{{Luck}}幸运；↑其他牌被消耗时 + 0.25{{Luck}}幸运，并生成其反转版本',
-	},
-
-	--倒力量
-	[67] = {
-		Common = '↓ {{Damage}}伤害 x 75% (不叠加)；近战施加虚弱',
-	},
-
-	--倒倒吊人
-	[68] = {
-		Common = '切换房间后，下一次近战攻击会点金敌人',
-	},
-	
-	--倒死亡
-	[69] = {
-		Common = '{{IBSSamsonWrath}}暴怒期间受伤不再消耗牌',
-	},
-	
-	--倒节制
-	[70] = {
-		Common = '{{IBSSamsonWrath}}暴怒持续时间无限',
-	},
-	
-	--倒恶魔
-	[71] = {
-		Common = '{{IBSSamsonCalm}}平静护盾持续时间延长0.5秒；{{IBSSamsonWrath}}暴怒持续时间减半 (不叠加)；切换房间时，进入{{IBSSamsonCalm}}平静并获得护盾',
-	},
-
-	--倒塔
-	[72] = {
-		Common = '爆炸会治疗角色{{HalfHeart}}半红心',
-	},	
-	
-	--倒星星
-	[73] = {
-		Common = '↓ - 7 {{Luck}}幸运；↑ 每消耗过一张牌，+ 1 {{Luck}}幸运；敌人额外受到 20% x {{Luck}}幸运 点伤害 (取绝对值)',
-	},
-	
-	--倒月亮
-	[74] = {
-		Common = '切换房间时，进入{{IBSSamsonWrath}}暴怒',
-	},
-	
-	--倒太阳
-	[75] = {
-		Common = '↑ 切换姿态后，+ 190% 不断衰减的{{Tears}}射速倍率',
-	},
-	
-	--倒审判
-	[76] = {
-		Common = '进入{{IBSSamsonCalm}}平静时，生成追踪角色的光柱 (不会伤害角色)，光柱存在时无效',
-	},
-	
-	--倒世界
-	[77] = {
-		Common = '↑ 自动消耗其他槽位的逆位塔罗牌，每张 + 0.5{{Damage}}伤害和21%{{DevilRoom}}恶魔房开启率；秘密出口保持开启',
-	},
-	
-}
-
---米迦勒的赐福
-local BlessingOfMichaelEID = {
-
-	[108] = '即将受伤时，50%概率获得{{HalfSoulHeart}}半魂心',
-	
-	[182] = '↑ {{Damage}}伤害 x 140%',
-	
-	[313] = '额外获得一次机会',
-	
-	[331] = '敌人额外受到30%{{Damage}}角色伤害的伤害',
-	
-	[415] = '切换房间或受伤时，重新获得该道具 (不会算作第一次获得)',
-	
-	[477] = '最大充能 - 2',
-	
-	[643] = '每隔2.5秒，自动发射伤害减半但带有追踪的光柱',
-	
-	[691] = '拾取时，将品质低于{{Quality2}}2的道具移出道具池',
-
-}
-
---------------------------------------------------------
-
-
---返回表
 return {
 	PlayerEID = playerEID,
 	ItemEID = itemEID,
 	TrinketEID = trinketEID,
 	CardEID = cardEID,
 	SlotEID = slotEID,
-	
-	HoardingEID = hoardingEID,
-	BSamsonEID = BSamsonEID,
-	BlessingOfMichaelEID = BlessingOfMichaelEID,
 }

@@ -2,6 +2,7 @@
 
 饰品倍率兼容
 
-部分饰品是角色解锁物
-
-部分饰品需要成就贴图
+注册相关文件: 
+\commons\constants\id_item&trinket&pocket
+\commons\lib\translations.lua
+ibs_item.lua

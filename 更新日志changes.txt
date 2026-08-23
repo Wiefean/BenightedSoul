@@ -1,5 +1,53 @@
 -----------------------------------
 2026.8
+v0.12.6
+
+新道具：
+ 鲍勃的祝福
+ 钥匙先生
+
+调整：
+ <角色>
+ 昧化遗骸：能力更新；解锁树更新；现在需要解锁
+
+
+New Items:
+ Bobs's Blessing
+ Mr. Key
+
+Adjustments:
+ <Character>
+ Benighted Forgotten: Abilities update; Unlcok-tree update; Needs to be unlocked now
+-----------------------------------
+2026.8
+v0.12.5
+
+新角色：昧化遗骸 (未完成)
+
+新道具：
+ 蜘蛛钥匙
+ 极巨化钥士
+ 硫磺火钥匙
+
+调整：
+ <道具>
+ 节制之骨：兼容调整
+ 钥匙行者：调整
+
+
+New Character: Benighted Forgotten (Unfinished)
+
+New Items:
+ Spider Keys
+ Mr. Dynamax
+ Brimstone Keys
+
+Adjustments:
+ <Item>
+ Bone of Temperance: Compats adjustments
+ Key Walker: Adjustments
+-----------------------------------
+2026.8
 v0.12.4
 
 新道具：

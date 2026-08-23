@@ -67,8 +67,9 @@ end
 function Relic:Spawn(itemID, pos, spawner)
 	local room = game:GetRoom()
 	pos = pos or room:FindFreePickupSpawnPosition((room:GetCenterPos() + Vector(200,200)), 0, true)
-	itemID = itemID or self:GetItemFromPool(self._Levels:GetRoomUniqueSeed())
 	local pickup = Isaac.Spawn(5, Relic.Variant, Relic.SubType, pos, Vector.Zero, spawner):ToPickup()
+	
+	itemID = itemID or self:GetItemFromPool(pickup.InitSeed)
 	local itemConfig = config:GetCollectible(itemID)
 	
 	if itemConfig and itemConfig.GfxFileName then		
@@ -105,6 +106,16 @@ Relic:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, 'OnPickupInit', Relic.Varian
 
 --更新
 function Relic:OnPickupUpdate(pickup)
+	if pickup:GetVarData() <= 0 then
+		local itemID = self:GetItemFromPool(pickup.InitSeed)
+		pickup:SetVarData(itemID)
+		
+		local itemConfig = config:GetCollectible(itemID)
+		if itemConfig and itemConfig.GfxFileName then
+			pickup:GetSprite():ReplaceSpritesheet(2, itemConfig.GfxFileName, true)
+		end		
+	end	
+
 	local spr = pickup:GetSprite()
 	if spr:IsFinished("Appear") then spr:Play("Idle") end
 end

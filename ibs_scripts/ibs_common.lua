@@ -459,6 +459,7 @@ CommonClass('TempIronHeart', 'iron_heart_temp')
 CommonClass('Memories', 'memories')
 CommonClass('CustomPool', 'custom_pool')
 CommonClass('Room', 'room')
+CommonClass('Rooms', 'rooms')
 
 --------------------------------------------
 ----------------发光沙漏兼容----------------

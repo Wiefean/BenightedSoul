@@ -24,7 +24,8 @@ local playerEID = {
 
 [IBS_PlayerID.BMaggy] = {
 	name="Benighted Magdalene",
-	info="Hearts cap 7"..
+	info="{{SoulHeart}}Soul Heart character"..
+		 "#Hearts limit 7"..
 		 "#Start with protective {{IBSIronHeart}} Iron Heart"..
 		 '#Release shockwave to recover {{IBSIronHeart}} Iron Heart'..
 		 '#Kill sins to gain boosts'..
@@ -59,7 +60,8 @@ local playerEID = {
 
 [IBS_PlayerID.BXXX] = {
 	name="Benighted ???",
-	info="↑ + 1% {{Tears}}tears for every {{IBSMemory}}memory"..
+	info="{{SoulHeart}}Soul Heart character"..
+		 "#↑ + 1% {{Tears}}tears for every {{IBSMemory}}memory"..
 		 "#Tapping "..EID.ButtonToIconMap[ButtonAction.ACTION_DROP].."drop key switches the effect of "..EID.ButtonToIconMap[ButtonAction.ACTION_BOMB].."bomb key"..
 		 "#Store / use a falsehood"..
 		 "#Cosume 21 {{IBSMemory}}memories to spawn 3 falsehoods, but only one can be picked"..
@@ -103,7 +105,8 @@ local playerEID = {
 
 [IBS_PlayerID.BLost] = {
 	name='Benighted Lost',
-	info='Flight'..
+	info='{{EmptyHeart}}No Heart character'..
+		 '#Flight'..
 		 '#Familiar items are removed from pools'..
 		 '#Spectral tears'..
 		 '#10% chance to fire key tears with +1 damage ({{Luck}}luck 10: 50%)'..
@@ -115,7 +118,8 @@ local playerEID = {
 
 [IBS_PlayerID.BKeeper] = {
 	name='Benighted Keeper',
-	info='Flight'..
+	info='{{CoinHeart}} Coin Heart character'..
+		 '#Flight'..
 		 '#Fire double tears'..
 		 '#Gulp penny trinkets'..
 		 '#Penny trinkets may affect beggar pools'..
@@ -123,6 +127,17 @@ local playerEID = {
 		 '#Hearts are free, and will be stored when picked; Cost 2 for damage form slots or beggars and all for deadly damage'..
 		 '#Donating to beggars increases the maximum of coin health containers until 7',
 	br='Through donations to beggars, the maximum of coin health containers can reach 12; Penny trinkets have 33.3% chance to become golden'
+},
+
+[IBS_PlayerID.BForgotten] = {
+	name='Benighted Forgotten',
+	info='{{SoulHeart}} Soul Heart character; If no Soul Heart, let {{EmptyBoneHeart}}Bone Heart becomes'..
+		 '#Flight'..
+		 '#{{Collectible213}}{{Collectible597}}{{Collectible'..(IBS_ItemID.BOT)..'}}'..
+		 '#Hearts limit 6'..
+		 '#{{Bomb}} Bombs limit 9; Bomb damage down; When using a bomb, teleport and detonate it; + 2 {{Bomb}}bomb when cleaning rooms'..
+		 '#{{TreasureRoom}}Treasure Room and {{CurseRoom}}Curse Room will be replaced by special {{SuperSecretRoom}}Super Secret Room',
+	br='Heart limit + 6#{{Bomb}} Bomb limit + 90#↑ Double {{Tears}}tears#↓ Half {{Damage}}dmg',
 },
 
 }
@@ -219,7 +234,7 @@ local itemEID={
 [IBS_ItemID.CursedMantle]={
 	name="Cursed Mantle",
 	info="No effect when used directly"..
-		 "Occupies the first active slot, unless holding{{Collectible260}}or{{Collectible584}}"..
+		 "Occupies the active slot, unless holding{{Collectible260}}or{{Collectible584}}"..
 		 "#Automatically used and costs 2 charges before taking damage, triggering {{Collectible705}} Dark Arts",
 	virtue="Prevents occupation",
 	belial="No special effect",
@@ -241,7 +256,7 @@ local itemEID={
 	info="Charged by cleaning rooms"..
 		 "#Can be used without full charge"..
 		 "#Teleports to a room with the selected type (Charge cost is related to the type), and won't cost charges when selecting the same type of a entered room this level",
-	virtue="No wisps#Charge cost - 1",
+	virtue="Charge cost - 1",
 	belial="Charge cost - 1",
 	void="No effect",
 	seijaNerf="20% chance to be {{Collectible324}}Undefined",
@@ -281,7 +296,7 @@ local itemEID={
 
 [IBS_ItemID.Ether]={
 	name="Ether",
-	info="Grants flight in the current room when Isaac is hurt, and then spawns holy light"..
+	info="Grants flight in the current room when Isaac is hurt, and then continually spawns holy light"..
 		 "#Holy light does 2 * Isaac's DMG and ignores armor"..
 		 "#The frequency of spawning holy light is attached to hurt times in the current room",
 	trans={"LEVIATHAN", "ANGEL"}
@@ -361,7 +376,7 @@ local itemEID={
 
 [IBS_ItemID.BonyKnife]={
 	name="Bony Knife",
-	info="In the current room, {{Damage}}DMG * 75%(not stackable), gains{{Collectible114}}",
+	info="In the current room, {{Damage}}DMG * 75%(not stackable), gain {{Collectible114}} effect",
 	virtue="Inner wisps that triggers this item when killed",
 	belial="Fire mind"
 },
@@ -383,12 +398,12 @@ local itemEID={
 	info="Rerolls empty pedestals into one of the pickups below:"..
 		 "#{{Blank}} Golden Chest, Old Chest, Black Sack, Golden Trinket, Collectible"..
 		 "#The rerolled will disappear in 20 seconds and are surrounded by spikes",
-	virtue="No Wisps#The pickups won't disappear",
+	virtue="The pickups won't disappear",
 	belial="No spikes surround the pickups"	
 },
 
 [IBS_ItemID.DustyBomb]={
-	name="Dusty Bomb",
+	name="Dusty Bombs",
 	info="+ 3{{Bomb}}Bombs"..
 		 "#Grant immunity to explosion from Isaac's bombs"..
 		 "#Isaac's bombs explode immediately when touching an ennemy"..
@@ -476,18 +491,18 @@ local itemEID={
 		 "#The pillar deals 70% Isaac's {{Damage}} damage per frame, and destroy surrounding obstacles, lasting 3.5 seconds"..
 		 "#!!! The pillar can also hurt Isaac"..
 		 "#If {{Collectible"..(IBS_ItemID.Sacrifice2).."}}Welcome Sacrifice had been used, then the pillar won't hurt Isaac and will follow enemies",
-	virtue="No wisps#The pillar won't hurt Isaac and will follow enemies",
+	virtue="The pillar won't hurt Isaac and will follow enemies",
 	belial="A bigger pillar following Isaac"
 },
 
 [IBS_ItemID.Sacrifice2]={
 	name="Welcome Sacrifice",
-	info="Charged by entering devil/angel room"..
+	info="Charged by entering Devil Room or Angel Room"..
 		 "#If {{Collectible"..(IBS_ItemID.Sacrifice).."}}Unwelcome Sacrifice had been used, charge at once"..
 		 "#!!! {{ColorYellow}}SINGLE USE{{CR}}"..
-		 "#After used:"..
+		 "#After used,for the rest of the run:"..
 		 "#{{Blank}} For the item that is of the highest quality in a new room, spawns a health-priced devil item and a coin-priced angel item as options",
-	virtue="No wisps#Charge at once",
+	virtue="Charge at once",
 	belial="Charge at once"
 },
 
@@ -530,8 +545,8 @@ local itemEID={
 	name="Falowerse",
 	info="Holding "..EID.ButtonToIconMap[ButtonAction.ACTION_DROP].." drop key and touching pickups decomposes them into{{IBSMemory}}memories"..
 		 "#Consuming 21{{IBSMemory}}memories spawns 3 falsehoods, but only one can be picked up"..
-		 "#When Isaac is dead, revive and transform Isaac's character into {{Player"..(IBS_PlayerID.BXXX).."}}Benighted ???, and remove this item",
-	virtue="No wisps",
+		 "#When Isaac is dead, revive and transform the character into {{Player"..(IBS_PlayerID.BXXX).."}}Benighted ???, remove this item, and restart the level",
+	virtue="No effect",
 	belial="No effect",
 	player={[IBS_PlayerID.BXXX] = 'Increase the maximum of orbs to 6, and remove this item'}
 },
@@ -546,7 +561,7 @@ local itemEID={
 	name="Gold Experience",
 	info="+ 1{{BrokenHeart}}Broken Heart"..
 		 "#Provides Coin Heart Containers that equals in number to{{BrokenHeart}}broken hearts"..
-		 " (Similar to{{Player14}}Keeper's, but can only be healed by picking{{Coin}}coins up)"..
+		 " (Similar to{{Player14}}Keeper, but can only be healed by picking{{Coin}}coins up)"..
 		 "#!!! {{ColorYellow}}Can not prevent Isaac from death{{CR}}",
 	player={
 		[PlayerType.PLAYER_KEEPER] = "Instead, melts{{Trinket156}}Mother's Kiss",
@@ -715,7 +730,7 @@ local itemEID={
 		 '#No corresponding tags or duplicated tags is recorded as "None"'..
 		 "#After recording two tags, two more uses can spawn a passive item with the tags"..
 		 "#!!! Affect item pools",
-	virtue="No wisps#At least {{Quality2}}quality 2",
+	virtue="At least {{Quality2}}quality 2",
 	belial="Replaces the item with{{Collectible51}} if no corresponding item",
 	void="No effect",
 	seijaNerf="75% not to draw",	
@@ -932,7 +947,7 @@ local itemEID={
 	name='Maxx C',
 	info='Discharge 1'..
 		 '#For every enemy newly appears in the current room, gain a random item-wisp whose quality is not below {{Quality2}}2',
-	virtue='No wisps#Increase HP of the item-wisps',
+	virtue='Increase HP of the item-wisps',
 	belial='Item-wisps come from devil pool',
 	void='No effect',
 },
@@ -1016,7 +1031,7 @@ local itemEID={
 		 '#Stats won\'t be below the standard'..
 		 '#Remove all disease items from pools'..
 		 '#Remove all disease items from Isaac, and spawn equal numbers of items from {{TreasureRoom}}Treasure Pool',
-	virtue='No wisps#{{AngelRoom}}Angel Pool instead',
+	virtue='{{AngelRoom}}Angel Pool instead',
 	belial='{{DevilRoom}}Devil Pool instead',
 },
 
@@ -1125,7 +1140,7 @@ local itemEID={
 		 '#If recorded, try reset the closest room into recorded one, make game timer become recorded one, and reset the record'..
 		 '#!!! In a new level, all rooms with the last-recorded type will be rerolled into normal rooms'..
 		 '#All {{Collectible'..(IBS_ItemID.SilverKey)..'}}'..'The Silver Key share the same record',
-	virtue='No wisps#Can record {{AngelRoom}}Angel Room',
+	virtue='Can record {{AngelRoom}}Angel Room',
 	belial='Can record {{DevilRoom}}Devil Room',
 	void='No effect',
 	greed='No effect',
@@ -1157,7 +1172,7 @@ local itemEID={
 	name='Broken Wildering Mirror',
 	info='!!! {{ColorYellow}}SINGLE USE{{CR}}'..
 		 '#Cost 10 {{Coins}}coins to remove {{CurseLost}}Curse of the Lost and gain {{Collectible'..(IBS_ItemID.WilderingMirror)..'}}Wildering Mirror',
-	virtue='No wisps',
+	virtue='No effect',
 	belial='No effect',
 },
 
@@ -1252,7 +1267,7 @@ local itemEID={
 		 '#When used without full charge, absorb trinkets and {{Quality1}}Q-1-or-below items to charge itself (including those being held)'..
 		 '#Can be fully charged twice'..
 		 '#When used with full charge, reroll {{Quality3}}Q-3-or-below items into quality + 1 random items, but not higher than 3',
-	virtue='No wisps#{{AngelRoom}}Angel pool',
+	virtue='{{AngelRoom}}Angel pool',
 	belial='{{DevilRoom}}Devil pool',
 	void='No effect',
 },
@@ -1263,7 +1278,7 @@ local itemEID={
 		 '#Before taking damage, charge 1~3 meters; If the damage is penalt and the charge is full, automatically trigger this item'..
 		 '#3 times limit; Recover 1 when clearing {{BossRoom}}Boss Room'..
 		 '#!!! {{ColorYellow}}Remove when exhausted{{CR}}',
-	virtue='No wisps#Before taking damage, charge 1 meter more',
+	virtue='Before taking damage, charge 1 meter more',
 	belial='No special effect',
 	void='No use times limit',
 },
@@ -1288,7 +1303,7 @@ local itemEID={
 	info='+ 3 counts when a room is cleared (6 for big rooms)'..
 		 'Costing 1 count, select an item to remove from pools, and decrease game timer by 5 seconds'..
 		 '#!!! Also from Isaac, but return (quality^2 + 1) counts',
-	virtue='No wisps#↑ + 0.005 {{Tears}}tears',
+	virtue='↑ + 0.005 {{Tears}}tears',
 	belial='↑ + 0.01 {{Damage}}dmg',
 	void='No effect'
 },
@@ -1492,7 +1507,7 @@ local itemEID={
 [IBS_ItemID.RubbishBook]={
 	name='DEEP MYSTERIES',
 	info='Something something DEEP MYSTERIES something',
-	virtue='No wisps',
+	virtue='No effect',
 	belial='No effect',	
 	seijaBuff={
 		desc = '+ %s{{Coin}}Coin',
@@ -1654,7 +1669,7 @@ local itemEID={
 		 '#Drop level-num passive items with random items in cycle'..
 		 '#Reset game timer and item pools'..
 		 '#No effect on quest or error items',
-	virtue='No wisps#28% angel item in cycle',
+	virtue='28% angel item in cycle',
 	belial='Gain {{Collectible51}}Pentagram',
 },
 
@@ -1834,16 +1849,58 @@ local itemEID={
 [IBS_ItemID.ToyKeys]={
 	name='Toy Keys',
 	info='+ 5 {{Key}}keys'..
-	'#50% {{Chest}}Common Chest become {{GoldenChest}}Golden Chest'..
-	'#Losing {{Key}}keys spawns 0~3 pickups, 63 at most for each level',
+		 '#50% {{Chest}}Common Chest become {{GoldenChest}}Golden Chest'..
+		 '#Losing {{Key}}keys spawns 0~3 pickups, 63 at most for each level',
 },
 
 [IBS_ItemID.KeyWalker]={
 	name='Key Walker',
 	info='+ 5 {{Key}}keys'..
-	'#In a room with enemies, every 6 seconds, drop 1~3 {{Key}}keys, which will become Key Walker targeting enemies:'..
-	'#Has (3 + 0.1 x {{Key}}keys) collision damage'..
-	'#Be {{Key}}key back after 12 seconds',
+		 '#Attract {{Key}}keys when attacking'..
+		 '#In a room with enemies, every 6 seconds, drop 1~3 {{Key}}keys, which will become Key Walker targeting enemies:'..
+		 '#Has (2 + 0.1 x {{Key}}keys) collision damage'..
+		 '#Be {{Key}}key back after 12 seconds',
+},
+
+[IBS_ItemID.SpiderKeys]={
+	name='Spider Keys',
+	info='+ 5 {{Key}}keys'..
+		'#Losing {{Key}}keys spawns Blue Spiders'..
+		'#When Blue Spider is killed, 10% chance to spawn a {{Key}}key',	
+},
+
+[IBS_ItemID.MrDynamax]={
+	name='Mr. Dynamax',
+	info='!!! {{ColorYellow}}SINGLE USE{{CR}}'..
+		 '#Spawn Boss Rush as a room',
+	virtue='+ 99 {{Key}}keys',
+	belial='Lose all {{Key}}keys, + 0.13 {{Damage}}dmg for each',
+},
+
+[IBS_ItemID.BrimstoneKeys]={
+	name='Brimstone Keys',
+	info='+ 6 {{Key}}keys'..
+		'#Losing {{Key}}keys fires 4-dir brimestone',
+	seijaBuff={
+		desc = '+ %s{{HalfBlackHeart}}Half Black Heart when triggered',
+		data = {
+			args = function(x) return x end
+		}
+	},
+},
+
+[IBS_ItemID.BobsBlessing]={
+	name="Bob's Blessing",
+	info='+ 5 {{Key}}keys'..
+		'#Explosion immunity when {{Key}}key num is above 0'..
+		'#Losing a {{Key}}key when getting exploded',
+},
+
+[IBS_ItemID.MrKey]={
+	name='Mr. Key',
+	info='+ 1 {{Key}}key'..
+	'#{{MegaChest}} Mega Chest needs only 1 {{Key}}key'..
+	'#{{KeyBeggar}} Key Beggars have 50% chance to return {{Key}}keys',
 },
 
 }
@@ -2453,7 +2510,7 @@ local cardEID={
 
 [IBS_PocketID.BForgotten] = {
 	name="Falsehood of the Forgotten",
-	info='Spawn 12 bone orbitals and 3 item-wisps of {{Quality2}}Q-2-or-above items that have been removed from pools',
+	info='Spawn 6 bone orbitals and 3 item-wisps of {{Quality2}}Q-2-or-above items that have been removed from pools',
 	mimic={charge = 4, isRune = true},
 	player={[IBS_PlayerID.BXXX] = "Orb: Every 5 seconds, bone orbital up to six"},
 	runeSword='When killing enemies, 18% chance to spawn a friendly Bony',	
@@ -2515,294 +2572,6 @@ local slotEID = {
 
 --------------------------------------------------------
 
-local hoardingEID = {
-
-	FormList = {
-		[ItemConfig.TAG_GUPPY] = '{{Guppy}} 10% chance to spawn a blue fly when hurting an enemy',
-		
-		[ItemConfig.TAG_FLY] = '{{LordoftheFlies}} 50% chance to spawn a blue fly when killing an enemy',
-		
-		[ItemConfig.TAG_MUSHROOM] = '{{FunGuy}} When gained, 50% chance to gain {{Heart}}Health up',
-		
-		[ItemConfig.TAG_ANGEL] = '{{Seraphim}} When gained, + 1 {{SoulHeart}}Soul Heart',
-		
-		[ItemConfig.TAG_BOB] = '{{Bob}} Grants explosion immunity when this transformation is done',
-		
-		[ItemConfig.TAG_SYRINGE] = '{{Spun}} + 0.25 {{Damage}}dmg',
-		
-		[ItemConfig.TAG_MOM] = '{{Mom}} Enemies take 0.25 more damage',
-		
-		[ItemConfig.TAG_BABY] = '{{Conjoined}} + 0.15 {{Tears}}tears',
-		
-		[ItemConfig.TAG_DEVIL] = '{{Leviathan}} When gained, + 1 {{HalfBlackHeart}}Half Black Heart',
-		
-		[ItemConfig.TAG_POOP] = '{{OhCrap}} When this transformation is done, heal an extra {{Heart}}Heart from destroying a poop',
-
-		[ItemConfig.TAG_BOOK] = '{{Bookworm}} Provides (0.5 x maxCharges x componentNum) shield when using a book',
-		
-		[ItemConfig.TAG_SPIDER] = '{{SpiderBaby}} Spawns 2 blue spiders in a new room or a new greed wave',
-	},
-
-	StompyFrom = {
-		info = '{{Stompy}} + 20 collision damage',
-		[12] = true,
-		[302] = true,
-	},
-
-}
-
-BSamsonEID = {
-
-	[0] = {
-		Common = '(Unfinished)',
-		Calm = '(Unfinished)',
-		Wrath = '(Unfinished)',
-	},
-
-	[1] = {
-		Common = 'No effect',
-		BSamson = 'When changing rooms, select the last card',
-		Calm = '{{Battery}}{{1}} Enter {{IBSSamsonWrath}}Wrath',
-		Wrath = '{{Battery}}{{1}} Enter {{IBSSamsonCalm}}Calm',
-	},
-
-	[2] = {
-		Common = '↓{{Damage}}DMG x 50% (not stackable); Apply a mark to enemies hit by swing; Each mark let enemies take 1 more damage',
-		Calm = '{{Battery}}{{2}} Apply 10 marks to all enemies; Gain homing effect in the current room',
-		Wrath = '{{Battery}}{{2}} All enemies lose Hp equalling to 10x marks',
-	},
-
-	[3] = {
-		Common = 'Swing can destroy obstacles and doors',
-		Calm = '{{Battery}}{{1}} Enter {{IBSSamsonWrath}}Wrath',
-		Wrath = '{{Battery}}{{2}} Fire 8-dir shockwaves',
-	},
-
-	[4] = {
-		Common = 'Swing applies bleeding, 25% faster but in 10% smaller range',
-		Calm = '{{Battery}}{{2}} Enter {{IBSSamsonWrath}}Wrath; Gain {{Card4}}The Empress effect, if already then cost 1 charge inserted',
-		Wrath = '{{Battery}}{{0}} Enter {{IBSSamsonWrath}}Wrath',
-	},
-
-	[5] = {
-		Common = 'Swing 25% slower, + 1s sheild when hitting enemies, not stackable during sheilded',
-		Calm = '{{Battery}}{{2}} + 5s sheild',
-		Wrath = '{{Battery}}{{1}} Enter {{IBSSamsonCalm}}Calm',
-	},
-
-	[6] = {
-		Common = 'Petrify enemies firstly hit for 1s',
-		Calm = '{{Battery}}{{2}} Petrify all enemies for 5s',
-		Wrath = '{{Battery}}{{1}} Enter {{IBSSamsonCalm}}Calm',
-	},
-
-	[7] = {
-		Common = 'Swing num + 1; Enemies hit by plural swings have 6% chance to drop temporary {{HalfHeart}}Half Heart ({{Luck}}Luck 6: 12%)',
-		Calm = '{{Battery}}{{1}} Enter {{IBSSamsonWrath}}Wrath',
-		Wrath = '{{Battery}}{{3}} Enter {{IBSSamsonWrath}}Wrath, spawn a random temporary heart',
-	},
-
-	[8] = {
-		Common = 'Swing damage, size and distance will gradually increase until stopping attack or hitting border',
-		Calm = '{{Battery}}{{1}} Enter {{IBSSamsonWrath}}Wrath',
-		Wrath = '{{Battery}}{{1}} Enter {{IBSSamsonWrath}}Wrath',
-	},
-
-	[9] = {
-		Common = 'Swing with 50% lower damage (not stackable), fire tears to enemies hit',
-		Calm = '{{Battery}}{{2}} Enter {{IBSSamsonWrath}}Wrath, next card costs 0 charge',
-		Wrath = '{{Battery}}{{1}} Enter {{IBSSamsonWrath}}Calm, + 1 charge',
-	},
-
-	[10] = {
-		Common = '(Not stackable) Swing num + 2, but 50% slower',
-		Calm = '{{Battery}}{{3}} Fire 30 bouncing coin tears in random direction',
-		Wrath = '{{Battery}}{{0}} Enter {{IBSSamsonCalm}}Calm',
-	},
-
-	[11] = {
-		Common = 'Swing in 10% wider range; Grant Flight',
-		Calm = '{{Battery}}{{0}} Enter {{IBSSamsonCalm}}Wrath, teleport to a random enemy and swing',
-		Wrath = '{{Battery}}{{3}} Ditto, may repeat for a while',
-	},
-	
-	[12] = {
-		Common = 'Isaac becomes 10% bigger (not stackable)',
-		Calm = '{{Battery}}{{1}} Enter{{IBSSamsonWrath}} Wrath',
-		Wrath = '{{Battery}}{{3}} Enter {{IBSSamsonWrath}}Wrath, gain {{Card12}}Strength effect, up to 2',
-	},
-
-	[13] = {
-		Common = 'Grant flight',
-		Calm = '{{Battery}}{{0}} Switch to the last card',
-		Wrath = '{{Battery}}{{0}} Enter {{IBSSamsonWrath}}Wrath, switch to the last card',
-	},
-
-	[14] = {
-		Common = 'While swinging, deal 13% {{Damage}}damage to all enemies in {{Range}}range',
-		Calm = '{{Battery}}{{2}} Trigger {{Card14}}Death',
-		Wrath = '{{Battery}}{{2}} Ditto',
-	},
-
-	[15] = {
-		Common = 'Stopping swinging for 3s makes next swing in 25% wider range with 100% higher damage',
-		Calm = '{{Battery}}{{0}} + 1 charge, + 4s cooldown',
-		Wrath = '{{Battery}}{{0}} Enter {{IBSSamsonCalm}}Calm, + 1 charge, + 3s cooldown',
-	},
-
-	[16] = {
-		Common = '(Not stackable) Swing applies brimestone mark, 33% slower; Enemies with brimestone mark take extra 66% damage',
-		Calm = '{{Battery}}{{1}} Enter {{IBSSamsonWrath}}Wrath',
-		Wrath = '{{Battery}}{{2}} Enter {{IBSSamsonWrath}}Wrath, gain {{Card15}}The Devil effect',
-	},
-
-	[17] = {
-		Common = 'Explosion immunity; Swing has 16% chance to explode when hitting enemies, 200%{{Damage}}damage ({{Luck}}Luck 17：50%)',
-		Calm = '{{Battery}}{{2}} Enter {{IBSSamsonWrath}}Wrath, and explode',
-		Wrath = '{{Battery}}{{2}} Ditto',
-	},
-
-	[18] = {
-		Common = '↑{{Luck}}Luck + 1;Swing deals extra 200%{{Luck}}luck damage, fire a tear with the same damage (Invalid when luck is below 1)',
-		Calm = '{{Battery}}{{3}} Enter {{IBSSamsonWrath}}Wrath, + 1 {{Luck}}luck in the current level',
-		Wrath = '{{Battery}}{{0}} Enter {{IBSSamsonCalm}}Calm',
-	},
-
-	[19] = {
-		Common = 'Swing applies slowing, freezes enemies killed, 18% chance to directly freeze non-boss enemies ({{Luck}}41: 100%)',
-		Calm = '{{Battery}}{{0}} Next swing freezes non-boss enemies',
-		Wrath = '{{Battery}}{{1}} Enter {{IBSSamsonCalm}}Calm',
-	},
-
-	[20] = {
-		Common = 'Swing applies burning; Swing has 25% chance to fire a flame ({{Luck}}Luck 15: 100%)',
-		Calm = '{{Battery}}{{2}} Enter {{IBSSamsonWrath}}Wrath, fire flames around',
-		Wrath = '{{Battery}}{{2}} Ditto',
-	},
-
-	[21] = {
-		Common = 'Swing with 50% lower damage, enemies hit lose equal Hp, if below 20%, be killed instantly',
-		Calm = '{{Battery}}{{0}} Enter {{IBSSamsonWrath}}Wrath, + 2s cooldown',
-		Wrath = '{{Battery}}{{0}} Enter{{IBSSamsonCalm}}Calm, + 2s cooldown',
-	},
-
-	[22] = {
-		Common = 'No effect',
-		Calm = '{{Battery}}{{6}} Cosnume this card, spawn 5 other common tarot cards',
-		Wrath = '{{Battery}}{{6}} Ditto',
-	},
-
-	[56] = {
-		Common = '↑ + 1 {{Damage}}dmg and {{Tears}}tears for each empty reversed tarot slot',
-	},
-
-	[57] = {
-		Common = '↑ {{Damage}}dmg x 200%; !!! When taking penal damage, gain 1 mark in the current level; Each mark causes extra half a heart hurt',
-	},
-
-	[58] = {
-		Common = 'Fire shockwaves after every 5 swing',
-	},
-
-	[59] = {
-		Common = 'Disable double {{Damage}}dmg and hurt from {{IBSSamsonWrath}}Wrath',
-	},
-	
-	[60] = {
-		Common = 'Stackable shield from {{IBSSamsonCalm}}Calm, but with less 1s',
-	},
-	
-	[61] = {
-		Common = '{{IBSSamsonCalm}}Calm provides invincibility inserted of sheild',
-	},
-
-	[62] = {
-		Common = '(Not stackable) Swing num - 2; Swing in 5% wider range with 20% higher damage for each kind of hearts',
-	},
-
-	[63] = {
-		Common = 'Swing 60% faster when standing by',
-	},
-
-	[64] = {
-		Common = '(Not stackable) Double charge from damage for {{Collectible'..(IBS_ItemID.Posture)..'}}Posture, but none form cleaning rooms anymore',
-	},
-
-	[65] = {
-		Common = '↑ For each {{Coin}}coin, + 0.04 {{Damage}}dmg',
-	},
-
-	[66] = {
-		Common = 'Before taking penal damage in {{IBSSamsonWrath}}Wrath, consume a random card instead; ↓If this one, - 1 {{Luck}}luck; ↑If another, + 0.25 {{Luck}}luck, and spawn the reversed version',
-	},
-
-	[67] = {
-		Common = '↓ {{Damage}}dmg x 75% (not stackable); Swing applies weakness',
-	},
-	
-	[68] = {
-		Common = 'The first swing applies midas after changing rooms',
-	},
-
-	[69] = {
-		Common = 'Taking damage in {{IBSSamsonWrath}}Wrath will not consume cards anymore',
-	},
-
-	[70] = {
-		Common = 'Infinite {{IBSSamsonWrath}}Wrath duration',
-	},	
-
-	[71] = {
-		Common = 'Shield from {{IBSSamsonCalm}}Calm lasts 0.5s longer; Half {{IBSSamsonWrath}}Wrath duration (not stackable); When changing rooms, enter {{IBSSamsonCalm}}Calm and gain sheild',
-	},
-
-	[72] = {
-		Common = 'Explosion heals Isaac {{HalfHeart}}half a heart',
-	},	
-
-	[73] = {
-		Common = '↓ - 7 {{Luck}}luck; ↑ For each consumed tarot card, + 1 {{Luck}}luck; Enemies take extra 20% x {{Luck}}luck damage (absolute value)',
-	},
-
-	[74] = {
-		Common = 'When changing rooms, enter {{IBSSamsonWrath}}Wrath',
-	},
-
-	[75] = {
-		Common = '↑ When changing states, + 190% decaying {{Tears}}tears multiplier',
-	},
-
-	[76] = {
-		Common = 'When entering {{IBSSamsonWrath}}Calm, lower a light pillar following Isaac (no hurt), not available if exists',
-	},
-
-	[77] = {
-		Common = '↑ Automatically consume reversed tarot in other slots, + 0.5 {{Damage}}dmg and 21% {{Devil}}devil chance for each; Secret Exit keeps open',
-	},
-
-}
-
-local BlessingOfMichaelEID = {
-
-	[108] = 'Before taking damage, 25% chance to gain {{HalfSoulHeart}} Half Soul Heart',
-	
-	[313] = 'Gain an extra chance',
-	
-	[182] = '↑ {{Damage}}dmg x 140%',
-	
-	[331] = 'Enemies take extra 30% {{Damage}}Isaac\'s damage',
-	
-	[415] = 'When hurt or changing rooms, regain this item',
-	
-	[477] = 'Max-charge - 2',
-	
-	[643] = 'Every 2.5s, automatically fire beam with 50% damage but homing',
-	
-	[691] = 'When gained, remove items whose quality is below {{Quality2}} from pools',
-
-}
-
---------------------------------------------------------
 
 return {
 	PlayerEID = playerEID,
@@ -2810,8 +2579,4 @@ return {
 	TrinketEID = trinketEID,
 	CardEID = cardEID,
 	SlotEID = slotEID,
-	
-	HoardingEID = hoardingEID,
-	BSamsonEID = BSamsonEID,
-	BlessingOfMichaelEID = BlessingOfMichaelEID,
 }

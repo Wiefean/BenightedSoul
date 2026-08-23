@@ -16,6 +16,7 @@ BAzazel = Isaac.GetPlayerTypeByName("Benighted Azazel"),
 BEden = Isaac.GetPlayerTypeByName("Benighted Eden"),
 BLost = Isaac.GetPlayerTypeByName("Benighted Lost"),
 BKeeper = Isaac.GetPlayerTypeByName("Benighted Keeper"),
+BForgotten = Isaac.GetPlayerTypeByName("Benighted Forgotten"),
 
 }
 
@@ -33,6 +34,7 @@ local PlayerTypeToKey = {
 	[IBS_PlayerID.BEden] = "BEden",
 	[IBS_PlayerID.BLost] = "BLost",
 	[IBS_PlayerID.BKeeper] = "BKeeper",
+	[IBS_PlayerID.BForgotten] = "BForgotten",
 }
 
 --将角色ID转换为字符串索引
@@ -55,6 +57,7 @@ BSamson = 'BSamson',
 BEden = 'BEden',
 BLost = 'BLost',
 BKeeper = 'BKeeper',
+BForgotten = 'BForgotten',
 
 }
 

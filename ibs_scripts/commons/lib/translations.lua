@@ -36,6 +36,7 @@ Player = {
 	[IBS_PlayerID.BEden] = '伊甸',
 	[IBS_PlayerID.BLost] = '游魂',
 	[IBS_PlayerID.BKeeper] = '店主',
+	[IBS_PlayerID.BForgotten] = '遗骸',
 },
 
 --道具(包含长子权)
@@ -53,6 +54,7 @@ Item = {
 		[IBS_PlayerID.BEden]='氵卖神',
 		[IBS_PlayerID.BLost]='永恒心锁',
 		[IBS_PlayerID.BKeeper]='取决于你',
+		[IBS_PlayerID.BForgotten]='骨头狂潮',
 	},
 	[IBS_ItemID.LightD6]={
 		Name='光辉六面骰',
@@ -1067,6 +1069,31 @@ Item = {
 		Desc='追踪钥匙'
 	},
 
+	[IBS_ItemID.SpiderKeys]={
+		Name='蜘蛛钥匙',
+		Desc='虫卵钥匙 !',
+	},
+	
+	[IBS_ItemID.MrDynamax]={
+		Name='极巨化钥士',
+		Desc='把墙打开 !',
+	},
+	
+	[IBS_ItemID.BrimstoneKeys]={
+		Name='硫磺火钥匙',
+		Desc='恶魔喷射 + 6个钥匙',
+	},
+	
+	[IBS_ItemID.BobsBlessing]={
+		Name='鲍勃的祝福',
+		Desc='防爆钥匙',
+	},
+	
+	[IBS_ItemID.MrKey]={
+		Name='钥匙先生',
+		Desc='等个大客户',
+	},
+
 },
 
 --饰品
@@ -1420,6 +1447,7 @@ Player = {
 	[IBS_PlayerID.BEden] = 'Benighted Eden',
 	[IBS_PlayerID.BLost] = 'Benighted Lost',
 	[IBS_PlayerID.BKeeper] = 'Benighted Keeper',
+	[IBS_PlayerID.BForgotten] = 'Benighted Forgotten',
 },
 
 }

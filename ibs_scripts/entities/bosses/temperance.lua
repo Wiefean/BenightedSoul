@@ -132,7 +132,7 @@ function Temperance:OnNpcInit(npc)
 	if (npc.Variant == Temperance.Variant) then
 		npc:GetSprite():Play('Appear', true)
 		npc.State = self.State.Walk
-		npc.SplatColor = Color(0.3,0.5,1)
+		--npc.SplatColor = Color(0.3,0.5,1)
 	elseif (npc.Variant <= 1) and self:CanAppear() then
 		--尝试替换暴食
 		local rng = RNG(npc.InitSeed)

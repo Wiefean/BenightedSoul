@@ -31,11 +31,11 @@ function KeyWalker:OnPickupUpdate(pickup)
 	
 	if target and pickup.FrameCount < 360 then
 		local vec = target.Position - pickup.Position
-		pickup.Velocity = pickup.Velocity + (vec):Resized(math.max(1, vec:Length() / 40))
+		pickup.Velocity = pickup.Velocity + (vec):Resized(math.max(1, vec:Length() / 40) * 0.01 * math.random(70,140))
 		
 		--碰撞伤害
 		if pickup:IsFrame(7,0) then
-			local dmg = 3 + 0.1 * Isaac.GetPlayer(0):GetNumKeys()
+			local dmg = 2 + 0.1 * Isaac.GetPlayer(0):GetNumKeys()
 			
 			--金钥匙
 			if golden then
@@ -44,7 +44,7 @@ function KeyWalker:OnPickupUpdate(pickup)
 						ent:TakeDamage(dmg, 0, EntityRef(nil), 0)
 						
 						--概率施加点金
-						if math.random(1,100) < 20 then		
+						if math.random(1,100) < 25 then		
 							ent:AddMidasFreeze(EntityRef(nil), 45)
 						end
 					end
@@ -61,17 +61,21 @@ function KeyWalker:OnPickupUpdate(pickup)
 		spr:Play("Walk")
 		sfx:Play(IBS_Sound.KeyWalker, 0.2, 10, false, 0.01 * math.random(80, 120))
 	else
-		--变回钥匙
-		
-		--金钥匙
-		if golden then
-			Isaac.Spawn(5, 30, 2, pickup.Position, pickup.Velocity, nil)
-		else		
-			Isaac.Spawn(5, 30, 0, pickup.Position, pickup.Velocity, nil)
+		if game:GetRoom():IsClear() or pickup.FrameCount >= 360 then
+			--变回钥匙
+			
+			--金钥匙
+			if golden then
+				Isaac.Spawn(5, 30, 2, pickup.Position, pickup.Velocity, nil)
+			else		
+				Isaac.Spawn(5, 30, 0, pickup.Position, pickup.Velocity, nil)
+			end
+			
+			Isaac.Spawn(1000, 15, 0, pickup.Position, Vector.Zero, nil)
+			pickup:Remove()
+		else
+			spr:Play("Idle")
 		end
-		
-		Isaac.Spawn(1000, 15, 0, pickup.Position, Vector.Zero, nil)
-		pickup:Remove()
 	end
 end
 KeyWalker:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, 'OnPickupUpdate', KeyWalker.Variant)
@@ -84,5 +88,13 @@ function KeyWalker:OnCollision(pickup, collider)
 	end	
 end
 KeyWalker:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, 'OnCollision', KeyWalker.Variant)
+
+--忽略障碍物碰撞
+function KeyWalker:PrePickupGridCollision()
+	if game:GetRoom():GetType() ~= RoomType.ROOM_DUNGEON then
+		return true
+	end
+end
+KeyWalker:AddCallback(ModCallbacks.MC_PRE_PICKUP_GRID_COLLISION, 'PrePickupGridCollision', KeyWalker.Variant)
 
 return KeyWalker

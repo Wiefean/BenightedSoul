@@ -14,16 +14,16 @@ Heart = {
 	Items = {IBS_ItemID.TreasureKey},
 },
 Isaac = {
-	PaperNames = {'wildering_mirror'},
-	Items = {IBS_ItemID.WilderingMirror},
+	PaperNames = {'toy_keys'},
+	Items = {IBS_ItemID.ToyKeys},
 },
 BlueBaby = {
-	PaperNames = {'the_horned_axe'},
-	Items = {IBS_ItemID.TheHornedAxe},
+	PaperNames = {'key_walker'},
+	Items = {IBS_ItemID.KeyWalker},
 },
 Satan = {
-	PaperNames = {'moon_streets'},
-	Items = {IBS_ItemID.MoonStreets},
+	PaperNames = {'brimstone_keys'},
+	Items = {IBS_ItemID.BrimstoneKeys},
 },
 Lamb = {
 	PaperNames = {'akey47'},
@@ -46,8 +46,8 @@ Delirium = {
 	Items = {IBS_ItemID.ChestChest},
 },
 Witness = {
-	PaperNames = {'neopolitan'},
-	Trinkets = {IBS_TrinketID.Neopolitan},
+	PaperNames = {'moms_old_key'},
+	Items = {IBS_ItemID.MomsOldKey},
 },
 Beast = {
 	PaperNames = {'knock'},

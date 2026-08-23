@@ -198,9 +198,9 @@ BMaggy:AddCallback(mod.IBS_CallbackID.CHECK_IRON_HEART, 'CheckIronHeart')
 
 --心数限制
 function BMaggy:HeartLimit(player, limit)
-	return math.max(2, limit - 10)
+	return limit - 10
 end
-BMaggy:AddCallback(ModCallbacks.MC_PLAYER_GET_HEART_LIMIT, 'HeartLimit', BMaggy.ID)
+BMaggy:AddCallback(mod.IBS_CallbackID.GET_HEART_LIMIT, 'HeartLimit', BMaggy.ID)
 
 --角色更新
 function BMaggy:OnPlayerUpDate(player)
@@ -338,19 +338,20 @@ BMaggy:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, 'OnNpcDeath')
 
 --替换房间
 function BMaggy:ReplaceRooms(roomSlot, roomData, seed)
-	if not PlayerManager.AnyoneIsPlayerType(self.ID) then return end
-	local roomType = roomData.Type
+	if PlayerManager.AnyoneIsPlayerType(self.ID) or mod._BenightingPlayerType == self.ID then
+		local roomType = roomData.Type
 
-	--献祭房替换为小头目房
-	if roomType == RoomType.ROOM_SACRIFICE then
-		local newData = self._Levels:CreateRoomData{
-			Seed = seed,
-			Type = RoomType.ROOM_MINIBOSS,
-			Shape = roomSlot:Shape(),
-			Doors = roomSlot:DoorMask()
-		}
-		if newData then
-			return newData
+		--献祭房替换为小头目房
+		if roomType == RoomType.ROOM_SACRIFICE then
+			local newData = self._Levels:CreateRoomData{
+				Seed = seed,
+				Type = RoomType.ROOM_MINIBOSS,
+				Shape = roomSlot:Shape(),
+				Doors = roomSlot:DoorMask()
+			}
+			if newData then
+				return newData
+			end
 		end
 	end
 end

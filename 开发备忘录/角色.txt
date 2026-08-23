@@ -8,4 +8,8 @@
 
 死亡界面签名(已有贴图,但别忘记设置)
 
-注册角色解锁物
+注册相关文件: 
+\commons\constants\id_player&challenge.lua
+\commons\lib\translations.lua
+ibs_achiev.lua
+ibs_player.lua

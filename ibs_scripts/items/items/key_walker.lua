@@ -48,4 +48,34 @@ end
 KeyWalker:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, 'OnPlayerUpdate', 0)
 
 
+--钥匙更新
+function KeyWalker:OnPickupUpdate(pickup)
+	if not PlayerManager.AnyoneHasCollectible(self.ID) then return end
+	if pickup.FrameCount < 30 then return end
+	
+	--金钥匙检测
+	if Isaac.GetPlayer(0):HasGoldenKey() and pickup.SubType == 2 then return end
+
+	local ent = self._Finds:ClosestEntity(pickup.Position, 1, 0, -1, function(ent)
+		local player = ent and ent:ToPlayer()
+		if player and player:HasCollectible(self.ID) and self._Players:IsShooting(player) then
+			return true
+		end
+	end)
+	
+	if ent then
+		pickup.Velocity = pickup.Velocity + (ent.Position - pickup.Position):Resized(1)
+	end
+end
+KeyWalker:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, 'OnPickupUpdate', 30)
+
+--钥匙忽略障碍物碰撞
+function KeyWalker:PrePickupGridCollision()
+	if game:GetRoom():GetType() ~= RoomType.ROOM_DUNGEON and PlayerManager.AnyoneHasCollectible(self.ID) then
+		return true
+	end
+end
+KeyWalker:AddCallback(ModCallbacks.MC_PRE_PICKUP_GRID_COLLISION, 'PrePickupGridCollision', 30)
+
+
 return KeyWalker

@@ -24,7 +24,7 @@ TempFolder:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, 'OnGainItem', TempF
 
 --修改基础掉落上限
 function TempFolder:OnEvaluateCustomCache(player, flag, value)
-	if player:HasCollectible(self.ID) then
+	if PlayerManager.AnyoneHasCollectible(self.ID) then
 		if flag == "maxcoins" or flag == "maxkeys" or flag == "maxbombs" then
 			return value + 49
 		end

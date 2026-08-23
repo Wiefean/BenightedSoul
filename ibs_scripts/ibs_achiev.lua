@@ -34,6 +34,7 @@ mod.IBS_Achiev = {
 		BEden = LoadPlayer('beden'),
 		BLost = LoadPlayer('blost'),
 		BKeeper = LoadPlayer('bkeeper'),
+		BForgotten = LoadPlayer('bforgotten'),
 	},
 
 	--通关标记
@@ -48,6 +49,7 @@ mod.IBS_Achiev = {
 		BEden = LoadMark('beden'),
 		BLost = LoadMark('blost'),
 		BKeeper = LoadMark('bkeeper'),
+		BForgotten = LoadMark('bforgotten'),
 	},
 	
 	--挑战

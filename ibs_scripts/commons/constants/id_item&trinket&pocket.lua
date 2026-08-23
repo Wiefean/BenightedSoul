@@ -209,6 +209,11 @@ DisasterOfSodom = Isaac.GetItemIdByName("Disaster of Sodom"),
 Monocle = Isaac.GetItemIdByName("Monocle"),
 ToyKeys = Isaac.GetItemIdByName("Toy Keys"),
 KeyWalker = Isaac.GetItemIdByName("Key Walker"),
+SpiderKeys = Isaac.GetItemIdByName("Spider Keys"),
+MrDynamax = Isaac.GetItemIdByName("Mr. Dynamax"),
+BrimstoneKeys = Isaac.GetItemIdByName("Brimstone Keys"),
+BobsBlessing = Isaac.GetItemIdByName("Bob's Blessing"),
+MrKey = Isaac.GetItemIdByName("Mr. Key"),
 
 }
 

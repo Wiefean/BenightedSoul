@@ -205,6 +205,11 @@
 	<passive id="203" cache="range" name="Monocle" gfx="monocle.png" description="Well-read" quality="3" craftquality="3" tags="offensive book" />
 	<passive id="204" name="Toy Keys" gfx="toy_keys.png" description="Prize keys" quality="2" craftquality="2" keys="5" tags="offensive summonable" />
 	<passive id="205" name="Key Walker" gfx="key_walker.png" description="Homing keys" quality="3" craftquality="3" keys="5" tags="offensive summonable" />
+	<passive id="206" name="Spider Keys" gfx="spider_keys.png" description="Egg sack keys!" quality="1" craftquality="1" tags="offensive nogreed summonable spider" keys="5" />
+	<active id="207" name="Mr. Dynamax" gfx="mr_dynamax.png" description="Open the wall!" quality="2" craftquality="2" tags="offensive nogreed nocantrip" />
+	<passive id="208" name="Brimstone Keys" gfx="brimstone_keys.png" description="Demon splash + 6 keys" quality="0" craftquality="0" tags="offensive devil" keys="6" />
+	<passive id="209" name="Bob's Blessing" gfx="bobs_blessing.png" description="Anti-explosion keys" quality="2" craftquality="2" tags="bob" keys="5" />
+	<passive id="210" name="Mr. Key" gfx="mr_key.png" description="Waiting for the big" quality="1" craftquality="1" tags="offensive" keys="1" />
 
 
 

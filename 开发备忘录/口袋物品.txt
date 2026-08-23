@@ -1,9 +1,10 @@
 32x32 贴图
 
-content里要有
+content里的anm2
 
-对应掉落物动画
+需要对应掉落物anm2
 
-部分是解锁物
-
-部分需要成就贴图
+注册相关文件: 
+\commons\constants\id_item&trinket&pocket
+\commons\lib\translations.lua
+ibs_item.lua

@@ -213,6 +213,11 @@ mod.IBS_Item = {
 	Monocle = Load('monocle'),
 	ToyKeys = Load('toy_keys'),
 	KeyWalker = Load('key_walker'),
+	SpiderKeys = Load('spider_keys'),
+	MrDynamax = Load('mr_dynamax'),
+	BrimstoneKeys = Load('brimstone_keys'),
+	BobsBlessing = Load('bobs_blessing'),
+	MrKey = Load('mr_key'),
 
 }
 

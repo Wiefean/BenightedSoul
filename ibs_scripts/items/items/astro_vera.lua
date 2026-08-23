@@ -18,7 +18,7 @@ function AstroVera:OnHeartLimit(player, limit, isKeeper)
 		return limit + 20
 	end
 end
-AstroVera:AddCallback(ModCallbacks.MC_PLAYER_GET_HEART_LIMIT, 'OnHeartLimit')
+AstroVera:AddCallback(mod.IBS_CallbackID.GET_HEART_LIMIT, 'OnHeartLimit')
 
 
 

@@ -176,6 +176,16 @@ local function MakeCharacterBar(playerKey, name, marksDesc, paperView)
 			end
 
 			local data = mod:GetIBSData('persis')
+			
+			--遗骸
+			if playerKey == IBS_PlayerKey.BForgotten and mark == "Unlocked" then
+				if data[playerKey][mark] then
+					data[IBS_PlayerKey.BIsaac].FINISHED = false
+				else				
+					data[IBS_PlayerKey.BIsaac].FINISHED = true
+				end
+			end
+			
 			data[playerKey][mark] = (not data[playerKey][mark])
 			mod:SaveIBSData()
 		end)
@@ -229,7 +239,7 @@ MakeCharacterBar(IBS_PlayerKey.BIsaac, Language('以撒', 'Isaac'),
 	Witness = Language('解锁 "骨猪一掷"', 'For "Bacon Saver"'),
 	Beast = Language('解锁 "拒绝选择"', 'For "No Options"'),
 	Greed = Language('解锁 "仰望星空"', 'For "Shooting Stars Gazer"'),
-	FINISHED = Language('解锁 "节制"', 'For "Temperance"'),
+	FINISHED = Language('解锁 "节制" 和 "昧化遗骸"', 'For "Temperance" and "Benighted Forgotten"'),
 },
 {
 	Unlocked = {'bisaac_unlock', 'bc1'},
@@ -279,7 +289,7 @@ MakeCharacterBar(IBS_PlayerKey.BMaggy, Language('抹大拉', 'Magdalene'), {
 	FINISHED = {'boss_fortitude'},
 })
 MakeCharacterBar(IBS_PlayerKey.BCBA, Language('该隐&亚伯', 'Cain & Abel'), {
-	Unlocked = Language('该隐/堕化该隐单层献祭12次，之后在暗室的墓地使用死亡回放以解锁 (不要弄丢亚伯)', 'Cain / Tainted Cain sacrifices for 12 times in a level, and then use Re-death in the graveyard of Dark Room with Abel to unlock (Do not drop Abel)'),
+	Unlocked = Language('该隐/堕化该隐单层献祭12次，之后在暗室的墓室使用死亡回放以解锁 (不要弄丢亚伯)', 'Cain / Tainted Cain sacrifices for 12 times in a level, and then use Re-death in Grave Room of Dark Room with Abel to unlock (Do not drop Abel)'),
 	Heart = Language('解锁 "死亡回放"', 'For "Re-death"'),
 	Isaac = Language('解锁 "兔头"', 'For "Rabbit Head"'),
 	BlueBaby = Language('解锁 "不受欢迎的祭品"', 'For "Unwelcome Sacrifice"'),
@@ -316,7 +326,7 @@ MakeCharacterBar(IBS_PlayerKey.BJudas, Language('犹大', 'Judas'), {
 	BlueBaby = Language('解锁 "出口产品"', 'For "Export"'),
 	Satan = Language('解锁 "混沌信仰"', 'For "Chaotic Belief"'),
 	Lamb = Language('解锁 "规则书"', 'For "Rules Book"'),
-	MegaSatan = Language('解锁 "募捐箱"和"偷来的一年"', 'For "Collection Box" and "Stolen Year"'),	
+	MegaSatan = Language('解锁 "募捐箱" 和 "偷来的一年"', 'For "Collection Box" and "Stolen Year"'),	
 	BossRush = Language('解锁 "偷来的十年"', 'For "Stolen Decade"'),
 	Delirium = Language('解锁 "犹大福音"', 'For "The Gospel Of Judas"'),
 	Witness = Language('解锁 "荆棘指环"', 'For "Throny Ring"'),
@@ -344,7 +354,7 @@ MakeCharacterBar(IBS_PlayerKey.BXXX, Language('???', '???'), {
 	Unlocked = Language('使用???/堕化???进入家层的红房间拾取薇艺以解锁', '??? / Tainted ??? gets Falowerse in the red room of Home to unlock'),
 	Heart = Language('解锁 "割礼"', 'For "Circumcision"'),
 	Isaac = Language('解锁 "金针菇"', 'For "Needle Mushroom"'),
-	BlueBaby = Language('解锁 "悼歌之冬"和"挽歌儿小姐"', 'For "Elegiast Winter" and "Nenia Dea"'),
+	BlueBaby = Language('解锁 "悼歌之冬" 和 "挽歌儿小姐"', 'For "Elegiast Winter" and "Nenia Dea"'),
 	Satan = Language('解锁 "筵宴之杯"', 'For "Grail"'),
 	Lamb = Language('解锁 "蜕变之蛾"', 'For "Moth"'),
 	MegaSatan = Language('解锁 "美德七面骰"', 'For "V7"'),	
@@ -380,7 +390,7 @@ MakeCharacterBar(IBS_PlayerKey.BEve, Language('夏娃', 'Eve'), {
 	Lamb = Language('解锁 "可悲的疯人"', 'For "The Lunatic"'),
 	MegaSatan = Language('解锁 "使者"', 'For "Envoy"'),
 	BossRush = Language('解锁 "套作"', 'For "Reused Story"'),
-	Delirium = Language('解锁 "我果"和"我过"', 'For "My Fruit" and "My Fault"'),
+	Delirium = Language('解锁 "我果" 和 "我过"', 'For "My Fruit" and "My Fault"'),
 	Witness = Language('解锁 "偏方"', 'For "Folk Prescription"'),
 	Beast = Language('解锁 "焚烧不焚之神"', 'For "Burning of Unburnt God"'),
 	Greed = Language('解锁 "索斯星"', 'For "Zoth"'),
@@ -467,14 +477,14 @@ MakeCharacterBar(IBS_PlayerKey.BEden, Language('伊甸', 'Eden'), {
 MakeCharacterBar(IBS_PlayerKey.BLost, Language('游魂', 'The Lost'), {
 	Unlocked = Language('使用游魂/堕化游魂，在一层被炸弹棉花怪杀死，在三层被炸弹杀死，在六层被妈妈杀死，最后在十层被撒但杀死以解锁', 'Play as The Lost / Tainted Lost, die from Mulliboom at stage 1, a bomb at stage 3, Mom at stage 6 and Satan at stage 10 to unlock'),
 	Heart = Language('解锁 "宝库钥匙"', 'For "Treasure Key"'),
-	Isaac = Language('解锁 "迷途之镜"', 'For "Wildering Mirror"'),
-	BlueBaby = Language('解锁 "双角斧"', 'For "The Horned-Axe"'),
-	Satan = Language('解锁 "月下异巷"', 'For "Moon Streets"'),
+	Isaac = Language('解锁 "玩具钥匙"', 'For "Toy Keys"'),
+	BlueBaby = Language('解锁 "钥匙行者"', 'For "Key Walker"'),
+	Satan = Language('解锁 "硫磺火钥匙"', 'For "Brimstone Keys"'),
 	Lamb = Language('解锁 "AKEY-47"', 'For "AKEY-47"'),
-	MegaSatan = Language('解锁 "真理小子"和"真理宝箱"', 'For "Brother Albern" and "Truth Chest"'),	
+	MegaSatan = Language('解锁 "真理小子" 和 "真理宝箱"', 'For "Brother Albern" and "Truth Chest"'),	
 	BossRush = Language('解锁 "怪异钥匙"', 'For "Odd Key"'),
 	Delirium = Language('解锁 "箱中箱宝库"', 'For "Chest Chest"'),
-	Witness = Language('解锁 "三色杯"', 'For "For "Neopolitan"'),
+	Witness = Language('解锁 "妈妈的旧钥匙"', 'For "Mom\'s Old Key"'),
 	Beast = Language('解锁 "洞开之启"', 'For "Knock"'),
 	Greed = Language('解锁 "北落师门"', 'For "Fomalhaut"'),
 	FINISHED = Language('解锁 "银之钥"', 'For "The Silver Key"'),
@@ -482,15 +492,15 @@ MakeCharacterBar(IBS_PlayerKey.BLost, Language('游魂', 'The Lost'), {
 {
 	Unlocked = {'blost_unlock'},
 	Heart = {'treasure_key'},
-	Isaac = {'wildering_mirror'},
-	BlueBaby = {'the_horned_axe'},
-	Satan = {'moon_streets'},
+	Isaac = {'toy_keys'},
+	BlueBaby = {'key_walker'},
+	Satan = {'brimstone_keys'},
 	Lamb = {'akey47'},
 	MegaSatan = {'brother_albern'},
 	BossRush = {'odd_key'},
 	Hush = {'blost_falsehood'},
 	Delirium = {'chest_chest'},
-	Witness = {'neopolitan'},
+	Witness = {'moms_old_key'},
 	Beast = {'knock'},
 	Greed = {'fomalhunt'},
 	FINISHED = {'the_silver_key'},
@@ -499,15 +509,15 @@ MakeCharacterBar(IBS_PlayerKey.BKeeper, Language('店主', 'The Keeper'), {
 	Unlocked = Language('将捐款机捐至999，并将贪婪捐款机归零以解锁', 'Donate to Donation Machine till 999 and make Greed Donation Machine return to zero to unlock'),
 	Heart = Language('解锁 "施粥处"', 'For "Alms"'),
 	Isaac = Language('解锁 "万能药"', 'For "Panacea"'),
-	BlueBaby = Language('解锁 "接触的G"，"增殖的G"，"潜伏的G"，"对峙的G"和"应战的G"', 'For "Contact C", "Maxx C", "Sneaky C", "Confronting C" and "Retaliating C"'),
+	BlueBaby = Language('解锁 "接触的G"，"增殖的G"，"潜伏的G"，"对峙的G" 和 "应战的G"', 'For "Contact C", "Maxx C", "Sneaky C", "Confronting C" and "Retaliating C"'),
 	Satan = Language('解锁 "小小角恶魔"', 'For "Mini Horn"'),
 	Lamb = Language('解锁 "富饶矿脉"', 'For "Rich Mines"'),
-	MegaSatan = Language('解锁 "错误硬币"，"星空硬币"，"纸质硬币"，"古老硬币"和"慷慨一些": 贪婪商店中更可能出现捐款机', 'For "Glitched Penny", "Starry Penny", "Paper Penny", "Old Penny" and "Generous-er": Donation Machine tends to appear in Shop in Greed Mode'),	
-	BossRush = Language('解锁 "邪教徒头套"，"蛇的头"，"牧师的脸"，"恩洛斯的脸"，"地精容貌"和"换脸商"', 'For "Cultist Mask", "Ssserpent Head", "Cleric Face", "Nloths Mask", "Gremlin Mask" and "Facer"'),
+	MegaSatan = Language('解锁 "错误硬币"，"星空硬币"，"纸质硬币"，"古老硬币" 和 "慷慨一些": 贪婪商店中更可能出现捐款机', 'For "Glitched Penny", "Starry Penny", "Paper Penny", "Old Penny" and "Generous-er": Donation Machine tends to appear in Shop in Greed Mode'),	
+	BossRush = Language('解锁 "邪教徒头套"，"蛇的头"，"牧师的脸"，"恩洛斯的脸"，"地精容貌" 和 "换脸商"', 'For "Cultist Mask", "Ssserpent Head", "Cleric Face", "Nloths Mask", "Gremlin Mask" and "Facer"'),
 	Delirium = Language('解锁"异业"', 'For "Another Karma"'),
 	Witness = Language('解锁 "018"', 'For "018"'),
 	Beast = Language('解锁 "只剩亿点"', 'For "Multiplication"'),
-	Greed = Language('解锁 "大师组合包", "增殖"和"微笑世界"', 'For "Master Pack", "Multiply" and "Smile World"'),
+	Greed = Language('解锁 "大师组合包", "增殖" 和 "微笑世界"', 'For "Master Pack", "Multiply" and "Smile World"'),
 	FINISHED = Language('解锁 "慷慨"', 'For "Generosity"'),
 },
 {
@@ -526,7 +536,38 @@ MakeCharacterBar(IBS_PlayerKey.BKeeper, Language('店主', 'The Keeper'), {
 	Greed = {'master_pack'},
 	--FINISHED = {''},
 })
-
+MakeCharacterBar(IBS_PlayerKey.BForgotten, Language('遗骸', 'The Forgotten'), 
+{
+	Unlocked = Language('昧化以撒全标记达成以解锁', 'Earn all completion marks of Benighted Isaac to unlock'),
+	Heart = Language('解锁 "骨刀"', 'For "Bony Knife"'),
+	Isaac = Language('解锁 "地质学博士证书"', 'For "GHD"'),
+	BlueBaby = Language('解锁 "奇怪的头骨"', 'For "Weird Cranium"'),
+	Satan = Language('解锁 "伪造地质学博士证书"', 'For "False GHD"'),
+	Lamb = Language('解锁 "尘埃炸弹"', 'For "Dusty Bombs"'),
+	MegaSatan = Language('解锁 "墓地"', 'For "Graveyard"'),	
+	BossRush = Language('解锁 "月下异巷"', 'For "Moon Streets"'),
+	Delirium = Language('强化 "节制之骨"：瞬移炸弹', 'Boost "Bone of Temperance": Teleport Bombs'),
+	Witness = Language('解锁 "三色杯"', 'For "For "Neopolitan"'),
+	Beast = Language('解锁 "迷途之镜"', 'For "Wildering Mirror"'),
+	Greed = Language('解锁 "双角斧"', 'For "The Horned-Axe"'),
+	FINISHED = Language('解锁 "全家祸"', 'For "Familiy Portrayal"'),
+},
+{
+	-- Unlocked = {''},
+	Heart = {'bony_knife'},
+	Isaac = {'ghd'},
+	BlueBaby = {'cranium'},
+	Satan = {'false_ghd'},
+	Lamb = {'dusty_bombs'},
+	MegaSatan = {'graveyard'},
+	BossRush = {'moon_streets'},
+	Hush = {'bforgotten_falsehood'},
+	Delirium = {'temperance_bone'},
+	Witness = {'neopolitan'},
+	Beast = {'wildering_mirror'},
+	Greed = {'the_horned_axe'},
+	FINISHED = {'familiy_portrayal'},
+})
 
 end
 ----↑角色栏相关↑----
@@ -534,18 +575,18 @@ end
 
 ----↓挑战栏相关↓----
 do
-	MakeCheckBox(_AchievTab2, 'bc1', Language('乾坤十掷', 'Rolling Destiny'), Language('完成以强化昧化以撒', 'Finish it to boost Benighted Isaac'), {'bisaac_up'} )
-	MakeCheckBox(_AchievTab2, 'bc2', Language('易碎品', 'The Fragile'), Language('完成以强化昧化抹大拉', 'Finish it to boost Benighted Magdalene'), {'bmaggy_up'} )
-	MakeCheckBox(_AchievTab2, 'bc3', Language('牧地 !', 'Graze !'), Language('完成以强化昧化该隐&亚伯', 'Finish it to boost Benighted Cain & Abel'), {'bcain_babel_up'} )
-	MakeCheckBox(_AchievTab2, 'bc4', Language('逾越节', 'Passover'), Language('完成以强化昧化犹大', 'Finish it to boost Benighted Judas'), {'bjudas_up'} )
-	MakeCheckBox(_AchievTab2, 'bc5', Language('双重释放', 'Dualcast'), Language('完成以强化昧化???', 'Finish it to boost Benighted ???'), {'bxxx_up'} )
-	MakeCheckBox(_AchievTab2, 'bc6', Language('池沼魔谷', 'Marsh Rooms'), Language('完成以强化昧化夏娃', 'Finish it to boost Benighted Eve'), {'beve_up'} )
-	MakeCheckBox(_AchievTab2, 'bc7', Language('背刺', 'Backstab'), Language('完成以强化昧化参孙', 'Finish it to boost Benighted Samson'), {'bsamson_up'} )
+	MakeCheckBox(_AchievTab2, 'bc1', Language('乾坤十掷', 'Rolling Destiny'), Language('完成以强化昧化以撒：额外初始物品', 'Finish it to boost Benighted Isaac: Extra starting items'), {'bisaac_up'} )
+	MakeCheckBox(_AchievTab2, 'bc2', Language('易碎品', 'The Fragile'), Language('完成以强化昧化抹大拉：提升初始坚贞之心上限', 'Finish it to boost Benighted Magdalene: Initial maximum of Iron Heart up'), {'bmaggy_up'} )
+	MakeCheckBox(_AchievTab2, 'bc3', Language('牧地 !', 'Graze !'), Language('完成以强化昧化该隐&亚伯：额外初始物品', 'Finish it to boost Benighted Cain & Abel: Extra starting items'), {'bcain_babel_up'} )
+	MakeCheckBox(_AchievTab2, 'bc4', Language('逾越节', 'Passover'), Language('完成以强化昧化犹大：额外初始物品；犹大福音对敌人施加虚弱', 'Finish it to boost Benighted Judas: Extra starting items; The Gospel Of Judas applies weakness to enemies'), {'bjudas_up'} )
+	MakeCheckBox(_AchievTab2, 'bc5', Language('双重释放', 'Dualcast'), Language('完成以强化昧化???：额外初始物品', 'Finish it to boost Benighted ???: Extra starting items'), {'bxxx_up'} )
+	MakeCheckBox(_AchievTab2, 'bc6', Language('池沼魔谷', 'Marsh Rooms'), Language('完成以强化昧化夏娃：额外初始物品', 'Finish it to boost Benighted Eve: Extra starting items'), {'beve_up'} )
+	MakeCheckBox(_AchievTab2, 'bc7', Language('背刺', 'Backstab'), Language('完成以强化昧化参孙：额外初始物品；\n  完成头目房后正逆塔罗牌交替出现', 'Finish it to boost Benighted Samson: Extra starting items; \n  Common and Reversed Tarot alternately appear after Boss Room'), {'bsamson_up'} )
 	
-	MakeCheckBox(_AchievTab2, 'bc10', Language('天妒英才', 'Envery'), Language('完成以强化昧化伊甸', 'Finish it to boost Benighted Eden'), {'beden_up'} )
-	MakeCheckBox(_AchievTab2, 'bc11', Language('钥匙变炸弹', 'Keys are bomb'), Language('完成以强化昧化游魂', 'Finish it to boost Benighted Lost'), {'blost_up'} )
+	MakeCheckBox(_AchievTab2, 'bc10', Language('天妒英才', 'Envery'), Language('完成以强化昧化伊甸：额外初始物品', 'Finish it to boost Benighted Eden: Extra starting items'), {'beden_up'} )
+	MakeCheckBox(_AchievTab2, 'bc11', Language('钥匙变炸弹', 'Keys are bomb'), Language('完成以强化昧化游魂：额外初始物品', 'Finish it to boost Benighted Lost: Extra starting items'), {'blost_up'} )
 	
-	MakeCheckBox(_AchievTab2, 'bc13', Language('慷慨模式', 'Generosity Mode'), Language('完成以强化昧化店主', 'Finish it to boost Benighted Keeper'), {'bkeeper_up'} )
+	MakeCheckBox(_AchievTab2, 'bc13', Language('慷慨模式', 'Generosity Mode'), Language('完成以强化昧化店主：额外初始物品', 'Finish it to boost Benighted Keeper: Extra starting items'), {'bkeeper_up'} )
 end
 ----↑挑战栏相关↑----
 

@@ -47,7 +47,7 @@ function BForgotten:OnUse(card, player, flag)
 	end
 
 	--骨头环绕物
-	for i = 1,12 do
+	for i = 1,6 do
 		player:AddBoneOrbital(player.Position + math.random(100, 200) * RandomVector())
 	end
 	SFXManager():Play(27)

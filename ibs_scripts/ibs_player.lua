@@ -18,5 +18,6 @@ mod.IBS_Player = {
 	BEden = Load('beden'),
 	BLost = Load('blost'),
 	BKeeper = Load('bkeeper'),
+	BForgotten = Load('bforgotten'),
 }
 

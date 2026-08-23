@@ -11,5 +11,6 @@
 	<player name="Benighted Eden" modcostume="7261" birthright="Blasphemy" skin="beden/beden.png" hp="6" nameimage="beden_name.png" portrait="beden.png" skinColor="-1" costumeSuffix="beden" nomarks="true" hidden="true" />
 	<player name="Benighted Lost" modcostume="7262" birthright="Eternal Lock" skin="blost/blost.png" armor="1" healthtype="2" coins="1" nameimage="blost_name.png" portrait="blost.png" skinColor="0" nomarks="true" hidden="true" />
 	<player name="Benighted Keeper" modcostume="7263" birthright="Depends on you" skin="bkeeper/bkeeper.png" healthtype="3" hp="2" coins="70" nameimage="bkeeper_name.png" portrait="bkeeper.png" noshake="true" skinColor="5" costumeSuffix="keeper" nomarks="true" hidden="true" speedmodifier="-0.2" luckmodifier="-7" />
+	<player name="Benighted Forgotten" birthright="Bonetrousle" skin="bforgotten/bforgotten.png" healthtype="1" bonehearts="2" armor="2" bombs="7" nameimage="bforgotten_name.png" portrait="bforgotten.png" noshake="true" skinColor="2" costumeSuffix="forgotten" nomarks="true" hidden="true" speedmodifier="0.3" firedelaymodifier = "-1" damagemodifier="-1.5" />
 
 </players>

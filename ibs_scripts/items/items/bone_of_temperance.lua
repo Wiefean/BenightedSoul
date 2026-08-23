@@ -8,7 +8,7 @@ local BOT = mod.IBS_Class.Item(mod.IBS_ItemID.BOT)
 
 --眼泪特效黑名单
 BOT.TearFlagBlacklist = {
-	--环绕(小星球,木星,无暇圣心)
+	--环绕(小星球,土星,无暇圣心)
 	TearFlags.TEAR_ORBIT,
 	TearFlags.TEAR_ORBIT_ADVANCED,
 
@@ -54,17 +54,10 @@ function BOT:GetTearData(tear)
 	data.BoneOfTemperance_Tear = data.BoneOfTemperance_Tear or {
 		Stop = false,
 		Recycle = false,
-		Timeout = 210
+		Timeout = 210,
+		Wait = 90,
 	}
 	return data.BoneOfTemperance_Tear
-end
-
---临时妈刀数据(常规激光也可使用)
-function BOT:GetKnifeData(knife)
-	local data = self._Ents:GetTempData(knife)
-	data.BoneOfTemperance_Knife = data.BoneOfTemperance_Knife or {Wait = 0}
-
-	return data.BoneOfTemperance_Knife
 end
 
 --眼泪发射
@@ -86,11 +79,7 @@ function BOT:OnTearUpdate(tear)
 	local data = self._Ents:GetTempData(tear).BoneOfTemperance_Tear
 	local player = self._Ents:IsSpawnerPlayer(tear, true)
 
-	--判断是否为仰望星空的下落眼泪
-	local SSG = mod.IBS_Item and mod.IBS_Item.SSG
-	if SSG and SSG:IsFallingTear(tear) then return end
-
-	if data and player then
+	if data and player and self:CheckTearCondition(tear) then
 		tear.FallingSpeed = 0
 		tear.FallingAcceleration = -0.1
 		
@@ -103,6 +92,12 @@ function BOT:OnTearUpdate(tear)
 				pData.TearsUp = math.min(2, pData.TearsUp + 0.1)
 				player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY, true)
 				tear:Remove()
+			else
+				if data.Wait > 0 then
+					data.Wait = data.Wait - 1
+				else
+					tear:Remove()
+				end
 			end
 		end
 		
@@ -131,6 +126,12 @@ function BOT:OnTechXLaserUpdate(laser)
 					pData.TearsUp = math.min(2, pData.TearsUp + 0.5)
 					player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY, true)				
 					laser:Remove()
+				else
+					if data.Wait > 0 then
+						data.Wait = data.Wait - 1
+					else
+						laser:Remove()
+					end					
 				end
 			end
 			
@@ -146,7 +147,8 @@ BOT:AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, 'OnTechXLaserUpdate')
 
 --生成停滞的眼泪
 function BOT:SpawnStoppedTear(player, position)
-	local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, position, Vector.Zero, player):ToTear()
+	--local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, position, Vector.Zero, player):ToTear()
+	local tear = player:FireTear(position, Vector.Zero, false, true, false, player)
 	local data = self:GetTearData(tear)
 	data.Stop = true
 	
@@ -158,41 +160,6 @@ function BOT:SpawnStoppedTear(player, position)
 	
 	return tear
 end
-
-
---妈刀等兼容
-function BOT:OnKnifeUpdate(knife)
-	local player = self._Ents:IsSpawnerPlayer(knife, true)
-	
-	if player and player:HasCollectible(self.ID) then
-		local data = self:GetKnifeData(knife)
-
-		if data.Wait > 0 then
-			data.Wait = data.Wait - 1
-		else
-			data.Wait = 10
-			if knife:IsFlying() then
-				local tear = self:SpawnStoppedTear(player, knife.Position)
-				tear.Scale = 1
-				
-				if (knife.Variant == 0) then --经典妈刀对应金属子弹
-					tear:ChangeVariant(3)
-				elseif (knife.Variant == 2) then --骨刀棒对应镰刀子弹(骨棒对应骨头子弹，不知为何自动设置了)
-					tear:ChangeVariant(8)
-				elseif (knife.Variant == 3) or (knife.Variant == 5) then --驴骨棒和血吸管对应血泪
-					tear:ChangeVariant(1)
-				elseif (knife.Variant == 10) then --妈刀配英灵剑对应剑气
-					tear:ChangeVariant(47)
-				elseif (knife.Variant == 11) then --妈刀配英灵剑配科技对应激光剑气
-					tear:ChangeVariant(49)	
-				end	
-				
-				tear:Update()
-			end			
-		end
-	end
-end
-BOT:AddCallback(ModCallbacks.MC_POST_KNIFE_UPDATE, 'OnKnifeUpdate')
 
 
 --暂停玩家的所有眼泪或科X激光
@@ -218,6 +185,16 @@ function BOT:StopAll(player)
 	end	
 end
 
+--发射眼泪
+function BOT:FireTear(player, vel)
+	local tear = player:FireTear(player.Position, vel, false, true, false, player):ToTear()
+	local data = self:GetTearData(tear)
+	tear.CollisionDamage = math.max(3.5, player.Damage)
+	tear.FallingSpeed = 0
+	tear.FallingAcceleration = -0.1
+	return tear
+end
+
 --玩家更新
 function BOT:OnPlayerUpdate(player)
 	if player:HasCollectible(self.ID) then
@@ -233,6 +210,36 @@ function BOT:OnPlayerUpdate(player)
 		if player:AreControlsEnabled() and not game:IsPaused() then
 			if Input.IsActionTriggered(ButtonAction.ACTION_DROP, player.ControllerIndex) then
 				self:StopAll(player)
+			end
+		end
+		
+		
+		--一些攻击方式兼容,附带发射眼泪
+		if self._Players:IsShooting(player) and self:GetIBSData('persis')["BForgotten"].Delirium and
+			(
+				player:HasWeaponType(WeaponType.WEAPON_BRIMSTONE)
+				or player:HasWeaponType(WeaponType.WEAPON_LASER)
+				or player:HasWeaponType(WeaponType.WEAPON_KNIFE)
+				or player:HasWeaponType(WeaponType.WEAPON_LUDOVICO_TECHNIQUE)
+				or player:HasWeaponType(WeaponType.WEAPON_TECH_X)
+				or player:HasWeaponType(WeaponType.WEAPON_SPIRIT_SWORD)
+				or player:HasWeaponType(WeaponType.WEAPON_FETUS)
+			)
+		then
+			local frame = player.MaxFireDelay * 1.4
+		
+			if player:HasWeaponType(WeaponType.WEAPON_BRIMSTONE) then
+				frame = frame / 3
+			end
+			if player:HasWeaponType(WeaponType.WEAPON_MONSTROS_LUNGS) then
+				frame = frame / 3
+			end
+		
+			if player:IsFrame(math.max(1, math.floor(frame)),0) then
+				local vec = self._Players:GetAimingVector(player)
+				if vec:Length() > 0.9 then
+					self:FireTear(player, vec:Resized(10 * player.ShotSpeed))
+				end
 			end
 		end
 	end
@@ -261,6 +268,7 @@ function BOT:RecycleAll(player)
 		
 		if self._Ents:IsTheSame(tearPlayer, player) and self:CheckTearCondition(tear) then
 			local data = self:GetTearData(tear)
+			tear:AddTearFlags(TearFlags.TEAR_SPECTRAL)
 			data.Recycle = true
 		end	
 	end	
@@ -298,9 +306,70 @@ function BOT:OnEvalueateCache(player, flag)
 		end
 	end
 end
-BOT:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, 'OnEvalueateCache')
+BOT:AddPriorityCallback(ModCallbacks.MC_EVALUATE_CACHE, 200, 'OnEvalueateCache')
 
+--设置炸弹数据
+function BOT:SetBOTBomb(bomb)
+	local data = self._Ents:GetTempData(bomb)
+	data.BoneOfTemperance_Bomb = true
+end
 
+--是否为节制骨炸弹
+function BOT:IsBOTBomb(bomb)
+	return self._Ents:GetTempData(bomb).BoneOfTemperance_Bomb ~= nil
+end
+
+--炸弹爆出眼泪
+function BOT:BombTear(player, pos, num)
+	num = num or 4
+	for i = 1,num do	
+		local tear = player:FireTear(pos, RandomVector() * 10 * player.ShotSpeed, false, true, false, player)
+		local data = self:GetTearData(tear)
+		tear.CollisionDamage = math.max(3.5, player.Damage)
+		tear.FallingSpeed = 0
+		tear.FallingAcceleration = -0.1	
+	end
+end
+
+--发射炸弹
+function BOT:OnFireBomb(bomb)
+	local player = self._Ents:IsSpawnerPlayer(bomb, true)
+	
+	if player and player:HasCollectible(self.ID) then
+		self:SetBOTBomb(bomb)
+	end
+end
+BOT:AddCallback(ModCallbacks.MC_POST_FIRE_BOMB, 'OnFireBomb')
+
+--炸弹爆炸
+function BOT:OnBombUpdate(bomb)
+	local player = self._Ents:IsSpawnerPlayer(bomb, true)
+	
+	if player and player:HasCollectible(self.ID) then
+		if self:GetIBSData('persis')["BForgotten"].Delirium then
+			if bomb:IsDead() and self:IsBOTBomb(bomb) then
+				self:BombTear(player, bomb.Position)
+			end
+		end
+	end
+end
+BOT:AddCallback(ModCallbacks.MC_POST_BOMB_UPDATE, 'OnBombUpdate')
+
+--史诗胎儿兼容
+function BOT:AlsoEpicFetus(effect)
+	if effect.Timeout == 1 then
+		local player = self._Ents:IsSpawnerPlayer(effect, true)
+		
+		if player and player:HasCollectible(self.ID) then
+			if self:GetIBSData('persis')["BForgotten"].Delirium then
+				self:DelayFunction(function()			
+					self:BombTear(player, effect.Position, 8)
+				end, 1)
+			end
+		end
+	end
+end
+BOT:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, 'AlsoEpicFetus', EffectVariant.ROCKET)
 
 return BOT
 

@@ -15,6 +15,7 @@ local BKeeper = mod.IBS_Class.Character(mod.IBS_PlayerID.BKeeper, {
 	SpritePath = 'gfx/ibs/characters/player_bkeeper.anm2',
 	SpritePathFlight = 'gfx/ibs/characters/player_bkeeper.anm2',
 	PocketActive = mod.IBS_ItemID.AnotherKarma,
+	HiddenItems = {245}, --双发
 })
 
 --获取数据
@@ -519,7 +520,7 @@ function BKeeper:HeartLimit(player)
 
 	return limit
 end
-BKeeper:AddCallback(ModCallbacks.MC_PLAYER_GET_HEART_LIMIT, 'HeartLimit', BKeeper.ID)
+BKeeper:AddPriorityCallback(ModCallbacks.MC_PLAYER_GET_HEART_LIMIT, -700, 'HeartLimit', BKeeper.ID)
 
 --持有诅咒硬币时尝试返还
 function BKeeper:TryReturn(player, ent, pickup)
@@ -670,17 +671,6 @@ function BKeeper:PreHeartCollision(pickup, other)
 end
 BKeeper:AddPriorityCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, -777, 'PreHeartCollision', PickupVariant.PICKUP_HEART)
 
-function BKeeper:OnPEffectUpdate(player)
-	if player:GetPlayerType() == self.ID then
-		local effect = player:GetEffects()
-		
-		--双发
-		if not effect:HasCollectibleEffect(245) then
-			effect:AddCollectibleEffect(245, false)
-		end				
-	end	
-end
-BKeeper:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, 'OnPEffectUpdate')
 
 --属性(部分已在zml中)
 function BKeeper:OnEvaluateCache(player, flag)

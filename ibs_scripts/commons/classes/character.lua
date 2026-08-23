@@ -11,6 +11,7 @@ SpritePath, --动画路径
 SpritePathFlight, --飞行动画路径
 
 PocketActive, --副手主动
+HiddenItems, --隐藏道具
 TearsModifier, --射速修正
 }
 
@@ -20,9 +21,12 @@ TearsModifier, --射速修正
 local mod = Isaac_BenightedSoul
 
 local game = Game()
+local config = Isaac.GetItemConfig()
 local SpriteDefaultPath = "gfx/001.000_player.anm2"
 
 local Component = mod.IBS_Class.Component
+
+local HiddenItemList = {}
 
 local Character = mod.Class(Component, function(self, id, info_tbl)
 	Component._ctor(self)
@@ -30,6 +34,14 @@ local Character = mod.Class(Component, function(self, id, info_tbl)
 	self.ID = id
 	self.PlayerKey = mod.IBS_PlayerID._ToKey(id)
 	self.Info = info_tbl or {}
+
+	--隐藏道具
+	if info_tbl.HiddenItems then
+		HiddenItemList[id] = {}
+		for _,item in ipairs(info_tbl.HiddenItems) do
+			table.insert(HiddenItemList[id], item)
+		end
+	end
 
 	--射速修正
 	function self:__OnEvaluateCache(player, flag)
@@ -64,7 +76,12 @@ local Character = mod.Class(Component, function(self, id, info_tbl)
 		if player:GetPlayerType() == self.ID then
 			local item = self.Info.PocketActive
 			if item and not (game:GetRoom():GetFrameCount() < 0 and game:GetFrameCount() > 0) then
-				player:SetPocketActiveItem(item, ActiveSlot.SLOT_POCKET, false)
+				player:SetPocketActiveItem(item, ActiveSlot.SLOT_POCKET, true)
+				
+				--用于修复神秘崩溃bug
+				self:DelayFunction(function()				
+					game:GetItemPool():RemoveCollectible(item)
+				end, 0)
 			end
 		end
 	end
@@ -147,5 +164,49 @@ local Character = mod.Class(Component, function(self, id, info_tbl)
 
 end, { {expectedType = 'number'}, {expectedType = 'table', allowNil = true} })
 
+
+--隐藏道具管理
+local function GetData(player)
+	local data = mod.IBS_Lib.Ents:GetTempData(player)
+
+	if not data.IBSPlayer_HiddenItem then
+		data.IBSPlayer_HiddenItem = {
+			PlayerType = 0,
+			LastPlayerType = 0,
+		}
+	end
+	
+	return data.IBSPlayer_HiddenItem
+end
+
+local function OnPEffectUpdate(_,player)
+	local data = GetData(player)
+	local playerType = player:GetPlayerType()
+	
+	if data.PlayerType ~= playerType then
+		data.PlayerType = playerType
+		
+		local items = HiddenItemList[data.LastPlayerType]
+		if items then
+			for _,id in ipairs(items) do
+				player:AddInnateCollectible(id, -1)
+			end
+		end
+		
+		data.LastPlayerType = playerType
+	end	
+	
+	local items = HiddenItemList[playerType]
+	if items then
+		for _,id in ipairs(items) do
+			if not player:HasCollectible(id) then
+				player:AddInnateCollectible(id, 1)
+				player:RemoveCostume(config:GetCollectible(id))
+				game:GetItemPool():RemoveCollectible(id)
+			end
+		end
+	end
+end
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, OnPEffectUpdate)
 
 return Character

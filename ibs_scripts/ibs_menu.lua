@@ -5,6 +5,8 @@ local zh = (mod.Language == 'zh')
 local IBS_ChallengeID = mod.IBS_ChallengeID
 local IBS_PlayerKey = mod.IBS_PlayerKey
 
+mod._BenightingPlayerType = -1 --主界面选择的昧化角色ID
+
 --获取修正后位置
 local function GetFixedPos(pos)
 	return Isaac.WorldToMenuPosition(MainMenuType.CHARACTER, pos)
@@ -188,7 +190,7 @@ local info_zh = {
 		LockCheck = {
 			Lock = lock.BEve,
 			Desc = {
-				{Str = 'K13', Offset = Vector(70, 0)},
+				{Str = 'K14', Offset = Vector(70, 0)},
 				{Str = 'C122', Offset = Vector(60, 25)},
 				{Str = '------', Offset = Vector(44, 25)},
 			}
@@ -285,6 +287,21 @@ local info_zh = {
 			{Str = 'XX-审判', Offset = Vector(2, 25), ConditionKey = 'bc13'},
 		},
 	},
+	[15] = {
+		PlayerKey = IBS_PlayerKey.BForgotten,
+		LockCheck = {
+			Lock = lock.BForgotten,
+			Desc = {
+				{Str = '#BFORGOTTEN_LOCK', Offset = Vector(55, 8)},
+			}
+		},
+		Portrait = {Anim = 'BForgotten'},
+		Name = {Str = '遗骸', Offset = Vector(-3,0)},
+		Desc = {
+			{Str = '无足轻重', Offset = Vector(-3, 0)},
+			{Str = '自掘坟墓', Offset = Vector(-3, 16)},
+		},
+	},	
 	
 }
 
@@ -395,7 +412,7 @@ local info_en = {
 		LockCheck = {
 			Lock = lock.BEve,
 			Desc = {
-				{Str = 'K13', Offset = Vector(70, 0)},
+				{Str = 'K14', Offset = Vector(70, 0)},
 				{Str = 'C122', Offset = Vector(60, 25)},
 				{Str = '------', Offset = Vector(44, 25)},
 			}
@@ -494,6 +511,21 @@ local info_en = {
 			{Str = 'XX - Judgement', Offset = Vector(-36, 25), ConditionKey = 'bc13'},
 		},
 	},	
+	[15] = {
+		PlayerKey = IBS_PlayerKey.BForgotten,
+		LockCheck = {
+			Lock = lock.BForgotten,
+			Desc = {
+				{Str = '#BFORGOTTEN_LOCK', Offset = Vector(60, 8)},
+			}
+		},
+		Portrait = {Anim = 'BForgotten'},
+		Name = {Str = 'The Forgotten', Offset = Vector(-62, 0)},
+		Desc = {
+			{Str = 'Diet weight', Offset = Vector(-10, 0)},
+			{Str = 'Dig your own grave', Offset = Vector(-35, 16)},
+		},
+	},
 	
 }
 
@@ -543,9 +575,47 @@ local function RenderInfo(info, Y, lastInfo, nextInfo)
 			fnt:DrawStringScaledUTF8('(LOCKED)', pos.X, pos.Y, 1, 1, color)		
 		end
 		for _,desc in ipairs(info.LockCheck.Desc) do
+			local text = desc.Str
 			local offset = desc.Offset or Vector.Zero
+		
+			--遗骸
+			if desc.Str == '#BFORGOTTEN_LOCK' then
+				local num = 13
+				local marks = mod:GetIBSData('persis')[IBS_PlayerKey.BIsaac]
+			
+				if marks then				
+					if marks.Unlocked then num = num - 1 end
+					if marks.Heart then num = num - 1 end
+					if marks.Isaac then num = num - 1 end
+					if marks.BlueBaby then num = num - 1 end
+					if marks.Satan then num = num - 1 end
+					if marks.Lamb then num = num - 1 end
+					if marks.MegaSatan then num = num - 1 end
+					if marks.BossRush then num = num - 1 end
+					if marks.Hush then num = num - 1 end
+					if marks.Delirium then num = num - 1 end
+					if marks.Witness then num = num - 1 end
+					if marks.Beast then num = num - 1 end
+					if marks.Greed then num = num - 1 end
+				end
+			
+				if num <= 0 then
+					if zh then
+						text = '漏了一个'
+					else
+						text = 'Miss one'
+					end
+				else
+					if zh then
+						text = '还剩'..num..'个'
+					else
+						text = num..' left'
+					end
+				end
+			end
+
 			local pos = GetFixedPos(Vector(105 + offset.X, Y + 175 + offset.Y))	
-			fntBold:DrawStringScaledUTF8(desc.Str, pos.X, pos.Y, 1, 1, color)
+			fntBold:DrawStringScaledUTF8(text, pos.X, pos.Y, 1, 1, color)
 		end
 
 		return
@@ -706,8 +776,15 @@ mod:AddPriorityCallback(ModCallbacks.MC_MAIN_MENU_RENDER, CallbackPriority.EARLY
 			end
 			
 			--提示音
-			if Input.IsActionTriggered(ButtonAction.ACTION_MENUCONFIRM, 0) and not canConfirm then
-				SFXManager():Play(187, 1, 30)
+			if Input.IsActionTriggered(ButtonAction.ACTION_MENUCONFIRM, 0) then
+				if canConfirm then
+					local lock = info.LockCheck and info.LockCheck.Lock
+					if lock then
+						mod._BenightingPlayerType = lock.ID or -1
+					end
+				else				
+					SFXManager():Play(187, 1, 30)
+				end
 			end
 		end
 	
@@ -773,11 +850,24 @@ mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, 7^10, function(_,isCo
 	if not isContinued then
 		if show then
 			local player = Isaac.GetPlayer(0)
-			mod.IBS_Callback.Benighted:RunWithParam(player:GetPlayerType(), player, true)
+			local playerType = player:GetPlayerType()
+			mod.IBS_Callback.Benighted:RunWithParam(playerType, player, true)
 		end
 	end
+	if not show then
+		mod._BenightingPlayerType = -1
+	end
 end)
-
+mod:AddPriorityCallback(ModCallbacks.MC_PRE_GAME_EXIT, 7^10, function(_,shouldSave)
+	if shouldSave then
+		show = false
+		mod._BenightingPlayerType = -1
+	end
+end)
+mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_END, 7^10, function()
+	show = false
+	mod._BenightingPlayerType = -1
+end)
 
 do--挑战解锁检测
 

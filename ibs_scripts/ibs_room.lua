@@ -13,3 +13,7 @@ mod.IBS_Room = {
 
 }
 
+mod.IBS_Rooms = {
+	Graveyard = Load('graveyard'),
+
+}

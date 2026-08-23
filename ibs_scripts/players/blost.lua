@@ -20,6 +20,7 @@ local BLost = mod.IBS_Class.Character(mod.IBS_PlayerID.BLost, {
 	SpritePath = 'gfx/ibs/characters/player_blost.anm2',
 	SpritePathFlight = 'gfx/ibs/characters/player_blost.anm2',	
 	PocketActive = IBS_ItemID.ChestChest,
+	HiddenItems = {465}, --模拟摇杆(方便全向攻击)
 })
 
 --跟班道具
@@ -846,12 +847,6 @@ function BLost:OnPEffectUpdate(player)
 		if not effect:HasCollectibleEffect(115) then
 			effect:AddCollectibleEffect(115, false)
 		end
-		
-		--模拟摇杆(方便全向攻击)
-		if not player:HasCollectible(465) then
-			player:AddInnateCollectible(465, 1)
-			player:RemoveCostume(config:GetCollectible(465))
-		end		
 	end	
 end
 BLost:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, 'OnPEffectUpdate')
@@ -1168,7 +1163,9 @@ local function ClearPee(_,effect)
 		local player = Isaac.GetPlayer(i)
 		if player:GetPlayerType() == BLost.ID then
 			if effect.Position:Distance(player.Position) <= 1 then
+				effect.Visible = false
 				effect:Remove()
+				break
 			end
 		end
 	end
