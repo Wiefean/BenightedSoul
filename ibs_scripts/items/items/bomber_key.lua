@@ -27,7 +27,7 @@ end
 function BomberKey:OnBombUpdate(bomb)
 	if bomb:IsDead() then
 		local player = self._Ents:IsSpawnerPlayer(bomb, true)
-		if player then
+		if player and player:HasCollectible(self.ID) then
 			self:Cross(player, bomb.Position)
 		end
 	end
