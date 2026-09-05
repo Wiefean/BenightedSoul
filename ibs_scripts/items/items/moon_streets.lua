@@ -16,6 +16,13 @@ mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
 	end
 end)
 
+--获取数据
+function MoonStreets:GetData()
+	local data = self:GetIBSData('level')
+	data.MoonStreetsRecord = data.MoonStreetsRecord or {}
+	return data.MoonStreetsRecord
+end
+
 function MoonStreets:OnNewRoom()
 	if Timeout > 0 then return end
 	if not PlayerManager.AnyoneHasCollectible(self.ID) then return end
@@ -70,12 +77,14 @@ function MoonStreets:OnNewRoom()
 	end)
 
 	if #rooms > 0 then
+		local data = self:GetData()
 		local player = Isaac.GetPlayer(0)
 		local rng = RNG(self._Levels:GetRoomUniqueSeed())
 		local roomDesc = rooms[rng:RandomInt(1,#rooms)] or rooms[1]
-		if roomDesc and roomDesc.Data then
+		if roomDesc and roomDesc.Data and not data[roomDesc.GridIndex] then
 			game:StartRoomTransition(roomDesc.GridIndex, -1, RoomTransitionAnim.FADE, player)
 			Timeout = 15
+			data[roomDesc.GridIndex] = true
 		end
 	end
 

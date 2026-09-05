@@ -67,7 +67,10 @@ function Turbo:OnPickupFirstAppear(pickup)
 					AbandonedItem:Spawn(pickup.Position, itemConfig.GfxFileName, RandomVector() * 0.1 * math.random(7, 12))
 				end	
 				pickup:Remove()
+				return true
 			end
+			
+			break
 		end
 	end
 end

@@ -43,9 +43,10 @@ function NlothsMask:OnPickupFirstAppear(pickup)
 			end	
 			
 			pickup:Remove()
+			return true
 		end
 	end
 end
-NlothsMask:AddCallback(IBS_CallbackID.PICKUP_FIRST_APPEAR, 'OnPickupFirstAppear', 100)
+NlothsMask:AddPriorityCallback(IBS_CallbackID.PICKUP_FIRST_APPEAR, -300, 'OnPickupFirstAppear', 100)
 
 return NlothsMask

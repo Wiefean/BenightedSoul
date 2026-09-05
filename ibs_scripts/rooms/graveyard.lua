@@ -119,6 +119,16 @@ function Graveyard:TryBonus(effect, player)
 				--饰品
 				local id = itemPool:GetTrinket()
 				SpawnPickup(350, id, pos)
+				
+				--完成挑战后同时生成箱子
+				if self:GetIBSData('persis')['bc15'] then
+					local variant = self.ChestList[rng:RandomInt(1,#self.ChestList)] or PickupVariant.PICKUP_CHEST
+					if variant == PickupVariant.PICKUP_CHEST then
+						SpawnPickup(variant, 0, pos)
+					else
+						SpawnPickup(variant, 1, pos)
+					end
+				end
 			else
 				--箱子
 				local variant = self.ChestList[rng:RandomInt(1,#self.ChestList)] or PickupVariant.PICKUP_CHEST
@@ -175,7 +185,7 @@ Graveyard:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, 'OnPickupInit', 10)
 --替换房间
 function Graveyard:ReplaceRooms(roomSlot, roomData, seed)
 	--昧化遗骸,替换商店宝箱房和诅咒房
-	if PlayerManager.AnyoneIsPlayerType(IBS_PlayerID.BForgotten) or mod._BenightingPlayerType == IBS_PlayerID.BForgotten then
+	if PlayerManager.AnyoneIsPlayerType(IBS_PlayerID.BForgotten) or self:GetBenightedRun() == IBS_PlayerID.BForgotten then
 		--贪婪模式
 		if game:IsGreedMode() then
 			if (roomSlot:Column() == 7 and roomSlot:Row() == 6)

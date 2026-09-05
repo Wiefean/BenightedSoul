@@ -12,7 +12,7 @@ local config = Isaac.GetItemConfig()
 
 local BForgotten = mod.IBS_Class.Character(mod.IBS_PlayerID.BForgotten, {
 	BossIntroName = 'bforgotten',
-	HiddenItems = {20, 213, 597, IBS_ItemID.BOT},
+	HiddenItems = {20, 597, IBS_ItemID.BOT},
 })
 
 --变身
@@ -158,16 +158,16 @@ BForgotten:AddPriorityCallback(ModCallbacks.MC_EVALUATE_CACHE, 100, 'OnEvaluateC
 --这是特制的炸弹,懂吗
 function BForgotten:OnUseBomb(player, bomb)
 	if player:GetPlayerType() == self.ID then
+		for i = 1,4 do	
+			local tear = player:FireTear(player.Position, RandomVector() * 10 * player.ShotSpeed, false, true, false, player)
+			tear.CollisionDamage = math.max(3.5, player.Damage)
+			tear.FallingSpeed = 0
+			tear.FallingAcceleration = -0.1	
+		end	
+	
 		self:Teleport(player, 200)
 		bomb:SetExplosionCountdown(0)
 		bomb.ExplosionDamage = bomb.ExplosionDamage * 0.1
-		
-		local BOT = mod.IBS_Item and mod.IBS_Item.BOT
-		if BOT then
-			local tear = BOT:SpawnStoppedTear(player, player.Position)
-			tear.CollisionDamage = tear.CollisionDamage * 6
-			tear.Scale = self._Maths:TearDamageToScale(tear.CollisionDamage / 2)
-		end
 	end
 end
 BForgotten:AddPriorityCallback(ModCallbacks.MC_POST_PLAYER_USE_BOMB, -700, 'OnUseBomb')

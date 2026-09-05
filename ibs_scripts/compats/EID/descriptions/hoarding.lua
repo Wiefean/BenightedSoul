@@ -10,11 +10,11 @@ HoardingEID.zh = {
 
 		[ItemConfig.TAG_FLY] = '{{LordoftheFlies}} 敌人死亡时有50%概率生成蓝苍蝇',
 		
-		[ItemConfig.TAG_MUSHROOM] ='{{FunGuy}} 获得时有50%概率获得1{{Heart}}心之容器',
+		[ItemConfig.TAG_MUSHROOM] ='{{FunGuy}} 拾取时，50%概率获得1{{Heart}}心之容器',
 		
-		[ItemConfig.TAG_ANGEL] = '{{Seraphim}} 获得时，+ 1{{SoulHeart}}魂心',
+		[ItemConfig.TAG_ANGEL] = '{{Seraphim}} 拾取时，+ 1{{SoulHeart}}魂心',
 		
-		[ItemConfig.TAG_BOB] = '{{Bob}} 集齐套装时免疫爆炸',
+		[ItemConfig.TAG_BOB] = '{{Bob}} 集齐套装后免疫爆炸',
 		
 		[ItemConfig.TAG_SYRINGE] = '{{Spun}} + 0.25 {{Damage}}伤害',
 		
@@ -22,9 +22,9 @@ HoardingEID.zh = {
 		
 		[ItemConfig.TAG_BABY] = '{{Conjoined}} + 0.15 {{Tears}}射速',
 		
-		[ItemConfig.TAG_DEVIL] = '{{Leviathan}} 获得时，+ 1 {{HalfBlackHeart}}半黑心',
+		[ItemConfig.TAG_DEVIL] = '{{Leviathan}} 拾取时，+ 1 {{HalfBlackHeart}}半黑心',
 		
-		[ItemConfig.TAG_POOP] = '{{OhCrap}} 集齐套装时，摧毁大便额外恢复1{{Heart}}红心',
+		[ItemConfig.TAG_POOP] = '{{OhCrap}} 集齐套装后，摧毁大便额外恢复1{{Heart}}红心',
 		
 		[ItemConfig.TAG_BOOK] = '{{Bookworm}} 使用书时获得(0.5 x 最大充能 x 套件数量)秒的护盾',
 		

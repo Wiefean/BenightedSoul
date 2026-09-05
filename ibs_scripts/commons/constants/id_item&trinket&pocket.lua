@@ -214,6 +214,16 @@ MrDynamax = Isaac.GetItemIdByName("Mr. Dynamax"),
 BrimstoneKeys = Isaac.GetItemIdByName("Brimstone Keys"),
 BobsBlessing = Isaac.GetItemIdByName("Bob's Blessing"),
 MrKey = Isaac.GetItemIdByName("Mr. Key"),
+HeatKeys = Isaac.GetItemIdByName("Heat Keys"),
+Kear = Isaac.GetItemIdByName("Kear"),
+BulletJar = Isaac.GetItemIdByName("Bullet in a Jar"),
+MontezumasHeritage = Isaac.GetItemIdByName("Montezuma's Heritage"),
+ScatterKeys = Isaac.GetItemIdByName("Scatter Keys"),
+BomberKey = Isaac.GetItemIdByName("Bomber Key"),
+KKEKK = Isaac.GetItemIdByName("KKEKK"),
+BloodKeys = Isaac.GetItemIdByName("Blood Keys"),
+SoulKeys = Isaac.GetItemIdByName("Soul Keys"),
+DiscountKey = Isaac.GetItemIdByName("Discount Key"),
 
 }
 
@@ -265,6 +275,7 @@ BulkyWorm = Isaac.GetTrinketIdByName("Bulky Worm"),
 ModelingClay = Isaac.GetTrinketIdByName("Modeling Clay II"),
 SamsonState = Isaac.GetTrinketIdByName("Samson State"),
 LithiumBattery = Isaac.GetTrinketIdByName("Lithium Battery"),
+DefensiveCrown = Isaac.GetTrinketIdByName("Defensive Crown"),
 
 }
 

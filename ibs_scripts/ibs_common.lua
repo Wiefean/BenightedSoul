@@ -53,6 +53,17 @@ function mod:GetIBSData(type)
 	return {}
 end
 
+--设置本局选择的昧化角色
+function mod:SetBenightedRun(playerType)
+	playerType = playerType or -1
+	self.IBS_Data.Persis.benightedRun = playerType
+end
+
+--获取本局选择的昧化角色
+function mod:GetBenightedRun()
+	return self.IBS_Data.Persis.benightedRun or -1
+end
+
 --是否为开局
 function mod:IsStartingRun()
 	if game:GetFrameCount() <= 0 then

@@ -5,8 +5,6 @@ local zh = (mod.Language == 'zh')
 local IBS_ChallengeID = mod.IBS_ChallengeID
 local IBS_PlayerKey = mod.IBS_PlayerKey
 
-mod._BenightingPlayerType = -1 --主界面选择的昧化角色ID
-
 --获取修正后位置
 local function GetFixedPos(pos)
 	return Isaac.WorldToMenuPosition(MainMenuType.CHARACTER, pos)
@@ -300,6 +298,7 @@ local info_zh = {
 		Desc = {
 			{Str = '无足轻重', Offset = Vector(-3, 0)},
 			{Str = '自掘坟墓', Offset = Vector(-3, 16)},
+			{Str = '+', Offset = Vector(44, 16), ConditionKey = 'bc15'},
 		},
 	},	
 	
@@ -524,6 +523,7 @@ local info_en = {
 		Desc = {
 			{Str = 'Diet weight', Offset = Vector(-10, 0)},
 			{Str = 'Dig your own grave', Offset = Vector(-35, 16)},
+			{Str = '+', Offset = Vector(76, 16), ConditionKey = 'bc15'},
 		},
 	},
 	
@@ -780,12 +780,20 @@ mod:AddPriorityCallback(ModCallbacks.MC_MAIN_MENU_RENDER, CallbackPriority.EARLY
 				if canConfirm then
 					local lock = info.LockCheck and info.LockCheck.Lock
 					if lock then
-						mod._BenightingPlayerType = lock.ID or -1
+						mod:SetBenightedRun(lock.ID or -1)
+						mod:SaveIBSData()
 					end
-				else				
+				else
+					mod:SetBenightedRun(-1)
+					mod:SaveIBSData()
 					SFXManager():Play(187, 1, 30)
 				end
 			end
+		elseif wait <= 0 then
+			if Input.IsActionTriggered(ButtonAction.ACTION_MENUCONFIRM, 0) then
+				mod:SetBenightedRun(-1)
+				mod:SaveIBSData()
+			end		
 		end
 	
 		--手柄右摇杆按键
@@ -825,6 +833,7 @@ mod:AddPriorityCallback(ModCallbacks.MC_MAIN_MENU_RENDER, CallbackPriority.EARLY
 			widget:Render(Isaac.WorldToMenuPosition(MainMenuType.CHARACTER, Vector(30,220)))
 		end
 	else
+		wait = 15
 		if MenuManager.GetActiveMenu() == MainMenuType.SPECIALSEEDS then
 			MenuManager.SetInputMask(MenuManager.GetInputMask() | ButtonActionBitwise.ACTION_MENUCONFIRM)
 		else
@@ -833,6 +842,12 @@ mod:AddPriorityCallback(ModCallbacks.MC_MAIN_MENU_RENDER, CallbackPriority.EARLY
 				filter:Play('Out', true)
 				MenuManager.SetInputMask(MenuManager.GetInputMask() | ButtonActionBitwise.ACTION_MENURT | ButtonActionBitwise.ACTION_MENUCONFIRM)
 				MusicManager():Crossfade(63, 0.01)
+			end
+		end
+		if MenuManager.GetActiveMenu() == MainMenuType.CHARACTER and CharacterMenu.GetSelectedCharacterMenu() ~= 0 then
+			if Input.IsActionTriggered(ButtonAction.ACTION_MENUCONFIRM, 0) then
+				mod:SetBenightedRun(-1)
+				mod:SaveIBSData()
 			end
 		end
 	end
@@ -848,25 +863,17 @@ end)
 
 mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, 7^10, function(_,isContinued)
 	if not isContinued then
-		if show then
-			local player = Isaac.GetPlayer(0)
-			local playerType = player:GetPlayerType()
-			mod.IBS_Callback.Benighted:RunWithParam(playerType, player, true)
-		end
+		if Isaac.GetChallenge() > 0 then
+			mod:SetBenightedRun(-1)
+			mod:SaveIBSData()
+		else
+			if show or mod:GetBenightedRun() > 0 then
+				local player = Isaac.GetPlayer(0)
+				local playerType = player:GetPlayerType()
+				mod.IBS_Callback.Benighted:RunWithParam(playerType, player, true)
+			end
+		end	
 	end
-	if not show then
-		mod._BenightingPlayerType = -1
-	end
-end)
-mod:AddPriorityCallback(ModCallbacks.MC_PRE_GAME_EXIT, 7^10, function(_,shouldSave)
-	if shouldSave then
-		show = false
-		mod._BenightingPlayerType = -1
-	end
-end)
-mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_END, 7^10, function()
-	show = false
-	mod._BenightingPlayerType = -1
 end)
 
 do--挑战解锁检测
@@ -886,6 +893,8 @@ local PlayerChallenge = {
 [IBS_ChallengeID[11]] = IBS_PlayerKey.BLost,
 
 [IBS_ChallengeID[13]] = IBS_PlayerKey.BKeeper,
+
+[IBS_ChallengeID[15]] = IBS_PlayerKey.BForgotten,
 
 }
 

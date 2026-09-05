@@ -209,4 +209,18 @@ local function OnPEffectUpdate(_,player)
 end
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, OnPEffectUpdate)
 
+--移除装扮
+local function OnGainItem(_,item, charge, first, slot, varData, player)
+	local items = HiddenItemList[player:GetPlayerType()]
+	if items then
+		for _,id in ipairs(items) do
+			if item == id then			
+				player:RemoveCostume(config:GetCollectible(id))
+				break
+			end
+		end
+	end
+end
+mod:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, OnGainItem)
+
 return Character

@@ -44,10 +44,12 @@ function DreggyPie:OnPlayerUpdate(player)
 	if player:IsFrame(120,0) then
 		local data = self._Ents:GetTempData(player).DreggyPie
 		if data then
-			if data.TearsUp >= 0.1 then
+			if data.TearsUp > 0.1 then
 				data.TearsUp = data.TearsUp - 0.1
-				player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY, true)
+			else
+				self._Ents:GetTempData(player).DreggyPie = nil
 			end
+			player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY, true)
 		end
 	end
 

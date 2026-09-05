@@ -1094,6 +1094,56 @@ Item = {
 		Desc='等个大客户',
 	},
 
+	[IBS_ItemID.HeatKeys]={
+		Name='炽热钥匙',
+		Desc='产生魂火 + 5个钥匙',
+	},
+	
+	[IBS_ItemID.Kear]={
+		Name='钥湿',
+		Desc='钥匙 = 射速',
+	},
+
+	[IBS_ItemID.BulletJar]={
+		Name='罐中枪子',
+		Desc='双击发射5钥匙',
+	},	
+	
+	[IBS_ItemID.MontezumasHeritage]={
+		Name='蒙特祖玛的遗产',
+		Desc='对 , 这是镶金的钥匙',
+	},	
+	
+	[IBS_ItemID.ScatterKeys]={
+		Name='分裂钥匙',
+		Desc='一钥多用',
+	},	
+	
+	[IBS_ItemID.BomberKey]={
+		Name='炸钥人',
+		Desc='十字钥匙炸弹',
+	},	
+	
+	[IBS_ItemID.KKEKK]={
+		Name='是匕是匕',
+		Desc='锟斤拷锟斤拷',
+	},	
+	
+	[IBS_ItemID.BloodKeys]={
+		Name='鲜血钥匙',
+		Desc='受伤获得钥匙 + 体力上升',
+	},	
+	
+	[IBS_ItemID.SoulKeys]={
+		Name='魂匙',
+		Desc='产生魂石 + 5个钥匙',
+	},
+	
+	[IBS_ItemID.DiscountKey]={
+		Name='折扣钥匙',
+		Desc='学会钥价',
+	},	
+
 },
 
 --饰品
@@ -1321,6 +1371,11 @@ Trinket = {
 	[IBS_TrinketID.LithiumBattery]={
 		Name='锂电池',
 		Desc='消费充能'
+	},
+	
+	[IBS_TrinketID.DefensiveCrown]={
+		Name='防卫王冠',
+		Desc='充能护甲'
 	},
 
 },

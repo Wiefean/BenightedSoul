@@ -546,7 +546,7 @@ MakeCharacterBar(IBS_PlayerKey.BForgotten, Language('遗骸', 'The Forgotten'),
 	Lamb = Language('解锁 "尘埃炸弹"', 'For "Dusty Bombs"'),
 	MegaSatan = Language('解锁 "墓地"', 'For "Graveyard"'),	
 	BossRush = Language('解锁 "月下异巷"', 'For "Moon Streets"'),
-	Delirium = Language('强化 "节制之骨"：瞬移炸弹', 'Boost "Bone of Temperance": Teleport Bombs'),
+	Delirium = Language('强化 "节制之骨"：处于其他攻击方式时附加眼泪', 'Boost "Bone of Temperance": When in other attack modes, additionally fire tears'),
 	Witness = Language('解锁 "三色杯"', 'For "For "Neopolitan"'),
 	Beast = Language('解锁 "迷途之镜"', 'For "Wildering Mirror"'),
 	Greed = Language('解锁 "双角斧"', 'For "The Horned-Axe"'),
@@ -587,6 +587,8 @@ do
 	MakeCheckBox(_AchievTab2, 'bc11', Language('钥匙变炸弹', 'Keys are bomb'), Language('完成以强化昧化游魂：额外初始物品', 'Finish it to boost Benighted Lost: Extra starting items'), {'blost_up'} )
 	
 	MakeCheckBox(_AchievTab2, 'bc13', Language('慷慨模式', 'Generosity Mode'), Language('完成以强化昧化店主：额外初始物品', 'Finish it to boost Benighted Keeper: Extra starting items'), {'bkeeper_up'} )
+	
+	MakeCheckBox(_AchievTab2, 'bc15', Language('腐骸', 'For Rotton'), Language('完成以强化昧化遗骸：在墓地挖出饰品时，同时生成箱子', 'Finish it to boost Benighted Forgotten: Spawn chests when finding trinkets in Graveyard'), {'bforgotten_up'} )
 end
 ----↑挑战栏相关↑----
 

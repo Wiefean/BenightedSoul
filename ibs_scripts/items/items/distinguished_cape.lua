@@ -1,6 +1,7 @@
 --卓越斗篷
 
 local mod = Isaac_BenightedSoul
+local IBS_ChallengeID = mod.IBS_ChallengeID
 local Pools = mod.IBS_Lib.Pools
 local IBS_CallbackID = mod.IBS_CallbackID
 local AbandonedItem = mod.IBS_Effect.AbandonedItem
@@ -13,6 +14,11 @@ local sfx = SFXManager()
 local CapeSoul = mod.IBS_Familiar.CapeSoul
 
 local DistinguishedCape = mod.IBS_Class.Item(mod.IBS_ItemID.DistinguishedCape)
+
+--腐骸挑战
+local function IsInChallenge()
+	return Isaac.GetChallenge() == IBS_ChallengeID[15]
+end
 
 --查找灵魂
 function DistinguishedCape:FindSoul(player)
@@ -84,6 +90,7 @@ DistinguishedCape:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, 'OnNewLevel')
 --在即将受伤时生效
 function DistinguishedCape:PrePlayerTakeDMG(player, dmg, flag, source)
 	if dmg <= 0 then return end
+	if IsInChallenge() then return end
 	if not self:ShouldProtect(player, flag, source) then return end
 	if not self:KillSoul(player) then return end
 		

@@ -58,6 +58,10 @@ for _,id in ipairs{
 	IBS_ItemID.Ssstew, --炖蛇羹
 	IBS_ItemID.Alms, --施粥处
 	IBS_ItemID.CheeseCutter, --奶酪切片器
+	IBS_ItemID.LownTea, --免茶
+	IBS_ItemID.DeciduousMeat, --剥落古老肉
+	IBS_ItemID.CalocybeGambosa, --圣乔治蘑菇
+	IBS_ItemID.BigSlurp, --超大杯
 } do
 	HellKitchen.ItemPool:AddToInitPool(id, 1)
 end

@@ -161,7 +161,7 @@ function SilverKey:OnUse(item, rng, player, flag, slot)
 		else
 			local door = self._Finds:ClosestDoor(player.Position)
 
-			--将普通房间变为记录的房间类型,并回溯时间
+			--将房间变为记录的房间类型,并回溯时间
 			if door and door.TargetRoomIndex and door.Position:Distance(player.Position) <= 70 then
 				local roomDesc = level:GetRoomByIdx(door.TargetRoomIndex)
 				if roomDesc ~= nil and roomDesc.Data ~= nil and self:CanResetRoom(roomDesc) then
@@ -222,6 +222,7 @@ SilverKey:AddCallback(ModCallbacks.MC_USE_ITEM, 'OnUse', SilverKey.ID)
 --新层将曾经记录过的特殊房间变为普通房间
 function SilverKey:OnNewLevel()
 	if game:IsGreedMode() then return end
+	if not PlayerManager.AnyoneHasCollectible(self.ID) then return end
 	local data = self:GetIBSData('temp').SilverKey
 	if not data then return end
 

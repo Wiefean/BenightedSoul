@@ -66,6 +66,8 @@ mod.IBS_Achiev = {
 		[11] = LoadChallenge('11'),
 		
 		[13] = LoadChallenge('13'),
+		
+		[15] = LoadChallenge('15'),
 	},
 }
 

@@ -75,5 +75,7 @@ mod.IBS_ChallengeID = {
 	[11] = Isaac.GetChallengeIdByName("BC11 Keys are Bomb"),
 	
 	[13] = Isaac.GetChallengeIdByName("BC13 Generosity Mode"),
+	
+	[15] = Isaac.GetChallengeIdByName("BC15 For Rotten"),
 
 }

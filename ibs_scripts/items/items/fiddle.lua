@@ -42,9 +42,12 @@ function Fiddle:OnPickupInit(pickup)
 	if not PlayerManager.AnyoneHasCollectible(self.ID) then return end
 	if pickup.SubType == 0 then return end
 	local room = game:GetRoom()
+	local level = game:GetLevel()
 	
-	if room:GetFrameCount() > 4 and room:GetType() ~= RoomType.ROOM_BOSS then
-	
+	if room:GetFrameCount() > 4
+		and room:GetType() ~= RoomType.ROOM_BOSS
+		and level:GetStartingRoomIndex() ~= level:GetCurrentRoomDesc().SafeGridIndex
+	then
 		--任务道具检测
 		local itemConfig = config:GetCollectible(pickup.SubType)
 		if itemConfig and itemConfig:HasTags(ItemConfig.TAG_QUEST) then

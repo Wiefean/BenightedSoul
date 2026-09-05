@@ -209,6 +209,9 @@
 	<!-- defined -->
 	<wisp id="11" count="0" />
 
+	<!-- v7 -->
+	<wisp id="19" count="0" />
+
 	<!-- reserved nail -->
 	<wisp id="21" layer="1" flameColor="flame_black" coreColor="core_brown" canShoot="false" />
 	

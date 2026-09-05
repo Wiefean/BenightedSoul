@@ -13,8 +13,8 @@ local MrDynamax = mod.IBS_Class.Item(mod.IBS_ItemID.MrDynamax)
 function MrDynamax:OnUse(item, rng, player, flag, slot)
 	local level = game:GetLevel()
 	
-	--贪婪模式,不在主世界
-	if game:IsGreedMode() or (level:GetDimension() ~= 0) then
+	--贪婪模式,不在主世界,不在地图内房间
+	if game:IsGreedMode() or (level:GetDimension() ~= 0) or (level:GetCurrentRoomIndex() < 0) then
 		sfx:Play(187, 1, 30) --失败提示音
 		return {ShowAnim = false, Discharge = false}
 	end

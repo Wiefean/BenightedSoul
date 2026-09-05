@@ -218,6 +218,16 @@ mod.IBS_Item = {
 	BrimstoneKeys = Load('brimstone_keys'),
 	BobsBlessing = Load('bobs_blessing'),
 	MrKey = Load('mr_key'),
+	HeatKeys = Load('heat_keys'),
+	Kear = Load('kear'),
+	BulletJar = Load('bullet_jar'),
+	MontezumasHeritage = Load('montezumas_heritage'),
+	ScatterKeys = Load('scatter_keys'),
+	BomberKey = Load('bomber_key'),
+	KKEKK = Load('kkekk'),
+	BloodKeys = Load('blood_keys'),
+	SoulKeys = Load('soul_keys'),
+	DiscountKey = Load('discount_key'),
 
 }
 
@@ -273,6 +283,7 @@ mod.IBS_Trinket = {
 	ModelingClay = Load('modeling_clay'),
 	SamsonState = Load('samson_state'),
 	LithiumBattery = Load('lithium_battery'),
+	DefensiveCrown = Load('defensive_crown'),
 	
 }
 

@@ -5,17 +5,17 @@ Isaac_BenightedSoul.IBS_CallbackID = {
 
 --硬币数量变动
 NUM_CHANGE_COIN = "IBS_CALLBACK_NUM_CHANGE_COIN",
---[[提供参数:变动数值]]
+--[[提供参数:变动数值, 剩余数值]]
 
 
 --炸弹数量变动
 NUM_CHANGE_BOMB = "IBS_CALLBACK_NUM_CHANGE_BOMB",
---[[提供参数:变动数值]]
+--[[提供参数:变动数值, 剩余数值]]
 
 
 --钥匙数量变动
 NUM_CHANGE_KEY = "IBS_CALLBACK_NUM_CHANGE_KEY",
---[[提供参数:变动数值]]
+--[[提供参数:变动数值, 剩余数值]]
 
 
 --变身昧化角色

@@ -63,31 +63,16 @@ function Kindness:OnNpcInit(npc)
 end
 Kindness:AddCallback(ModCallbacks.MC_POST_NPC_INIT, 'OnNpcInit', 51)
 
---打断攻击
-function Kindness:OnPlayeUpdate(player)
-	local has = player:HasCollectible(self.ID)
-
-	--检测
-	if not has and not self:GetIBSData("temp").MiniBossKindnessTriggered then 
-		return
-	end
-	
-	if not self._Players:IsShooting(player) then return end
-
-	if math.random(1,100) == 23 then
-		self._Players:AddShield(player, 45)
-		sfx:Play(math.random(620,622), 1, 2, false, 4)
-
-		--正邪增强
-		if has and mod.IBS_Compat.THI:SeijaBuff(player) then
-			return
-		end
-		
-		player:AnimatePitfallOut()
-		player:AddControlsCooldown(30)
+--死亡时复活
+function Kindness:PrePlayerDeath(player)
+	if player:HasCollectible(self.ID) then
+		player:RemoveCollectible(self.ID)
+		self._Players:AddShield(player, 2100)
+		sfx:Play(IBS_Sound.Kindness, 1, 10, false)
+		return false
 	end
 end
-Kindness:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, 'OnPlayeUpdate', 0)
+Kindness:AddCallback(ModCallbacks.MC_PRE_TRIGGER_PLAYER_DEATH, 'PrePlayerDeath')
 
 --播放神秘音效
 function Kindness:OnPickItem(player, item, touched)

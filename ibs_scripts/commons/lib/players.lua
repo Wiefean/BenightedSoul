@@ -440,7 +440,7 @@ local HpList = {
 
 --红心
 ["Red"] = function(player)
-	return player:GetHearts()
+	return player:GetHearts() - 2 * player:GetRottenHearts()
 end,
 
 --魂黑心

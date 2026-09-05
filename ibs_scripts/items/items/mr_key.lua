@@ -40,9 +40,9 @@ function MrKey:OnBumDonation(ent, pickup)
 			if variant == 7 then
 				p:AddKeys(1)
 			end
-		elseif ent:ToFamiliar() and pickup then --跟班
+		elseif ent:ToFamiliar() and pickup and pickup.Variant == 30 then --跟班拾取钥匙
 			--钥匙乞丐或超级乞丐
-			if variant == 90 and variant == 102 then
+			if variant == 90 or variant == 102 then
 				p:AddKeys(1)
 			end
 		end

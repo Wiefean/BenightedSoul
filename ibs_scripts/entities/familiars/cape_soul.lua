@@ -1,6 +1,7 @@
 --卓越斗篷灵魂
 
 local mod = Isaac_BenightedSoul
+local IBS_ChallengeID = mod.IBS_ChallengeID
 local IBS_FamiliarID = mod.IBS_FamiliarID
 local IBS_Compat = mod.IBS_Compat
 
@@ -13,6 +14,11 @@ local CapeSoul = mod.IBS_Class.Familiar{
 	Name = {zh = '卓越斗篷灵魂', en = 'Cape Soul'}
 }
 
+--腐骸挑战
+local function IsInChallenge()
+	return Isaac.GetChallenge() == IBS_ChallengeID[15]
+end
+
 --生成
 function CapeSoul:Spawn(player)
 	local familiar = Isaac.Spawn(3, self.Variant, self.SubType, player.Position, Vector.Zero, player):ToFamiliar()
@@ -24,14 +30,23 @@ end
 function CapeSoul:OnFamiliarInit(familiar) 
     familiar:GetSprite():Play('GhostAppear')
     familiar:AddToOrbit(1333)
-	familiar.OrbitDistance = Vector(30,30)
 	familiar.OrbitSpeed = 0.03
+
+	if IsInChallenge() then
+		familiar.OrbitDistance = Vector(120,120)
+	else
+		familiar.OrbitDistance = Vector(30,30)
+	end
 end
 CapeSoul:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, 'OnFamiliarInit', CapeSoul.Variant)
 
 --更新
 function CapeSoul:OnFamiliarUpdate(familiar)
-	familiar.OrbitDistance = Vector(30,30)
+	if IsInChallenge() then
+		familiar.OrbitDistance = Vector(120,120)
+	else
+		familiar.OrbitDistance = Vector(30,30)
+	end
     familiar.OrbitSpeed = 0.03
     local player = familiar.Player; if not player then return end
 	local spr = familiar:GetSprite()

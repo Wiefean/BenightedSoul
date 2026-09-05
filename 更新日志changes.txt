@@ -1,4 +1,80 @@
 -----------------------------------
+2026.9
+v0.12.8
+
+新道具：
+ 蒙特祖玛的遗产
+ 炸钥人
+ 分裂钥匙
+ 是匕是匕
+ 鲜血钥匙
+ 魂匙
+ 折扣钥匙
+
+新饰品：防卫王冠
+
+调整：
+ <道具>
+ 小提琴：初始房间内不生效
+ 罐中枪子：强化
+
+
+
+New Items:
+ Montezuma's Heritage
+ Bomber Key
+ Scatter Keys
+ KKEKK
+ Blood Keys
+ Soul Keys
+ Discount Key
+
+New Trinket: Defensive Crown
+
+Adjustments:
+ <Items>
+ Fiddle: Invalid in the starting room
+ Bullet in a Jar: Boost
+-----------------------------------
+2026.9
+v0.12.7
+
+新挑战：腐骸
+
+新道具：
+ 炽热钥匙
+ 钥湿
+ 罐中枪子
+
+调整：
+ <角色>
+ 昧化遗骸：调整
+ <道具>
+ 宽容：品质1；强化
+ 美德七面骰：美德之书兼容更新
+ 活动肌肉：品质2
+ 双倍剂量：品质1
+ 银之钥：品质3；强化
+ 奥利哈铁：削弱
+
+New Challenge: For Rotten
+
+New Items:
+ Heat Keys
+ Kear
+ Bullet in a Jar
+
+Adjustments:
+ <Character>
+ Benighted Forgotten: Adjustments
+ <Items>
+ Kindness: Quality 1; Boost
+ V7: Book of Virtues update
+ Flex: Quality 2
+ Double Dosage: Quality 1
+ The Silver Key: Quality 3; Boost
+ Orichaliron: Droop
+-----------------------------------
 2026.8
 v0.12.6
 

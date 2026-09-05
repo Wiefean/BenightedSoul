@@ -133,11 +133,11 @@ local playerEID = {
 	name='Benighted Forgotten',
 	info='{{SoulHeart}} Soul Heart character; If no Soul Heart, let {{EmptyBoneHeart}}Bone Heart becomes'..
 		 '#Flight'..
-		 '#{{Collectible213}}{{Collectible597}}{{Collectible'..(IBS_ItemID.BOT)..'}}'..
+		 '#{{Collectible597}}{{Collectible'..(IBS_ItemID.BOT)..'}}'..
 		 '#Hearts limit 6'..
-		 '#{{Bomb}} Bombs limit 9; Bomb damage down; When using a bomb, teleport and detonate it; + 2 {{Bomb}}bomb when cleaning rooms'..
-		 '#{{TreasureRoom}}Treasure Room and {{CurseRoom}}Curse Room will be replaced by special {{SuperSecretRoom}}Super Secret Room',
-	br='Heart limit + 6#{{Bomb}} Bomb limit + 90#↑ Double {{Tears}}tears#↓ Half {{Damage}}dmg',
+		 '#{{Bomb}} 9 bombs maximum; Bomb damage down; When using a bomb, teleport and detonate it; + 2 {{Bomb}}bomb when cleaning rooms'..
+		 '#{{Shop}}, {{TreasureRoom}}Treasure Room and {{CurseRoom}}Curse Room will be replaced by special {{SuperSecretRoom}}Super Secret Room',
+	br='Heart limit + 6#{{Bomb}} Bomb maximum + 90#↑ Double {{Tears}}tears#↓ Half {{Damage}}dmg',
 },
 
 }
@@ -336,7 +336,7 @@ local itemEID={
 		 "#Temperance"..
 		 "#Generosity"..
 		 "#Humility",
-	virtue="Common wisps",
+	virtue="If not had, spawn item-wisp of   Kindness",
 	belial="No special effect",		 
 },
 
@@ -588,11 +588,11 @@ local itemEID={
 	info="A random effect:"..
 		 "#{{Blank}} spawns a {{Coin}}coin"..
 		 "#{{Blank}} spawns a {{Bomb}}bomb"..
-		 "#{{Blank}} spawns a paper trinket"..
+		 "#{{Blank}} spawns a vanilla paper trinket"..
 		 "#{{Blank}} spawns a health-priced shop collectible"..
 		 "#{{Blank}} spawns {{Card47}}Get Out Of Jail Free Card"..
 		 "#{{Blank}} {{AngelRoom}}Angel chance + 15%"..
-		 "#{{Blank}} Gains {{Collectible76}}X-Ray Vision effect"..
+		 "#{{Blank}} Gains {{Collectible76}}X-Ray Vision effect this level"..
 		 "#{{Blank}} Game timer decreases by 10 minutes",
 	virtue="No special effect",
 	belial="No special effect"
@@ -603,11 +603,11 @@ local itemEID={
 	info="+ 3{{SoulHeart}}Soul Hearts"..
 		 "#↑ + 0.7{{Tears}}tears"..
 		 "#{{Shop}} Shop: Cards50% to become {{Card51}}Holy Card"..
-		 "#{{TreasureRoom}} Treasure: An extra beggar"..
-		 "#{{SecretRoom}} Secret: Keeper becomes angel statue"..
+		 "#{{TreasureRoom}} Treasure: Beggar"..
+		 "#{{SecretRoom}} Secret: Backdrop Keeper becomes angel statue"..
 		 "#{{ArcadeRoom}} Arcade: A gambling game 50% to become Confessional"..
-		 "#{{CurseRoom}} Curse: A red chest 50% to become eternal chest"..
-		 "#{{DevilRoom}} Devil: Free collectibles, but only one can be taken"
+		 "#{{CurseRoom}} Curse: {{RedChest}}Red Chest 50% to become {{HolyChest}}Eternal Chest"..
+		 "#{{DevilRoom}} Devil: Free items, but only one can be taken"
 },
 
 [IBS_ItemID.LeadenHeart]={
@@ -1378,7 +1378,7 @@ local itemEID={
 
 [IBS_ItemID.SaleBomb]={
 	name='Sale Bomb',
-	info='{{Bomb}} Bombs from Isaac will make coin price decrease 1~2, and spawn {{Coin}}coins with the same number'
+	info='{{Bomb}} Bombs from Isaac will make coin price decrease by 1~2, and spawn {{Coin}}coins with the same number'
 },
 
 [IBS_ItemID.Diecry]={
@@ -1727,7 +1727,7 @@ local itemEID={
 [IBS_ItemID.Fiddle]={
 	name='Fiddle',
 	info='When entering a new level, spawn 2 random passive items'..
-		 '#!!! {{ColorRed}}Non-Quest items appear after entering in a room for 0.1 seconds will be removed, except in {{BossRoom}}Boss Room{{CR}}',
+		 '#!!! {{ColorRed}}Non-Quest items appear after entering in a room for 0.1 seconds will be removed, except in {{BossRoom}}Boss Room and the starting room{{CR}}',
 },
 
 [IBS_ItemID.WhisperingEarring]={
@@ -1774,15 +1774,7 @@ local itemEID={
 
 [IBS_ItemID.Kindness]={
 	name='Kindness',
-	info='When attacking, randomly gain 1s sheild, but with 0.5s no control',
-	seijaBuff={
-		desc = 'Enable control when triggered',
-		data = {
-			append = function(x) 
-				return ''
-			end
-		},
-	},	
+	info='Revive when dying, and + 70 seconds sheild',
 },
 
 [IBS_ItemID.Beg]={
@@ -1829,7 +1821,7 @@ local itemEID={
 [IBS_ItemID.Orichaliron]={
 	name='Orichaliron',
 	info='{{Luck}} Luck + 2'..
-	'#{{SoulHeart}} If skipped Soul Heart pickups ({{BlackHeart}}Black Heart excluded) throughout the level, + 4 {{SoulHeart}}Soul Hearts next level',
+	'#{{SoulHeart}} If skipped Soul Heart pickups ({{BlackHeart}}Black Heart excluded) throughout the level, + 3 {{SoulHeart}}Soul Hearts next level',
 },
 
 [IBS_ItemID.DisasterOfSodom]={
@@ -1902,6 +1894,69 @@ local itemEID={
 	'#{{MegaChest}} Mega Chest needs only 1 {{Key}}key'..
 	'#{{KeyBeggar}} Key Beggars have 50% chance to return {{Key}}keys',
 },
+
+[IBS_ItemID.HeatKeys]={
+	name='Heat Keys',
+	info='+ 5 {{Key}}keys'..
+	'#Losing {{Key}}keys spawns 1~3 common wisps',
+},
+
+[IBS_ItemID.Kear]={
+	name='Kear',
+	info='+ 5 {{Key}}keys'..
+	'#↑ Losing {{Key}}keys, + 1 {{Tears}}tears temporarily',
+},
+
+[IBS_ItemID.BulletJar]={
+	name='Bullet in a Jar',
+	info='+ 5 {{Key}}keys'..
+	'#{{Key}} Double-tapping costs 5 keys, and fires a piercing key tear with 500% {{Damage}}damage, which spawns 5 keys when fallen'..
+	'#{{Key}} Can not be triggered when key pickups in the current room are more than keys held',
+},
+
+[IBS_ItemID.MontezumasHeritage]={
+	name="Montezuma's Heritage",
+	info='+ 5 {{Key}}keys'..
+	'#Losing {{Key}}keys spawns a poop'..
+	'#Destroying poops spawns a {{Key}}key'..
+	'#!!! Destroying poops also spawns Big Corn (Enemy)',
+},
+
+[IBS_ItemID.ScatterKeys]={
+	name='Scatter Keys',
+	info='+ 5 {{Key}}keys'..
+	'#Losing {{Key}}keys open doors and locked chests (Mega Chest excluded)',
+},
+
+[IBS_ItemID.BomberKey]={
+	name='Bomber Key',
+	info='+ 5 {{Bomb}}bombs and {{Key}}keys'..
+	"Isaac's bombs explode with piercing key tears in 4 directions (10 damage)"
+},
+
+[IBS_ItemID.KKEKK]={
+	name='KKEKK',
+	info='Losing the last {{Key}}key in a level for the first time teleports to Error Room',
+},
+
+[IBS_ItemID.BloodKeys]={
+	name='Blood Keys',
+	info='+ 1 {{Heart}}Heart Container, and heals 4 hearts'..
+		 '#{{Key}} When hurt with 1 key or more, - 1 key and spawn 2 keys',
+},
+
+[IBS_ItemID.SoulKeys]={
+	name='Soul Keys',
+	info='+ 5 {{Key}}keys'..
+		 '#{{Key}} Losing 3 keys spawn a soul',
+},
+
+[IBS_ItemID.DiscountKey]={
+	name='Discount Key',
+	info='{{Shop}} A Backdrop Keeper in Shop will be replaced by {{KeyBeggar}}Key Master'..
+		 '#{{Key}} Losing keys makes coin price decreases by 20%',
+},
+
 
 }
 --------------------------------------------------------
@@ -2335,6 +2390,16 @@ local trinketEID={
 		maxMultiplier = 3,
 		findReplace = {'5', '3', '1'},
 	}	
+},
+
+[IBS_TrinketID.DefensiveCrown]={
+	name='Defensive Crown',
+	info='When a common-charge-type active item appears, clear its charges, + 1 {{HalfSoulHeart}}Half Soul Heart'..
+		 '#{{Blank}} (No effect on dropped active items)',
+	mult={
+		numberToMultiply = 1,
+		maxMultiplier = 3,
+	}
 },
 
 }

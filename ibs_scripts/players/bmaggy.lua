@@ -338,7 +338,7 @@ BMaggy:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, 'OnNpcDeath')
 
 --替换房间
 function BMaggy:ReplaceRooms(roomSlot, roomData, seed)
-	if PlayerManager.AnyoneIsPlayerType(self.ID) or mod._BenightingPlayerType == self.ID then
+	if PlayerManager.AnyoneIsPlayerType(self.ID) or self:GetBenightedRun() == self.ID then
 		local roomType = roomData.Type
 
 		--献祭房替换为小头目房

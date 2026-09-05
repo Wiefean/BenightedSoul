@@ -34,7 +34,7 @@ function Orichaliron:PostNewLevel()
         if player:HasCollectible(self.ID) then
             if not Orichaliron:IsPickedSoulHeart(player) then
                 self:DelayFunction(function()
-                    player:AddSoulHearts(8)
+                    player:AddSoulHearts(6)
                     sfx:Play(SoundEffect.SOUND_THUMBSUP, 1, 2, false, 1, 0)
                     player:AnimateHappy()
                 end, 9)
@@ -67,7 +67,7 @@ end
 Orichaliron:AddCallback(ModCallbacks.MC_POST_PICKUP_COLLISION, 'PostPickupCollision', PickupVariant.PICKUP_HEART)
 
 function Orichaliron:OnEvalueateCache(player, flag)
-	if player:HasCollectible(self.ID) then
+	if flag == CacheFlag.CACHE_LUCK and player:HasCollectible(self.ID) then
         local num = player:GetCollectibleNum(self.ID)
 		self._Stats:Luck(player, 2 * num)
 	end

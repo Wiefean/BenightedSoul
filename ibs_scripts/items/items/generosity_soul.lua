@@ -87,7 +87,7 @@ function SOG:OnBumDonation(ent, pickup)
 				if pickup.Variant == 20 then --硬币
 					p:AddCoins(1)
 				end
-					if pickup.Variant == 30 then --钥匙				
+				if pickup.Variant == 30 then --钥匙				
 					p:AddKeys(1)
 				end
 			end

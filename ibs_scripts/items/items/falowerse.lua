@@ -9,7 +9,7 @@ local Memories = mod.IBS_Class.Memories()
 local MemoryPickup = mod.IBS_Pickup.Memory
 local Falowerse = mod.IBS_Class.Item(mod.IBS_ItemID.Falowerse)
 
---死亡时复活伪表表蓝
+--死亡时复活为表表蓝
 function Falowerse:PrePlayerDeath(player)
 	if player:HasCollectible(self.ID) then
 		player:RemoveCollectible(self.ID)

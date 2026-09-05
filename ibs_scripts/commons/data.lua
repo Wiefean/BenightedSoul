@@ -55,6 +55,8 @@ end
 
 local function Persis_Init() --此处可新增长久数据
 	local Persis = {
+		benightedRun = -1, --用于记录昧化角色局,方便重开
+	
 		isaacSatanDeath = false, --用于表表以撒解锁
 		maggySloth = false, --用于表表抹解锁
 		maggyLust = false, --用于表表抹解锁
@@ -88,6 +90,7 @@ local function Persis_Init() --此处可新增长久数据
 		bc10 = false,
 		bc11 = false,
 		bc13 = false,
+		bc15 = false,
 		--挑战区结束--
 
 

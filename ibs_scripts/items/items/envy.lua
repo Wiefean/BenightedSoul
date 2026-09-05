@@ -11,13 +11,33 @@ local Envy = mod.IBS_Class.Item(mod.IBS_ItemID.Envy)
 
 --设置将该道具移出道具池
 function Envy:RemoveFromPool(id, pool, decrease, seed)
-	if self:GetIBSData('persis')['envyRemove'] and id == self.ID then
+	if id == self.ID and self:GetIBSData('persis')['envyRemove'] then
 		local itemPool = game:GetItemPool()
 		itemPool:RemoveCollectible(id)
 		return itemPool:GetCollectible(pool, decrease, seed)
 	end
 end
 Envy:AddPriorityCallback(ModCallbacks.MC_POST_GET_COLLECTIBLE, CallbackPriority.IMPORTANT, 'RemoveFromPool')
+
+--自动重置
+function Envy:TryRerollSelf(pickup)
+	if pickup.Variant == 100 and pickup.SubType == self.ID and self:GetIBSData('persis')['envyRemove'] then
+		local seed = pickup.InitSeed
+		local pool = self._Pools:GetRoomPool(seed)
+		local id = game:GetItemPool():GetCollectible(pool, true, seed)
+		pickup:Morph(5, 100, id, true, true)
+	end
+end
+
+function Envy:OnPickupInit(pickup)
+	self:TryRerollSelf(pickup)
+end
+Envy:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, 'OnPickupInit', 100)
+
+function Envy:OnPickupUpdate(pickup)
+	self:TryRerollSelf(pickup)
+end
+Envy:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, 'OnPickupUpdate', 100)
 
 
 --获取数据

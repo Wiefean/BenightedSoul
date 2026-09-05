@@ -18,7 +18,6 @@ function BLostWeapon:GetData(familiar)
 	local data = self._Ents:GetTempData(familiar)
 	
 	if not data.BLostWeapon then
-		local spr = Sprite()
 		local bar = Sprite('gfx/ibs/ui/chargebar.anm2')
 		bar:SetFrame("Disappear", 99)	
 	
@@ -141,7 +140,7 @@ BLostWeapon.ChestInfo = {
 
 --查找武器
 function BLostWeapon:FindWeapons(player, subType)
-	if player:GetPlayerType() ~= mod.IBS_PlayerID.BLost then return {} end
+	--if player:GetPlayerType() ~= mod.IBS_PlayerID.BLost then return {} end
 	local result = {}
 	
 	for _,ent in pairs(Isaac.FindByType(3, self.Variant, subType)) do

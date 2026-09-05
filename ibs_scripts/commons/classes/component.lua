@@ -5,6 +5,9 @@ local mod = Isaac_BenightedSoul
 local Component = mod.Class(function(self)
 
 	do --调用通用值
+		function self:GetBenightedRun()
+			return mod:GetBenightedRun()
+		end	
 		function self:GetIBSData(type)
 			return mod:GetIBSData(type)
 		end

@@ -38,15 +38,15 @@ function NumChange:RunCallbacks()
 	local key = player:GetNumKeys()
 	
 	if data.Coin ~= coin then
-		self:Run(self.IDs.NUM_CHANGE_COIN, coin - data.Coin)
+		self:Run(self.IDs.NUM_CHANGE_COIN, coin - data.Coin, coin)
 		data.Coin = coin
 	end
 	if data.Bomb ~= bomb then
-		self:Run(self.IDs.NUM_CHANGE_BOMB, bomb - data.Bomb)
+		self:Run(self.IDs.NUM_CHANGE_BOMB, bomb - data.Bomb, bomb)
 		data.Bomb = bomb
 	end
 	if data.Key ~= key then
-		self:Run(self.IDs.NUM_CHANGE_KEY, key - data.Key)
+		self:Run(self.IDs.NUM_CHANGE_KEY, key - data.Key, key)
 		data.Key = key
 	end
 end

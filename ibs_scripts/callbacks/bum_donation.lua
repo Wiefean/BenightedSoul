@@ -36,7 +36,7 @@ BumDonation.BumFamiliar = {
 function BumDonation:OnPickupCollision(pickup, other)
 	if pickup.Price ~= 0 then return end
 	local familiar = other:ToFamiliar()
-	if familiar and self.BumFamiliar[familiar.Variant] and self._Pickups:CanCollect(pickup, familiar) then	
+	if familiar and self.BumFamiliar[familiar.Variant] and self._Pickups:CanCollect(pickup, familiar) then
 		table.insert(self:GetFamiliarData(familiar), pickup)
 	end
 end

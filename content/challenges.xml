@@ -42,4 +42,6 @@
 	
 	<challenge name="BC13 Generosity Mode" playertype="Benighted Keeper" startingitems="144,260,278,388" endstage="7" difficulty="3"/>
 
+	<challenge name="BC15 For Rotten" playertype="16" startingitems="448, 498, 537, 619" endstage="10" difficulty="1"/>
+	
 </challenges>

@@ -135,7 +135,7 @@ local playerEID = {
 	name='昧化遗骸',
 	info='{{SoulHeart}} 魂心角色；没有魂心时，{{EmptyBoneHeart}}骨心会变为魂心'..
 		 '#飞行'..
-		 '#{{Collectible213}}{{Collectible597}}{{Collectible'..(IBS_ItemID.BOT)..'}}'..
+		 '#{{Collectible597}}{{Collectible'..(IBS_ItemID.BOT)..'}}'..
 		 '#心上限为6'..
 		 '#{{Bomb}} 炸弹上限为9；炸弹伤害降低；使用炸弹时瞬移并引爆炸弹；清理房间后获得2炸弹'..
 		 '#{{Shop}}商店，{{TreasureRoom}}宝箱房和{{CurseRoom}}诅咒房将被替换为特殊的{{SuperSecretRoom}}超级隐藏房',
@@ -220,7 +220,7 @@ local itemEID={
 	name='紫色泡泡水',
 	info='随机获得一项以下效果:'..
 		 '#↓ {{Speed}}移速 - 0.02'..
-		 '#↑ {{Tears}}射速修正 + 0.06'..
+		 '#↑ {{Tears}}射速 + 0.06'..
 		 '#↑ {{Damage}}伤害 + 0.1'..
 		 '#↑ {{Range}}射程 + 0.15'..
 		 '#↓ {{Shotspeed}}弹速 - 0.03'..
@@ -336,7 +336,7 @@ local itemEID={
 		 '#节制'..
 		 '#慷慨'..
 		 '#谦逊',
-	virtue='普通魂火',
+	virtue='若没有，生成   宽容的道具魂火',
 	belial='无特殊效果',		 
 },
 
@@ -370,7 +370,7 @@ local itemEID={
 [IBS_ItemID.DreggyPie]={
 	name='掉渣饼',
 	info='{{Heart}} 获得1心之容器，满血'..
-		 '#↑ {{Tears}}射速修正 + 5，并不断衰减'..
+		 '#↑ {{Tears}}射速 + 5，并不断衰减'..
 		 '#除了{{Player20}}以扫，{{Collectible'..(IBS_ItemID.DreggyPie)..'}}掉渣饼 + {{Collectible621}}红豆汤 = {{Collectible619}}长子名分'
 },
 
@@ -384,7 +384,7 @@ local itemEID={
 [IBS_ItemID.Circumcision]={
 	name='割礼',
 	info='↓ {{Speed}}移速 - 0.4'..
-		 '#↑ {{Tears}}射速修正 + 2'..
+		 '#↑ {{Tears}}射速 + 2'..
 		 '#↑ {{Luck}}幸运 + 2'	
 },
 
@@ -589,11 +589,11 @@ local itemEID={
 	info='随机触发一项以下效果:'..
 		 '#生成1个{{Coin}}硬币'..
 		 '#生成1个{{Bomb}}炸弹'..
-		 '#生成纸质饰品'..
+		 '#生成原版纸质饰品'..
 		 '#生成血量代价的商店道具'..
-		 '#生成{{Card47}}保释卡'..
+		 '#生成{{Card47}}免费保释卡'..
 		 '#{{AngelRoom}}天使房转换率 + 15%'..
-		 '#触发{{Collectible76}}X光透视效果'..
+		 '#本层获得{{Collectible76}}X光透视效果'..
 		 '#游戏计时减少10分钟',
 	virtue='内环魂火',
 	belial='无特殊效果'
@@ -603,11 +603,11 @@ local itemEID={
 	name='教堂玻璃窗',
 	info='+ 2{{SoulHeart}}魂心'..
 		 '#↑ + 0.7{{Tears}}射速'..
-		 '#{{Shop}} 商店：卡牌50%变为{{Card51}}神圣卡'..
-		 '#{{TreasureRoom}} 宝箱房：出现一个普通乞丐'..
-		 '#{{SecretRoom}} 隐藏房：店主变为天使雕像'..
-		 '#{{ArcadeRoom}} 赌博房：赌博游戏50%变为忏悔室'..
-		 '#{{CurseRoom}} 诅咒房：红箱子50%变为永恒箱子'..
+		 '#{{Shop}} 商店：卡牌50%概率变为{{Card51}}神圣卡'..
+		 '#{{TreasureRoom}} 宝箱房：乞丐'..
+		 '#{{SecretRoom}} 隐藏房：背景店主变为天使雕像'..
+		 '#{{ArcadeRoom}} 赌博房：赌博游戏50%概率变为忏悔室'..
+		 '#{{CurseRoom}} 诅咒房：{{RedChest}}红箱子50%概率变为{{HolyChest}}永恒箱子'..
 		 '#{{DevilRoom}} 恶魔房：道具免费，但只能拿1个'
 },
 
@@ -616,7 +616,7 @@ local itemEID={
 	info='+ 1{{BrokenHeart}}碎心'..
 		 '#↓ - 0.15 {{Speed}}移速'..
 		 '#获得28临时{{IBSIronHeart}}坚贞之心'..
-		 '#进入新层时，获得28临时{{IBSIronHeart}}坚贞之心',
+		 '#进入新层时，+ 28 临时{{IBSIronHeart}}坚贞之心',
 	player={[IBS_PlayerID.BMaggy]='+7{{IBSIronHeart}}坚贞之心上限'}
 },
 
@@ -637,7 +637,7 @@ local itemEID={
 
 [IBS_ItemID.ROH]={
 	name='谦逊之径',
-	info='获得道具时，随机属性+ 2.5% x (4 - 品质)'
+	info='获得道具时，随机属性提升 2.5% x (4 - 品质)'
 },
 
 [IBS_ItemID.Tenebrosity]={
@@ -678,12 +678,12 @@ local itemEID={
 [IBS_ItemID.Hoarding]={
 	name='收集癖',
 	info='↑ {{Luck}}幸运 + 1'..
-		 '#一些套装部件具有额外效果',
+		 '#一些套装部件获得额外效果',
 },
 
 [IBS_ItemID.SuperPanicButton]={
 	name='超紧急按钮',
-	info='初始房间会生成主动形式的该道具，其效果:'..
+	info='进入新层时，生成主动形式的该道具，其效果:'..
 		 '#无论是否持有，离开房间后消失'..
 		 '#!!! {{ColorYellow}}一次性{{CR}}'..
 		 '#移除被动形式的该道具'..
@@ -714,7 +714,7 @@ local itemEID={
 
 [IBS_ItemID.Blackjack]={
 	name='21点',
-	info='清理房间后有10%概率生成正塔罗牌'..
+	info='清理房间后有10%概率生成正位塔罗牌'..
 		 '#消耗塔罗牌时，增加对应数字的计数；为逆位塔罗牌则减去'..
 		 '#!!! {{ColorYellow}}大于10的数字算作10{{CR}}'..
 		 '#计数小于0或大于21时，获得ID为计数绝对值的卡牌，并重置计数'..
@@ -867,7 +867,7 @@ local itemEID={
 
 [IBS_ItemID.Edge2]={
 	name='伤疤之秘',
-	info='↑ + 0.5 {{Tears}}射速修正'..
+	info='↑ + 0.5 {{Tears}}射速'..
 		 '#获得或进入新层时，生成{{Card8}}战车，并获得1{{BrokenHeart}}碎心直到4个'..
 		 '#免疫爆炸和碰撞'..
 		 '#攻击时，向移动方向发射两道幽灵穿透眼泪，每个眼泪造成33%{{Damage}}角色伤害；'..
@@ -1750,7 +1750,7 @@ local itemEID={
 [IBS_ItemID.Fiddle]={
 	name='小提琴',
 	info='进入新层时，生成两个随机被动道具'..
-		 '#!!! {{ColorRed}}除了{{BossRoom}}头目房，进入房间0.1秒后出现的非任务道具将被移除{{CR}}',
+		 '#!!! {{ColorRed}}除了{{BossRoom}}头目房和初始房间，进入房间0.1秒后出现的非任务道具将被移除{{CR}}',
 },
 
 [IBS_ItemID.WhisperingEarring]={
@@ -1797,15 +1797,7 @@ local itemEID={
 
 [IBS_ItemID.Kindness]={
 	name='宽容',
-	info='攻击时有概率获得1秒护盾，但有0.5秒不能操作',
-	seijaBuff={
-		desc = '允许操作',
-		data = {
-			append = function(x) 
-				return ''
-			end
-		},
-	},
+	info='死亡后原地复活，并获得70秒护盾',
 },
 
 [IBS_ItemID.Beg]={
@@ -1853,7 +1845,7 @@ local itemEID={
 [IBS_ItemID.Orichaliron]={
 	name='奥利哈铁',
 	info='↑ +2{{Luck}}幸运'..
-	'#{{SoulHeart}} 进入新楼层时，如果上层未拾取过魂心掉落物 (不包括{{BlackHeart}}黑心)，+ 4{{SoulHeart}}魂心',
+	'#{{SoulHeart}} 进入新楼层时，如果上层未拾取过魂心掉落物 (不包括{{BlackHeart}}黑心)，+ 3{{SoulHeart}}魂心',
 },
 
 [IBS_ItemID.DisasterOfSodom]={
@@ -1931,6 +1923,68 @@ local itemEID={
 	info='+ 1 {{Key}}钥匙'..
 	'#{{MegaChest}} 大箱子只需要1{{Key}}钥匙开启'..
 	'#{{KeyBeggar}} 钥匙乞丐有50%概率{{Key}}返还钥匙',
+},
+
+[IBS_ItemID.HeatKeys]={
+	name='炽热钥匙',
+	info='+ 5 {{Key}}钥匙'..
+	'#失去{{Key}}钥匙时生成1~3个普通魂火',
+},
+
+[IBS_ItemID.Kear]={
+	name='钥湿',
+	info='+ 5 {{Key}}钥匙'..
+	'#↑ 失去{{Key}}钥匙时，+ 1 临时{{Tears}}射速',
+},
+
+[IBS_ItemID.BulletJar]={
+	name='罐中枪子',
+	info='+ 5 {{Key}}钥匙'..
+	'#{{Key}} 双击消耗5钥匙，发射500%{{Damage}}伤害的穿透钥匙眼泪，其落地后生成5钥匙'..
+	'#{{Key}} 钥匙掉落物比持有钥匙多时不能使用',
+},
+
+[IBS_ItemID.MontezumasHeritage]={
+	name='蒙特祖玛的遗产',
+	info='+ 5 {{Key}}钥匙'..
+	'#失去{{Key}}钥匙时，生成大便'..
+	'#摧毁大便时，生成{{Key}}钥匙'..
+	'#!!! 摧毁大便会生成大玉米粪滴 (敌人)',
+},
+
+[IBS_ItemID.ScatterKeys]={
+	name='分裂钥匙',
+	info='+ 5 {{Key}}钥匙'..
+	'#失去{{Key}}钥匙时，打开门和上锁的箱子 (不包括大箱子)',
+},
+
+[IBS_ItemID.BomberKey]={
+	name='炸钥人',
+	info='+ 5 {{Bomb}}炸弹和{{Key}}钥匙'..
+	'#角色炸弹爆炸时，十字发射穿透钥匙眼泪，具有10点伤害',
+},
+
+[IBS_ItemID.KKEKK]={
+	name='是匕是匕',
+	info='每层首次失去最后的钥匙时，传送至错误房',
+},
+
+[IBS_ItemID.BloodKeys]={
+	name='鲜血钥匙',
+	info='+ 1 {{Heart}}心之容器，治疗4红心'..
+		 '#{{Key}} 受伤时若有钥匙，失去1个，并生成2个',
+},
+
+[IBS_ItemID.SoulKeys]={
+	name='魂匙',
+	info='+ 5 {{Key}}钥匙'..
+		 '#{{Key}} 失去3钥匙时，生成魂石',
+},
+
+[IBS_ItemID.DiscountKey]={
+	name='折扣钥匙',
+	info='{{Shop}} 商店中的一个背景店主将变为{{KeyBeggar}}钥匙大师'..
+		 '#{{Key}} 失去钥匙时，使硬币价格的掉落物减少20%价格',
 },
 
 }
@@ -2223,7 +2277,7 @@ local trinketEID={
 	name='三色杯',
 	info='本层中，每进入3个新的特殊房间：'..
 		 '#↑ {{Speed}} 移速 + 0.1'..
-		 '#↑ {{Tears}} 射速修正 + 0.35'..
+		 '#↑ {{Tears}} 射速 + 0.35'..
 		 '#↑ {{Damage}} 伤害 + 0.5',
 	mult={
 		numberToMultiply = 114514,
@@ -2367,6 +2421,15 @@ local trinketEID={
 	}	
 },
 
+[IBS_TrinketID.DefensiveCrown]={
+	name='防卫王冠',
+	info='常规充能的主动道具出现时，清空其充能，并获得1{{HalfSoulHeart}}半魂心'..
+		 '#{{Blank}} (不影响替换下来的主动道具)',
+	mult={
+		numberToMultiply = 1,
+		maxMultiplier = 3,
+	}
+},
 
 }
 --------------------------------------------------------

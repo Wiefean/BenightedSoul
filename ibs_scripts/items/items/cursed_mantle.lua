@@ -1,6 +1,7 @@
 --诅咒屏障
 
 local mod = Isaac_BenightedSoul
+local IBS_ChallengeID = mod.IBS_ChallengeID
 local Damage = mod.IBS_Class.Damage()
 
 local game = Game()
@@ -8,15 +9,74 @@ local config = Isaac.GetItemConfig()
 
 local CursedMantle = mod.IBS_Class.Item(mod.IBS_ItemID.CursedMantle)
 
+--获取数据
+function CursedMantle:GetData(player)
+	local data = self._Players:GetData(player)
+	data.CursedMantle = data.CursedMantle or {Times = 0}
+	return data.CursedMantle
+end
+
+--腐骸挑战
+local function IsInChallenge()
+	return Isaac.GetChallenge() == IBS_ChallengeID[15]
+end
+
+--获取充能消耗
+function CursedMantle:GetDischarge(player)
+	--挑战
+	if IsInChallenge() then
+		local data = self:GetData(player)
+		local times = data.Times or 0
+		
+		if times <= 0 then
+			return 2
+		elseif times == 1 then
+			return 4
+		elseif times == 2 then
+			return 6
+		elseif times == 3 then
+			return 8
+		else
+			return 12
+		end
+	else
+		--9伏特
+		if player:HasCollectible(116) then
+			return 1
+		end
+	end
+	
+	return 2
+end
+
 --尝试使用(用于提示可用)
 function CursedMantle:OnTryUse(slot, player)
-	return 2
+	if not IsInChallenge() then	
+		return 2
+	end
 end
 CursedMantle:AddCallback(ModCallbacks.MC_PLAYER_GET_ACTIVE_MIN_USABLE_CHARGE, 'OnTryUse', CursedMantle.ID)
 
+--获取最大充能
+function CursedMantle:OnGetMaxCharge(item, player, varData, maxCharge)
+	if IsInChallenge() then
+		return self:GetDischarge(player)
+	end
+end
+CursedMantle:AddCallback(ModCallbacks.MC_PLAYER_GET_ACTIVE_MAX_CHARGE, 'OnGetMaxCharge', CursedMantle.ID)
 
 --直接使用无效
-function CursedMantle:OnUse()
+function CursedMantle:OnUse(item, rng, player, flags)
+	if IsInChallenge() 
+		and (flags & UseFlag.USE_CARBATTERY <= 0)
+		and (flags & UseFlag.USE_VOID <= 0)
+	then
+		local data = self:GetData(player)
+		if data.Times > 0 then		
+			data.Times = math.max(0, data.Times - 1)
+			return true
+		end
+	end
 	return {ShowAnim = false, Discharge = false}
 end
 CursedMantle:AddCallback(ModCallbacks.MC_USE_ITEM, 'OnUse', CursedMantle.ID)
@@ -31,11 +91,10 @@ function CursedMantle:PrePlayerTakeDMG(player, dmg, flag, source)
 	if dmg <= 0 then return end
 	if not self:ShouldProtect(player, flag, source) then return end
 	
+	local discharge = self:GetDischarge(player)
+	
 	for slot = 0,2 do
-		if player:GetActiveItem(slot) == (self.ID) then
-			local discharge = 2
-			if player:HasCollectible(116) then discharge = discharge - 1 end --9伏特
-
+		if player:GetActiveItem(slot) == (self.ID) and self._Players:GetSlotCharges(player, slot) >= discharge then
 			--成功消耗充能才触发效果
 			if self._Players:DischargeSlot(player, slot, discharge) then
 				player:SetMinDamageCooldown(66)
@@ -64,6 +123,15 @@ function CursedMantle:PrePlayerTakeDMG(player, dmg, flag, source)
 				--尝试恢复上限骰(东方mod)
 				if slot ~= 2 then
 					mod.IBS_Compat.THI:TryRestoreDice(player, CursedMantle.ID, slot)
+				end
+
+				--挑战计数
+				if IsInChallenge() then
+					local data = self:GetData(player)
+					data.Times = data.Times + 1
+					if data.Times > 4 then
+						data.Times = 4
+					end
 				end
 
 				return false
