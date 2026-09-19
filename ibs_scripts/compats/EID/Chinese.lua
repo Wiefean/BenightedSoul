@@ -1123,7 +1123,7 @@ local itemEID={
 
 [IBS_ItemID.Turbo]={
 	name='内核加速',
-	info='获得时，为主动道具充能至额外充能条'..
+	info='获得或失去时，为主动道具充能至额外充能条'..
 		 '#下一个底座道具将被替换为新的{{Collectible'..(IBS_ItemID.Turbo)..'}}内核加速，然后移除角色身上的所有{{Collectible'..(IBS_ItemID.Turbo)..'}}内核加速',
 		 '#对错误道具和任务道具无效',
 	seijaBuff={
@@ -1915,7 +1915,7 @@ local itemEID={
 	name='鲍勃的祝福',
 	info='+ 5 {{Key}}钥匙'..
 	'#{{Key}} 钥匙数量大于0时防爆'..
-	'#受到爆炸时失去1{{Key}}钥匙',
+	'#受到爆炸时扔出一把{{Key}}钥匙，在1.5秒内消失',
 },
 
 [IBS_ItemID.MrKey]={
@@ -1934,7 +1934,7 @@ local itemEID={
 [IBS_ItemID.Kear]={
 	name='钥湿',
 	info='+ 5 {{Key}}钥匙'..
-	'#↑ 失去{{Key}}钥匙时，+ 1 临时{{Tears}}射速',
+	'#↑ 失去{{Key}}钥匙时，+ 0.7 临时{{Tears}}射速',
 },
 
 [IBS_ItemID.BulletJar]={
@@ -1947,9 +1947,9 @@ local itemEID={
 [IBS_ItemID.MontezumasHeritage]={
 	name='蒙特祖玛的遗产',
 	info='+ 5 {{Key}}钥匙'..
-	'#失去{{Key}}钥匙时，生成大便'..
 	'#摧毁大便时，生成{{Key}}钥匙'..
-	'#!!! 摧毁大便会生成大玉米粪滴 (敌人)',
+	'#失去{{Key}}钥匙时，生成棕色水迹 (可提供属性加成)'..
+	'#造成伤害时，有概率扔出一把{{Key}}钥匙',
 },
 
 [IBS_ItemID.ScatterKeys]={
@@ -1985,6 +1985,13 @@ local itemEID={
 	name='折扣钥匙',
 	info='{{Shop}} 商店中的一个背景店主将变为{{KeyBeggar}}钥匙大师'..
 		 '#{{Key}} 失去钥匙时，使硬币价格的掉落物减少20%价格',
+},
+
+[IBS_ItemID.CuckooZapper]={
+	name='杀威棍',
+	info='{{Card7}} 拾取时，生成{{Card7}}恋人'..
+	'#{{Card62}} 进入新层时，反转持有的{{Card7}}恋人，否则生成一个'..
+	'#{{BrokenHeart}} 有碎心时发射80%{{Damage}}伤害的激光，碎心越多频率越高',
 },
 
 }

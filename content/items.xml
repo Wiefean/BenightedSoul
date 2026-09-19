@@ -148,7 +148,7 @@
 	<passive id="146" name="Zoth" description="Room Transformer" gfx="zoth.png" quality="2" craftquality="2" tags="nocantrip offensive stars nogreed" customtags="nometronome" />
 	<passive id="147" name="Pageant Father" description="Ultimate+ grand+ supreme+" gfx="pageant_father.png" quality="3" craftquality="3" tags="offensive" />
 	<passive id="148" name="Deciduous Meat" description="HP up?" gfx="deciduous_meat.png" quality="1" craftquality="1" maxhearts="2" hearts="2" tags="nolostbr" />
-	<passive id="149" cache="damage" name="Curse Syringe" description="Curse = DMG" gfx="curse_syringe.png" quality="1" craftquality="1" tags="nolostbr syringe" />
+	<passive id="149" cache="damage" name="Curse Syringe" description="Curse = DMG" gfx="curse_syringe.png" quality="1" craftquality="1" tags="syringe" />
 	<passive id="150" name="Astro Vera" description="Max HP up" gfx="astro_vera.png" quality="3" craftquality="3" hearts="20" soulhearts="20" tags="nolostbr nocantrip" />
 	<active id="151" name="Secret Agent" description="Leave and come back" gfx="secret_agent.png" maxcharges="4" quality="3" craftquality="3" tags="offensive nocantrip" customtags="nometronome" />
     <passive id="152" name="Curse of the Fool" gfx="curse_of_the_fool.png" description="Without beginning and end" quality="0" craftquality="0" tags="nolostbr nogreed nocantrip" customtags="nometronome"/>
@@ -217,9 +217,10 @@
 	<passive id="215" name="Bomber Key" gfx="bomber_key.png" description="Cross key bombs" quality="1" craftquality="1" tags="offensive summonable" keys="5" bombs="5" />
 	<passive id="216" name="Scatter Keys" gfx="scatter_keys.png" description="Multipurpose" quality="1" craftquality="1" tags="offensive" keys="5" />
 	<passive id="217" name="KKEKK" gfx="kkekk.png" description="ZZAZZ" quality="1" craftquality="1" tags="offensive" />
-	<passive id="218" name="Blood Keys" gfx="blood_keys.png" description="Hurt for keys + HP up" quality="2" craftquality="2" maxhearts="2" hearts="8" tags="offensive summonable" />
+	<passive id="218" name="Blood Keys" gfx="blood_keys.png" description="Hurt for keys + HP up" quality="2" craftquality="2" maxhearts="2" hearts="8" tags="offensive nolostbr" />
 	<passive id="219" name="Soul Keys" gfx="soul_keys.png" description="Souls + 5 keys" quality="2" craftquality="2" tags="offensive dead" keys="5" />
 	<passive id="220" name="Discount Key" description="Learn the keys on bargaining" gfx="discount_key.png" quality="2" craftquality="2" tags="offensive" />
+	<passive id="221" name="Cuckoo Zapper" description="Not traditional zapper" gfx="cuckoo_zapper.png" quality="3" craftquality="3" tags="nokeeper offensive" />
 
 
 

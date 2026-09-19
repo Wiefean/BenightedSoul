@@ -1101,7 +1101,7 @@ local itemEID={
 
 [IBS_ItemID.Turbo]={
 	name='Turbo',
-	info='When gained, full charge till the extra charge bar for active items'..
+	info='When gained or lost, full charge till the extra charge bar for active items'..
 		 '#Next pedestal item will be replaced by another {{Collectible'..(IBS_ItemID.Turbo)..'}}Turbo, and then remove all {{Collectible'..(IBS_ItemID.Turbo)..'}}Turbo from Isaac'..
 		 '#No effect on error or quest items',
 	seijaBuff={
@@ -1774,7 +1774,7 @@ local itemEID={
 
 [IBS_ItemID.Kindness]={
 	name='Kindness',
-	info='Revive when dying, and + 70 seconds sheild',
+	info='Revive when dying, and + 70 seconds shield',
 },
 
 [IBS_ItemID.Beg]={
@@ -1884,8 +1884,8 @@ local itemEID={
 [IBS_ItemID.BobsBlessing]={
 	name="Bob's Blessing",
 	info='+ 5 {{Key}}keys'..
-		'#Explosion immunity when {{Key}}key num is above 0'..
-		'#Losing a {{Key}}key when getting exploded',
+		'#With {{Key}}keys, grant explosion immunity'..
+		'#Drop a {{Key}}key when getting exploded, disappearing in 1.5 seconds',
 },
 
 [IBS_ItemID.MrKey]={
@@ -1904,7 +1904,7 @@ local itemEID={
 [IBS_ItemID.Kear]={
 	name='Kear',
 	info='+ 5 {{Key}}keys'..
-	'#↑ Losing {{Key}}keys, + 1 {{Tears}}tears temporarily',
+	'#↑ Losing {{Key}}keys, + 0.7 {{Tears}}tears temporarily',
 },
 
 [IBS_ItemID.BulletJar]={
@@ -1917,9 +1917,9 @@ local itemEID={
 [IBS_ItemID.MontezumasHeritage]={
 	name="Montezuma's Heritage",
 	info='+ 5 {{Key}}keys'..
-	'#Losing {{Key}}keys spawns a poop'..
 	'#Destroying poops spawns a {{Key}}key'..
-	'#!!! Destroying poops also spawns Big Corn (Enemy)',
+	'#Losing {{Key}}keys spawns Brown Creep (Stats up one)'..
+	'#Dealing damage sometimes drops a {{Key}}key',
 },
 
 [IBS_ItemID.ScatterKeys]={
@@ -1948,7 +1948,7 @@ local itemEID={
 [IBS_ItemID.SoulKeys]={
 	name='Soul Keys',
 	info='+ 5 {{Key}}keys'..
-		 '#{{Key}} Losing 3 keys spawn a soul',
+		 '#{{Key}} Losing 3 keys spawns a soul',
 },
 
 [IBS_ItemID.DiscountKey]={
@@ -1957,6 +1957,12 @@ local itemEID={
 		 '#{{Key}} Losing keys makes coin price decreases by 20%',
 },
 
+[IBS_ItemID.CuckooZapper]={
+	name='Cuckoo Zapper',
+	info='{{Card7}} When gained, spawn {{Card7}}The Lovers'..
+	'#{{Card62}} When entering a new level, reverse {{Card7}}The Lovers held, or spawn one'..
+	'#{{BrokenHeart}} Fire 80% {{Damage}}damage lasers with Broken Hearts, faster when with more',
+},
 
 }
 --------------------------------------------------------

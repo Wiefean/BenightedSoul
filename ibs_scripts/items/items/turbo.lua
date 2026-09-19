@@ -21,6 +21,19 @@ function Turbo:OnGainItem(item, charge, first, Slot, varData, player)
 end
 Turbo:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, 'OnGainItem', Turbo.ID)
 
+function Turbo:OnRemoveItem(player, item)
+	for slot = 0,2 do
+		local item = player:GetActiveItem(slot)
+		local itemConfig = config:GetCollectible(item)
+		
+		if itemConfig and (itemConfig.ChargeType ~= ItemConfig.CHARGE_SPECIAL) then				
+			self._Players:ChargeSlot(player, slot, 2*itemConfig.MaxCharges, false, true, true, true)
+		end
+	end
+end
+Turbo:AddCallback(ModCallbacks.MC_POST_TRIGGER_COLLECTIBLE_REMOVED, 'OnRemoveItem', Turbo.ID)
+
+
 --道具首次出现时触发
 function Turbo:OnPickupFirstAppear(pickup)
 	if pickup.SubType <= 0 then return end --非错误道具和空底座

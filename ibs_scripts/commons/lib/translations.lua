@@ -1143,6 +1143,11 @@ Item = {
 		Name='折扣钥匙',
 		Desc='学会钥价',
 	},	
+	
+	[IBS_ItemID.CuckooZapper]={
+		Name='杀威棍',
+		Desc='非传统电击器',
+	},	
 
 },
 

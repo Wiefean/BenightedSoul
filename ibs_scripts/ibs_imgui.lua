@@ -550,7 +550,7 @@ MakeCharacterBar(IBS_PlayerKey.BForgotten, Language('遗骸', 'The Forgotten'),
 	Witness = Language('解锁 "三色杯"', 'For "For "Neopolitan"'),
 	Beast = Language('解锁 "迷途之镜"', 'For "Wildering Mirror"'),
 	Greed = Language('解锁 "双角斧"', 'For "The Horned-Axe"'),
-	FINISHED = Language('解锁 "全家祸"', 'For "Familiy Portrayal"'),
+	FINISHED = Language('解锁 "全家祸"', 'For "Family Portrayal"'),
 },
 {
 	-- Unlocked = {''},

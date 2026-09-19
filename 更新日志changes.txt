@@ -1,5 +1,26 @@
 -----------------------------------
 2026.9
+v0.12.9
+
+新道具：杀威棍
+
+调整：
+ <道具>
+ 内核加速：强化
+ 鲍勃的祝福：强化
+ 蒙特祖玛的遗产：强化
+ 钥湿：削弱
+
+New Item: Cuckoo Zapper
+
+Adjustments:
+ <Items>
+ Turbo: Boost
+ Bob's Blessing: Boost
+ Montezuma's Heritage: Boost
+ Kear: Droop
+-----------------------------------
+2026.9
 v0.12.8
 
 新道具：

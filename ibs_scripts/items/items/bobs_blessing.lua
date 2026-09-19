@@ -11,6 +11,10 @@ local BobsBlessing = mod.IBS_Class.Item(mod.IBS_ItemID.BobsBlessing)
 function BobsBlessing:PrePlayerTakeDMG(player, dmg, flag, source)
 	if player:HasCollectible(self.ID) and (flag & DamageFlag.DAMAGE_EXPLOSION > 0) and player:GetNumKeys() > 0 then
 		player:AddKeys(-1)
+		
+		local pickup = Isaac.Spawn(5, 30, 1, player.Position, 0.01 * math.random(300,900) * RandomVector(), nil):ToPickup()
+		pickup.Timeout = 45
+		pickup:GetSprite():SetFrame(7)
 
 		--毒雾
 		local smoke = Isaac.Spawn(1000, 141, 0, player.Position, Vector.Zero, player):ToEffect()

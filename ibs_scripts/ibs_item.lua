@@ -228,6 +228,7 @@ mod.IBS_Item = {
 	BloodKeys = Load('blood_keys'),
 	SoulKeys = Load('soul_keys'),
 	DiscountKey = Load('discount_key'),
+	CuckooZapper = Load('cuckoo_zapper'),
 
 }
 

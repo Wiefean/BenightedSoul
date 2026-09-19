@@ -224,6 +224,7 @@ KKEKK = Isaac.GetItemIdByName("KKEKK"),
 BloodKeys = Isaac.GetItemIdByName("Blood Keys"),
 SoulKeys = Isaac.GetItemIdByName("Soul Keys"),
 DiscountKey = Isaac.GetItemIdByName("Discount Key"),
+CuckooZapper = Isaac.GetItemIdByName("Cuckoo Zapper"),
 
 }
 

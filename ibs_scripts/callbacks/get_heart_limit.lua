@@ -1,4 +1,4 @@
---获取掉落物价格回调
+--获取心上限回调
 
 local mod = Isaac_BenightedSoul
 local IBS_CallbackID = mod.IBS_CallbackID
@@ -18,7 +18,7 @@ function GetHeartLimit:GetHeartLimitCallback(player, limit, isKeeper)
 		end
 	end
 	
-	if newLimit < 2 then newLimit = 2 end
+	if newLimit < 0 then newLimit = 0 end
 	
 	if newLimit ~= limit then
 		return newLimit
