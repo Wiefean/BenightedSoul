@@ -66,9 +66,14 @@ CuckooZapper:AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, 'PostLaserUpdate')
 
 --新层
 function CuckooZapper:OnNewLevel()
+    local room = game:GetRoom()
+
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 		if player:HasCollectible(self.ID) then
+			local position = room:FindFreePickupSpawnPosition(player.Position + Vector(0, 40))
+			Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_LOVERS, position, Vector.Zero, player)		
+		
 			for slot = 0,4 do
 				local card = player:GetCard(slot)
 				if card and card == 7 then
