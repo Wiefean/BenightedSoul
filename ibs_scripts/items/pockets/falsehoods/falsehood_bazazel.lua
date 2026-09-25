@@ -85,15 +85,29 @@ end
 
 --效果
 function BAzazel:OnUse(card, player, flag)
-	local data = self:GetData()
-	data.Sacrifice = data.Sacrifice + 1
-	self:Bonus(data.Sacrifice, player:GetCardRNG(self.ID):Next(), player)
+	self._Ents:GetTempData(player).BAzazelFalsehoodCheck = true
 	player:ResetDamageCooldown()
 	player:TakeDamage(2, DamageFlag.DAMAGE_NO_PENALTIES | DamageFlag.DAMAGE_INVINCIBLE | DamageFlag.DAMAGE_NO_MODIFIERS, EntityRef(player), 0)
 	player:AddCard(self.ID)
 	player:AnimateCard(self.ID, 'UseItem')
 end
 BAzazel:AddCallback(ModCallbacks.MC_USE_CARD, 'OnUse', BAzazel.ID)
+
+--受伤判定
+function BAzazel:OnTakeDMG(ent, dmg, flag, source)
+	local player = ent:ToPlayer()
+	
+	if player then
+		if self._Ents:GetTempData(player).BAzazelFalsehoodCheck then
+			local data = self:GetData()
+			data.Sacrifice = data.Sacrifice + 1
+			self:Bonus(data.Sacrifice, player:GetCardRNG(self.ID):Next(), player)		
+		end
+		self._Ents:GetTempData(player).BAzazelFalsehoodCheck = nil
+	end
+end
+BAzazel:AddCallback(ModCallbacks.MC_POST_ENTITY_TAKE_DMG, 'OnTakeDMG')
+
 
 --新层移除
 function BAzazel:OnNewLevel()

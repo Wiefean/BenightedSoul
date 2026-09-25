@@ -1576,7 +1576,7 @@ local itemEID={
 
 [IBS_ItemID.MimicInfestation]={
 	name='Mimic Infestation',
-	info='Apply {{HauntedChest}}Haunted Chest effect to all chests'..
+	info='Apply {{HauntedChest}}Haunted Chest effect to all chests, except in the starting room'..
 		 '#When entering a new room, 6% chance to spawn a {{GoldenChest}}Golden Chest',
 	seijaBuff={
 		desc = '+ 6% chance; Be invincible when Polty exists',
@@ -1617,7 +1617,7 @@ local itemEID={
 
 [IBS_ItemID.AFaces]={
 	name='A Faces',
-	info='When gained, smelt one of trinkets below:',
+	info='When gained, + 1 {{Luck}}luck, smelt one of trinkets below:',
 },
 
 [IBS_ItemID.BigSlurp]={
@@ -1857,7 +1857,7 @@ local itemEID={
 [IBS_ItemID.SpiderKeys]={
 	name='Spider Keys',
 	info='+ 5 {{Key}}keys'..
-		'#Losing {{Key}}keys spawns Blue Spiders'..
+		'#Losing {{Key}}keys spawns 3~6 Blue Spiders'..
 		'#When Blue Spider is killed, 10% chance to spawn a {{Key}}key',	
 },
 
@@ -1918,6 +1918,7 @@ local itemEID={
 	name="Montezuma's Heritage",
 	info='+ 5 {{Key}}keys'..
 	'#Destroying poops spawns a {{Key}}key'..
+	'#Red Poop can be completely destroyed'..
 	'#Losing {{Key}}keys spawns Brown Creep (Stats up one)'..
 	'#Dealing damage sometimes drops a {{Key}}key',
 },
@@ -1962,6 +1963,12 @@ local itemEID={
 	info='{{Card7}} When gained, spawn {{Card7}}The Lovers'..
 	'#{{Card62}} When entering a new level, reverse {{Card7}}The Lovers held, or spawn one'..
 	'#{{BrokenHeart}} Fire 80% {{Damage}}damage lasers with Broken Hearts, faster when with more',
+},
+
+[IBS_ItemID.EerieLantern]={
+	name='Eerie Lantern',
+	info='Cleaning rooms charges active items, including the extra charge bar, but loses 1 charge in 15 seconds'..
+		 '#Only affect common-charge-type active items',
 },
 
 }
@@ -2629,7 +2636,7 @@ local slotEID = {
 	info='When touched for 1 second, Isaac takes 1 heart damage (Red Heart first), and spawn 5 coins'..
 		 '#36% chance to leave; Also leaves when touched for 4 times'..
 		 '#Spawn {{Collectible'..(IBS_ItemID.AFaces)..'}} A Faces when leaving:'..
-		 '#The effect, smelt one of trinkets: ',
+		 '#The effect, + 1 {{Luck}}luck, and smelt one of trinkets: ',
 },
 
 [IBS_SlotID.Envoy.Variant] = {

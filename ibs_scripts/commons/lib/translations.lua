@@ -1148,6 +1148,11 @@ Item = {
 		Name='杀威棍',
 		Desc='非传统电击器',
 	},	
+	
+	[IBS_ItemID.EerieLantern]={
+		Name='诡异灯笼',
+		Desc='暂时充能',
+	},	
 
 },
 

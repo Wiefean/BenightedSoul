@@ -1599,7 +1599,7 @@ local itemEID={
 
 [IBS_ItemID.MimicInfestation]={
 	name='遍地宝箱怪',
-	info='所有箱子具有{{HauntedChest}}闹鬼箱子的特性'..
+	info='所有箱子具有{{HauntedChest}}闹鬼箱子的特性，除非在初始房间'..
 		 '#进入新房间时有6%概率生成一个{{GoldenChest}}金箱子',
 	seijaBuff={
 		desc = '+ 10%概率；房间内存在捣蛋小鬼时，角色无敌',
@@ -1640,7 +1640,7 @@ local itemEID={
 
 [IBS_ItemID.AFaces]={
 	name='一张张脸',
-	info='拾取时，吞下其中一个饰品：',
+	info='拾取时，+ 1 {{Luck}}幸运，并吞下其中一个饰品：',
 },
 
 [IBS_ItemID.BigSlurp]={
@@ -1887,7 +1887,7 @@ local itemEID={
 [IBS_ItemID.SpiderKeys]={
 	name='蜘蛛钥匙',
 	info='+ 5 {{Key}}钥匙'..
-	'#失去{{Key}}钥匙时生成3个蓝蜘蛛'..
+	'#失去{{Key}}钥匙时生成3~6个蓝蜘蛛'..
 	'#蓝蜘蛛死亡时有10%概率生成{{Key}}钥匙'
 },
 
@@ -1948,6 +1948,7 @@ local itemEID={
 	name='蒙特祖玛的遗产',
 	info='+ 5 {{Key}}钥匙'..
 	'#摧毁大便时，生成{{Key}}钥匙'..
+	'#红大便会被彻底摧毁'..
 	'#失去{{Key}}钥匙时，生成棕色水迹 (可提供属性加成)'..
 	'#造成伤害时，有概率扔出一把{{Key}}钥匙',
 },
@@ -1992,6 +1993,13 @@ local itemEID={
 	info='{{Card7}} 拾取时，生成{{Card7}}恋人'..
 	'#{{Card62}} 进入新层时，反转持有的{{Card7}}恋人，否则生成一个'..
 	'#{{BrokenHeart}} 有碎心时发射80%{{Damage}}伤害的激光，碎心越多频率越高',
+},
+
+[IBS_ItemID.EerieLantern]={
+	name='诡异灯笼',
+	info='清理房间会为主动道具提供1点充能，但15秒后失去'..
+		 '#可为额外充能条充能'..
+		 '#只对常规充能主动生效',
 },
 
 }
@@ -2659,7 +2667,7 @@ local slotEID = {
 	info='接触1秒后，角色受到1心伤害(优先红心)，并生成5个硬币'..
 		 '#36%概率离开；生成次数达到4时也会离开'..
 		 '#离开时生成{{Collectible'..(IBS_ItemID.AFaces)..'}}一张张脸，其效果：'..
-		 '#拾取时，吞下其中一个饰品：',
+		 '#拾取时，+ 1 {{Luck}}幸运，并吞下其中一个饰品：',
 },
 
 [IBS_SlotID.Envoy.Variant] = {

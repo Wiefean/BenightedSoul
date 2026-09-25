@@ -71,14 +71,19 @@ function CuckooZapper:OnNewLevel()
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 		if player:HasCollectible(self.ID) then
-			local position = room:FindFreePickupSpawnPosition(player.Position + Vector(0, 40))
-			Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_LOVERS, position, Vector.Zero, player)		
-		
+			local found = false
+			
 			for slot = 0,4 do
 				local card = player:GetCard(slot)
 				if card and card == 7 then
 					player:SetCard(slot, 62)
+					found = true
 				end
+			end
+			
+			if not found then
+				local position = room:FindFreePickupSpawnPosition(player.Position + Vector(0, 40))
+				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_LOVERS, position, Vector.Zero, player)
 			end
 		end
 	end

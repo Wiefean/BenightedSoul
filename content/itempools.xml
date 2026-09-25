@@ -131,6 +131,7 @@
         <Item Name="Soul Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Blood Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Cuckoo Zapper" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Eerie Lantern" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="greedTreasure">
@@ -236,6 +237,7 @@
         <Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Discount Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Cuckoo Zapper" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Eerie Lantern" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="planetarium">
@@ -297,6 +299,7 @@
         <Item Name="Scatter Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Discount Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Eerie Lantern" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="greedShop">
@@ -364,6 +367,7 @@
         <Item Name="Scatter Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Discount Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Eerie Lantern" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="babyShop">

@@ -28,6 +28,7 @@ function AFaces:OnGain(item, charge, first, slot, varData, player)
 			id = id + 32768
 		end		
 		
+		self._Stats:PersisLuck(player, 1, true)
 		player:AddSmeltedTrinket(id)
 	end
 end

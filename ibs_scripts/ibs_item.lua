@@ -229,6 +229,7 @@ mod.IBS_Item = {
 	SoulKeys = Load('soul_keys'),
 	DiscountKey = Load('discount_key'),
 	CuckooZapper = Load('cuckoo_zapper'),
+	EerieLantern = Load('eerie_lantern'),
 
 }
 

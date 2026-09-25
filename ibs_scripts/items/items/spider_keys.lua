@@ -12,7 +12,7 @@ function SpiderKeys:OnKeyNumChange(delta)
 		for i = 0, game:GetNumPlayers() - 1 do
 			local player = Isaac.GetPlayer(i)
 			if player:HasCollectible(self.ID) then
-				for i = 1,3 do
+				for i = 1,math.random(3,6) do
 					player:ThrowBlueSpider(player.Position, player.Position + 20 * RandomVector())
 				end
 			end

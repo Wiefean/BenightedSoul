@@ -12,13 +12,14 @@ function MimicInfestation:OnPickupUpdate(pickup)
 	if not self._Pickups:IsChest(pickup.Variant) then return end
 	
 	--实现鬼箱特性
-	if PlayerManager.AnyoneHasCollectible(self.ID) then
+	local level = game:GetLevel()
+	if level:GetStartingRoomIndex() ~= level:GetCurrentRoomDesc().SafeGridIndex and PlayerManager.AnyoneHasCollectible(self.ID) then
 		local player = self._Finds:ClosestPlayer(pickup.Position)
 		if player and player.Position:Distance(pickup.Position) < 100 then
 			local data = self._Ents:GetDataBySeed(pickup.InitSeed)
 			if not data.MIMIC_INFESTATION_CHEST then
 				data.MIMIC_INFESTATION_CHEST = true
-				
+
 				local npc = Isaac.Spawn(816,0,0, pickup.Position, Vector.Zero, pickup):ToNPC()
 				npc:SetColor(Color(1,1,1,0), 10, 1, true, true)
 				self._Ents:GetTempData(npc).MIMIC_INFESTATION = true	

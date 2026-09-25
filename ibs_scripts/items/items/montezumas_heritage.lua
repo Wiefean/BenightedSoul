@@ -9,7 +9,10 @@ local MontezumasHeritage = mod.IBS_Class.Item(mod.IBS_ItemID.MontezumasHeritage)
 --获取数据
 function MontezumasHeritage:GetData(player)
 	local data = self._Ents:GetTempData(player)
-	data.MontezumasHeritage = data.MontezumasHeritage or {Damage = 0}
+	data.MontezumasHeritage = data.MontezumasHeritage or {
+		Damage = 0,
+		CD = 0,
+	}
 	return data.MontezumasHeritage
 end
 
@@ -45,9 +48,25 @@ function MontezumasHeritage:OnPoopBreak(gridEnt, ent, variant)
 	if PlayerManager.AnyoneHasCollectible(self.ID) then
 		local pos = (gridEnt and gridEnt.Position) or ent.Position
 		Isaac.Spawn(5, 30, 0, pos, Vector.Zero, nil)
+		
+		--红大便
+		if gridEnt and variant == 1 then
+			game:GetRoom():RemoveGridEntity(gridEnt:GetGridIndex(), 0, false)
+		end
 	end
 end
 MontezumasHeritage:AddCallback(mod.IBS_CallbackID.POOP_BREAK, 'OnPoopBreak')
+
+--角色更新
+function MontezumasHeritage:OnPlayerUpdate(player)
+	local data = self._Ents:GetTempData(player).MontezumasHeritage
+	if data and data.CD then
+		if data.CD > 0 then
+			data.CD = data.CD - 1
+		end
+	end
+end
+MontezumasHeritage:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, 'OnPlayerUpdate')
 
 --伤害判定
 function MontezumasHeritage:OnTakeDamage(entity, dmg, flag, source)
@@ -62,7 +81,8 @@ function MontezumasHeritage:OnTakeDamage(entity, dmg, flag, source)
 				local data = self:GetData(player)
 				data.Damage = data.Damage + dmg
 
-				if data.Damage + math.random(1, math.floor(threshold)) > threshold then
+				if data.CD <= 0 and data.Damage + math.random(1, math.floor(threshold)) > threshold then
+					data.CD = 90
 					data.Damage = 0
 					if player:GetNumKeys() > 0 then
 						player:AddKeys(-1)

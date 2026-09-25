@@ -6,7 +6,7 @@
 	<passive id="4" name="Shooting Stars Gazer" description="Double tap stars" gfx="ssg.png" devilprice="2" quality="3" craftquality="3" tags="offensive summonable stars" />
 	<passive id="5" name="The Waster" description="Damage resistance..." gfx="waster.png" quality="2" craftquality="2" tags="summonable nokeeper nolostbr" />
 	<passive id="6" cache="all" name="Ennnnnnvyyyyyy" description="Who are you looking for?" gfx="envy.png" quality="2" craftquality="0" tags="offensive nocantrip" />
-	<active id="7" name="Glowing Heart" description="Reusable regeneration" maxcharges="8" gfx="glowingheart.png" quality="3" craftquality="3" tags="nolostbr" />
+	<active id="7" name="Glowing Heart" description="Reusable regeneration" maxcharges="6" gfx="glowingheart.png" quality="3" craftquality="3" tags="nolostbr" />
 	<active id="8" cache="all" name="Purple Bubbles" description="Reusable drunk" maxcharges="2" shopprice="10" gfx="pb.png" quality="1" craftquality="1" tags="offensive nocantrip tearsup" />
 	<active id="9" name="Cursed Mantle" description="Binding curse + shield with retaliation" maxcharges="4" gfx="cursedmantle.png" quality="2" craftquality="2" tags="offensive nocantrip" customtags="nometronome" />
 	<active id="10" name="Hypercube" description="Copy your destiny" maxcharges="4" gfx="hypercube.png" quality="3" craftquality="3" tags="offensive nocantrip" customtags="nometronome"  />
@@ -221,7 +221,7 @@
 	<passive id="219" name="Soul Keys" gfx="soul_keys.png" description="Souls + 5 keys" quality="2" craftquality="2" tags="offensive dead" keys="5" />
 	<passive id="220" name="Discount Key" description="Learn the keys on bargaining" gfx="discount_key.png" quality="2" craftquality="2" tags="offensive" />
 	<passive id="221" name="Cuckoo Zapper" description="Not traditional zapper" gfx="cuckoo_zapper.png" quality="3" craftquality="3" tags="nokeeper offensive" />
-
+	<passive id="222" name="Eerie Lantern" description="Temporary charge" gfx="eerie_lantern.png" quality="2" craftquality="2" tags="offensive" />
 
 
 	<trinket name="Bottle Shard" description="He really did it" gfx="bottleshard.png" />

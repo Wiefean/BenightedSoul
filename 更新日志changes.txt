@@ -1,5 +1,36 @@
 -----------------------------------
 2026.9
+v0.12.10
+
+新道具：诡异灯笼
+
+调整：
+ <道具>
+ 发光的心：6充能
+ 遍地宝箱怪：强化
+ 一张张脸：拾取时提供幸运上升
+ 蜘蛛钥匙：强化
+ 蒙特祖玛的遗产：红大便会被彻底摧毁
+ <口袋物品>
+ 阿撒泻勒的伪忆：必须受伤才会计数
+ <可互动实体>
+ 真理小子：不再生成红箱子
+
+New Items: Eerie Lantern
+
+Adjustments:
+ <Items>
+ Glowing Heart: Charge 6
+ Mimic Infestation: Boost
+ Spider Keys: Boost
+ A Faces: Luck up when gained
+ Montezuma's Heritage: Red Poop can be completely destroyed
+ <Pocket>
+ Falsehood of Azazel: Only increases the counter when hurt
+ <Slots>
+ Broken Albern: No Red Chest anymore
+-----------------------------------
+2026.9
 v0.12.9
 
 新道具：杀威棍
@@ -533,7 +564,7 @@ v0.10.10
 
 新道具：
  悠悠
- 宝箱怪遍地
+ 遍地宝箱怪
  纸板蘑菇
  变形术
  精灵便便
