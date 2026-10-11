@@ -62,6 +62,7 @@ for _,id in ipairs{
 	IBS_ItemID.DeciduousMeat, --剥落古老肉
 	IBS_ItemID.CalocybeGambosa, --圣乔治蘑菇
 	IBS_ItemID.BigSlurp, --超大杯
+	IBS_ItemID.PermanentBubbles, --永久泡泡水
 } do
 	HellKitchen.ItemPool:AddToInitPool(id, 1)
 end

@@ -129,7 +129,7 @@ function Envoy:OnSlotCollision(slot, other)
 					slot:SetDonationValue(slot:GetDonationValue()+1)
 				end
 			end
-		elseif slot:GetTouch() > 15 and not player:HasCollectible(59) then
+		elseif slot:GetTouch() > 10 and not player:HasCollectible(59) then
 			self._Ents:GetTempData(slot).ENVOY_DONATION_PLAYER = player
 			spr:Play("Prize", true)
 		end

@@ -13,7 +13,7 @@ function BloodKeys:OnTakeDMG(ent)
 	if player and player:HasCollectible(self.ID) and player:GetNumKeys() > 0 then
 		player:AddKeys(-1)
 		for i = 1,2 do
-			Isaac.Spawn(5, 30, 1, ent.Position, RandomVector(), nil)
+			Isaac.Spawn(5, 30, 0, ent.Position, RandomVector(), nil)
 		end
 	end
 end

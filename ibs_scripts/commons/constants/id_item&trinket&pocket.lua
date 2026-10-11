@@ -226,6 +226,8 @@ SoulKeys = Isaac.GetItemIdByName("Soul Keys"),
 DiscountKey = Isaac.GetItemIdByName("Discount Key"),
 CuckooZapper = Isaac.GetItemIdByName("Cuckoo Zapper"),
 EerieLantern = Isaac.GetItemIdByName("Eerie Lantern"),
+PermanentBubbles = Isaac.GetItemIdByName("Permanent Bubbles"),
+AbandonedLuggage = Isaac.GetItemIdByName("Abandoned Luggage"),
 
 }
 

@@ -46,12 +46,13 @@ MontezumasHeritage:AddCallback(mod.IBS_CallbackID.NUM_CHANGE_KEY,'OnKeyNumChange
 --摧毁大便触发
 function MontezumasHeritage:OnPoopBreak(gridEnt, ent, variant)	
 	if PlayerManager.AnyoneHasCollectible(self.ID) then
-		local pos = (gridEnt and gridEnt.Position) or ent.Position
-		Isaac.Spawn(5, 30, 0, pos, Vector.Zero, nil)
 		
 		--红大便
 		if gridEnt and variant == 1 then
-			game:GetRoom():RemoveGridEntity(gridEnt:GetGridIndex(), 0, false)
+			game:GetRoom():RemoveGridEntity(gridEnt:GetGridIndex(), 0, true)
+		else	
+			local pos = (gridEnt and gridEnt.Position) or ent.Position
+			Isaac.Spawn(5, 30, 0, pos, Vector.Zero, nil)
 		end
 	end
 end

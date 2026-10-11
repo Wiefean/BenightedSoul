@@ -125,8 +125,9 @@ function CuckooZapper:OnPlayerRender(player, offset)
 			spr:Play("HeadDown")
 		end
 	
+		local scale = player.SpriteScale.Y
 		for i = 0,num-1 do		
-			spr:Render(self._Screens:GetEntityRenderPosition(player, offset, Vector(0,-8 * i)))
+			spr:Render(self._Screens:GetEntityRenderPosition(player, offset, Vector(0,-8 * i * scale)))
 		end
 	end
 end

@@ -108,6 +108,11 @@
 
 	<!-- bkeeper -->
 	<costume id="7263" anm2path="bkeeper_rope.anm2" isFlying="true" hasOverlay="true" type="none" priority="777" />
+	
+	<!-- transformations -->
+	<costume anm2path="trans_doormaker.anm2" type="none" priority="1" />
+	<costume anm2path="trans_bomber.anm2" type="none" priority="1" />
+	<costume anm2path="trans_abyss.anm2" type="none" priority="1" hasSkinAlt="true" />
 
 	<!-- other -->
 	<costume anm2path="falsehood_bmaggy.anm2" type="none" priority="3" />

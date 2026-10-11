@@ -471,6 +471,7 @@ CommonClass('Memories', 'memories')
 CommonClass('CustomPool', 'custom_pool')
 CommonClass('Room', 'room')
 CommonClass('Rooms', 'rooms')
+CommonClass('Transformation', 'transformation')
 
 --------------------------------------------
 ----------------发光沙漏兼容----------------

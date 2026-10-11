@@ -96,7 +96,7 @@
 	<passive id="94" name="Sneaky C" description="C4 deployer !" gfx="sneaky_c.png" quality="2" craftquality="2" tags="offensive fly" />
 	<passive id="95" name="Confronting C" description="Get out !" gfx="confronting_c.png" quality="1" craftquality="1" tags="offensive fly summonable" />
 	<passive id="96" name="Retaliating C" description="Take That !" gfx="retaliating_c.png" quality="2" craftquality="2" tags="offensive fly" />
-	<passive id="97" name="Master Round" description="HP up + no hit prize" gfx="master_round.png" maxhearts="2" hearts="2" quality="2" craftquality="2" tags="nolostbr nokeeper" />
+	<passive id="97" name="Master Round" description="HP up + no hit prize" gfx="master_round.png" maxhearts="2" hearts="2" quality="3" craftquality="3" tags="nolostbr nokeeper" />
 	<passive id="98" name="Master Pack" description="Premium version" gfx="master_pack.png" shopprice="20" quality="2" craftquality="2" tags="offensive nogreed" />
 	<passive id="99" name="Rich Mines" description="Time to mine" gfx="rich_mines.png" quality="1" craftquality="1" tags="offensive nogreed" />
 	<active id="100" cache="all" name="Panacea" description="Cure all diseases !" gfx="panacea.png" quality="2" craftquality="2" shopprice="20" tags="offensive nocantrip" />
@@ -188,7 +188,7 @@
     <passive id="186" name="Fiddle" gfx="fiddle.png" description="Items up + items down" quality="2" craftquality="2" tags="offensive" customtags="nometronome" />
     <passive id="187" cache="damage" name="Whispering Earring" gfx="whispering_earring.png" description="Blame nobody but yourself" quality="2" craftquality="2" tags="offensive" customtags="nometronome" />
     <passive id="188" name="Sere Talon" gfx="sere_talon.png" description="Cursed wish" quality="2" craftquality="2" tags="offensive" customtags="nometronome" />
-    <passive id="189" name="Music Box" gfx="music_box.png" description="Encore" quality="2" craftquality="2" tags="offensive summonable" customtags="nometronome" />
+    <passive id="189" name="Music Box" gfx="music_box.png" description="Encore" quality="2" craftquality="-1" tags="offensive summonable" customtags="nometronome" />
     <passive id="190" name="Jeweled Mask" gfx="jeweled_mask.png" description="Eye-dealing" quality="3" craftquality="3" tags="offensive summonable" customtags="nometronome" />
     <passive id="191" name="Choices Paradox" gfx="choices_paradox.png" description="Choose" quality="1" craftquality="1" tags="offensive" customtags="nometronome" />
     <familiar id="192" name="Distinguished Cape" gfx="distinguished_cape.png" description="Apparition" quality="3" craftquality="3" devilprice="2" shopprice="30" tags="offensive" customtags="nometronome" />
@@ -217,12 +217,14 @@
 	<passive id="215" name="Bomber Key" gfx="bomber_key.png" description="Cross key bombs" quality="1" craftquality="1" tags="offensive summonable" keys="5" bombs="5" />
 	<passive id="216" name="Scatter Keys" gfx="scatter_keys.png" description="Multipurpose" quality="1" craftquality="1" tags="offensive" keys="5" />
 	<passive id="217" name="KKEKK" gfx="kkekk.png" description="ZZAZZ" quality="1" craftquality="1" tags="offensive" />
-	<passive id="218" name="Blood Keys" gfx="blood_keys.png" description="Hurt for keys + HP up" quality="2" craftquality="2" maxhearts="2" hearts="8" tags="offensive nolostbr" />
+	<passive id="218" name="Blood Keys" gfx="blood_keys.png" description="Hurt for keys + HP up" quality="2" craftquality="2" maxhearts="2" hearts="8" tags="nolostbr" />
 	<passive id="219" name="Soul Keys" gfx="soul_keys.png" description="Souls + 5 keys" quality="2" craftquality="2" tags="offensive dead" keys="5" />
 	<passive id="220" name="Discount Key" description="Learn the keys on bargaining" gfx="discount_key.png" quality="2" craftquality="2" tags="offensive" />
 	<passive id="221" name="Cuckoo Zapper" description="Not traditional zapper" gfx="cuckoo_zapper.png" quality="3" craftquality="3" tags="nokeeper offensive" />
 	<passive id="222" name="Eerie Lantern" description="Temporary charge" gfx="eerie_lantern.png" quality="2" craftquality="2" tags="offensive" />
-
+	<passive id="223" cache="all" name="Permanent Bubbles" description="Permanent effects from items" gfx="permanent_bubbles.png" quality="3" craftquality="3" tags="offensive nocantrip noeden" />
+	<passive id="224" name="Abandoned Luggage" description="What's all this...?" gfx="abandoned_luggage.png" quality="1" craftquality="1" tags="offensive" />
+	
 
 	<trinket name="Bottle Shard" description="He really did it" gfx="bottleshard.png" />
 	<trinket name="Dad's Promise" description="The old ends, The new comes" gfx="dadspromise.png" />

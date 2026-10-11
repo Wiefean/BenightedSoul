@@ -39,6 +39,12 @@ HoardingEID.zh = {
 		[302] = true, --狮子座
 	},
 
+	--愚昧
+	IBSFormList = {
+		["Doormaker"] = "{{IBSTrans_doormaker}} 生成门的概率 + 5%",
+		["Bomber"] = "{{IBSTrans_bomber}} + 10% 爆炸伤害",
+		["Abyss"] = "{{IBSTrans_abyss}} + 3% 吞下饰品概率",
+	},
 }
 
 HoardingEID.en = {
@@ -75,6 +81,11 @@ HoardingEID.en = {
 		[302] = true,
 	},
 
+	IBSFormList = {
+		["Doormaker"] = "{{IBSTrans_doormaker}} + 5% chance to spawn door",
+		["Bomber"] = "{{IBSTrans_doormaker}} + 10% explosion damage",
+		["Abyss"] = "{{IBSTrans_abyss}} + 3% chance to smelt trinkets",
+	},
 }
 
 return HoardingEID

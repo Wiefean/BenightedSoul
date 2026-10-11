@@ -1934,7 +1934,7 @@ local itemEID={
 [IBS_ItemID.Kear]={
 	name='钥湿',
 	info='+ 5 {{Key}}钥匙'..
-	'#↑ 失去{{Key}}钥匙时，+ 0.7 临时{{Tears}}射速',
+	'#↑ 失去{{Key}}钥匙时，+ 0.7 临时{{Tears}}射速，最多5',
 },
 
 [IBS_ItemID.BulletJar]={
@@ -1997,9 +1997,20 @@ local itemEID={
 
 [IBS_ItemID.EerieLantern]={
 	name='诡异灯笼',
-	info='清理房间会为主动道具提供1点充能，但15秒后失去'..
-		 '#可为额外充能条充能'..
+	info='进入新房间时，为主动道具充能，可为额外充能条充能'..
+		 '#!!! 清理房间后，主动道具失去1格充能'..
 		 '#只对常规充能主动生效',
+},
+
+[IBS_ItemID.PermanentBubbles]={
+	name='永久泡泡水',
+	info='被动道具失去后仍有效，除了任务道具和错误道具'..
+		 '#拾取后，移除该道具'
+},
+
+[IBS_ItemID.AbandonedLuggage]={
+	name='被弃行李箱',
+	info='生成5个饰品'
 },
 
 }

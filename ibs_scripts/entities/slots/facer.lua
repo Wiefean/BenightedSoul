@@ -86,7 +86,7 @@ function Facer:OnSlotCollision(slot, other)
 	local spr = slot:GetSprite()
 	
 	--扣血交易
-	if spr:IsPlaying('Idle') and slot:GetTouch() > 20 and player:GetDamageCooldown() <= 0 then
+	if spr:IsPlaying('Idle') and (self._Players:GetHp(player) > 3 or slot:GetTouch() > 20) and player:GetDamageCooldown() <= 0 then
 		player:TakeDamage(2, DamageFlag.DAMAGE_RED_HEARTS | DamageFlag.DAMAGE_NO_PENALTIES, EntityRef(player), 0)
 		player:AddNullCostume(Costume)
 		

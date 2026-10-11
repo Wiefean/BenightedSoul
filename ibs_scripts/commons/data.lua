@@ -111,6 +111,13 @@ local function Persis_Init() --此处可新增长久数据
 		--诅咒区结束--
 		
 		
+		--套装区开始--
+		trans_doormaker = true, --掌门
+		trans_bomber = true, --炸弹人
+		trans_abyss = true, --无底坑
+		--套装区结束--		
+		
+		
 		--可互动实体区开始--
 		slot_collectionBox = true, --募捐箱
 		slot_albern = true, --真理小子
@@ -131,12 +138,11 @@ local function Persis_Init() --此处可新增长久数据
 		
 		
 		--杂项区开始--
-		voidUp = false, --虚空增强
-		abyssUp = false, --无底坑增强
 		envyDisguise = true, --女疾女户伪装
 		envyJS = true, --女疾女户跳脸
 		otto = false, --女疾女户OTTO硅胶
 		envyRemove = false, --从池中移除女疾女户
+		earringSound = true, --低语耳环音效
 		tipI = true, --角色菜单提示
 		showPriceOver99 = true, --及百价格显示优化
 		rewindCompat = true, --发光沙漏兼容

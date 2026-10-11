@@ -1,4 +1,38 @@
 -----------------------------------
+2026.11
+v0.13.0
+
+新套装：
+ 掌门
+ 炸弹人
+ 无底坑
+
+新道具：
+ 永久泡泡水
+ 被弃行李箱
+
+调整：
+ <道具>
+ 胜者之弹：品质3
+ 钥湿：最多提供5射速
+ 诡异灯笼：削弱
+ 
+ 
+New Transformations:
+ Doormaker
+ Bomber
+ Abyss
+
+New Item: 
+ Permanent Bubbles
+ Abandoned Luggage
+ 
+Adjustments:
+ <Items>
+ Master Round: Quality 3
+ Kear: 2.1 tears up at most
+ Eerie Lantern: Droop
+-----------------------------------
 2026.9
 v0.12.10
 

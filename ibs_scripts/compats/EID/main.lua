@@ -40,6 +40,44 @@ do --角色
 	end
 end
 
+do --套装
+	local TransList = {
+		["IBSTrans_doormaker"] = {
+			name = "Doormaker!",
+			name_zh = "掌门！",
+			key = "Doormaker",
+			animFrame = 0,
+		},
+		["IBSTrans_bomber"] = {
+			name = "Bomber!",
+			name_zh = "炸弹人！",
+			key = "Bomber",
+			animFrame = 1,
+		},
+		["IBSTrans_abyss"] = {
+			name = "Abyss!",
+			name_zh = "无底坑！",
+			key = "Abyss",
+			animFrame = 2,
+		},			
+	}
+	
+	mod:AddPriorityCallback(ModCallbacks.MC_POST_MODS_LOADED, CallbackPriority.EARLY, function()
+		for k,v in pairs(TransList) do
+			AddIcon(k, 'transformations', 'idle', v.animFrame, 16, 16, 5, 5)
+			EID:createTransformation(k, v.name_zh, "zh_cn")
+			EID:createTransformation(k, v.name, "en_us")		
+		
+			local trans = mod.IBS_Transformation[v.key]
+			if trans then
+				for id,_ in pairs(trans.ItemList) do
+					EID:assignTransformation("collectible", id, k);
+				end			
+			end
+		end
+	end)
+end
+
 do --口袋物品
 	local i = 0
 	for ID = IBS_PocketID.CuZnD6, IBS_PocketID.NeniaDea do

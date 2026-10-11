@@ -8,8 +8,8 @@ local sfx = SFXManager()
 local SoulKeys = mod.IBS_Class.Item(mod.IBS_ItemID.SoulKeys)
 
 --获取数据
-function SoulKeys:GetData()
-	local data = self:GetIBSData('level')
+function SoulKeys:GetData() 
+	local data = self:GetIBSData('temp')
 
 	if not data.SoulKeys then
 		data.SoulKeys = {Num = 0}

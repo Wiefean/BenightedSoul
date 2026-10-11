@@ -614,6 +614,7 @@ local _SettingWindow =  _Menu..'SettingWindow' --设置窗口
 local _SettingTabBar = _Menu..'SettingTabBar' --设置点选框
 local _SettingTabD = _Menu..'SettingTabD' --难度栏
 local _SettingTabC = _Menu..'SettingTabC' --诅咒栏
+local _SettingTabT = _Menu..'SettingTabT' --套装栏
 local _SettingTabS = _Menu..'SettingTabS' --可互动实体栏
 local _SettingTabB = _Menu..'SettingTabB' --头目栏
 local _SettingTabG = _Menu..'SettingTabG' --杂项栏
@@ -625,6 +626,7 @@ ImGui.LinkWindowToElement(_SettingWindow, _Setting)
 ImGui.AddTabBar(_SettingWindow, _SettingTabBar)
 ImGui.AddTab(_SettingTabBar, _SettingTabD, Language('难度', 'Difficulty') )
 ImGui.AddTab(_SettingTabBar, _SettingTabC, Language('诅咒', 'Curses') )
+ImGui.AddTab(_SettingTabBar, _SettingTabT, Language('套装', 'Trans') )
 ImGui.AddTab(_SettingTabBar, _SettingTabS, Language('可互动实体', 'Slots') )
 ImGui.AddTab(_SettingTabBar, _SettingTabB, Language('头目', 'Bosses') )
 ImGui.AddTab(_SettingTabBar, _SettingTabG, Language('杂项', 'Groceries') )
@@ -711,6 +713,16 @@ end
 ----↑诅咒栏相关↑----
 
 
+----↓套装栏相关↓----
+do
+	MakeCheckBox(_SettingTabT, 'trans_doormaker', Language('掌门', 'Doormaker') )
+	MakeCheckBox(_SettingTabT, 'trans_bomber', Language('炸弹人', 'Bomber') )
+	MakeCheckBox(_SettingTabT, 'trans_abyss', Language('无底坑', 'Abyss') )
+end
+----↑诅咒栏相关↑----
+
+
+
 ----↓可互动实体栏相关↓----
 do
 	MakeCheckBox(_SettingTabS, 'slot_collectionBox', Language('募捐箱', 'Collectio Box') )
@@ -736,47 +748,14 @@ end
 	
 ----↓杂项栏相关↓----
 do
-	MakeCheckBox(_SettingTabG, 'voidUp', Language('虚空增强', 'Void Up'), Language('对饰品生效', 'Can absrob trinkets') )
-	MakeCheckBox(_SettingTabG, 'abyssUp', Language('无底坑增强', 'Abyss Up'), Language('对饰品生效', 'Can absrob trinkets') )
 	MakeCheckBox(_SettingTabG, 'envyDisguise', Language('女疾女户伪装', "Ennnnnnvyyyyyy's disguise") )
 	MakeCheckBox(_SettingTabG, 'envyJS', Language('女疾女户跳脸', "Ennnnnnvyyyyyy's jump scare") )
 	MakeCheckBox(_SettingTabG, 'otto', Language('女疾女户特殊跳脸音效', "Ennnnnnvyyyyyy's special jump scare sfx") )
 	MakeCheckBox(_SettingTabG, 'envyRemove', Language('将女疾女户移出道具池', "Remove Ennnnnnvyyyyyy from item pools") )
+	MakeCheckBox(_SettingTabG, 'earringSound', Language('低语耳环音效', "Sounds of Whispering Earring") )
 	MakeCheckBox(_SettingTabG, 'tipI', Language('角色菜单按键提示', 'Character menu control tip') )
 	MakeCheckBox(_SettingTabG, 'showPriceOver99', Language('及百价格显示优化', 'Show Price Over 99'), Language('不建议关闭，除非模组冲突', 'Keep it on unless mod conflicts') )
 	MakeCheckBox(_SettingTabG, 'rewindCompat', Language('发光沙漏兼容', 'Glowing Hour Glass compatibility'), Language('对控制台指令"rewind"无效', 'No effect on CMD "rewind"') )
-	
-	--虚空增强(吸收饰品)
-	local function VoidUp(_,item, rng, player, flags)
-		if mod:GetIBSData('persis')["voidUp"] then
-			for _,ent in ipairs(Isaac.FindByType(5, 350)) do
-				local trinket = ent:ToPickup()
-				if trinket.SubType > 0 and trinket.Price == 0 then
-					player:AddSmeltedTrinket(trinket.SubType, trinket.Touched)
-					Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, trinket.Position, Vector.Zero, nil)						
-					trinket:Remove()
-				end
-			end
-		end
-	end
-	mod:AddCallback(ModCallbacks.MC_USE_ITEM, VoidUp, 477)
-
-
-	--无底坑增强(吸收饰品)
-	local function AbyssUp(_,item, rng, player, flags)
-		if mod:GetIBSData('persis')["abyssUp"] then
-			for _,ent in ipairs(Isaac.FindByType(5, 350)) do
-				local trinket = ent:ToPickup()
-				if trinket.SubType > 0 and trinket.Price == 0 then
-					local locust = Isaac.Spawn(3, FamiliarVariant.ABYSS_LOCUST, 2, trinket.Position, Vector.Zero, player):ToFamiliar()
-					locust.Player = player
-					Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, trinket.Position, Vector.Zero, nil)						
-					trinket:Remove()
-				end
-			end		
-		end
-	end
-	mod:AddCallback(ModCallbacks.MC_USE_ITEM, AbyssUp, 706)	
 	
 	
 	do --及百价格显示优化
@@ -1701,6 +1680,9 @@ do
 		difficulty_boss_level_mult = 0.1, --boss敌人血量每层增长		
 		curse_moving = true, --动人诅咒
 		curse_d7 = true, --D7诅咒
+		trans_doormaker = true, --掌门
+		trans_bomber = true, --炸弹人
+		trans_abyss = true, --无底坑	
 		slot_collectionBox = true, --募捐箱
 		slot_albern = true, --真理小子
 		slot_facer = true, --换脸商
@@ -1712,11 +1694,10 @@ do
 		boss_generosity = true, --慷慨
 		boss_kindness = true, --宽容
 		boss_humility = true, --谦逊		
-		voidUp = true, --虚空增强
-		abyssUp = true, --无底坑增强
 		envyDisguise = true, --女疾女户伪装
 		envyJS = true, --女疾女户跳脸
 		--otto = false, --女疾女户OTTO硅胶(故意保留了这一部分)
+		earringSound = true, --低语耳环音效
 		envyRemove = true, --从池中移除女疾女户
 		tipI = true, --角色菜单提示
 		showPriceOver99 = true, --及百价格显示优化

@@ -1904,7 +1904,7 @@ local itemEID={
 [IBS_ItemID.Kear]={
 	name='Kear',
 	info='+ 5 {{Key}}keys'..
-	'#↑ Losing {{Key}}keys, + 0.7 {{Tears}}tears temporarily',
+	'#↑ Losing {{Key}}keys, + 0.7 {{Tears}}tears temporarily, 5 at most',
 },
 
 [IBS_ItemID.BulletJar]={
@@ -1967,8 +1967,20 @@ local itemEID={
 
 [IBS_ItemID.EerieLantern]={
 	name='Eerie Lantern',
-	info='Cleaning rooms charges active items, including the extra charge bar, but loses 1 charge in 15 seconds'..
+	info='Entering a new room charges active items, including the extra charge bar'..
+		 '!!! Clearing rooms makes active items lose 1 charge'..
 		 '#Only affect common-charge-type active items',
+},
+
+[IBS_ItemID.PermanentBubbles]={
+	name='Permanent Bubbles',
+	info='Passive items are effective even when removed, except quest or error items'..
+		 '#After gained, remove this item'
+},
+
+[IBS_ItemID.AbandonedLuggage]={
+	name='Abandoned Luggage',
+	info='Spawn 5 trinkets'
 },
 
 }

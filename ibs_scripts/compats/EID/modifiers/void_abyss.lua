@@ -7,12 +7,6 @@ local function Translate(text_zh, text_en, LANG)
 	return (LANG == 'zh_cn' and text_zh) or text_en
 end
 
---索引
-local ToKey = {
-	[477] = 'voidUp',
-	[706] = 'abyssUp'
-}
-
 return function(LANG)
 	--触发条件
 	local function condition(desc)
@@ -28,7 +22,9 @@ return function(LANG)
 		end
 		
 		if (Type == 5) and (Variant == 100) and (SubType == 477 or SubType == 706) then
-			if mod:GetIBSData('persis')[ToKey[SubType]] then
+			local Abyss = mod.IBS_Transformation and mod.IBS_Transformation.Abyss
+			local player = EID:ClosestPlayerTo(desc.Entity)
+			if player and Abyss and Abyss:IsOwned(player) then
 				return true
 			end
 		end
@@ -39,7 +35,7 @@ return function(LANG)
 	--添加额外内容
 	local function callback(desc)
 		local info = Translate('对饰品生效', 'Available to trinkets', LANG)
-		local add = '#{{IBSMOD}} {{ColorGold}}'..info..'{{CR}}'
+		local add = '#{{IBSTrans_abyss}} {{ColorGold}}'..info..'{{CR}}'
 
 		EID:appendToDescription(desc, add)
 		

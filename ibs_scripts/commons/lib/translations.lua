@@ -1153,6 +1153,16 @@ Item = {
 		Name='诡异灯笼',
 		Desc='暂时充能',
 	},	
+	
+	[IBS_ItemID.PermanentBubbles]={
+		Name='永久泡泡水',
+		Desc='道具效果永久',
+	},	
+	
+	[IBS_ItemID.AbandonedLuggage]={
+		Name='被弃行李箱',
+		Desc='这都是些什么...?',
+	},	
 
 },
 

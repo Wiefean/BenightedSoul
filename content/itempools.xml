@@ -238,6 +238,8 @@
         <Item Name="Discount Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Cuckoo Zapper" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Eerie Lantern" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Permanent Bubbles" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Abandoned Luggage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="planetarium">
@@ -300,6 +302,7 @@
         <Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Discount Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Eerie Lantern" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Permanent Bubbles" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="greedShop">
@@ -392,6 +395,7 @@
 		<Item Name="Monocle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Orichaliron" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
+        <Item Name="Abandoned Luggage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="greedBoss">
@@ -409,6 +413,7 @@
 		<Item Name="Monocle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Orichaliron" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
+        <Item Name="Abandoned Luggage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>	
 	
 	<Pool Name="secret">
@@ -454,6 +459,7 @@
         <Item Name="Mr. Dynamax" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Soul Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Permanent Bubbles" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 
 	<Pool Name="greedSecret">
@@ -492,6 +498,7 @@
 		<Item Name="Disaster of Sodom" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
         <Item Name="Soul Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Permanent Bubbles" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>	
 	
 	<Pool Name="curse">
@@ -681,6 +688,7 @@
 		
 
         <Item Name="Bullet in a Jar" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Abandoned Luggage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="craneGame">	
@@ -709,6 +717,7 @@
 		<Item Name="Jeweled Mask" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Monocle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
+        <Item Name="Abandoned Luggage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 
 	<Pool Name="ultraSecret">
@@ -776,6 +785,7 @@
 		<Item Name="Mom's Cheque" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Mom's Old Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	
+        <Item Name="Abandoned Luggage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="woodenChest">
@@ -795,6 +805,7 @@
 		<Item Name="Beggar Medal" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="I Beg" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
+        <Item Name="Abandoned Luggage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="demonBeggar">

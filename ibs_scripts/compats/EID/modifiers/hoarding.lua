@@ -17,7 +17,7 @@ return function(LANG)
 	local KEY = (LANG == 'zh_cn' and 'zh') or 'en'
 	if not HoardingEID[KEY] then return end
 	
-	local FormList, StompyFrom = HoardingEID[KEY].FormList, HoardingEID[KEY].StompyFrom
+	local FormList, StompyFrom, IBSFormList = HoardingEID[KEY].FormList, HoardingEID[KEY].StompyFrom, HoardingEID[KEY].IBSFormList
 
 	--触发条件
 	local function condition(desc)
@@ -63,6 +63,16 @@ return function(LANG)
 				end
 				if StompyFrom[SubType] then --践踏套装
 					add = add..prefix..(StompyFrom.info)
+				end
+				
+				--愚昧套装
+				if mod.IBS_Transformation then				
+					for key,desc in pairs(IBSFormList) do
+						local trans = mod.IBS_Transformation[key]
+						if trans and trans.ItemList[SubType] then
+							add = add..prefix..desc
+						end
+					end				
 				end
 			end
 		end			

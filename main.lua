@@ -7,7 +7,7 @@
 Isaac_BenightedSoul = RegisterMod("Benighted Soul",1)
 
 local mod = Isaac_BenightedSoul
-mod.Version = "0.12.10"
+mod.Version = "0.13.0"
 mod.Language = Options.Language
 mod.NameStr = "愚昧"
 if mod.Language ~= "zh" then mod.Language = "en" mod.NameStr = mod.Name end
@@ -68,9 +68,18 @@ mod:AddPriorityCallback(ModCallbacks.MC_POST_NEW_ROOM, -7000, function()
 	end
 end)
 
+--神秘里拉生死逆转算作离开房间,所以要特殊兼容
+local FLIP = false
+mod:AddPriorityCallback(ModCallbacks.MC_PRE_USE_ITEM, -7000, function()
+	FLIP = true
+	mod:DelayFunction(function()
+		FLIP = false
+	end, 0)
+end, 711)
+
 local LOCKED = false
 mod:AddPriorityCallback(ModCallbacks.MC_PRE_ROOM_EXIT, -7000, function(_,player, newLevel)
-	if newLevel or LOCKED then return end
+	if newLevel or LOCKED or FLIP then return end
 	local game = Game()
 	local level = game:GetLevel()
 	local dimension = level:GetDimension()
@@ -98,6 +107,7 @@ LoadScript('ibs_entity')
 LoadScript('ibs_room')
 LoadScript('ibs_player')
 LoadScript('ibs_item')
+LoadScript('ibs_transformation')
 
 --角色菜单
 include("ibs_scripts.ibs_menu")

@@ -20,7 +20,10 @@ function WhisperingEarring:OnUpdate()
 			if Isaac.GetFrameCount() % 13 == 0 and math.random(1,100) < 50 then
 				Isaac.CenterCursor()
 				ShouldReverse = not ShouldReverse
-				sfx:Play(math.random(598,601), 0.5, 120, false, 0.01*math.random(120,150))
+				
+				if self:GetIBSData('persis')['earringSound'] then				
+					sfx:Play(math.random(598,601), 0.5, 120, false, 0.01*math.random(120,150))
+				end
 			end	
 		
 			--提示

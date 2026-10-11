@@ -806,6 +806,8 @@ function Players:DischargeSlot(player, slot, amount, includeSpecial, force, igno
 	if (slot < ActiveSlot.SLOT_PRIMARY or slot > ActiveSlot.SLOT_POCKET or amount < 0) then return false end
 	local SUCCESS = false
 	local itemConfig = config:GetCollectible(player:GetActiveItem(slot))
+	if not itemConfig then return false end
+	
 	local type = itemConfig.ChargeType
 	local normal = (type == ItemConfig.CHARGE_NORMAL)
 	local special = (type == ItemConfig.CHARGE_SPECIAL)

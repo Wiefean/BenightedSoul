@@ -1,4 +1,4 @@
---成套收集
+--收集癖
 
 local mod = Isaac_BenightedSoul
 local IBS_CallbackID = mod.IBS_CallbackID

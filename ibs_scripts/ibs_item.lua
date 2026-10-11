@@ -230,6 +230,8 @@ mod.IBS_Item = {
 	DiscountKey = Load('discount_key'),
 	CuckooZapper = Load('cuckoo_zapper'),
 	EerieLantern = Load('eerie_lantern'),
+	PermanentBubbles = Load('permanent_bubbles'),
+	AbandonedLuggage = Load('abandoned_luggage'),
 
 }
 
