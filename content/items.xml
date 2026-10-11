@@ -222,7 +222,7 @@
 	<passive id="220" name="Discount Key" description="Learn the keys on bargaining" gfx="discount_key.png" quality="2" craftquality="2" tags="offensive" />
 	<passive id="221" name="Cuckoo Zapper" description="Not traditional zapper" gfx="cuckoo_zapper.png" quality="3" craftquality="3" tags="nokeeper offensive" />
 	<passive id="222" name="Eerie Lantern" description="Temporary charge" gfx="eerie_lantern.png" quality="2" craftquality="2" tags="offensive" />
-	<passive id="223" cache="all" name="Permanent Bubbles" description="Permanent effects from items" gfx="permanent_bubbles.png" quality="3" craftquality="3" tags="offensive nocantrip noeden" />
+	<passive id="223" cache="all" name="Permanent Bubbles" description="Permanent effects from items" gfx="permanent_bubbles.png" quality="2" craftquality="2" tags="offensive nocantrip noeden" />
 	<passive id="224" name="Abandoned Luggage" description="What's all this...?" gfx="abandoned_luggage.png" quality="1" craftquality="1" tags="offensive" />
 	
 

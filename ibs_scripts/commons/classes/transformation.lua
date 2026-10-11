@@ -56,7 +56,7 @@ local Transformation = mod.Class(Component, function(self, data_key, info_tbl)
 	--获取数据
 	function self:GetTrData(player, onlyGet)
 		local data = self._Players:GetData(player)
-		local KEY = "IBSTransformation_"..tostring(id)
+		local KEY = "IBSTransformation_"..tostring(data_key)
 
 		if not data[KEY] and not onlyGet then
 			data[KEY] = {

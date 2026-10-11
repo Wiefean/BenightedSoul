@@ -51,6 +51,8 @@ local Doormaker = mod.IBS_Class.Transformation("trans_doormaker", {
 
 --生成红房间
 function Doormaker:TryMakeDoor(seed)
+	if game:GetLevel():GetCurrentRoomIndex() < 0 then return false end
+
 	local room = game:GetRoom()
 	local level = game:GetLevel()
 	local idx = level:GetCurrentRoomIndex()
