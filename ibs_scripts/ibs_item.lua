@@ -232,6 +232,7 @@ mod.IBS_Item = {
 	EerieLantern = Load('eerie_lantern'),
 	PermanentBubbles = Load('permanent_bubbles'),
 	AbandonedLuggage = Load('abandoned_luggage'),
+	Entanglement = Load('entanglement'),
 
 }
 

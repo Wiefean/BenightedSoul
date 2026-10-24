@@ -364,7 +364,7 @@ local itemEID={
 	info="200 DMG charges active items, including the extra charge bar"..
 		 "#When hurt by non-self-damage, keep costing charges"..
 		 "#If costs charges sufficiently, makes an explosion, or stops costing charges",
-	seijaNerf="The explosion hurts you"
+	seijaNerf="The explosion hurts Isaac"
 },
 
 [IBS_ItemID.DreggyPie]={
@@ -1165,7 +1165,7 @@ local itemEID={
 [IBS_ItemID.WilderingMirror]={
 	name='Wildering Mirror',
 	info='When entering a new level, generate red rooms around special rooms excepting {{BossRoom}}Boss Room and {{UltraSecretRoom}}Ultra Secret Room, and then reveal all red rooms'..
-		 '#Damage with penalty has 30% chance to remove this item, get {{CurseLost}}Curse of the Lost, and spawn {{Collectible'..(IBS_ItemID.WilderingMirror2)..'}} Broken Wildering Mirror',
+		 '#Each level, from the second penal damage taken has 30% chance to remove this item, get {{CurseLost}}Curse of the Lost, and spawn {{Collectible'..(IBS_ItemID.WilderingMirror2)..'}} Broken Wildering Mirror',
 },
 
 [IBS_ItemID.WilderingMirror2]={
@@ -1961,7 +1961,7 @@ local itemEID={
 [IBS_ItemID.CuckooZapper]={
 	name='Cuckoo Zapper',
 	info='{{Card7}} When gained, spawn {{Card7}}The Lovers'..
-	'#{{Card62}} When entering a new level, reverse {{Card7}}The Lovers held, or spawn one'..
+	'#{{Card62}} When entering a new level, reverse held {{Card7}}The Lovers, or spawn one'..
 	'#{{BrokenHeart}} Fire 80% {{Damage}}damage lasers with Broken Hearts, faster when with more',
 },
 
@@ -1981,6 +1981,11 @@ local itemEID={
 [IBS_ItemID.AbandonedLuggage]={
 	name='Abandoned Luggage',
 	info='Spawn 5 trinkets'
+},
+
+[IBS_ItemID.Entanglement]={
+	name='Entanglement',
+	info='{{AngelDevilChance}} If both Devil Room and Angel Room are not open, spawn 2 Error Room and reveal them'
 },
 
 }

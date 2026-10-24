@@ -132,6 +132,7 @@
         <Item Name="Blood Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Cuckoo Zapper" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Eerie Lantern" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Entanglement" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="greedTreasure">
@@ -460,6 +461,7 @@
         <Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Soul Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Permanent Bubbles" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Entanglement" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 
 	<Pool Name="greedSecret">

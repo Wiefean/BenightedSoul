@@ -14,7 +14,8 @@ function WilderingMirror:OnTakeDMG(ent, dmg, flag, source)
 	if dmg <= 0 then return end
 	local player = ent:ToPlayer()
 	if player and Damage:IsPenalt(player, flag, source) and player:HasCollectible(self.ID, true) then
-		if player:GetCollectibleRNG(self.ID):RandomInt(100) < 50 then
+		local data = self:GetIBSData("level")
+		if not data.WilderingMirrorHurt and player:GetCollectibleRNG(self.ID):RandomInt(100) < 50 then
 			player:RemoveCollectible(self.ID, true)
 			game:GetLevel():AddCurse(LevelCurse.CURSE_OF_THE_LOST, false)
 			
@@ -25,6 +26,7 @@ function WilderingMirror:OnTakeDMG(ent, dmg, flag, source)
 			pickup.Touched = true
 			sfx:Play(53)
 		end
+		data.WilderingMirrorHurt = true
 	end
 end
 WilderingMirror:AddCallback(ModCallbacks.MC_POST_ENTITY_TAKE_DMG, 'OnTakeDMG')

@@ -1163,6 +1163,11 @@ Item = {
 		Name='被弃行李箱',
 		Desc='这都是些什么...?',
 	},	
+	
+	[IBS_ItemID.Entanglement]={
+		Name='命运纠缠',
+		Desc='另一可能',
+	},	
 
 },
 

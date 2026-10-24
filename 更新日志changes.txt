@@ -1,5 +1,28 @@
 -----------------------------------
-2026.11
+2026.10
+v0.13.2
+
+调整：
+ <道具>
+ 迷途之镜：强化
+
+
+Adjustments:
+ <Items>
+ Wildering Mirror: Boost
+-----------------------------------
+2026.10
+v0.13.1
+
+新角色：昧化亚玻伦 (未完成)
+
+新道具：命运纠缠
+
+New Character: Benighted Apollyon (Unfinished)
+
+New Item: Entanglement
+-----------------------------------
+2026.10
 v0.13.0
 
 新套装：
@@ -965,7 +988,7 @@ Adjustments:
  018: Speed up when used
  Kille R: Value adjustments
  Knock: Remove Offensive and Summonable tags
- Wings of Apollon: Value adjustments; Spawn a Shot Speed Up pill when gained
+ Wings of Apollyon: Value adjustments; Spawn a Shot Speed Up pill when gained
  Signature Move: Boost
 -----------------------------------
 2025.8

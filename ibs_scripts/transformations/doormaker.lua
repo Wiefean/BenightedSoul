@@ -58,7 +58,7 @@ function Doormaker:TryMakeDoor(seed)
 	local idx = level:GetCurrentRoomIndex()
 	
 	--概率计算
-	local chance = 15
+	local chance = 30
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 		if self:IsOwned(player) and player:HasCollectible(IBS_ItemID.Hoarding) then
@@ -114,6 +114,8 @@ function Doormaker:TryMakeDoor(seed)
 					self:DelayFunction2(function()
 						door:SetLocked(true)
 					end, 0)
+					
+					Isaac.Spawn(1000, 15, 0, door.Position, Vector.Zero, nil)
 					
 					return true
 				end

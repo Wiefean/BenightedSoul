@@ -74,10 +74,9 @@ function Bomber:PreTakeDMG(ent, dmg, flag, source, cd)
 			local player = Isaac.GetPlayer(i)
 			if self:IsOwned(player) then
 				mult = mult * 1.5
-			
-				if player:HasCollectible(IBS_ItemID.Hoarding) then
-					mult = mult + 0.1 * self:GetCount(player)
-				end
+			end
+			if player:HasCollectible(IBS_ItemID.Hoarding) then
+				mult = mult + 0.1 * self:GetCount(player)
 			end
 		end		
 

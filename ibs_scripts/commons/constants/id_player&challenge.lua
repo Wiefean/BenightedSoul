@@ -16,6 +16,7 @@ BAzazel = Isaac.GetPlayerTypeByName("Benighted Azazel"),
 BEden = Isaac.GetPlayerTypeByName("Benighted Eden"),
 BLost = Isaac.GetPlayerTypeByName("Benighted Lost"),
 BKeeper = Isaac.GetPlayerTypeByName("Benighted Keeper"),
+BApollyon = Isaac.GetPlayerTypeByName("Benighted Apollyon"),
 BForgotten = Isaac.GetPlayerTypeByName("Benighted Forgotten"),
 
 }

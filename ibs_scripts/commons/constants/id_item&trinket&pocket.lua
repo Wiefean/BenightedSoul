@@ -228,6 +228,7 @@ CuckooZapper = Isaac.GetItemIdByName("Cuckoo Zapper"),
 EerieLantern = Isaac.GetItemIdByName("Eerie Lantern"),
 PermanentBubbles = Isaac.GetItemIdByName("Permanent Bubbles"),
 AbandonedLuggage = Isaac.GetItemIdByName("Abandoned Luggage"),
+Entanglement = Isaac.GetItemIdByName("Entanglement"),
 
 }
 

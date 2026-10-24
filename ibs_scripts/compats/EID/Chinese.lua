@@ -364,7 +364,7 @@ local itemEID={
 	info='每造成200伤害，为主动道具充能，可为额外充能条充能'..
 		 '#受到非自伤后，进入蓄力状态，不断消耗充能'..
 		 '#蓄力完成后爆炸，没完成则取消',
-	seijaNerf='爆炸会伤害自己'
+	seijaNerf='爆炸会伤害角色'
 },
 
 [IBS_ItemID.DreggyPie]={
@@ -1187,7 +1187,7 @@ local itemEID={
 [IBS_ItemID.WilderingMirror]={
 	name='迷途之镜',
 	info='进入新层时，除{{BossRoom}}头目房和{{UltraSecretRoom}}究极隐藏房外，在特殊房间周围生成红房间，并揭示所有红房间'..
-		 '#受到惩罚性伤害时，有50%概率移除该道具，获得{{CurseLost}}迷途诅咒，并生成{{Collectible'..(IBS_ItemID.WilderingMirror2)..'}}破损的迷途之镜',
+		 '#每层从第二次受到惩罚性伤害时开始，有50%概率移除该道具，获得{{CurseLost}}迷途诅咒，并生成{{Collectible'..(IBS_ItemID.WilderingMirror2)..'}}破损的迷途之镜',
 },
 
 [IBS_ItemID.WilderingMirror2]={
@@ -2011,6 +2011,11 @@ local itemEID={
 [IBS_ItemID.AbandonedLuggage]={
 	name='被弃行李箱',
 	info='生成5个饰品'
+},
+
+[IBS_ItemID.Entanglement]={
+	name='命运纠缠',
+	info='{{AngelDevilChance}} 恶魔房和天使房都没有成功开启时，在地图上生成两个错误房并揭示其位置'
 },
 
 }

@@ -141,6 +141,11 @@ local Transformation = mod.Class(Component, function(self, data_key, info_tbl)
 	--失去道具检测
 	local function OnRemoveItem(_,player, item)
 		if not self:IsAvailable() then return end
+		
+		--里以撒
+		if player:GetPlayerType() == PlayerType.PLAYER_ISAAC_B then
+			return
+		end
 	
 		local itemConfig = config:GetCollectible(item)
 		
