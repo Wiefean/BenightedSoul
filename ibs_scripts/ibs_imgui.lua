@@ -716,8 +716,9 @@ end
 ----↓套装栏相关↓----
 do
 	MakeCheckBox(_SettingTabT, 'trans_doormaker', Language('掌门', 'Doormaker'), Language('清理房间有概率开启上锁的红房间，每层最多三次', 'Clearing rooms has chance to open a red room, 3 at most for each	level') )
-	MakeCheckBox(_SettingTabT, 'trans_bomber', Language('炸弹人', 'Bomber'), Language('爆炸伤害 x 150%', 'Explosion damage x 150%') )
+	MakeCheckBox(_SettingTabT, 'trans_bomber', Language('炸弹人', 'Bomber'), Language('集齐时，生成巨型炸弹；爆炸伤害 x 150%', 'When done, spawn Giga Bomb; Explosion damage x 150%') )
 	MakeCheckBox(_SettingTabT, 'trans_abyss', Language('无底坑', 'Abyss'), Language('受伤有概率吞下饰品；虚空和无底坑可以对饰品生效', 'Getting hurt has chance to smelt trinkets; Void and Abyss are available to trinkets') )
+	MakeCheckBox(_SettingTabT, 'trans_reservoir', Language('生化母体', 'Reservoir'), Language('集齐时，获得18腐心；失去腐心时治疗半红心；腐烂裂口尸友好；将接触的非头目敌人变为腐烂裂口尸', 'When done, + 18 Rotten Hearts; Heal half a heart when losing Rotten Heart; Friendly Rotten Gaper; Turn non-boss enemies touched into Rotten Gaper') )
 end
 ----↑诅咒栏相关↑----
 

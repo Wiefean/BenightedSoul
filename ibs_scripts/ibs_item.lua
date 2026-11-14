@@ -233,6 +233,7 @@ mod.IBS_Item = {
 	PermanentBubbles = Load('permanent_bubbles'),
 	AbandonedLuggage = Load('abandoned_luggage'),
 	Entanglement = Load('entanglement'),
+	ADropOfBlood = Load('a_drop_of_blood'),
 
 }
 

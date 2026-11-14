@@ -10,10 +10,15 @@ local Panacea = mod.IBS_Class.Item(mod.IBS_ItemID.Panacea)
 
 --疾病道具
 local function Disease(itemConfig)
-	return Pools:IsDiseaseItem(itemConfig.ID)
+	local Reservoir = mod.IBS_Transformation and mod.IBS_Transformation.Reservoir
+	if Reservoir and Reservoir.ItemList[itemConfig.ID] then
+		return true
+	end
+	return false
 end
 local function Disease2(itemConfig)
-	if not Pools:IsDiseaseItem(itemConfig.ID) then
+	local Reservoir = mod.IBS_Transformation and mod.IBS_Transformation.Reservoir
+	if Reservoir and not Reservoir.ItemList[itemConfig.ID] then
 		return 0
 	end
 end

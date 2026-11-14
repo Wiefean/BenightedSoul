@@ -98,7 +98,8 @@
 	<costume id="7259" anm2path="bsamson_hair.anm2" type="none" priority="99" />
 	
 	<!-- bazazel -->
-	<costume id="7260" anm2path="bazazel_head.anm2" type="none" priority="99" />
+	<costume id="7260" anm2path="bazazel_costume.anm2" isFlying="true" type="none" priority="99" hasSkinAlt="true"/>
+	<costume anm2path="bazazel_wings_black.anm2" isFlying="true" type="none" priority="999" />
 
 	<!-- beden -->
 	<costume id="7261" anm2path="beden_hair.anm2" type="none" priority="99" />
@@ -113,6 +114,7 @@
 	<costume anm2path="trans_doormaker.anm2" type="none" priority="1" />
 	<costume anm2path="trans_bomber.anm2" type="none" priority="1" />
 	<costume anm2path="trans_abyss.anm2" type="none" priority="1" hasSkinAlt="true" />
+	<costume anm2path="trans_reservoir.anm2" type="none" priority="1" />
 
 	<!-- other -->
 	<costume anm2path="falsehood_bmaggy.anm2" type="none" priority="3" />

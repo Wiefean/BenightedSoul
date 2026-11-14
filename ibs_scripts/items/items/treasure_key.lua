@@ -80,11 +80,7 @@ function TreasureKey:OnUse(item, rng, player, flags, slot)
 		end
 	end
 	
-	--金钥匙
-	if not player:HasGoldenKey() then
-		player:AddGoldenKey()
-		sfx:Play(204)
-	end
+	player:AddKeys(2)
 	
 	return {Discharge = true, ShowAnim = false}
 end

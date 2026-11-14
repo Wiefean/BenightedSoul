@@ -91,6 +91,18 @@ local playerEID = {
 	br='When entering {{IBSSamsonWrath}} Wrath from {{IBSSamsonCalm}} Calm, + 1 charge for {{Collectible'..(IBS_ItemID.Posture)..'}}Posture'
 },
 
+[IBS_PlayerID.BAzazel] = {
+	name='Benighted Azazel',
+	info='Flight'..
+		 '#Fire holy light attractor'..
+		 '#Apply {{IBSBAzazelMark}}Heresy Mark to enemies: Take more damage'..
+		 '#{{SacrificeRoom}}Sacrifice Room frequently appears; And sacrifice damage is {{HalfHeart}}half a heart'..
+		 '#Health-priced items become spiked'..
+		 '#After 3 picking spiked items, enter fallen state: Attack mode changed',
+	br='The attractor becomes homing'..
+		 '#When repeatedly apply {{IBSBAzazelMark}}Heresy Mark, spawn holy light'..
+		 '#{{IBSBAzazelMark}}Heresy Marked enemies take more damage'
+},
 
 [IBS_PlayerID.BEden] = {
 	name="Benighted Eden",
@@ -145,6 +157,14 @@ local playerEID = {
 -------------------------Item---------------------------
 --------------------------------------------------------
 local itemEID={
+
+[CollectibleType.COLLECTIBLE_REDEMPTION]={
+	player={
+		[IBS_PlayerID.BAzazel]='In fallen state, sacrificing or killing {{IBSBAzazelMark}}Heresy Marked enemies hangs {{Collectible673}}Redemption'..
+			'#{{Blank}} {{Collectible673}}Redemption hanging, free sacrifice'..
+			'#{{Blank}} {{Collectible673}}Redemption triggered, exit fallen state'
+	}
+},
 
 [IBS_ItemID.LightD6]={
 	name="The Light D6",
@@ -724,16 +744,12 @@ local itemEID={
 	name="Sketch",
 	info="Discharge 4"..
 		 "#In order of priority, record a tag of the nearest item: "..
-		 "Dead, Syringe, Mom, Tech, Battery, Guppy, Fly, "..
-		 "Bob, Mushroom, Baby, Angel, Devil, Poop, Book, Spider, "..
-		 "Food, Offensive, Stars"..
-		 '#No corresponding tags or duplicated tags is recorded as "None"'..
 		 "#After recording two tags, two more uses can spawn a passive item with the tags"..
-		 "#!!! Affect item pools",
+		 "#Affect item pools",
 	virtue="At least {{Quality2}}quality 2",
 	belial="Replaces the item with{{Collectible51}} if no corresponding item",
 	void="No effect",
-	seijaNerf="75% not to draw",	
+	seijaNerf="75% fail to draw",	
 },
 
 [IBS_ItemID.Molekale]={
@@ -1117,7 +1133,7 @@ local itemEID={
 [IBS_ItemID.TreasureKey]={
 	name='Treasure Key',
 	info='Teleport to a temporary {{ChestRoom}}Chest Room'..
-		 '#Gain {{GoldenKey}}Golden Key',
+		 '#+ 2 {{Key}}keys',
 	virtue="Inner wisps that do not shoot tears#Spawn a chest when killed",
 	belial="Instead, teleport to {{CurseRoom}}Curse Room",
 	void="Do not teleport",
@@ -1151,7 +1167,7 @@ local itemEID={
 	info='↑ {{Range}}range + 1.5'..
 		 '#↑ {{Luck}}luck + 3'..
 		 '#Brother Albern must be in {{SuperSecretRoom}}Super Secret Room'..
-		 '#Brother Albern can be woke up at any touch',
+		 '#Brother Albern can be woken up at any touch',
 },
 
 [IBS_ItemID.Knock]={
@@ -1720,8 +1736,8 @@ local itemEID={
 
 [IBS_ItemID.PreservedFog]={
 	name='Preserved Fog',
-	info='When directly picking items up, remove 3 items with lowest and below-{{Quality3}}Q3 quality from pools (Activated also when picking up this item)'..
-		 '#!!! {{ColorRed}}The first item in a level will be replaced by {{Card41}}Black Rune{{CR}}',
+	info='When directly picking items up, remove 5 items with lowest and below-{{Quality3}}Q3 quality from pools (Activated also when picking up this item)'..
+		 '#!!! {{ColorRed}}The first item in a level will be replaced by {{Card41}}Black Rune and {{BlackHeart}}Black Heart{{CR}}',
 },
 
 [IBS_ItemID.Fiddle]={
@@ -1800,8 +1816,8 @@ local itemEID={
 
 [IBS_ItemID.RitesOfTheRoots]={
 	name='Rites of The Roots',
-	info='{{SacrificeRoom}} Add an extra sacrificial room on new level'..
-	'#The added sacrificial room extra includes {{Confessional}}confessional and {{Beggar}}beggars.',
+	info='{{SacrificeRoom}} Add an extra Sacrifice Room on new level'..
+	'#The added Sacrifice Room extra includes {{Confessional}}confessional and {{Beggar}}beggars.',
 },
 
 [IBS_ItemID.RageOfSwarm]={
@@ -1974,7 +1990,8 @@ local itemEID={
 
 [IBS_ItemID.PermanentBubbles]={
 	name='Permanent Bubbles',
-	info='Passive items are effective even when removed, except quest or error items'..
+	info='Effective only when picked up directly, or it becomes {{Collectible'..(IBS_ItemID.Wheat)..'}}Wheat'..
+		 '#Passive items are effective even when removed, except quest or error items'..
 		 '#After gained, remove this item'
 },
 

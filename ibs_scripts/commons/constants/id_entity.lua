@@ -61,6 +61,19 @@ DiligenceHammerTear = {
 	SubType = Isaac.GetEntitySubTypeByName('IBS_DiligenceHammerTear'),
 },
 
+--倒十字架眼泪
+InvertedCrossTear = {
+	Type = 2,
+	Variant = Isaac.GetEntityVariantByName('IBS_InvertedCrossTear'),
+	SubType = Isaac.GetEntitySubTypeByName('IBS_InvertedCrossTear'),
+},
+
+--昧az妈刀与硫磺火组合飞刀
+BAzazelFakeKnife = {
+	Type = EntityType.ENTITY_TEAR,
+	Variant = Isaac.GetEntityVariantByName('IBS_BAzazelFakeKnife'),
+	SubType = Isaac.GetEntitySubTypeByName('IBS_BAzazelFakeKnife'),
+},
 
 }
 
@@ -270,6 +283,19 @@ DiligenceHammer = {
 }
 
 
+--刀
+mod.IBS_KnifeID = {
+
+--昧az圣光伤害判定
+BAzazelLightKnife = {
+	Type = EntityType.ENTITY_KNIFE,
+	Variant = Isaac.GetEntityVariantByName('IBS_BAzazelLightKnife'),
+	SubType = Isaac.GetEntitySubTypeByName('IBS_BAzazelLightKnife'),
+},
+
+}
+
+
 --效果
 mod.IBS_EffectID = {
 
@@ -359,6 +385,27 @@ ChastityLaser = {
 	Type = 1000,
 	Variant = Isaac.GetEntityVariantByName('IBS_ChastityLaser'),
 	SubType = Isaac.GetEntitySubTypeByName('IBS_ChastityLaser'),
+},
+
+--昧az引导圣光
+BAzazelCrackTheSky = {
+	Type = EntityType.ENTITY_EFFECT,
+	Variant = Isaac.GetEntityVariantByName('IBS_BAzazelCrackTheSky'),
+	SubType = Isaac.GetEntitySubTypeByName('IBS_BAzazelCrackTheSky'),
+},
+
+--昧az圣光标记
+BAzazelCrackTheSkyMark = {
+	Type = EntityType.ENTITY_EFFECT,
+	Variant = Isaac.GetEntityVariantByName('IBS_BAzazelCrackTheSkyMark'),
+	SubType = Isaac.GetEntitySubTypeByName('IBS_BAzazelCrackTheSkyMark'),
+},
+
+--昧az终末天启兼容光球
+BAzazelDogmaOrb = {
+	Type = EntityType.ENTITY_EFFECT,
+	Variant = Isaac.GetEntityVariantByName('IBS_BAzazelDogmaOrb'),
+	SubType = Isaac.GetEntitySubTypeByName('IBS_BAzazelDogmaOrb'),
 },
 
 --空实体

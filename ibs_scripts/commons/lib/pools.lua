@@ -317,51 +317,6 @@ function Pools:GetCollectibleWithCondition(seed, condition, pool, shouldRemove, 
 end
 
 
---疾病道具列表
-Pools.DiseaseItemList = {
-	CollectibleType.COLLECTIBLE_COMMON_COLD, --普通感冒
-	CollectibleType.COLLECTIBLE_ANEMIC, --贫血
-	CollectibleType.COLLECTIBLE_PROPTOSIS, --眼球突出
-	CollectibleType.COLLECTIBLE_DIPLOPIA, --复视
-	CollectibleType.COLLECTIBLE_TOXIC_SHOCK, --毒性休克
-	CollectibleType.COLLECTIBLE_EPIPHORA, --溢泪症
-	CollectibleType.COLLECTIBLE_PUPULA_DUPLEX, --双瞳
-	CollectibleType.COLLECTIBLE_KIDNEY_STONE, --肾结石
-	CollectibleType.COLLECTIBLE_DEAD_TOOTH, --死牙
-	CollectibleType.COLLECTIBLE_VARICOSE_VEINS, --静脉曲张
-	CollectibleType.COLLECTIBLE_COMPOUND_FRACTURE, --复杂性骨折
-	CollectibleType.COLLECTIBLE_POLYDACTYLY, --多指畸形
-	CollectibleType.COLLECTIBLE_SINUS_INFECTION, --鼻窦炎
-	CollectibleType.COLLECTIBLE_GLAUCOMA, --青光眼
-	CollectibleType.COLLECTIBLE_CONTAGION, --传染病
-	CollectibleType.COLLECTIBLE_DEPRESSION, --抑郁症
-	CollectibleType.COLLECTIBLE_LARGE_ZIT, --大青春痘
-	CollectibleType.COLLECTIBLE_DELIRIOUS, --精神错乱
-	CollectibleType.COLLECTIBLE_LEPROSY, --麻风病
-	CollectibleType.COLLECTIBLE_HAEMOLACRIA, --泪血症
-	CollectibleType.COLLECTIBLE_BRITTLE_BONES, --脆骨症
-	CollectibleType.COLLECTIBLE_MUCORMYCOSIS, --毛霉菌病
-	CollectibleType.COLLECTIBLE_TINYTOMA, --小畸胎瘤
-	CollectibleType.COLLECTIBLE_VASCULITIS, --血管炎
-	CollectibleType.COLLECTIBLE_EYE_SORE, --眼瘤
-	CollectibleType.COLLECTIBLE_MONTEZUMAS_REVENGE, --水土不服症
-	CollectibleType.COLLECTIBLE_BONE_SPURS, --骨刺
-	CollectibleType.COLLECTIBLE_HYPERCOAGULATION, --高凝血
-	CollectibleType.COLLECTIBLE_IBS, --大肠激躁症
-	CollectibleType.COLLECTIBLE_HEMOPTYSIS, --咯血症
-	CollectibleType.COLLECTIBLE_STYE, --麦粒肿
-}
-
---是否为疾病道具
-function Pools:IsDiseaseItem(id)
-	for _,v in ipairs(self.DiseaseItemList) do
-		if v == id then
-			return true
-		end
-	end
-	return false
-end
-
 --乞丐道具池
 Pools.BeggarPool = {
 	ItemPoolType.POOL_BEGGAR,

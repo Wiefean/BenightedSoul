@@ -44,6 +44,7 @@ HoardingEID.zh = {
 		["Doormaker"] = "{{IBSTrans_doormaker}} 生成门的概率 + 5%",
 		["Bomber"] = "{{IBSTrans_bomber}} + 10% 爆炸伤害",
 		["Abyss"] = "{{IBSTrans_abyss}} + 3% 吞下饰品概率",
+		["Reservoir"] = "{{IBSTrans_reservoir}} 集齐套装后，失去{{RottenHeart}}腐心时额外治疗{{HalfHeart}}半红心",
 	},
 }
 
@@ -85,6 +86,7 @@ HoardingEID.en = {
 		["Doormaker"] = "{{IBSTrans_doormaker}} + 5% chance to spawn door",
 		["Bomber"] = "{{IBSTrans_doormaker}} + 10% explosion damage",
 		["Abyss"] = "{{IBSTrans_abyss}} + 3% chance to smelt trinkets",
+		["Reservoir"] = "{{IBSTrans_reservoir}} When this transformation is done, heal {{HalfHeart}}half a heart more when losing {{RottenHeart}}Rotten Hearts",
 	},
 }
 

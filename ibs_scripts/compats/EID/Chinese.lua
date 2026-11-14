@@ -94,6 +94,19 @@ local playerEID = {
 	br='由{{IBSSamsonCalm}}平静进入{{IBSSamsonWrath}}暴怒时，恢复{{Collectible'..(IBS_ItemID.Posture)..'}}架势1充能'
 },
 
+[IBS_PlayerID.BAzazel] = {
+	name='昧化阿萨泻勒',
+	info='飞行'..
+		 '#蓄力发射圣光引弹'..
+		 '#对敌人施加{{IBSBAzazelMark}}异端标记：受伤增加'..
+		 '#{{SacrificeRoom}}献祭房无条件出现；献祭伤害变为{{HalfHeart}}半心'..
+		 '#血量交易变为刺交易'..
+		 '#3次刺交易后进入堕落形态：蓄力模式变化',
+	br='圣光引弹获得追踪'..
+		 '#重复施加{{IBSBAzazelMark}}异端标记时，降下圣光'..
+		 '#{{IBSBAzazelMark}}异端标记增伤效果更强'
+},
+
 [IBS_PlayerID.BEden] = {
 	name='昧化伊甸',
 	info='属性不受大部分效果影响',
@@ -147,6 +160,15 @@ local playerEID = {
 --------------------------道具--------------------------
 --------------------------------------------------------
 local itemEID={
+
+--赎罪
+[CollectibleType.COLLECTIBLE_REDEMPTION]={
+	player={
+		[IBS_PlayerID.BAzazel]='堕落形态下，通过献祭或消灭{{IBSBAzazelMark}}异端标记敌人悬挂{{Collectible673}}赎罪'..
+			'#{{Blank}} {{Collectible673}}赎罪悬挂期间，可免费献祭'..
+			'#{{Blank}} {{Collectible673}}赎罪触发后退出堕落形态'
+	}
+},
 
 [IBS_ItemID.LightD6]={
 	name='光辉六面骰',
@@ -724,13 +746,9 @@ local itemEID={
 [IBS_ItemID.Sketch]={
 	name='写生',
 	info='使用消耗4充能'..
-		 '#按优先级记录距离最近的道具的一个标签：'..
-		 '死亡，注射器，妈妈，科技，电池，嗝屁猫，苍蝇，'..
-		 '鲍勃，蘑菇，宝宝，天使，恶魔，便便，书，蜘蛛，'..
-		 '食物，攻击性，星星'..
-		 '#没有对应标签或标签重复时记为"空"'..
+		 '#按优先级记录距离最近的道具的一个标签'..
 		 '#记录两个标签后，再使用两次可以生成具有相同标签的被动道具'..
-		 '#!!! 影响道具池',
+		 '#影响道具池',
 	virtue='至少{{Quality2}}2级道具',
 	belial='没有对应道具时，以{{Collectible51}}五芒星代替',
 	void='无效',
@@ -818,7 +836,7 @@ local itemEID={
 [IBS_ItemID.Goatify]={
 	name='变羊术',
 	info='所有山羊变得友好，免疫火焰，地刺和爆炸伤害，且在已清理房间内不会受伤'..
-		 '#受伤时，将非Boss攻击者变为山羊'..
+		 '#受伤时，将非头目攻击者变为山羊'..
 		 '#使用后，生成1个双倍血量山羊，并从任意角色身上消耗一个{{Collectible'..(IBS_ItemID.Wheat)..'}}小麦为所有山羊回满血量',
 	virtue='不发射眼泪的中环魂火#熄灭时，生成山羊',
 	belial='无特殊效果',
@@ -868,9 +886,9 @@ local itemEID={
 [IBS_ItemID.Edge2]={
 	name='伤疤之秘',
 	info='↑ + 0.5 {{Tears}}射速'..
-		 '#获得或进入新层时，生成{{Card8}}战车，并获得1{{BrokenHeart}}碎心直到4个'..
+		 '#获得或进入新层时，生成{{Card8}}战车，并获得1{{BrokenHeart}}碎心，最多4个'..
 		 '#免疫爆炸和碰撞'..
-		 '#攻击时，向移动方向发射两道幽灵穿透眼泪，每个眼泪造成33%{{Damage}}角色伤害；'..
+		 '#攻击时，向移动方向发射两道幽灵穿透眼泪，每个眼泪造成33%{{Damage}}伤害；'..
 		 '受伤或使用{{Card8}}战车后的一段时间内，上述眼泪伤害翻倍并获得追踪效果',
 	seijaNerf='移动时突进'
 },
@@ -945,7 +963,7 @@ local itemEID={
 [IBS_ItemID.MODE]={
 	name='勤奋偶像',
 	info='↑ + 1{{Luck}}幸运'..
-		 '#在未清理的房间不断生成红小麦'..
+		 '#在未清理的房间不断生成红小麦，共两个'..
 		 '#↑ 拾取4个红小麦后，生成一个心魂火，并在本房间获得0.15{{Speed}}移速和0.25{{Tears}}射速',
 },
 
@@ -1003,7 +1021,7 @@ local itemEID={
 	name='潜伏的G',
 	info='生成{{Trinket113}}战争蝗虫饰品'..
 		 '#自动吞下{{Trinket113}}战争蝗虫饰品'..
-		 '#双击 '..EID.ButtonToIconMap[ButtonAction.ACTION_DROP]..' 丢弃键扔下吞下的{{Trinket113}}战争蝗虫饰品'..
+		 '#双击 '..EID.ButtonToIconMap[ButtonAction.ACTION_DROP]..' 丢弃键扔出吞下的{{Trinket113}}战争蝗虫饰品'..
 		 '#未清理的房间内，{{Trinket113}}战争蝗虫饰品每隔4秒生成1只战争蝗虫'..
 		 '#房间内每新生成一个敌人，有25%概率生成1只战争蝗虫',
 },
@@ -1025,7 +1043,7 @@ local itemEID={
 	name='胜者之弹',
 	info='{{Heart}} + 1 心之容器，满血'..
 		 '#秘密出口保持开启'..
-		 '#不受惩罚性伤害完成{{BossRoom}}Boss房后，再生成一个{{Collectible'..(IBS_ItemID.MasterRound)..'}}胜者之弹'..
+		 '#不受惩罚性伤害完成{{BossRoom}}头目房后，再生成一个{{Collectible'..(IBS_ItemID.MasterRound)..'}}胜者之弹'..
 		 '#切换房间时重置受伤记录',
 },
 
@@ -1051,8 +1069,8 @@ local itemEID={
 		 '#{{Heart}} 满血'..
 		 '#移除所有{{BrokenHeart}}碎心'..
 		 '#角色属性不会低于基础{{Player0}}以撒'..
-		 '#将所有疾病道具移出道具池'..
-		 '#移除角色身上的疾病道具，每移除一个生成一个{{TreasureRoom}}宝箱房道具',
+		 '#将所有{{IBSTrans_reservoir}}生化母体道具移出道具池'..
+		 '#移除角色身上的{{IBSTrans_reservoir}}生化母体道具，每移除一个生成一个{{TreasureRoom}}宝箱房道具',
 	virtue='改为生成{{AngelRoom}}天使房道具',
 	belial='改为生成{{DevilRoom}}恶魔房道具',
 },
@@ -1117,13 +1135,13 @@ local itemEID={
 
 [IBS_ItemID.CheeseCutter]={
 	name='奶酪切片器',
-	info='Boss受到的伤害有10%概率增加18 ({{Luck}}幸运40：50%)'..
-		 '#清理{{BossRoom}}Boss房后，生成一个半价硬币价格的道具 (独立道具池)',
+	info='头目受到的伤害有10%概率增加18 ({{Luck}}幸运40：50%)'..
+		 '#清理{{BossRoom}}头目房后，生成一个半价硬币价格的道具 (独立道具池)',
 },
 
 [IBS_ItemID.Turbo]={
 	name='内核加速',
-	info='获得或失去时，为主动道具充能至额外充能条'..
+	info='获得或失去时，为主动道具充满至额外充能条'..
 		 '#下一个底座道具将被替换为新的{{Collectible'..(IBS_ItemID.Turbo)..'}}内核加速，然后移除角色身上的所有{{Collectible'..(IBS_ItemID.Turbo)..'}}内核加速',
 		 '#对错误道具和任务道具无效',
 	seijaBuff={
@@ -1139,7 +1157,7 @@ local itemEID={
 [IBS_ItemID.TreasureKey]={
 	name='宝库钥匙',
 	info='传送至一个临时{{ChestRoom}}宝库'..
-		 '#获得{{GoldenKey}}金钥匙',
+		 '#获得2{{Key}}钥匙',
 	virtue="不发射眼泪的内环魂火#熄灭时，生成箱子",
 	belial="改为传送至{{CurseRoom}}诅咒房",
 	void="不会触发传送效果",
@@ -1159,7 +1177,7 @@ local itemEID={
 	name='银之钥',
 	info='在清理房间后充能，可充满两次'..
 		 '#使用时，记录当前房间(仅部分可记录)和游戏计时'..
-		 '#再次使用时，尝试将距离最近的房间重置为记录的房间，并回溯游戏计时'..
+		 '#已有记录时，尝试将距离最近的房间重置为记录的房间，并回溯游戏计时'..
 		 '#!!! 进入新层时，与上一次记录过的房间类型相同的房间将变为普通房间'..
 		 '#所有{{Collectible'..(IBS_ItemID.SilverKey)..'}}'..'银之钥共享记录',
 	virtue='可记录{{AngelRoom}}天使房',
@@ -1180,7 +1198,7 @@ local itemEID={
 	name='洞开之启',
 	info='获得时，生成{{Card6}}教皇'..
 		 '#每受伤5次，有30%概率生成{{Card6}}教皇'..
-		 '#使用{{Card6}}教皇后，尝试开启红特殊房间；每开启一个特殊房间，获得1{{BrokenHeart}}碎心'..
+		 '#使用{{Card6}}教皇后，尝试开启红特殊房间；每开启一个，获得1{{BrokenHeart}}碎心'..
 		 '#进入{{UltraSecretRoom}}究极隐藏房时，清除5{{BrokenHeart}}碎心',
 },
 
@@ -1743,8 +1761,8 @@ local itemEID={
 
 [IBS_ItemID.PreservedFog]={
 	name='腌制活雾',
-	info='直接拾取道具时，从道具池中移除3个品质最低且低于{{Quality3}}3的道具 (拾取该道具也会生效)'..
-		 '#!!! {{ColorRed}}每层首个道具将被替换为{{Card41}}黑符文{{CR}}',
+	info='直接拾取道具时，从道具池中移除5个品质最低且低于{{Quality3}}3的道具 (拾取该道具也会生效)'..
+		 '#!!! {{ColorRed}}每层首个道具将被替换为{{Card41}}黑符文和{{BlackHeart}}黑心{{CR}}',
 },
 
 [IBS_ItemID.Fiddle]={
@@ -2004,7 +2022,8 @@ local itemEID={
 
 [IBS_ItemID.PermanentBubbles]={
 	name='永久泡泡水',
-	info='被动道具失去后仍有效，除了任务道具和错误道具'..
+	info='该道具只有被直接拾取才生效，否则变为{{Collectible'..(IBS_ItemID.Wheat)..'}}小麦'..
+		 '#被动道具失去后仍有效，除了任务道具和错误道具'..
 		 '#拾取后，移除该道具'
 },
 
@@ -2016,6 +2035,14 @@ local itemEID={
 [IBS_ItemID.Entanglement]={
 	name='命运纠缠',
 	info='{{AngelDevilChance}} 恶魔房和天使房都没有成功开启时，在地图上生成两个错误房并揭示其位置'
+},
+
+[IBS_ItemID.ADropOfBlood]={
+	name='一滴血',
+	info='{{AngelRoom}} 天使房转换率 + 100%'..
+		 '#{{AngelRoom}}天使房内的道具变为硬币价格，但不再单选'..
+		 '#{{Shop}}商店内的道具价格-30，但是单选'..
+		 '#对错误道具和任务道具无效'
 },
 
 }

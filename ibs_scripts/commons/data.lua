@@ -115,6 +115,7 @@ local function Persis_Init() --此处可新增长久数据
 		trans_doormaker = true, --掌门
 		trans_bomber = true, --炸弹人
 		trans_abyss = true, --无底坑
+		trans_reservoir = true, --生化母体
 		--套装区结束--		
 		
 		

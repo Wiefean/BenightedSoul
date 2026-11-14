@@ -32,6 +32,8 @@ AddIcon('IBSMemory', 'memory', 'Idle', 0, 16, 16, 7, 6) --记忆碎片
 AddIcon('IBSSamsonCalm', 'bsamson_state', 'Idle', 0, 16, 16, 7, 6) --参孙平静
 AddIcon('IBSSamsonWrath', 'bsamson_state', 'Idle', 1, 16, 16, 7, 6) --参孙暴怒
 
+AddIcon('IBSBAzazelMark', 'bazazel_mark', 'Idle', 0, 16, 16, 7, 6) --AZ标记
+
 do --角色
 	local i = 0
 	for ID = IBS_PlayerID.BIsaac, IBS_PlayerID.BForgotten do
@@ -59,10 +61,16 @@ do --套装
 			name_zh = "无底坑！",
 			key = "Abyss",
 			animFrame = 2,
+		},
+		["IBSTrans_reservoir"] = {
+			name = "Reservoir!",
+			name_zh = "生化母体！",
+			key = "Reservoir",
+			animFrame = 3,
 		},			
 	}
 	
-	mod:AddPriorityCallback(ModCallbacks.MC_POST_MODS_LOADED, CallbackPriority.EARLY, function()
+	mod:AddPriorityCallback(ModCallbacks.MC_POST_MODS_LOADED, CallbackPriority.LATE, function()
 		for k,v in pairs(TransList) do
 			AddIcon(k, 'transformations', 'idle', v.animFrame, 16, 16, 5, 5)
 			EID:createTransformation(k, v.name_zh, "zh_cn")

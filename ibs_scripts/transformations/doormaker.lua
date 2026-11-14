@@ -49,26 +49,32 @@ local Doormaker = mod.IBS_Class.Transformation("trans_doormaker", {
 	},
 })
 
---生成红房间
-function Doormaker:TryMakeDoor(seed)
-	if game:GetLevel():GetCurrentRoomIndex() < 0 then return false end
-
-	local room = game:GetRoom()
-	local level = game:GetLevel()
-	local idx = level:GetCurrentRoomIndex()
-	
-	--概率计算
-	local chance = 30
+--获取概率
+function Doormaker:GetChance()
+	local chance = 0
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
-		if self:IsOwned(player) and player:HasCollectible(IBS_ItemID.Hoarding) then
+		if self:IsOwned(player) then
+			chance = chance + 30
+		end		
+		if player:HasCollectible(IBS_ItemID.Hoarding) then
 			chance = chance + 5 * self:GetCount(player)
 		end
 	end	
+	return chance
+end
+
+--生成红房间
+function Doormaker:TryMakeDoor(seed, chance)
+	if game:GetLevel():GetCurrentRoomIndex() < 0 then return false end
 	
-	if RNG(seed):RandomInt(100) > chance then
+	if chance <= 0 or RNG(seed):RandomInt(100) > chance then
 		return false
 	end
+	
+	local room = game:GetRoom()
+	local level = game:GetLevel()
+	local idx = level:GetCurrentRoomIndex()	
 	
 	--贪婪模式
 	if game:IsGreedMode() then
@@ -129,20 +135,16 @@ end
 
 --清理房间
 function Doormaker:OnRoomCleaned()
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
-		if self:IsOwned(player) then
-			local limit = (game:IsGreedMode() and 1) or 3
-			local data = self:GetIBSData('level')
-			data.DoormakerCount = data.DoormakerCount or 0
-			
-			if data.DoormakerCount < limit then
-				if self:TryMakeDoor(player:GetCardRNG(78):Next()) then
-					data.DoormakerCount = data.DoormakerCount + 1				
-				end
+	local chance = self:GetChance()
+	if chance > 0 then	
+		local limit = (game:IsGreedMode() and 1) or 3
+		local data = self:GetIBSData('level')
+		data.DoormakerCount = data.DoormakerCount or 0
+		
+		if data.DoormakerCount < limit then
+			if self:TryMakeDoor(Isaac.GetPlayer(0):GetCardRNG(78):Next(), chance) then
+				data.DoormakerCount = data.DoormakerCount + 1				
 			end
-			
-			break
 		end
 	end
 end

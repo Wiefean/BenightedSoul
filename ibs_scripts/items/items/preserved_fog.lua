@@ -56,7 +56,7 @@ function PreservedFog:OnPickItem(player, item, touched)
 	if player:HasCollectible(self.ID) or item == self.ID then
 		local itemPool = game:GetItemPool()
 	
-		for i = 1,3 do
+		for i = 1,5 do
 			local rng = player:GetCollectibleRNG(self.ID)
 			local id = self:GetLowestQualityItem(rng:Next())
 			local itemConfig = config:GetCollectible(id)
@@ -83,6 +83,7 @@ function PreservedFog:OnPickupInit(pickup)
 	
 	self:DelayFunction(function()	
 		if not data.PreservedFogTriggered then
+			Isaac.Spawn(5, 10, 6, pickup.Position, Vector.Zero, nil)
 			Isaac.Spawn(5, 300, 41, pickup.Position, Vector.Zero, nil)
 			Isaac.Spawn(1000, 15, 0, pickup.Position, Vector.Zero, nil)
 			pickup:Remove()

@@ -28,7 +28,9 @@
 
     <!-- tears -->
     <entity name="IBS_DiligenceHammerTear" anm2path="tears/diligence_hammer.anm2" id="2" variant="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="50" collisionRadius="16" friction="1" numGridCollisionPoints="16" shadowSize="16" stageHP="0" />
-    	
+    <entity name="IBS_InvertedCrossTear" anm2path="tears/inverted_cross_tear.anm2" id="2" variant="7251" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="50" collisionRadius="16" friction="1" numGridCollisionPoints="16" shadowSize="16" stageHP="0" />
+    <entity name="IBS_BAzazelFakeKnife" anm2path="tears/bazazel_fake_knife.anm2" id="2" variant="7252" baseHP="5" boss="0" champion="0" collisionDamage="1" collisionMass="10" collisionRadius="15" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" />
+     	
 
 	<!-- familiars -->
     <entity name="IBS_Wisper" anm2path="familiar/wisper.anm2" id="3" variant="7248" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="16" friction="1" numGridCollisionPoints="12" shadowSize="7" stageHP="0" tags="cansacrifice"/>
@@ -195,6 +197,10 @@
     <entity name="IBS_DiligenceHammer" anm2path="tears/diligence_hammer.anm2" id="9" variant="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="50" collisionRadius="16" friction="1" numGridCollisionPoints="16" shadowSize="16" stageHP="0" />
     	
 
+	<!-- knives -->
+	<entity name="IBS_BAzazelLightKnife" id="8" variant="7250" subtype="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="0" collisionRadius="20" friction="0" numGridCollisionPoints="0" shadowSize="0" stageHP="0" />
+
+
 	<!-- effects -->
     <entity name="IBS_Benighting" anm2path="effects/benighting.anm2" id="1000" variant="7250" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="8" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
@@ -232,5 +238,8 @@
     <entity name="IBS_ChastityLaser" anm2path="effects/chastity_laser.anm2" id="1000" variant="7261" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="0" shadowSize="0" stageHP="0" >
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
+	<entity name="IBS_BAzazelCrackTheSky" anm2path="effects/bazazel_crackthesky.anm2" id="1000" variant="7262" subtype="0" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="0" collisionRadius="20" friction="0" numGridCollisionPoints="0" shadowSize="0" stageHP="0" />
+	<entity name="IBS_BAzazelCrackTheSkyMark" anm2path="effects/bazazel_crackthesky_mark.anm2" id="1000" variant="7263" subtype="0" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="0" collisionRadius="0" friction="0" numGridCollisionPoints="0" shadowSize="0" stageHP="0" />
+	<entity name="IBS_BAzazelDogmaOrb" anm2path="effects/dogma_orb.anm2" id="1000" variant="7264" subtype="0" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="0" collisionRadius="0" friction="0" numGridCollisionPoints="0" shadowSize="0" stageHP="0" />	
 	<entity name="IBS_Empty" id="1000" variant="7777" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="0" collisionRadius="0" friction="0" numGridCollisionPoints="0" shadowSize="0" stageHP="0"/>	
 </entities>

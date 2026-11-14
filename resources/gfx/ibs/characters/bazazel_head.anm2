@@ -2,7 +2,7 @@
     <Info CreatedBy="Unknown" CreatedOn="2025/6/8 10:04:50" Fps="30" Version="23"/>
     <Content>
         <Spritesheets>
-            <Spritesheet Id="0" Path="costumes\players\bazazel\head.png"/>
+            <Spritesheet Id="0" Path="costumes\players\bazazel\head_challenge.png"/>
         </Spritesheets>
         <Layers>
             <Layer Id="0" Name="head" SpritesheetId="0"/>

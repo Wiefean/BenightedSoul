@@ -33,6 +33,7 @@ Player = {
 	[IBS_PlayerID.BXXX] = '???',
 	[IBS_PlayerID.BEve] = '夏娃',
 	[IBS_PlayerID.BSamson] = '参孙',
+	[IBS_PlayerID.BAzazel]='阿撒泻勒',
 	[IBS_PlayerID.BEden] = '伊甸',
 	[IBS_PlayerID.BLost] = '游魂',
 	[IBS_PlayerID.BKeeper] = '店主',
@@ -51,6 +52,7 @@ Item = {
 		[IBS_PlayerID.BXXX]='沉浸',
 		[IBS_PlayerID.BEve]='果已过',
 		[IBS_PlayerID.BSamson]='猛虎下山',
+		[IBS_PlayerID.BAzazel]='惩戒',
 		[IBS_PlayerID.BEden]='氵卖神',
 		[IBS_PlayerID.BLost]='永恒心锁',
 		[IBS_PlayerID.BKeeper]='取决于你',
@@ -1167,6 +1169,11 @@ Item = {
 	[IBS_ItemID.Entanglement]={
 		Name='命运纠缠',
 		Desc='另一可能',
+	},	
+	
+	[IBS_ItemID.ADropOfBlood]={
+		Name='一滴血',
+		Desc='血偿血债',
 	},	
 
 },

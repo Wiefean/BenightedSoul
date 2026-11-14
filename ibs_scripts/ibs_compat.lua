@@ -264,8 +264,9 @@ mod:AddPriorityCallback(ModCallbacks.MC_POST_MODS_LOADED, CallbackPriority.EARLY
 	end
 
 	do --疾病道具
-		table.insert(Pools.DiseaseItemList, THI.Collectibles.Asthma.Item)
-		table.insert(Pools.DiseaseItemList, THI.Collectibles.ZombieInfestation.Item)
+		local Reservoir = mod.IBS_Transformation.Reservoir
+		Reservoir.ItemList[THI.Collectibles.Asthma.Item] = true
+		Reservoir.ItemList[THI.Collectibles.ZombieInfestation.Item] = true
 	end
 	
 	do --饥饿

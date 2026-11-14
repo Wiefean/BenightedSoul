@@ -1,15 +1,47 @@
 -----------------------------------
-2026.10
+2026.11
+v0.13.3
+
+新道具：一滴血
+
+调整：
+ <角色>
+ 昧化阿撒泻勒：能力更新
+ <道具>
+ 宽容：只替换小头目房中的嫉妒
+ 宝库钥匙：削弱
+ 炽热钥匙：从商店道具池移除
+ 分裂钥匙：从商店道具池移除
+ 
+
+New Item: A Drop of Blood 
+ 
+Adjustments:
+ <Character>
+ Benighted Azazel: Abilities update
+ <Items>
+ Kindness: Only replace Envy in Mini-boss Room
+ Treasure Key: Droop
+ Heat Keys: Removed from shop pool
+ Scatter Keys: Removed from shop pool
+-----------------------------------
+2026.11
 v0.13.2
+
+新套装：生化母体
 
 调整：
  <道具>
  迷途之镜：强化
+ 腌制活雾：强化
 
+
+New Transformation: Reservoir
 
 Adjustments:
  <Items>
  Wildering Mirror: Boost
+ Preserved Fog: Boost
 -----------------------------------
 2026.10
 v0.13.1

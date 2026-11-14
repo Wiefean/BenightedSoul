@@ -10,5 +10,6 @@ mod.IBS_Transformation = {
 	Doormaker = Load('doormaker'),
 	Bomber = Load('bomber'),
 	Abyss = Load('abyss'),
+	Reservoir = Load('reservoir'),
 
 }

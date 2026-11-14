@@ -122,17 +122,17 @@
         <Item Name="Brimstone Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Bob's Blessing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Mr. Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-        <Item Name="Heat Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Kear" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Bullet in a Jar" Weight="0.1" DecreaseBy="0.1" RemoveOn="0.1" />
         <Item Name="Secret Agent" Weight="0.1" DecreaseBy="0.1" RemoveOn="0.1" />
         <Item Name="Montezuma's Heritage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-        <Item Name="Scatter Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Soul Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Blood Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Cuckoo Zapper" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Eerie Lantern" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Entanglement" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Heat Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Scatter Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="greedTreasure">
@@ -227,12 +227,10 @@
         <Item Name="Brimstone Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Bob's Blessing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Mr. Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-        <Item Name="Heat Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Kear" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Bullet in a Jar" Weight="0.1" DecreaseBy="0.1" RemoveOn="0.1" />
         <Item Name="Secret Agent" Weight="0.1" DecreaseBy="0.1" RemoveOn="0.1" />
         <Item Name="Montezuma's Heritage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-        <Item Name="Scatter Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Soul Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Blood Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -241,6 +239,8 @@
         <Item Name="Eerie Lantern" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Permanent Bubbles" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Abandoned Luggage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Heat Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Scatter Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="planetarium">
@@ -295,11 +295,9 @@
 		<Item Name="Orichaliron" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
         <Item Name="Mr. Dynamax" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-        <Item Name="Heat Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Toy Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Bomber Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-        <Item Name="Scatter Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Discount Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Eerie Lantern" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -364,11 +362,9 @@
 		<Item Name="Insects and Nectars" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		<Item Name="Orichaliron" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
-        <Item Name="Heat Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Secret Agent" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Toy Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Bomber Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-        <Item Name="Scatter Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Discount Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Eerie Lantern" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -645,6 +641,7 @@
 		<Item Name="Blessing of Michael" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 
         <Item Name="Soul Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="A Drop of Blood" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 
 	<Pool Name="greedAngel">
@@ -808,6 +805,7 @@
 		<Item Name="I Beg" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 		
         <Item Name="Abandoned Luggage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="A Drop of Blood" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="demonBeggar">
@@ -838,9 +836,10 @@
         <Item Name="Montezuma's Heritage" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Toy Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Bomber Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-        <Item Name="Scatter Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="KKEKK" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Blood Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Heat Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Scatter Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="batteryBum">

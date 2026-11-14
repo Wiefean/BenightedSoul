@@ -41,6 +41,11 @@ mod.IBS_Tear = {
 --劳锤眼泪
 DiligenceHammerTear = Load('diligence_hammer_tear'),
 
+--昧az妈刀与硫磺火组合飞刀
+BAzazelFakeKnife = Load('bazazel_fake_knife'),
+
+--倒十字架眼泪
+InvertedCrossTear = Load('inverted_cross_tear'),
 
 }
 
@@ -147,6 +152,16 @@ DiligenceHammer = Load('diligence_hammer'),
 }
 
 
+--刀
+local function Load(fileName)
+	return include('ibs_scripts.entities.knives.'..fileName)
+end
+mod.IBS_Knife = {
+
+--昧az圣光伤害判定
+BAzazelLightKnife = Load('bazazel_light_knife'),
+
+}
 
 
 --效果
@@ -190,6 +205,15 @@ ChastityShield = Load('chastity_shield'),
 
 --贞洁激光
 ChastityLaser = Load('chastity_laser'),
+
+--昧az引导圣光
+BAzazelCrackTheSky = Load('bazazel_crackthesky'),
+
+--昧az终末天启兼容光球
+BAzazelDogmaOrb = Load('bazazel_dogma_orb'),
+
+--昧az圣光标记
+BAzazelCrackTheSkyMark = Load('bazazel_crackthesky_mark'),
 
 --空实体
 Empty = Load('empty'),

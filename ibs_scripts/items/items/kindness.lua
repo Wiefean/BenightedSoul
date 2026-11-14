@@ -20,13 +20,18 @@ function Kindness:CanAppear()
 		return false
 	end
 
+	--小头目房
+	if room:GetType() ~= RoomType.ROOM_MINIBOSS then
+		return false
+	end
+
 	--表表抹检测
-	if room:GetType() == RoomType.ROOM_MINIBOSS and PlayerManager.AnyoneIsPlayerType(mod.IBS_PlayerID.BMaggy) then
+	if PlayerManager.AnyoneIsPlayerType(mod.IBS_PlayerID.BMaggy) then
 		return false
 	end
 	
-	--成就检测,非boss房
-	if self:GetIBSData('persis')[IBS_PlayerKey.BSamson].FINISHED and (room:GetType() ~= RoomType.ROOM_BOSS) then
+	--成就检测
+	if self:GetIBSData('persis')[IBS_PlayerKey.BSamson].FINISHED then
 		return true
 	end
 	
