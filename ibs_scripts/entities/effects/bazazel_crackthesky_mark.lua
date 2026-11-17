@@ -67,12 +67,13 @@ end
 
 --重复施加刷新持续时间;若正在淡出,则重新播放Spawn并恢复标记
 --长子名分额外在敌人位置落下一道圣光,首次施加标记时不触发
-function BAzazelCrackTheSkyMark:Apply(target, spawner, sourceTear)
+function BAzazelCrackTheSkyMark:Apply(target, spawner, sourceTear, duration)
 	if not target then return nil end
+	duration = duration or self.Duration
 	local effect = self:GetStoredMark(target)
 	if effect then
 		local data = self:GetMarkData(effect)
-		data.Time = self.Duration
+		data.Time = duration
 		if data.Removing then
 			data.Removing = false
 			effect:GetSprite():Play('Spawn', true)
@@ -97,7 +98,7 @@ function BAzazelCrackTheSkyMark:Apply(target, spawner, sourceTear)
 
 	local data = self:GetMarkData(effect)
 	data.Target = target
-	data.Time = self.Duration
+	data.Time = duration
 	data.Removing = false
 	self._Ents:GetTempData(target).BAzazelCrackTheSkyMarkEffect = effect
 	return effect

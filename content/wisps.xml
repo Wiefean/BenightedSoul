@@ -352,5 +352,11 @@
 	
 	<!-- mr dynamax -->
 	<wisp id="207" count="0" />		
+
+	<!-- atonement ceremony -->
+	<wisp id="228" count="3" layer="1" hp="12" canShoot="false" flameColor="flame_white" coreColor="core_white" tearColor="1 1 1 0" coreGfx="cross.png" />
+
+	<!-- on the pyre -->
+	<wisp id="229" count="2" layer="1" hp="12" damage="3.5" canShoot="true" flameColor="flame_red" coreColor="core_orange" tearColor="tear_orange" />
 	
 </wisps>

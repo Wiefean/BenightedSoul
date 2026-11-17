@@ -234,6 +234,9 @@ mod.IBS_Item = {
 	AbandonedLuggage = Load('abandoned_luggage'),
 	Entanglement = Load('entanglement'),
 	ADropOfBlood = Load('a_drop_of_blood'),
+	WitchHuntingSeason = Load('witch_hunting_season'),
+	AtonementCeremony = Load('atonement_ceremony'),
+	OnThePyre = Load('on_the_pyre'),
 
 }
 

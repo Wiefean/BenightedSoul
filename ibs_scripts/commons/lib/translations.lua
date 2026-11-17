@@ -1176,6 +1176,21 @@ Item = {
 		Desc='血偿血债',
 	},	
 
+	[IBS_ItemID.WitchHuntingSeason]={
+		Name='猎巫时节',
+		Desc='狩猎开始了',
+	},
+
+	[IBS_ItemID.AtonementCeremony]={
+		Name='赎罪仪式',
+		Desc='遁入光明',
+	},
+
+	[IBS_ItemID.OnThePyre]={
+		Name='火刑架',
+		Desc='烧光他们 !',
+	},
+
 },
 
 --饰品

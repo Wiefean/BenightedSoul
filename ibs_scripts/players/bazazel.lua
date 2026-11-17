@@ -27,11 +27,6 @@ local InitInfo = {
 	RangeMul = 1,
 }
 
---常态与黑色形态使用相同的玩家动画结构,仅切换图集ANM2
-local PlayerNormalSpritePath = 'gfx/ibs/characters/player_bazazel.anm2'
-local PlayerBlackSpritePath = 'gfx/ibs/characters/player_bazazel_black.anm2'
-local BlackWingsCostume = Isaac.GetCostumeIdByPath('gfx/ibs/characters/bazazel_wings_black.anm2')
-
 BAzazel.BlackFormInfo = {
 	RequiredSpikeDeals = 3,
 	SpikePrice = -5, --兼容忏悔,不依赖Repentance+新增枚举
@@ -40,9 +35,9 @@ BAzazel.BlackFormInfo = {
 	SacrificeKillProgress = 6,
 	TransitionLightCount = 6,
 	TransitionLightRadius = 40,
-	SwingKnockback = 3,
+	SwingKnockback = 30,
 	ChargeGainMultiplier = 2,
-	ChargeRefillRatio = 0.5,
+	ChargeRefillRatio = 0.6,
 	SwingColor = Color(1, 0.15, 0.15, 1, 0, 0, 0),
 }
 BAzazel.ProgressHintDuration = 30
@@ -103,14 +98,28 @@ function BAzazel:GetData(player)
 	return data.BAzazelForm
 end
 
+--测试用,直接进黑
+if mod._Debug then
+	function AZBlack()
+		local player = Isaac.GetPlayer(0)
+		local data = BAzazel:GetData(player)
+		data.BlackForm = true
+	end
+end
+
 function BAzazel:IsBlackForm(player)
 	return player and player:GetPlayerType() == self.ID and self:GetData(player).BlackForm or false
 end
 
 function BAzazel:SpawnBlackFormTransitionEffect(player, enteringBlack)
-	local pitch = enteringBlack and 0.5 or 1
-	sfx:Play(SoundEffect.SOUND_SUPERHOLY, 1, 2, false, pitch, 0)
-	game:ShakeScreen(15)
+	local sound = enteringBlack and SoundEffect.SOUND_UNHOLY or SoundEffect.SOUND_SUPERHOLY
+	sfx:Play(sound, 1, 2, false, 0.67, 0)
+
+	if enteringBlack then
+		player:AddBlackHearts(6)
+	else
+		player:GetEffects():RemoveCollectibleEffect(82) --深渊领主(仅用于改肤色)
+	end
 
 	local entity = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF02, 1,
 		player.Position, Vector.Zero, player)
@@ -132,32 +141,74 @@ function BAzazel:SpawnBlackFormTransitionEffect(player, enteringBlack)
 	end
 end
 
---进入或离开黑色形态时替换玩家动画图集,保留当前动画与帧
+
+--常态与黑色形态使用相同的玩家动画结构,仅切换图集ANM2
+local SpriteDefaultPath = "gfx/001.000_player.anm2"
+local SpritePath = 'gfx/ibs/characters/player_bazazel.anm2'
+local SpritePath2 = 'gfx/ibs/characters/player_bazazel_black.anm2'
+local SheetPath = 'gfx/ibs/characters/costumes/players/bazazel/bazazel.png'
+local SheetPath2 = 'gfx/ibs/characters/costumes/players/bazazel/bazazel_black.png'
+local BlackWingsCostume = Isaac.GetCostumeIdByPath('gfx/ibs/characters/bazazel_wings_black.anm2')
+
+--更新贴图
 function BAzazel:__UpdatePlayerSprite(player, data)
+	local sprPath = SpritePath
+	local sprPath2 = SpritePath2
+	local sprState = 1
+	local path = sprPath
+	local sheetPath = SheetPath
 	local blackForm = self:IsBlackForm(player)
-	local spriteState = data.BAzazelBlackFormSprite
-	if spriteState == blackForm then return end
-	if spriteState == nil and not blackForm then
-		data.BAzazelBlackFormSprite = false
-		return
-	end
-
-	data.BAzazelBlackFormSprite = blackForm
-	local spritePath = blackForm and PlayerBlackSpritePath or PlayerNormalSpritePath
-	self:__ChangeSprite(player, spritePath)
-
-	if BlackWingsCostume and BlackWingsCostume >= 0 then
-		if blackForm then
-			player:AddNullCostume(BlackWingsCostume)
-		else
-			player:TryRemoveNullCostume(BlackWingsCostume)
+	
+	--黑色形态
+	if blackForm then
+		path = sprPath2
+		sheetPath = SheetPath2
+		sprState = 2
+		
+		if not data.BAzazelBlackFormSprite then
+			data.BAzazelBlackFormSprite = true
+			self:SpawnBlackFormTransitionEffect(player, true)
+		end
+	else
+		if data.BAzazelBlackFormSprite then
+			data.BAzazelBlackFormSprite = nil
+			self:SpawnBlackFormTransitionEffect(player, false)
 		end
 	end
-
-	if spriteState ~= nil then
-		self:SpawnBlackFormTransitionEffect(player, blackForm)
+	
+	--飞行
+	if player.CanFly then
+		path = sprPath
+		sheetPath = SheetPath
+		sprState = 3
+		
+		--黑色形态
+		if blackForm then
+			path = sprPath2
+			sheetPath = SheetPath2
+			sprState = 4
+		end
+	end	
+	
+	--超大蘑菇
+	if player:GetEffects():HasCollectibleEffect(CollectibleType.COLLECTIBLE_MEGA_MUSH) then
+		path = SpriteDefaultPath
+		sprState = 0
 	end
+
+	if data.SpriteState ~= sprState then
+		data.SpriteState = sprState
+		self:__ChangeSprite(player, path, sheetPath)
+		
+		--调整装扮
+		if sprState == 1 or sprState == 3 then
+			player:TryRemoveNullCostume(BlackWingsCostume)
+		elseif sprState == 2 or sprState == 4 then
+			player:AddNullCostume(BlackWingsCostume)
+		end
+	end	
 end
+
 
 --以撒心脏只替换本体的攻击中心,不改变其他复制攻击跟班的中心
 function BAzazel:GetAttackSource(player)
@@ -203,7 +254,7 @@ end
 function BAzazel:OnPlayerInit(player)
 	if player:GetPlayerType() ~= self.ID then return end
 	local blackForm = self:IsBlackForm(player)
-	self:__ChangeSprite(player, blackForm and PlayerBlackSpritePath or PlayerNormalSpritePath)
+	self:__ChangeSprite(player, blackForm and SpritePath2 or SpritePath)
 	self:__GetAnimData(player).BAzazelBlackFormSprite = blackForm
 	--player:AddCollectible(643, 0, false)
 end
@@ -220,11 +271,11 @@ function BAzazel:HasSacrificeRoom(level)
 	return false
 end
 
---昧az每层保底一个献祭房,优先于根系之仪执行
+--献祭房保底,优先于根系之仪执行
 function BAzazel:EnsureSacrificeRoom()
 	if not PlayerManager.AnyoneIsPlayerType(self.ID) then return end
+	local level = game:GetLevel(); if level:GetStage() % 2 == 0 then return end
 
-	local level = game:GetLevel()
 	if self:HasSacrificeRoom(level) then return end
 
 	local dimension = -1
@@ -449,7 +500,8 @@ function BAzazel:GetDelayCorrection(player)
 	or player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER)) then
 		delay = delay * 0.5
 	end
-	if player:HasCollectible(CollectibleType.COLLECTIBLE_HAEMOLACRIA)
+	if InvertedCrossTear:HasCollectibleIncludingBlocked(
+		player, CollectibleType.COLLECTIBLE_HAEMOLACRIA)
 	or (player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG)
 	and not player:HasCollectible(CollectibleType.COLLECTIBLE_TECHNOLOGY)) then
 		delay = delay * 0.5
@@ -478,31 +530,35 @@ end
 
 --黑色形态每组引弹只挥砍一次;普通模式和遥控模式生成时额外补充半条蓄力
 function BAzazel:DoBlackFormSwing(player, data, source, aimAngle, replenishHalf)
-	if not self:IsBlackForm(player) or not source or not source:Exists() then return end
 	local direction = Vector.FromAngle(aimAngle or 0)
+	if not self:IsBlackForm(player) or not source or not source:Exists() then return end
+	
+	--射程额外影响大小
+	local scale = player.SpriteScale.X
+	local percent = ((player.TearRange / 40) / 6.5) / 2
+	if percent > 1 then
+		scale = scale * math.min(1.5, percent)
+	end	
+	
 	local targets, effect = mod.IBS_Effect.Swing:DoSwing({
 		Spawner = player,
 		AimingVector = direction,
 		Position = source.Position,
 		Color = self.BlackFormInfo.SwingColor,
-		Scale = 1.5, --判定半径、攻击偏移和特效尺寸同步翻倍
-		Damage = player.Damage,
-		BounceSpeed = 0,
-		SelfBounceSpeed = 0,
+		Scale = 1.4 * scale, --判定半径、攻击偏移和特效尺寸同步翻倍
+		Damage = player.Damage * 3,
+		BounceSpeed = self.BlackFormInfo.SwingKnockback,
+		SelfBounceSpeed = 3,
+		ClearProj = true,
+		CollectPickup = true,
 		FollowEntity = source,
 	})
-	--与里ysd发射衣架一致的原版音效(SoundEffect 252)
-	sfx:Play(SoundEffect.SOUND_SHELLGAME)
+	sfx:Play(494, 1, 2, false, 1.6)
 	local hitEnemy = false
 	for _, entity in ipairs(targets) do
 		if self._Ents:IsEnemy(entity) then
 			hitEnemy = true
 			mod.IBS_Effect.BAzazelCrackTheSkyMark:Apply(entity, player)
-			local knockback = (entity.Position - source.Position):Normalized()
-			if knockback:Length() <= 0 then
-				knockback = direction
-			end
-			entity:AddVelocity(knockback * self.BlackFormInfo.SwingKnockback)
 		end
 	end
 
@@ -1137,102 +1193,43 @@ function BAzazel:ReleaseCharge(player, data, source, autoRelease)
 		and 0 or math.max(1, player.MaxFireDelay)
 end
 
---屏蔽吐根的原版效果并保留自定义兼容,失去后解除屏蔽,重新获得后再次屏蔽
-function BAzazel:UpdateIpecacBlockTest(player, data)
+BAzazel.BlockedCompatCollectibles = {
+	[CollectibleType.COLLECTIBLE_IPECAC] = 'BlockedIpecac',
+	[CollectibleType.COLLECTIBLE_DR_FETUS] = 'BlockedDrFetus',
+	[CollectibleType.COLLECTIBLE_REVELATION] = 'BlockedRevelation',
+	[CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID] = 'BlockedMawOfTheVoid',
+	[CollectibleType.COLLECTIBLE_HAEMOLACRIA] = 'BlockedHaemolacria',
+}
+
+--屏蔽会隐藏HasCollectible结果,真实库存与data标记共同决定何时解除
+function BAzazel:UpdateCompatItemBlocks(player, data)
 	if not REPENTOGON
 	or type(player.BlockCollectible) ~= 'function'
 	or type(player.UnblockCollectible) ~= 'function'
 	or type(player.IsCollectibleBlocked) ~= 'function'
 	or type(player.GetCollectiblesList) ~= 'function' then return end
 
-	local id = CollectibleType.COLLECTIBLE_IPECAC
-	--屏蔽后HasCollectible为false,真实库存才能区分持有和已经失去
-	local owned = (player:GetCollectiblesList()[id] or 0) > 0
-	if not owned then
-		if data.BlockedIpecac then
-			if player:IsCollectibleBlocked(id) then
-				player:UnblockCollectible(id)
+	for id, key in pairs(self.BlockedCompatCollectibles) do
+		local owned = (player:GetCollectiblesList()[id] or 0) > 0
+		if not owned then
+			if data[key] then
+				if player:IsCollectibleBlocked(id) then
+					player:UnblockCollectible(id)
+				end
+				data[key] = nil
+				player:AddCacheFlags(CacheFlag.CACHE_ALL)
+				player:EvaluateItems()
 			end
-			data.BlockedIpecac = nil
-			data.IpecacBlockTestLogDelay = nil
-			data.IpecacBlockTestHasBefore = nil
-			data.IpecacBlockTestDamageBefore = nil
+		elseif not data[key] then
+			if not player:IsCollectibleBlocked(id) then
+				player:BlockCollectible(id)
+			end
+			data[key] = true
 			player:AddCacheFlags(CacheFlag.CACHE_ALL)
 			player:EvaluateItems()
 		end
-		return
-	end
-
-	if data.IpecacBlockTestLogDelay then
-		data.IpecacBlockTestLogDelay = data.IpecacBlockTestLogDelay - 1
-		if data.IpecacBlockTestLogDelay <= 0 then
-			local inventoryCount = player:GetCollectiblesList()[id] or 0
-			Isaac.DebugString(string.format(
-				'[IBS] Ipecac block test: HasCollectible %s -> %s; Blocked=%s; Inventory=%d; Damage %.3f -> %.3f',
-				tostring(data.IpecacBlockTestHasBefore), tostring(player:HasCollectible(id)),
-				tostring(player:IsCollectibleBlocked(id)), inventoryCount,
-				data.IpecacBlockTestDamageBefore or 0, player.Damage))
-			data.IpecacBlockTestLogDelay = nil
-		end
-	end
-	if data.BlockedIpecac then return end
-
-	data.IpecacBlockTestHasBefore = player:HasCollectible(id)
-	data.IpecacBlockTestDamageBefore = player.Damage
-	player:BlockCollectible(id)
-	data.BlockedIpecac = true
-	data.IpecacBlockTestLogDelay = 2
-	player:AddCacheFlags(CacheFlag.CACHE_ALL)
-	player:EvaluateItems()
-end
-
---屏蔽胎儿博士的原版属性修正;失去后解除,重新获得后再次屏蔽
-function BAzazel:UpdateDrFetusBlock(player, data)
-	if not REPENTOGON
-	or type(player.BlockCollectible) ~= 'function'
-	or type(player.UnblockCollectible) ~= 'function'
-	or type(player.IsCollectibleBlocked) ~= 'function'
-	or type(player.GetCollectiblesList) ~= 'function' then return end
-
-	local id = CollectibleType.COLLECTIBLE_DR_FETUS
-	local owned = (player:GetCollectiblesList()[id] or 0) > 0
-	if not owned then
-		if data.BlockedDrFetus then
-			if player:IsCollectibleBlocked(id) then
-				player:UnblockCollectible(id)
-			end
-			data.BlockedDrFetus = nil
-			player:AddCacheFlags(CacheFlag.CACHE_ALL)
-			player:EvaluateItems()
-		end
-		return
-	end
-
-	if data.BlockedDrFetus then return end
-	if not player:IsCollectibleBlocked(id) then
-		player:BlockCollectible(id)
-	end
-	data.BlockedDrFetus = true
-	player:AddCacheFlags(CacheFlag.CACHE_ALL)
-	player:EvaluateItems()
-end
-
---这两个道具不会替换主武器,只清零其原生蓄力,保留自定义引弹兼容
-function BAzazel:SuppressDefaultChargedAttacks(player)
-	if player:GetPlayerType() ~= self.ID then return end
-	if not REPENTOGON or type(player.GetWeapon) ~= 'function' then return end
-	if not player:GetWeapon(1) then return end
-
-	if player:HasCollectible(CollectibleType.COLLECTIBLE_REVELATION)
-	and type(player.SetRevelationCharge) == 'function' then
-		player:SetRevelationCharge(0)
-	end
-	if player:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID)
-	and type(player.SetMawOfTheVoidCharge) == 'function' then
-		player:SetMawOfTheVoidCharge(0)
 	end
 end
-BAzazel:AddCallback(ModCallbacks.MC_PRE_PLAYER_UPDATE, 'SuppressDefaultChargedAttacks')
 
 --所有攻击源执行同一套状态机,输入相同但蓄力、冷却及引弹引用各自独立
 function BAzazel:UpdateAttack(player, source)
@@ -1249,6 +1246,18 @@ function BAzazel:UpdateAttack(player, source)
 
 	self:UpdateCursedEyeTears(player, data, source)
 	self:UpdateTrisagionTears(player, data, source)
+	
+	--额外动画期间冻结蓄力状态,避免松手或模式切换提前释放/清零当前蓄力
+	if not player:IsExtraAnimationFinished() then
+		if not (data.AttackMode or false) then
+			local tears = self:GetHeldTears(data)
+			if #tears > 0 then
+				self:UpdateFloatingTears(player, data, source)
+			end
+		end
+		return
+	end	
+	
 	local attackMode = self:GetAttackMode(player)
 	if attackMode ~= (data.AttackMode or false) then
 		self:ChangeAttackMode(player, data, attackMode)
@@ -1270,7 +1279,7 @@ function BAzazel:UpdateAttack(player, source)
 		data.ChargeCooldown = math.max(0, (data.ChargeCooldown or 0) - 1)
 	end
 
-	if firing and player:IsExtraAnimationFinished() and not Input.IsActionPressed(ButtonAction.ACTION_MAP, player.ControllerIndex) then
+	if firing and not Input.IsActionPressed(ButtonAction.ACTION_MAP, player.ControllerIndex) then
 		if #tears <= 0 and data.ChargeCooldown <= 0 then
 			tears = self:SpawnInvertedCrossTears(player, data, source)
 		end
@@ -1294,11 +1303,17 @@ end
 function BAzazel:OnPlayerUpdate(player)
 	if player:GetPlayerType() ~= self.ID then return end
 	local data = self:GetTempData(player)
-	self:UpdateIpecacBlockTest(player, data)
-	self:UpdateDrFetusBlock(player, data)
+	self:UpdateCompatItemBlocks(player, data)
 	for _, source in ipairs(self:GetAttackSources(player)) do
 		if source and source:Exists() then
 			self:UpdateAttack(player, source)
+		end
+	end
+	
+	if self:IsBlackForm(player) then	
+		local effects = player:GetEffects()
+		if not effects:HasCollectibleEffect(82) then
+			effects:AddCollectibleEffect(82) --深渊领主(仅用于改肤色)
 		end
 	end
 end
@@ -1403,6 +1418,7 @@ function BAzazel:OnEvaluateCache(player, flag)
 	end
 end
 BAzazel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, 'OnEvaluateCache')
+
 
 --神秘测伤土豆特殊兼容
 mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_,npc)

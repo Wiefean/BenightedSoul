@@ -98,7 +98,7 @@ local playerEID = {
 		 '#Apply {{IBSBAzazelMark}}Heresy Mark to enemies: Take more damage'..
 		 '#{{SacrificeRoom}}Sacrifice Room frequently appears; And sacrifice damage is {{HalfHeart}}half a heart'..
 		 '#Health-priced items become spiked'..
-		 '#After 3 picking spiked items, enter fallen state: Attack mode changed',
+		 '#After 3 picking spiked items, + 3 {{BlackHeart}}Black Hearts, enter fallen state: Attack mode changed',
 	br='The attractor becomes homing'..
 		 '#When repeatedly apply {{IBSBAzazelMark}}Heresy Mark, spawn holy light'..
 		 '#{{IBSBAzazelMark}}Heresy Marked enemies take more damage'
@@ -2003,6 +2003,32 @@ local itemEID={
 [IBS_ItemID.Entanglement]={
 	name='Entanglement',
 	info='{{AngelDevilChance}} If both Devil Room and Angel Room are not open, spawn 2 Error Room and reveal them'
+},
+
+[IBS_ItemID.WitchHuntingSeason]={
+	name='Witch Hunting Season',
+	info='20% chance to fire a cross tear ({{Luck}}Luck 10: 100%):'..
+		 '#{{Blank}} Apply {{IBSBAzazelMark}}Heresy Mark'..
+		 '#{{Blank}} When {{IBSBAzazelMark}}Heresy Marked enemies are killed, spawn 5 holy light, 300% {{Damage}}damage',
+},
+
+[IBS_ItemID.AtonementCeremony]={
+	name='Atonement Ceremony',
+	info='In 2 seconds:'..
+		 '#↑  + 1 {{Speed}}spd'..
+		 '#Invincible'..
+		 '#Continually spawn holy light, 300%{{Damage}}damage',
+	virtue='3 middle invincible wisps, disappear in the end',
+	belial='Trigger {{Collectible705}}Dark Arts in the end',
+},
+
+[IBS_ItemID.OnThePyre]={
+	name='On The Pyre',
+	info='Can only be picked up in cleared rooms'..
+		 '#Enemies around this item will be attacked by holy light, 500%{{Damage}}damage'..
+		 '#When used, apply {{IBSBAzazelMark}}Heresy Mark to enemies, and drop this item',
+	virtue='2 middle wisps, surrounding this item first',
+	belial='When enemies killed by fire or holy light, 10% chance to spawn {{BlackHeart}}Black Heart'
 },
 
 }

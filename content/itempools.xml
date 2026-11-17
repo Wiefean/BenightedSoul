@@ -133,6 +133,9 @@
         <Item Name="Entanglement" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Heat Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Scatter Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Witch-Hunting Season" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Atonement Ceremony" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="On The Pyre" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="greedTreasure">
@@ -642,6 +645,8 @@
 
         <Item Name="Soul Keys" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="A Drop of Blood" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Witch-Hunting Season" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Atonement Ceremony" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 
 	<Pool Name="greedAngel">
@@ -788,7 +793,7 @@
 	</Pool>
 	
 	<Pool Name="woodenChest">
-	
+		<Item Name="On The Pyre" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="beggar">

@@ -1,5 +1,30 @@
 -----------------------------------
 2026.11
+v0.13.4
+
+新道具：
+ 猎巫时节
+ 赎罪仪式
+ 火刑架
+
+调整：
+ <角色>
+ 昧化阿撒泻勒：能力更新
+ <道具>
+ 诡异灯笼：品质1
+
+New Items:
+ Witch-Hunting Season
+ Atonement Ceremony
+ On The Pyre
+ 
+Adjustments:
+ <Character>
+ Benighted Azazel: Abilities update
+ <Items>
+ Eerie Lantern: Quality 1
+-----------------------------------
+2026.11
 v0.13.3
 
 新道具：一滴血

@@ -51,7 +51,7 @@ function BAzazelCrackTheSky:OnUpdate(effect)
 	spr.Scale.X = effect.Scale
 
 	if spr:IsEventTriggered('Sound') then
-		sfx:Play(SoundEffect.SOUND_LIGHTBOLT, 1, 2, false, self:GetSoundPitch(effect), 0)
+		sfx:Play(SoundEffect.SOUND_LIGHTBOLT, 0.5, 2, false, self:GetSoundPitch(effect), 0)
 	end
 
 	local data = self:GetLightData(effect)

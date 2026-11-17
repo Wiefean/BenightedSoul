@@ -34,6 +34,10 @@ local mod = Isaac_BenightedSoul
 local Ents = mod.IBS_Lib.Ents
 local Players = mod.IBS_Lib.Players
 
+local function GetPosture()
+	return mod.IBS_Item and mod.IBS_Item.Posture or nil
+end
+
 local Component = mod.IBS_Class.Component
 
 local SamsonSkill = mod.Class(Component, function(self, id, info_tbl)
@@ -101,20 +105,24 @@ local SamsonSkill = mod.Class(Component, function(self, id, info_tbl)
 	
 	--是否持有牌
 	function self:HasCard(player, id)
-		return mod.IBS_Item.Posture:HasCard(player, id or self.ID)
+		local posture = GetPosture()
+		return posture and posture:HasCard(player, id or self.ID) or false
 	end	
 	
 	--获取牌数量
 	function self:GetCardNum(player, id)
-		return mod.IBS_Item.Posture:GetCardNum(player, id or self.ID)
+		local posture = GetPosture()
+		return posture and posture:GetCardNum(player, id or self.ID) or 0
 	end	
 	
 	--任意玩家持有牌
 	function self:AnyHasCard(id)
 		id = id or self.ID
+		local posture = GetPosture()
+		if not posture then return false end
 		for i = 0, Game():GetNumPlayers() -1 do
 			local player = Isaac.GetPlayer(i)
-			if mod.IBS_Item.Posture:HasCard(player, id) then
+			if posture:HasCard(player, id) then
 				return true
 			end
 		end	
@@ -123,10 +131,11 @@ local SamsonSkill = mod.Class(Component, function(self, id, info_tbl)
 	
 	--获取当前牌
 	function self:GetCurrentCard(player)
-		return mod.IBS_Item.Posture:GetCurrentCard(player)
+		local posture = GetPosture()
+		return posture and posture:GetCurrentCard(player) or nil
 	end
 	function self:IsCurrentCard(player)
-		return mod.IBS_Item.Posture:GetCurrentCard(player) == self.ID
+		return self:GetCurrentCard(player) == self.ID
 	end
 	
 	

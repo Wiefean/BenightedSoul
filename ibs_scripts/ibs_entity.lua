@@ -47,6 +47,9 @@ BAzazelFakeKnife = Load('bazazel_fake_knife'),
 --倒十字架眼泪
 InvertedCrossTear = Load('inverted_cross_tear'),
 
+--猎巫时节特效眼泪
+WitchHuntingSeasonTear = Load('witch_hunting_season_tear'),
+
 }
 
 

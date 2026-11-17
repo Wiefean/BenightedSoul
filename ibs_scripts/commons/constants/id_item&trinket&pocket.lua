@@ -230,6 +230,9 @@ PermanentBubbles = Isaac.GetItemIdByName("Permanent Bubbles"),
 AbandonedLuggage = Isaac.GetItemIdByName("Abandoned Luggage"),
 Entanglement = Isaac.GetItemIdByName("Entanglement"),
 ADropOfBlood = Isaac.GetItemIdByName("A Drop of Blood"),
+WitchHuntingSeason = Isaac.GetItemIdByName("Witch-Hunting Season"),
+AtonementCeremony = Isaac.GetItemIdByName("Atonement Ceremony"),
+OnThePyre = Isaac.GetItemIdByName("On The Pyre"),
 
 }
 

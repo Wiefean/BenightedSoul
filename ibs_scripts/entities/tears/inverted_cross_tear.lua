@@ -52,7 +52,7 @@ function InvertedCrossTear:GetFamiliarAttackInfo(source)
 	return familiar and self.FamiliarAttackInfo[familiar.Variant] or nil
 end
 
---true:从角色和引导弹上永久清除;false:仅在悬浮时停用,释放时恢复
+--true:从角色和引导弹上永久清除;false:先捕获,释放时按LightOnlyTearFlags决定是否恢复
 local NeedClearedFlags = {
 	[TearFlags.TEAR_OCCULT] = false,
 	[TearFlags.TEAR_SHRINK] = true,
@@ -65,8 +65,24 @@ local NeedClearedFlags = {
 	[TearFlags.TEAR_ORBIT] = false,
 	[TearFlags.TEAR_SPLIT] = true,
 	[TearFlags.TEAR_HOMING] = false,
+	[TearFlags.TEAR_PULSE] = false,
+	[TearFlags.TEAR_TURN_HORIZONTAL] = false,
+	[TearFlags.TEAR_WIGGLE] = false,
+	[TearFlags.TEAR_SQUARE] = false,
+	[TearFlags.TEAR_SPIRAL] = false,
+	[TearFlags.TEAR_BIG_SPIRAL] = false,
 	[TearFlags.TEAR_LIGHT_FROM_HEAVEN] = true,
+	[TearFlags.TEAR_BOUNCE] = false,
 }
+
+--这些旗标由引弹状态机接管,释放时不能恢复为原生泪弹行为
+InvertedCrossTear.NeverRestoreTearFlags =
+	TearFlags.TEAR_HOMING
+	| TearFlags.TEAR_WIGGLE
+	| TearFlags.TEAR_SQUARE
+	| TearFlags.TEAR_SPIRAL
+	| TearFlags.TEAR_BIG_SPIRAL
+	| TearFlags.TEAR_ORBIT
 
 InvertedCrossTear.PermanentTearFlags = 0
 for flag, permanent in pairs(NeedClearedFlags) do
@@ -74,6 +90,13 @@ for flag, permanent in pairs(NeedClearedFlags) do
 		InvertedCrossTear.PermanentTearFlags = InvertedCrossTear.PermanentTearFlags | flag
 	end
 end
+
+InvertedCrossTear.WormPatterns = {
+	{Flag = TearFlags.TEAR_BIG_SPIRAL, Pattern = 'Spiral'},
+	{Flag = TearFlags.TEAR_SPIRAL, Pattern = 'SmallSpiral'},
+	{Flag = TearFlags.TEAR_SQUARE, Pattern = 'Square'},
+	{Flag = TearFlags.TEAR_WIGGLE, Pattern = 'Wiggle'},
+}
 
 --这些玩家泪弹variant会自动转换为引弹
 InvertedCrossTear.ConvertibleVariants = {
@@ -114,6 +137,7 @@ InvertedCrossTear.ScaleMultiplierGroups = {
 	[CollectibleType.COLLECTIBLE_SOY_MILK] = 'Milk',
 	[CollectibleType.COLLECTIBLE_ALMOND_MILK] = 'Milk',
 }
+InvertedCrossTear.PulseWormScaleMultiplier = 1.5
 
 function InvertedCrossTear:GetInitialScaleMultiplier(player)
 	local result = 1
@@ -129,6 +153,9 @@ function InvertedCrossTear:GetInitialScaleMultiplier(player)
 	end
 	if self:IsBlackForm(player) then
 		result = result * self.BlackFormInfo.ScaleMultiplier
+	end
+	if player:HasTrinket(TrinketType.TRINKET_PULSE_WORM) then
+		result = result * self.PulseWormScaleMultiplier
 	end
 	return result
 end
@@ -215,6 +242,14 @@ end
 function InvertedCrossTear:UpdateDistanceItems(tear)
 	local data = self:GetData(tear)
 	local player = self:GetPlayer(tear)
+	local hasDistanceScaleItem = player and (
+		player:HasCollectible(CollectibleType.COLLECTIBLE_PROPTOSIS)
+		or player:HasCollectible(CollectibleType.COLLECTIBLE_LUMP_OF_COAL)
+	)
+	local isFlying = not data.IsFloating
+		or (data.IsRemoteControl and data.RemoteControlMoving)
+	if isFlying and not hasDistanceScaleItem then return end
+
 	data.DistanceDamageMultiplier, data.DistanceScaleMultiplier = self:GetDistanceMultipliers(tear, player)
 	self:UpdateChargeScale(tear, player, data.ChargeRatio)
 end
@@ -260,7 +295,6 @@ end
 --任意一个flag存在时,飞行引弹允许越过房间边界且不被移除
 InvertedCrossTear.RoomBoundaryBypassFlags = {
 	TearFlags.TEAR_BOOMERANG,
-	TearFlags.TEAR_ORBIT,
 }
 
 function InvertedCrossTear:HasAnyTearFlag(tear, flags)
@@ -356,6 +390,145 @@ function InvertedCrossTear:SpawnFireMindFlame(tear, player)
 	flame.SpriteScale = Vector(scale, scale)
 end
 
+--蠕虫兼容:初速10、圣光间隔3帧,相邻落点相距30;每周期8点约对应240空间长度
+InvertedCrossTear.WormInfo = {
+	WaveAmplitude = 50,
+	SmallSpiralRadius = 25,
+	SpiralRadius = 75,
+	HomingRadius = 75,
+	HomingLockRadius = 25,
+	PhaseStepDegrees = 45,
+	SquareTransitionSteps = 5,
+	FlatWormSpacing = 25,
+}
+
+function InvertedCrossTear:InitializeWormCompatibility(tear, data)
+	data.ActiveWormPatterns = {}
+	for _, info in ipairs(self.WormPatterns) do
+		if tear:HasTearFlags(info.Flag) then
+			table.insert(data.ActiveWormPatterns, info.Pattern)
+		end
+	end
+end
+
+function InvertedCrossTear:GetWormFlightDirection(tear)
+	local data = self:GetData(tear)
+	local direction = data.AimDirection
+	if data.MomsKnifeFlight then
+		direction = data.MomsKnifeDirection or direction
+	elseif data.IsRemoteControl and tear.Velocity:Length() > 0 then
+		direction = tear.Velocity
+	end
+	direction = direction or tear.Velocity
+	if not direction or direction:Length() <= 0 then return Vector(1, 0) end
+	return direction:Normalized()
+end
+
+function InvertedCrossTear:GetFlatWormOffsets(tear, perpendicular, multiplier)
+	local multiplierCount = math.max(1, math.floor(multiplier))
+	local spacing = self.WormInfo.FlatWormSpacing * tear.Scale
+	local offsets = {}
+	local lightCount = multiplierCount + 1
+	local firstIndex = -(lightCount - 1) / 2
+	for index = 0, lightCount - 1 do
+		table.insert(offsets, perpendicular * (spacing * (firstIndex + index)))
+	end
+	return offsets
+end
+
+function InvertedCrossTear:GetWormSpawnPositions(tear)
+	local data = self:GetData(tear)
+	local info = self.WormInfo
+	local sampleIndex = data.WormSampleIndex or 0
+	data.WormSampleIndex = sampleIndex + 1
+	local phaseDegrees = sampleIndex * info.PhaseStepDegrees
+	local phaseRadians = math.rad(phaseDegrees)
+	local direction = self:GetWormFlightDirection(tear)
+	local perpendicular = Vector(-direction.Y, direction.X)
+	local amplitude = info.WaveAmplitude * tear.Scale
+
+	local player = self:GetPlayer(tear)
+	local flatWormMultiplier = player
+		and player:GetTrinketMultiplier(TrinketType.TRINKET_FLAT_WORM) or 0
+	local offsets = flatWormMultiplier > 0
+		and self:GetFlatWormOffsets(tear, perpendicular, flatWormMultiplier)
+		or {Vector.Zero}
+
+	local function StackOffsets(extraOffsets)
+		local stacked = {}
+		for _, base in ipairs(offsets) do
+			for _, extra in ipairs(extraOffsets) do
+				table.insert(stacked, base + extra)
+			end
+		end
+		offsets = stacked
+	end
+
+	local function HasPattern(pattern)
+		for _, active in ipairs(data.ActiveWormPatterns or {}) do
+			if active == pattern then return true end
+		end
+		return false
+	end
+
+	if HasPattern('Wiggle') then
+		StackOffsets({perpendicular * (math.sin(phaseRadians) * amplitude)})
+	end
+
+	if HasPattern('Square') then
+		local sign = math.cos(phaseRadians) >= 0 and 1 or -1
+		local previousSign = data.SquareLastSign or sign
+		local squareOffsets = {}
+		if previousSign ~= sign then
+			for step = 1, info.SquareTransitionSteps do
+				local progress = step / (info.SquareTransitionSteps + 1)
+				local transitionSign = previousSign + (sign - previousSign) * progress
+				table.insert(squareOffsets, perpendicular * (amplitude * transitionSign))
+			end
+		end
+		data.SquareLastSign = sign
+		table.insert(squareOffsets, perpendicular * (amplitude * sign))
+		StackOffsets(squareOffsets)
+	end
+
+	if HasPattern('SmallSpiral') then
+		local radius = info.SmallSpiralRadius * tear.Scale
+		StackOffsets({Vector.FromAngle(phaseDegrees) * radius})
+	end
+
+	if HasPattern('Spiral') then
+		local radius = info.SpiralRadius * tear.Scale
+		--Isaac的坐标轴y向下,FromAngle使用角度,正角度在屏幕空间表现为顺时针
+		StackOffsets({Vector.FromAngle(phaseDegrees) * radius})
+	end
+
+	local positions = {}
+	for _, offset in ipairs(offsets) do
+		table.insert(positions, tear.Position + offset)
+	end
+	return positions
+end
+
+function InvertedCrossTear:ResolveHolyLightHomingPosition(tear, position)
+	local data = self:GetData(tear)
+	if not data.HolyLightHoming then return position end
+
+	local info = self.WormInfo
+	local maxRadius = info.HomingRadius * tear.Scale
+	local lockRadius = info.HomingLockRadius * tear.Scale
+	local enemy = self._Finds:ClosestEnemy(position)
+	if not enemy then return position end
+
+	local distanceSquared = enemy.Position:DistanceSquared(position)
+	if distanceSquared > maxRadius * maxRadius then return position end
+	if distanceSquared <= lockRadius * lockRadius then return enemy.Position end
+
+	local distance = math.sqrt(distanceSquared)
+	local weight = (maxRadius - distance) / (maxRadius - lockRadius)
+	weight = math.max(0, math.min(1, weight))
+	return position + (enemy.Position - position) * weight
+end
+
 --神秘液体:每次引导圣光生成一份绿色液体
 function InvertedCrossTear:SpawnMysteriousLiquid(tear)
 	if not tear or not tear:HasTearFlags(TearFlags.TEAR_MYSTERIOUS_LIQUID_CREEP) then return end
@@ -437,6 +610,18 @@ end
 
 function InvertedCrossTear:HasDrFetus(player)
 	return self:HasCollectibleIncludingBlocked(player, CollectibleType.COLLECTIBLE_DR_FETUS)
+end
+
+function InvertedCrossTear:RefreshItemCompatData(tear, player, suppressHaemolacria)
+	local data = self:GetData(tear)
+	data.HasRevelation = self:HasCollectibleIncludingBlocked(
+		player, CollectibleType.COLLECTIBLE_REVELATION)
+	data.HasMawOfTheVoid = self:HasCollectibleIncludingBlocked(
+		player, CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID)
+	data.HasHaemolacria = not suppressHaemolacria
+		and self:HasCollectibleIncludingBlocked(
+			player, CollectibleType.COLLECTIBLE_HAEMOLACRIA)
+	return data
 end
 
 function InvertedCrossTear:UpdateIpecac(tear)
@@ -755,7 +940,7 @@ function InvertedCrossTear:GetHolyLightDamage(tear, player)
 	local data = self:GetData(tear)
 	local baseMultiplier = self.HolyLightInfo.DamageMul
 	if self:IsBlackForm(player) then
-		baseMultiplier = 1
+		baseMultiplier = 1.5
 	end
 	return player.Damage * data.DamageMultiplier * baseMultiplier
 		* self:GetHolyLightDamageMultiplier(tear, player)
@@ -769,6 +954,7 @@ function InvertedCrossTear:SpawnHolyLight(tear, player)
 
 	local data = self:GetData(tear)
 	data.HolyLightCount = (data.HolyLightCount or 0) + 1
+	local lightPositions = self:GetWormSpawnPositions(tear)
 
 	--这些效果与每次圣光结算同步,彼此共存且不受史诗胎儿替换影响
 	if player then
@@ -795,20 +981,32 @@ function InvertedCrossTear:SpawnHolyLight(tear, player)
 	if player and player:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) then
 		if data.HolyLightCount % self.EpicFetusInfo.TargetInterval == 0 then
 			local enemy = self:GetNearestMarkedEnemy(tear)
-			self:SpawnEpicFetusTarget(enemy and enemy.Position or tear.Position,
+			local position = lightPositions[#lightPositions] or tear.Position
+			position = self:ResolveHolyLightHomingPosition(tear, position)
+			self:SpawnEpicFetusTarget(enemy and enemy.Position or position,
 				player, data.DamageMultiplier, enemy)
 		end
 		return nil
 	end
 
 	local damage = self:GetHolyLightDamage(tear, player)
-	local light = mod.IBS_Effect.BAzazelCrackTheSky:Spawn(tear.Position, player or tear, damage, tear.Scale, tear.Color)
-	if not light then return nil end
+	local firstLight
+	for _, position in ipairs(lightPositions) do
+		position = self:ResolveHolyLightHomingPosition(tear, position)
+		if Game():GetRoom():IsPositionInRoom(position, self:GetRoomCheckMargin()) then
+			local light = mod.IBS_Effect.BAzazelCrackTheSky:Spawn(
+				position, player or tear, damage, tear.Scale, tear.Color)
+			if light then
+				light.Parent = player
+				firstLight = firstLight or light
+			end
+		end
+	end
+	if not firstLight then return nil end
 
 	self:SpawnPepperFlames(tear, player)
 	self:SpawnFireMindFlame(tear, player)
-	light.Parent = player
-	return light
+	return firstLight
 end
 
 --临时数据;外部直接生成时默认进入飞行状态
@@ -826,6 +1024,10 @@ function InvertedCrossTear:GetData(tear)
 		DamageMultiplier = 1, --跟班攻击等独立来源的伤害倍率,不改变玩家面板
 		AlternateScaleMultiplier = 1,
 		HolyLightDamageBonus = 0,
+		HolyLightHoming = false,
+		HasRevelation = false,
+		HasMawOfTheVoid = false,
+		HasHaemolacria = false,
 		HolyLightTriggered = false,
 		RevelationTriggered = false,
 		ImpactCompatTriggered = false,
@@ -885,11 +1087,8 @@ InvertedCrossTear.RevelationOrbInfo = {
 
 --终末天启:与巨大圣光相同,首次命中敌人或最终落地时触发一次
 function InvertedCrossTear:TrySpawnRevelationImpact(tear, player, position, targetInfo)
-	if not player or not player:HasCollectible(CollectibleType.COLLECTIBLE_REVELATION) then
-		return false
-	end
-
 	local data = self:GetData(tear)
+	if not player or not data.HasRevelation then return false end
 	if data.RevelationTriggered then return false end
 	data.RevelationTriggered = true
 
@@ -922,19 +1121,15 @@ InvertedCrossTear.MawOfTheVoidInfo = {
 
 --虚空之喉:命中或消失时按蓄力生成一至四层黑圈激光
 function InvertedCrossTear:TrySpawnMawOfTheVoidImpact(tear, player, position)
-	if not player or not player:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID) then
-		return false
-	end
-
 	local info = self.MawOfTheVoidInfo
 	local data = self:GetData(tear)
+	if not player or not data.HasMawOfTheVoid then return false end
 	local chargeRatio = math.max(0, math.min(1, data.ChargeRatio or 0))
 	local count = math.min(info.MaxCount, math.max(1, math.ceil(chargeRatio * info.MaxCount)))
 	local spawnPosition = position + Vector(0, -40)
 	local tearScale = tear.Scale
 	local function SpawnRing(index)
-		if not player:Exists()
-		or not player:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID) then return end
+		if not player:Exists() or not data.HasMawOfTheVoid then return end
 		local laser = Isaac.Spawn(EntityType.ENTITY_LASER, LaserVariant.THICK_RED,
 			LaserSubType.LASER_SUBTYPE_RING_FOLLOW_PARENT, spawnPosition, Vector.Zero, player):ToLaser()
 		if laser then
@@ -953,6 +1148,64 @@ function InvertedCrossTear:TrySpawnMawOfTheVoidImpact(tear, player, position)
 		end, (i - 1) * info.RingDelay)
 	end
 	sfx:Play(SoundEffect.SOUND_MAW_OF_VOID)
+	return true
+end
+
+InvertedCrossTear.HaemolacriaInfo = {
+	ScaleMultiplier = 1.5,
+	Color = Color(1, 0.05, 0.05, 1, 0, 0, 0),
+	MaxBurstCount = 5,
+	MinRandomMultiplier = 0.5,
+	MaxRandomMultiplier = 1,
+	RangeMultiplier = 0.5,
+}
+
+function InvertedCrossTear:SpawnHaemolacriaChildren(tear, player)
+	local data = self:GetData(tear)
+	local info = self.HaemolacriaInfo
+	local chargeRatio = math.max(0, math.min(1, data.ChargeRatio or 0))
+	local count = math.max(0, math.min(info.MaxBurstCount,
+		math.floor(chargeRatio * info.MaxBurstCount + 0.5)))
+	if count <= 0 or not player then return end
+
+	local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_HAEMOLACRIA)
+	local directions = {}
+	for index = 1, info.MaxBurstCount do
+		directions[index] = Vector.FromAngle(rng:RandomFloat() * 360)
+	end
+
+	local source = self:GetSourceEntity(tear)
+	local speed = self.FlightInfo.DefaultSpeed
+	local range = self.FlightInfo.DefaultRange * chargeRatio * info.RangeMultiplier
+	for index = 1, count do
+		local child = self:Spawn(player, tear.Position, 0, source, true)
+		if child then
+			local childData = self:GetData(child)
+			local scaleMultiplier = info.MinRandomMultiplier
+				+ rng:RandomFloat() * (info.MaxRandomMultiplier - info.MinRandomMultiplier)
+			local damageMultiplier = info.MinRandomMultiplier
+				+ rng:RandomFloat() * (info.MaxRandomMultiplier - info.MinRandomMultiplier)
+			child.Scale = tear.Scale * scaleMultiplier
+			childData.BaseScale = child.Scale
+			childData.DamageMultiplier = data.DamageMultiplier * damageMultiplier
+			childData.HasHaemolacria = false
+			childData.TinyPlanetOrbit = false
+			self:Release(child, directions[index], speed, range, chargeRatio, player, false, true)
+			childData.MomsKnifeFlight = false
+			child.Velocity = directions[index] * speed
+		end
+	end
+end
+
+function InvertedCrossTear:TryTriggerHaemolacriaImpact(tear, player)
+	local data = self:GetData(tear)
+	if not player or not data.HasHaemolacria or data.HaemolacriaTriggered then
+		return false
+	end
+
+	data.HaemolacriaTriggered = true
+	data.FlightTime = 0
+	self:Disappear(tear)
 	return true
 end
 
@@ -1165,7 +1418,7 @@ function InvertedCrossTear:UpdateTechnology(tear)
 end
 
 --生成引导眼泪;可指定以撒心脏或复制攻击跟班作为实际攻击中心
-function InvertedCrossTear:Spawn(player, position, directionOffset, source)
+function InvertedCrossTear:Spawn(player, position, directionOffset, source, suppressHaemolacria)
 	local id = IBS_TearID.InvertedCrossTear
 	local tear
 	source = source or player
@@ -1194,6 +1447,12 @@ function InvertedCrossTear:Spawn(player, position, directionOffset, source)
 	local familiarInfo = self:GetFamiliarAttackInfo(source)
 	data.SourcePlayer = player
 	data.SourceEntity = source
+	self:RefreshItemCompatData(tear, player, suppressHaemolacria)
+	if data.HasMawOfTheVoid then
+		tear.Color = self.MawOfTheVoidInfo.Color
+	elseif data.HasHaemolacria then
+		tear.Color = self.HaemolacriaInfo.Color
+	end
 	data.DamageMultiplier = familiarInfo and familiarInfo.DamageMultiplier or 1
 	data.IsFloating = not not player
 	if data.IsFloating then
@@ -1208,6 +1467,9 @@ function InvertedCrossTear:Spawn(player, position, directionOffset, source)
 		local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_MONSTROS_LUNG)
 		data.DamageMultiplier = data.DamageMultiplier * (rng:RandomInt(16) + 5) * 0.1
 		tear.Scale = tear.Scale * (rng:RandomInt(11) + 5) * 0.1
+	end
+	if data.HasHaemolacria then
+		tear.Scale = tear.Scale * self.HaemolacriaInfo.ScaleMultiplier
 	end
 	data.BaseScale = tear.Scale
 	self:ApplyAlternatingShot(tear, player)
@@ -1224,17 +1486,18 @@ end
 function InvertedCrossTear:TryTriggerImpactCompatibilities(tear, player, position, targetEntity)
 	if not player then return false end
 
+	local data = self:GetData(tear)
 	local hasRocket = self:HasDrFetus(player)
 		and player:HasCollectible(CollectibleType.COLLECTIBLE_ROCKET_IN_A_JAR)
 	local hasBrimstone = player:HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE)
 		and not player:HasCollectible(CollectibleType.COLLECTIBLE_TECHNOLOGY)
 	local hasHolyLight = player:HasCollectible(CollectibleType.COLLECTIBLE_HOLY_LIGHT)
-	local hasRevelation = player:HasCollectible(CollectibleType.COLLECTIBLE_REVELATION)
-	local hasMawOfTheVoid = player:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID)
+	local hasRevelation = data.HasRevelation
+	local hasMawOfTheVoid = data.HasMawOfTheVoid
+	local hasHaemolacria = data.HasHaemolacria
 	if not hasRocket and not hasBrimstone and not hasHolyLight and not hasRevelation
-	and not hasMawOfTheVoid then return false end
+	and not hasMawOfTheVoid and not hasHaemolacria then return false end
 
-	local data = self:GetData(tear)
 	if data.ImpactCompatTriggered then return false end
 	data.ImpactCompatTriggered = true
 
@@ -1278,6 +1541,9 @@ function InvertedCrossTear:TryTriggerImpactCompatibilities(tear, player, positio
 	end
 	if hasMawOfTheVoid then
 		self:TrySpawnMawOfTheVoidImpact(tear, player, position)
+	end
+	if hasHaemolacria then
+		self:SpawnHaemolacriaChildren(tear, player)
 	end
 	return true
 end
@@ -1384,6 +1650,9 @@ function InvertedCrossTear:Disappear(tear, triggerEffect)
 
 	data.Disappearing = true
 	data.MomsKnifeFlight = false
+	if data.TinyPlanetOrbitActive then
+		self:EndTinyPlanetOrbit(tear)
+	end
 	tear.Velocity = Vector.Zero
 	tear:ClearEntityFlags(EntityFlag.FLAG_PERSISTENT)
 	tear:GetSprite():Play(self:GetAnimationName(tear, 'Disappear'), true)
@@ -1398,10 +1667,100 @@ InvertedCrossTear.AntiGravityInfo = {
 }
 
 --妈刀接管往返飞行,与准星一样优先于反重力等待
-function InvertedCrossTear:ShouldAntiGravityWait(player)
+function InvertedCrossTear:ShouldAntiGravityWait(player, tear)
+	local data = tear and self:GetData(tear)
 	return player and player:HasCollectible(CollectibleType.COLLECTIBLE_ANTI_GRAVITY)
 		and not player:HasCollectible(CollectibleType.COLLECTIBLE_MARKED)
 		and not player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE)
+		and not (data and data.TinyPlanetOrbit)
+end
+
+InvertedCrossTear.TinyPlanetInfo = {
+	OrbitFrames = 20,
+}
+
+function InvertedCrossTear:StartTinyPlanetOrbit(tear, player, direction, speed)
+	local data = self:GetData(tear)
+	if not data.TinyPlanetOrbit or data.IsRemoteControl or not player then return false end
+	if player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) then return false end
+
+	local center = player.Position
+	local offset = tear.Position - center
+	local radius = offset:Length()
+	local angle = radius > 0 and offset:GetAngleDegrees() or direction:GetAngleDegrees()
+	local playerData = self._Ents:GetTempData(player)
+	local clockwise = playerData.InvertedCrossTinyPlanetClockwise
+	if clockwise == nil then
+		clockwise = true
+	else
+		clockwise = not clockwise
+	end
+	playerData.InvertedCrossTinyPlanetClockwise = clockwise
+
+	data.TinyPlanetOrbitActive = true
+	data.TinyPlanetCenter = center
+	data.TinyPlanetFollowPlayer = not player:HasCollectible(CollectibleType.COLLECTIBLE_ANTI_GRAVITY)
+	data.TinyPlanetRadius = radius
+	data.TinyPlanetAngle = angle
+	data.TinyPlanetTravelled = 0
+	data.TinyPlanetAngleStep = 360 / self.TinyPlanetInfo.OrbitFrames * (clockwise and 1 or -1)
+	data.TinyPlanetDirection = direction
+	data.TinyPlanetSpeed = speed
+	data.TinyPlanetSuspendedBoomerang = tear:HasTearFlags(TearFlags.TEAR_BOOMERANG)
+	if data.TinyPlanetSuspendedBoomerang then
+		tear:ClearTearFlags(TearFlags.TEAR_BOOMERANG)
+	end
+	return true
+end
+
+function InvertedCrossTear:EndTinyPlanetOrbit(tear)
+	local data = self:GetData(tear)
+	data.TinyPlanetOrbitActive = false
+	if data.TinyPlanetSuspendedBoomerang then
+		tear:AddTearFlags(TearFlags.TEAR_BOOMERANG)
+		data.TinyPlanetSuspendedBoomerang = nil
+	end
+end
+
+--返回true表示本帧仍处于绕行阶段,返回false表示已被遥控或妈刀覆盖
+function InvertedCrossTear:UpdateTinyPlanetOrbit(tear)
+	local data = self:GetData(tear)
+	if not data.TinyPlanetOrbitActive then return false end
+
+	local player = self:GetPlayer(tear)
+	if data.IsRemoteControl
+	or (player and player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE)) then
+		self:EndTinyPlanetOrbit(tear)
+		tear.Velocity = (data.TinyPlanetDirection or data.AimDirection) * (data.TinyPlanetSpeed or self.FlightInfo.DefaultSpeed)
+		return false
+	end
+
+	if tear:HasTearFlags(TearFlags.TEAR_BOOMERANG) then
+		data.TinyPlanetSuspendedBoomerang = true
+		tear:ClearTearFlags(TearFlags.TEAR_BOOMERANG)
+	end
+
+	if data.TinyPlanetFollowPlayer and player and player:Exists() then
+		data.TinyPlanetCenter = player.Position
+	end
+
+	local remaining = 360 - (data.TinyPlanetTravelled or 0)
+	local step = data.TinyPlanetAngleStep or 0
+	if math.abs(step) >= remaining then
+		step = step > 0 and remaining or -remaining
+		self:EndTinyPlanetOrbit(tear)
+	end
+
+	data.TinyPlanetAngle = (data.TinyPlanetAngle or 0) + step
+	data.TinyPlanetTravelled = (data.TinyPlanetTravelled or 0) + math.abs(step)
+	local target = data.TinyPlanetCenter + Vector.FromAngle(data.TinyPlanetAngle) * data.TinyPlanetRadius
+	tear.Velocity = target - tear.Position
+
+	if not data.TinyPlanetOrbitActive then
+		tear.Position = target
+		tear.Velocity = data.TinyPlanetDirection * data.TinyPlanetSpeed
+	end
+	return true
 end
 
 --血块/化学剥皮法按引弹生成顺序交替强化;偶数发使用对应颜色和圣光加成
@@ -1449,7 +1808,7 @@ function InvertedCrossTear:Release(tear, direction, speed, range, chargeRatio, p
 	data.AimDirection = direction
 
 	--反重力先保留全部释放参数;自动释放等待松手,普通释放等待固定一秒
-	if not bypassAntiGravity and self:ShouldAntiGravityWait(player) then
+	if not bypassAntiGravity and self:ShouldAntiGravityWait(player, tear) then
 		data.AntiGravityWaiting = true
 		data.AntiGravityWaitForRelease = not not autoRelease
 		data.AntiGravityWaitTime = autoRelease and nil or self.AntiGravityInfo.Delay
@@ -1471,17 +1830,21 @@ function InvertedCrossTear:Release(tear, direction, speed, range, chargeRatio, p
 	data.AntiGravityChargeRatio = nil
 	data.AntiGravityPlayer = nil
 	data.IsFloating = false
+	data.WormSampleIndex = 0
+	data.SquareLastSign = nil
 	data.ChargeRatio = math.max(0, math.min(1, chargeRatio))
 	tear:ClearEntityFlags(EntityFlag.FLAG_PERSISTENT)
 	if (data.SuspendedFlags or 0) > 0 then
-		tear:AddTearFlags(data.SuspendedFlags)
+		local restoreFlags = data.SuspendedFlags & (~self.NeverRestoreTearFlags)
+		if restoreFlags > 0 then
+			tear:AddTearFlags(restoreFlags)
+		end
 		data.SuspendedFlags = 0
 	end
 
 	local hasMomsKnife = player and player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE)
 	local shouldBoostInitialSpeed = hasMomsKnife
 		or tear:HasTearFlags(TearFlags.TEAR_BOOMERANG)
-		or tear:HasTearFlags(TearFlags.TEAR_ORBIT)
 	if shouldBoostInitialSpeed then
 		speed = speed * info.InitialSpeedMultiplier
 	end
@@ -1510,6 +1873,9 @@ function InvertedCrossTear:Release(tear, direction, speed, range, chargeRatio, p
 		--清除回旋和小星球标记,避免与妈刀的自定义相对距离运动叠加
 		tear:ClearTearFlags(TearFlags.TEAR_BOOMERANG | TearFlags.TEAR_ORBIT)
 		tear.Velocity = Vector.Zero
+	elseif self:StartTinyPlanetOrbit(tear, player, direction, speed) then
+		data.MomsKnifeFlight = false
+		tear.Velocity = Vector.Zero
 	else
 		data.MomsKnifeFlight = false
 		tear.Velocity = direction * speed
@@ -1531,7 +1897,7 @@ function InvertedCrossTear:UpdateAntiGravity(tear)
 	tear.Velocity = Vector.Zero
 	local player = data.AntiGravityPlayer
 	if player and not player:Exists() then player = nil end
-	if not self:ShouldAntiGravityWait(player) then
+	if not self:ShouldAntiGravityWait(player, tear) then
 		self:LaunchAntiGravityTear(tear)
 		return false
 	end
@@ -1612,6 +1978,13 @@ end
 function InvertedCrossTear:OnTearInit(tear)
 	local data = self:GetData(tear)
 	data.IsFloating = false
+	self:InitializeWormCompatibility(tear, data)
+	if tear:HasTearFlags(TearFlags.TEAR_HOMING) then
+		data.HolyLightHoming = true
+	end
+	if tear:HasTearFlags(TearFlags.TEAR_ORBIT) then
+		data.TinyPlanetOrbit = true
+	end
 
 	for flag, permanent in pairs(NeedClearedFlags) do
 		if tear:HasTearFlags(flag) then
@@ -1627,16 +2000,17 @@ function InvertedCrossTear:OnTearInit(tear)
 	tear.CollisionDamage = 0
 	tear.Mass = 0
 	local player = self:GetPlayer(tear)
-	--长子名分的追踪也进入悬浮标记表,由释放流程统一恢复
+	self:RefreshItemCompatData(tear, player)
+	--长子权是唯一允许引弹获得真实追踪的来源
 	if player and player:GetPlayerType() == mod.IBS_PlayerID.BAzazel
 	and player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) then
 		data.BirthrightHoming = true
-		data.SuspendedFlags = (data.SuspendedFlags or 0) | TearFlags.TEAR_HOMING
-		tear:AddTearFlags(TearFlags.TEAR_HOMING)
 	end
-	--虚空之喉固定黑色,优先于黑色形态红色及妈刀、硫磺火、胎儿博士和吐根颜色
-	if player and player:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID) then
+	--虚空之喉固定黑色,其次血泪固定红色
+	if data.HasMawOfTheVoid then
 		tear.Color = self.MawOfTheVoidInfo.Color
+	elseif data.HasHaemolacria then
+		tear.Color = self.HaemolacriaInfo.Color
 	elseif self:IsBlackForm(player) then
 		tear.Color = self.BlackFormInfo.TearColor
 	elseif player and player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) then
@@ -1846,16 +2220,23 @@ function InvertedCrossTear:UpdateFlatStone(tear)
 	end
 end
 
---长子名分:引弹获得追踪;悬浮和反重力等待时停用,实际飞行及遥控移动时恢复
+--长子权是唯一允许引弹获得真实追踪的来源,仅在实际存在时清理其它追踪
 function InvertedCrossTear:UpdateBirthrightHoming(tear)
 	local data = self:GetData(tear)
-	if not data.BirthrightHoming then return end
+	if not data.BirthrightHoming then
+		if tear:HasTearFlags(TearFlags.TEAR_HOMING) then
+			tear:ClearTearFlags(TearFlags.TEAR_HOMING)
+		end
+		return
+	end
 
 	local isFlying = not data.IsFloating or (data.IsRemoteControl and data.RemoteControlMoving)
 	if isFlying and not data.AntiGravityWaiting and not data.Disappearing
 	and not data.WaitingForNaturalDeath then
-		tear:AddTearFlags(TearFlags.TEAR_HOMING)
-	else
+		if not tear:HasTearFlags(TearFlags.TEAR_HOMING) then
+			tear:AddTearFlags(TearFlags.TEAR_HOMING)
+		end
+	elseif tear:HasTearFlags(TearFlags.TEAR_HOMING) then
 		tear:ClearTearFlags(TearFlags.TEAR_HOMING)
 	end
 end
@@ -1917,6 +2298,9 @@ end
 function InvertedCrossTear:OnTearUpdate(tear)
 	local data = self:GetData(tear)
 	local spr = tear:GetSprite()
+	if tear:HasTearFlags(TearFlags.TEAR_ORBIT) then
+		tear:ClearTearFlags(TearFlags.TEAR_ORBIT)
+	end
 	self:UpdateBirthrightHoming(tear)
 	self:DestroyPoop(tear)
 	self:UpdateSpiritSwordRotation(tear)
@@ -1953,6 +2337,16 @@ function InvertedCrossTear:OnTearUpdate(tear)
 	self:UpdateDrFetus(tear)
 	self:UpdateFlatStone(tear)
 	self:UpdateDistanceItems(tear)
+
+	if data.TinyPlanetOrbitActive and self:UpdateTinyPlanetOrbit(tear) then
+		data.HolyLightCooldown = (data.HolyLightCooldown or 0) - 1
+		if data.HolyLightCooldown <= 0 then
+			local player = self:GetPlayer(tear)
+			self:SpawnHolyLight(tear, player)
+			data.HolyLightCooldown = self:GetHolyLightInterval(player)
+		end
+		return
+	end
 
 	--悬浮科技和玄秘魔眼:独立持续飞行,不消耗普通FlightTime,也不因耗尽充能而消失
 	if data.IsRemoteControl then
@@ -2036,7 +2430,7 @@ function InvertedCrossTear:TryApplyEyeOfBelial(tear, player)
 	data.BelialScaleMultiplier = info.ScaleMultiplier
 	self:UpdateChargeScale(tear, player, data.ChargeRatio)
 	tear.Color = info.Color
-	tear:AddTearFlags(TearFlags.TEAR_HOMING)
+	data.HolyLightHoming = true
 end
 
 --仅作引导,不执行原版眼泪碰撞伤害;普通火和红火除外
@@ -2049,6 +2443,7 @@ function InvertedCrossTear:PreTearCollision(tear, collider)
 		local player = self:GetPlayer(tear)
 		self:TryAddDeadEyeCharge(tear, player)
 		self:TryTriggerImpactCompatibilities(tear, player, collider.Position, collider)
+		if self:TryTriggerHaemolacriaImpact(tear, player) then return end
 		self:TryApplyEyeOfBelial(tear, player)
 	end
 

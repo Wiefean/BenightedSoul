@@ -221,11 +221,16 @@
 	<passive id="219" name="Soul Keys" gfx="soul_keys.png" description="Souls + 5 keys" quality="2" craftquality="2" tags="offensive dead" keys="5" />
 	<passive id="220" name="Discount Key" description="Learn the keys on bargaining" gfx="discount_key.png" quality="2" craftquality="2" tags="offensive" />
 	<passive id="221" name="Cuckoo Zapper" description="Not traditional zapper" gfx="cuckoo_zapper.png" quality="3" craftquality="3" tags="nokeeper offensive" />
-	<passive id="222" name="Eerie Lantern" description="Temporary charge" gfx="eerie_lantern.png" quality="2" craftquality="2" tags="offensive" />
+	<passive id="222" name="Eerie Lantern" description="Temporary charge" gfx="eerie_lantern.png" quality="1" craftquality="1" tags="offensive" />
 	<passive id="223" cache="all" name="Permanent Bubbles" description="Permanent effects from items" gfx="permanent_bubbles.png" quality="2" craftquality="1" tags="offensive nocantrip noeden" />
 	<passive id="224" name="Abandoned Luggage" description="What's all this...?" gfx="abandoned_luggage.png" quality="1" craftquality="1" tags="offensive" />
 	<passive id="225" name="Entanglement" description="Another possibility" gfx="entanglement.png" quality="2" craftquality="2" tags="offensive nogreed" />
 	<passive id="226" name="A Drop of Blood" description="Money Blood" gfx="a_drop_of_blood.png" quality="1" craftquality="1" tags="offensive nogreed" />
+	<passive id="227" name="Witch-Hunting Season" description="Hunting season has begun" gfx="witch_hunting_season.png" quality="3" craftquality="3" tags="offensive angel summonable" />
+	<active id="228" name="Atonement Ceremony" description="One with the light" chargetype="timed" maxcharges="180" gfx="atonement_ceremony.png" quality="3" craftquality="3" tags="offensive nocantrip" />
+	<active id="229" name="On The Pyre" description="Burn them all!" maxcharges="1" gfx="on_the_pyre.png" quality="2" craftquality="2" tags="offensive nocantrip" />
+
+
 	
 
 	<trinket name="Bottle Shard" description="He really did it" gfx="bottleshard.png" />

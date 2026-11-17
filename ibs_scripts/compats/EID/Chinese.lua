@@ -99,9 +99,9 @@ local playerEID = {
 	info='飞行'..
 		 '#蓄力发射圣光引弹'..
 		 '#对敌人施加{{IBSBAzazelMark}}异端标记：受伤增加'..
-		 '#{{SacrificeRoom}}献祭房无条件出现；献祭伤害变为{{HalfHeart}}半心'..
+		 '#{{SacrificeRoom}}献祭房更容易出现；献祭伤害变为{{HalfHeart}}半心'..
 		 '#血量交易变为刺交易'..
-		 '#3次刺交易后进入堕落形态：蓄力模式变化',
+		 '#3次刺交易后，+ 3{{BlackHeart}}黑心，并进入堕落形态：蓄力模式变化',
 	br='圣光引弹获得追踪'..
 		 '#重复施加{{IBSBAzazelMark}}异端标记时，降下圣光'..
 		 '#{{IBSBAzazelMark}}异端标记增伤效果更强'
@@ -2043,6 +2043,32 @@ local itemEID={
 		 '#{{AngelRoom}}天使房内的道具变为硬币价格，但不再单选'..
 		 '#{{Shop}}商店内的道具价格-30，但是单选'..
 		 '#对错误道具和任务道具无效'
+},
+
+[IBS_ItemID.WitchHuntingSeason]={
+	name='猎巫时节',
+	info='20%概率发射倒十字泪弹({{Luck}}幸运10: 100%):'..
+		 '#{{Blank}} 施加{{IBSBAzazelMark}}异端标记'..
+		 '#{{Blank}} {{IBSBAzazelMark}}异端标记敌人死亡时，降下5道圣光，300%{{Damage}}伤害',
+},
+
+[IBS_ItemID.AtonementCeremony]={
+	name='赎罪仪式',
+	info='2秒内：'..
+		 '#↑  + 1 {{Speed}}移速'..
+		 '#免疫伤害'..
+		 '#不断降下圣光，300%{{Damage}}伤害',
+	virtue='三个中环无敌魂火，结束后消失',
+	belial='结束后追加{{Collectible705}}暗影刺刀效果',
+},
+
+[IBS_ItemID.OnThePyre]={
+	name='火刑架',
+	info='只能在已清理的房间内拾取该道具'..
+		 '#该道具周围敌人会被圣光攻击，500%{{Damage}}伤害'..
+		 '#使用后，对所有敌人施加{{IBSBAzazelMark}}异端标记，并扔下该道具',
+	virtue='两个中环魂火，优先环绕该道具',
+	belial='敌人死于火焰或圣光伤害时，10%概率生成{{BlackHeart}}黑心'
 },
 
 }

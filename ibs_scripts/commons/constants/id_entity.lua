@@ -75,6 +75,13 @@ BAzazelFakeKnife = {
 	SubType = Isaac.GetEntitySubTypeByName('IBS_BAzazelFakeKnife'),
 },
 
+--猎巫时节特效眼泪
+WitchHuntingSeasonTear = {
+	Type = EntityType.ENTITY_TEAR,
+	Variant = Isaac.GetEntityVariantByName('IBS_WitchHuntingSeasonTear'),
+	SubType = Isaac.GetEntitySubTypeByName('IBS_WitchHuntingSeasonTear'),
+},
+
 }
 
 

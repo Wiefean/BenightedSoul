@@ -165,6 +165,14 @@ function Swing:DoSwing(tbl)
 			end
 		end
 	
+		--炸弹
+		if T == 4 then
+			--给予速度
+			if bounceSpd > 0 then
+				ent:AddVelocity((ent.Position - spawner.Position):Resized(bounceSpd / 2))
+			end
+		end		
+	
 		--掉落物
 		if T == 5 then
 			local pickup = ent:ToPickup()

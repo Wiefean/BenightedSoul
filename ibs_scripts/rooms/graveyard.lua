@@ -185,7 +185,7 @@ Graveyard:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, 'OnPickupInit', 10)
 --替换房间
 function Graveyard:ReplaceRooms(roomSlot, roomData, seed)
 	--昧化遗骸,替换商店宝箱房和诅咒房
-	if PlayerManager.AnyoneIsPlayerType(IBS_PlayerID.BForgotten) or self:GetBenightedRun() == IBS_PlayerID.BForgotten then
+	if PlayerManager.AnyoneIsPlayerType(IBS_PlayerID.BForgotten) or (game:GetLevel():GetStage() == 1 and self:GetBenightedRun() == IBS_PlayerID.BForgotten) then
 		--贪婪模式
 		if game:IsGreedMode() then
 			if (roomSlot:Column() == 7 and roomSlot:Row() == 6)
