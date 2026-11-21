@@ -87,6 +87,7 @@ local function Persis_Init() --此处可新增长久数据
 		bc5 = false,
 		bc6 = false,
 		bc7 = false,
+		bc8 = false,
 		bc10 = false,
 		bc11 = false,
 		bc13 = false,
@@ -109,6 +110,16 @@ local function Persis_Init() --此处可新增长久数据
 		curse_moving = true, --动人诅咒
 		curse_d7 = true, --D7诅咒
 		--诅咒区结束--
+		
+		
+		--物品区开始--
+		item_noItem = false, --禁用道具
+		item_noItem_list = {}, --禁用道具列表
+		item_noTrinket = false, --禁用饰品
+		item_noTrinket_list = {}, --禁用饰品列表
+		item_noPocket = false, --禁用口袋物品
+		item_noPocket_list = {}, --禁用口袋物品列表
+		--物品区结束--	
 		
 		
 		--套装区开始--

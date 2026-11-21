@@ -237,6 +237,7 @@ mod.IBS_Item = {
 	WitchHuntingSeason = Load('witch_hunting_season'),
 	AtonementCeremony = Load('atonement_ceremony'),
 	OnThePyre = Load('on_the_pyre'),
+	Dominoptions = Load('dominoptions'),
 
 }
 

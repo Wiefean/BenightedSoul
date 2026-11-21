@@ -81,7 +81,7 @@ function Knock:OnUseCard(card, player)
 								if newData then
 									desc.Data = newData
 									brokenNum = brokenNum + 1
-									seed = seed - 1
+									seed = math.max(1, seed - 1)
 									level:UpdateVisibility()
 									break
 								end

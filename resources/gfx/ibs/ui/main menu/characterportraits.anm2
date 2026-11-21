@@ -446,6 +446,50 @@
             <NullAnimations/>
             <Triggers/>
         </Animation>
+        <Animation Name="BAzazel" FrameNum="21" Loop="false">
+            <RootAnimation>
+                <Frame XPosition="0" YPosition="0" Delay="21" Visible="true" XScale="100" YScale="100" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
+            </RootAnimation>
+            <LayerAnimations>
+                <LayerAnimation LayerId="0" Visible="false">
+                    <Frame XPosition="112" YPosition="0" XPivot="0" YPivot="0" XCrop="0" YCrop="0" Width="480" Height="272" XScale="150" YScale="150" Delay="1" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
+                </LayerAnimation>
+                <LayerAnimation LayerId="3" Visible="true"/>
+                <LayerAnimation LayerId="5" Visible="true"/>
+                <LayerAnimation LayerId="1" Visible="true">
+                    <Frame XPosition="474" YPosition="93" XPivot="23" YPivot="23" XCrop="24" YCrop="132" Width="45" Height="43" XScale="100" YScale="100" Delay="1" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
+                </LayerAnimation>
+                <LayerAnimation LayerId="6" Visible="true"/>
+                <LayerAnimation LayerId="2" Visible="false">
+                    <Frame XPosition="466" YPosition="99" XPivot="21" YPivot="17" XCrop="17" YCrop="47" Width="55" Height="35" XScale="100" YScale="100" Delay="1" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
+                </LayerAnimation>
+                <LayerAnimation LayerId="4" Visible="true"/>
+            </LayerAnimations>
+            <NullAnimations/>
+            <Triggers/>
+        </Animation>
+        <Animation Name="BAzazelLocked" FrameNum="21" Loop="false">
+            <RootAnimation>
+                <Frame XPosition="0" YPosition="0" Delay="21" Visible="true" XScale="100" YScale="100" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
+            </RootAnimation>
+            <LayerAnimations>
+                <LayerAnimation LayerId="0" Visible="false">
+                    <Frame XPosition="112" YPosition="0" XPivot="0" YPivot="0" XCrop="0" YCrop="0" Width="480" Height="272" XScale="150" YScale="150" Delay="1" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
+                </LayerAnimation>
+                <LayerAnimation LayerId="3" Visible="true"/>
+                <LayerAnimation LayerId="5" Visible="true"/>
+                <LayerAnimation LayerId="1" Visible="false">
+                    <Frame XPosition="481" YPosition="94" XPivot="26" YPivot="24" XCrop="133" YCrop="130" Width="41" Height="46" XScale="100" YScale="100" Delay="1" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
+                </LayerAnimation>
+                <LayerAnimation LayerId="6" Visible="true"/>
+                <LayerAnimation LayerId="2" Visible="true">
+                    <Frame XPosition="471" YPosition="89" XPivot="22" YPivot="21" XCrop="22" YCrop="146" Width="44" Height="44" XScale="100" YScale="100" Delay="1" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
+                </LayerAnimation>
+                <LayerAnimation LayerId="4" Visible="true"/>
+            </LayerAnimations>
+            <NullAnimations/>
+            <Triggers/>
+        </Animation>
         <Animation Name="BEden" FrameNum="21" Loop="false">
             <RootAnimation>
                 <Frame XPosition="0" YPosition="0" Delay="21" Visible="true" XScale="100" YScale="100" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>

@@ -1190,6 +1190,11 @@ Item = {
 		Name='火刑架',
 		Desc='烧光他们 !',
 	},
+	
+	[IBS_ItemID.Dominoptions]={
+		Name='多米诺选择',
+		Desc='_/|',
+	},
 
 },
 
@@ -1546,6 +1551,7 @@ Player = {
 	[IBS_PlayerID.BXXX] = 'Benighted ???',
 	[IBS_PlayerID.BEve] = 'Benighted Eve',
 	[IBS_PlayerID.BSamson] = 'Benighted Samson',
+	[IBS_PlayerID.BAzazel] = 'Benighted Azazel',
 	[IBS_PlayerID.BEden] = 'Benighted Eden',
 	[IBS_PlayerID.BLost] = 'Benighted Lost',
 	[IBS_PlayerID.BKeeper] = 'Benighted Keeper',

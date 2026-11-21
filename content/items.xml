@@ -229,7 +229,7 @@
 	<passive id="227" name="Witch-Hunting Season" description="Hunting season has begun" gfx="witch_hunting_season.png" quality="3" craftquality="3" tags="offensive angel summonable" />
 	<active id="228" name="Atonement Ceremony" description="One with the light" chargetype="timed" maxcharges="180" gfx="atonement_ceremony.png" quality="3" craftquality="3" tags="offensive nocantrip" />
 	<active id="229" name="On The Pyre" description="Burn them all!" maxcharges="1" gfx="on_the_pyre.png" quality="2" craftquality="2" tags="offensive nocantrip" />
-
+	<passive id="230" name="Dominoptions" description="_/|" gfx="dominoptions.png" quality="3" craftquality="3" tags="offensive" />
 
 	
 

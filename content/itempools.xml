@@ -305,6 +305,7 @@
         <Item Name="Discount Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Eerie Lantern" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Permanent Bubbles" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Dominoptions" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="greedShop">
@@ -371,6 +372,7 @@
         <Item Name="Sale Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Discount Key" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Eerie Lantern" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Dominoptions" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
 	</Pool>
 	
 	<Pool Name="babyShop">

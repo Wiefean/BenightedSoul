@@ -20,7 +20,7 @@ local FamiliarAttackInfo = InvertedCrossTear.FamiliarAttackInfo
 
 --初始信息
 local InitInfo = {
-	ChargeDelayMul = 10,
+	ChargeDelayMul = 5,
 	OffsetLength = 20,
 	PositionOffset = Vector(0, 10),
 	ShotSpeedMul = 10,
@@ -37,7 +37,7 @@ BAzazel.BlackFormInfo = {
 	TransitionLightRadius = 40,
 	SwingKnockback = 30,
 	ChargeGainMultiplier = 2,
-	ChargeRefillRatio = 0.6,
+	ChargeOnSwingRatio = 0.2,
 	SwingColor = Color(1, 0.15, 0.15, 1, 0, 0, 0),
 }
 BAzazel.ProgressHintDuration = 30
@@ -495,23 +495,8 @@ BAzazel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, 'OnRedemptionEffectUpdat
 --射速修正标准
 function BAzazel:GetDelayCorrection(player)
 	local delay = player.MaxFireDelay
-	if not player:HasCollectible(CollectibleType.COLLECTIBLE_20_20)
-	and (player:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE)
-	or player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER)) then
-		delay = delay * 0.5
-	end
-	if InvertedCrossTear:HasCollectibleIncludingBlocked(
-		player, CollectibleType.COLLECTIBLE_HAEMOLACRIA)
-	or (player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG)
-	and not player:HasCollectible(CollectibleType.COLLECTIBLE_TECHNOLOGY)) then
-		delay = delay * 0.5
-	end
-	if (player:HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE)
-	and not player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE))
-	or InvertedCrossTear:HasIpecac(player)
-	or InvertedCrossTear:HasDrFetus(player)
-	or player:GetPlayerType() == self.ID then
-		delay = delay * 0.5
+	if player:GetPlayerType() ~= self.ID then
+		delay = delay * 3
 	end
 	return math.max(0.05, delay)
 end
@@ -528,8 +513,8 @@ function BAzazel:GetChargeGain(player, amount)
 	return amount
 end
 
---黑色形态每组引弹只挥砍一次;普通模式和遥控模式生成时额外补充半条蓄力
-function BAzazel:DoBlackFormSwing(player, data, source, aimAngle, replenishHalf)
+--堕落形态近战命中时立刻补充20%最大蓄力
+function BAzazel:DoBlackFormSwing(player, data, source, aimAngle)
 	local direction = Vector.FromAngle(aimAngle or 0)
 	if not self:IsBlackForm(player) or not source or not source:Exists() then return end
 	
@@ -553,7 +538,7 @@ function BAzazel:DoBlackFormSwing(player, data, source, aimAngle, replenishHalf)
 		CollectPickup = true,
 		FollowEntity = source,
 	})
-	sfx:Play(494, 1, 2, false, 1.6)
+	sfx:Play(494, 0.6, 2, false, 1.6)
 	local hitEnemy = false
 	for _, entity in ipairs(targets) do
 		if self._Ents:IsEnemy(entity) then
@@ -561,11 +546,9 @@ function BAzazel:DoBlackFormSwing(player, data, source, aimAngle, replenishHalf)
 			mod.IBS_Effect.BAzazelCrackTheSkyMark:Apply(entity, player)
 		end
 	end
-
-	--只有实际命中敌人才补充半条蓄力
-	if replenishHalf and hitEnemy and data.MaxCharge > 0 then
+	if hitEnemy and data.MaxCharge > 0 then
 		data.Charge = math.min(data.MaxCharge,
-			(data.Charge or 0) + data.MaxCharge * self.BlackFormInfo.ChargeRefillRatio)
+			(data.Charge or 0) + data.MaxCharge * self.BlackFormInfo.ChargeOnSwingRatio)
 	end
 	return targets, effect
 end
@@ -658,11 +641,9 @@ function BAzazel:GetInvertedCrossDirections(player, specialDirections)
 		elseif spreadAngle > 0 then
 			direction = index * spreadAngle / lanes
 		end
-		if move2ToSide and lane > lanes - 2 then
-			direction = 45
-			if lane == lanes - 1 then
-				direction = -45
-			end
+		--宝宝套追加首尾两条侧弹,不能覆盖原有中央弹道
+		if move2ToSide and (lane == 1 or lane == lanes) then
+			direction = lane == 1 and -45 or 45
 		end
 		table.insert(directions, direction)
 	end
@@ -738,7 +719,7 @@ function BAzazel:SpawnInvertedCrossTears(player, data, source)
 	if #data.InvertedCrossTears > 0 then
 		data.MaxCharge = self:GetChargeTime(player)
 		data.Charge = 0
-		self:DoBlackFormSwing(player, data, source, aimAngle, true)
+		self:DoBlackFormSwing(player, data, source, aimAngle)
 	end
 	return data.InvertedCrossTears
 end
@@ -835,13 +816,13 @@ function BAzazel:SpawnRemoteControlTears(player, data, source)
 		if tear then
 			local tearData = InvertedCrossTear:GetData(tear)
 			tearData.IsRemoteControl = true
-			tearData.RemoteControlMoving = true
+			tearData.RemoteControlMoving = false
 			tearData.RemoteControlEmitLight = false
 			table.insert(data.InvertedCrossTears, tear)
 		end
 	end
 	if #data.InvertedCrossTears > 0 then
-		self:DoBlackFormSwing(player, data, source, aimAngle, true)
+		self:DoBlackFormSwing(player, data, source, aimAngle)
 	end
 	return data.InvertedCrossTears
 end
@@ -911,6 +892,9 @@ function BAzazel:UpdateRemoteControl(player, data, source)
 	local aimAngle = aim:GetAngleDegrees()
 	for _, tear in ipairs(tears) do
 		local tearData = InvertedCrossTear:GetData(tear)
+		if not tearData.RemoteControlMoving then
+			InvertedCrossTear:SetTouchedFlags(tear, false)
+		end
 		local direction = Vector.FromAngle(aimAngle + (tearData.DirectionOffset or 0))
 		local velocity = tear.Velocity * RemoteControlInfo.VelocityInheritance
 			+ direction * RemoteControlInfo.MoveSpeed
@@ -946,12 +930,13 @@ function BAzazel:FireNeptuneTear(player, data, source)
 			fired = true
 			InvertedCrossTear:UpdateChargeScale(tear, player, chargeRatio)
 			InvertedCrossTear:Release(tear, direction, InitInfo.ShotSpeedMul,
-				player.TearRange * InitInfo.RangeMul * chargeRatio, chargeRatio, player)
+				player.TearRange * InitInfo.RangeMul * chargeRatio, chargeRatio, player,
+				nil, nil, true)
 		end
 	end
 	if not fired then return false end
 
-	self:DoBlackFormSwing(player, data, source, aimAngle, false)
+	self:DoBlackFormSwing(player, data, source, aimAngle)
 	self:QueueTrailingTears(player, data, aimAngle, chargeRatio, source)
 	data.InvertedCrossTears = {}
 	data.SpecialDirections = nil
@@ -984,6 +969,81 @@ function BAzazel:UpdateNeptune(player, data, source)
 	end
 end
 
+--堕落形态普通攻击不生成悬浮引弹:隐身蓄力完成后直接生成并发射
+function BAzazel:FireBlackFormDirectTears(player, data, source, chargeRatio)
+	source = source or self:GetAttackSource(player)
+	chargeRatio = math.max(0, math.min(1, chargeRatio or 0))
+	local aimAngle = self:UpdateAimAngle(player, data, true, source)
+	data.SpecialDirections = self:GetSpecialDirections(player)
+	local directions = self:GetInvertedCrossDirections(player, data.SpecialDirections)
+	local fired = false
+	for _, directionOffset in ipairs(directions) do
+		local direction = Vector.FromAngle(aimAngle + directionOffset)
+		local position = source.Position + InitInfo.PositionOffset
+			+ direction * (InitInfo.OffsetLength + 15)
+		local tear = InvertedCrossTear:Spawn(player, position, directionOffset, source)
+		if tear then
+			fired = true
+			InvertedCrossTear:UpdateChargeScale(tear, player, chargeRatio)
+			InvertedCrossTear:Release(tear, direction, InitInfo.ShotSpeedMul,
+				player.TearRange * InitInfo.RangeMul * chargeRatio, chargeRatio, player,
+				nil, nil, true)
+
+			if player:HasCollectible(CollectibleType.COLLECTIBLE_LEAD_PENCIL) then
+				data.PencilCount = (data.PencilCount or 0) + 1
+				if data.PencilCount >= 15 then
+					data.PencilCount = data.PencilCount - 15
+					self:FirePencilTears(player, data, chargeRatio, source, false)
+				end
+			end
+		end
+	end
+	if not fired then return false end
+
+	self:QueueTrailingTears(player, data, aimAngle, chargeRatio, source, false)
+	data.InvertedCrossTears = {}
+	data.SpecialDirections = nil
+	data.DirectionOffsets = nil
+	data.Charge = 0
+	data.MaxCharge = 0
+	data.ChargeCooldown = 0
+	return true
+end
+
+function BAzazel:UpdateBlackFormDirectAttack(player, data, source)
+	source = source or self:GetAttackSource(player)
+	data.MaxCharge = self:GetChargeTime(player)
+	data.Charge = math.max(0, math.min(data.MaxCharge, data.Charge or 0))
+	--近战冷却独立于攻击键,松手后仍持续恢复
+	data.BlackFormMeleeCooldown = math.max(0, (data.BlackFormMeleeCooldown or 0) - 1)
+	data.ChargeCooldown = 0
+
+	local firing = self:IsFiring(player)
+		and not Input.IsActionPressed(ButtonAction.ACTION_MAP, player.ControllerIndex)
+	if firing and data.BlackFormMeleeCooldown <= 0 then
+		local aimAngle = self:UpdateAimAngle(player, data, true, source)
+		self:DoBlackFormSwing(player, data, source, aimAngle)
+		data.BlackFormMeleeCooldown = math.max(1, player.MaxFireDelay)
+	end
+
+	if firing then
+		data.Charge = math.min(data.MaxCharge,
+			data.Charge + self:GetChargeGain(player, 1))
+		if data.Charge >= data.MaxCharge and self:ShouldAutoRelease(player) then
+			self:FireBlackFormDirectTears(player, data, source, 1)
+		end
+	elseif data.Charge > 0 then
+		if data.Charge >= data.MaxCharge then
+			self:FireBlackFormDirectTears(player, data, source, 1)
+		else
+			data.Charge = 0
+			data.MaxCharge = 0
+		end
+	else
+		data.MaxCharge = 0
+	end
+end
+
 --铅笔触发时额外释放8枚随机方向的引导弹
 function BAzazel:FirePencilTears(player, data, chargeRatio, source, autoRelease)
 	source = source or self:GetAttackSource(player)
@@ -1000,7 +1060,8 @@ function BAzazel:FirePencilTears(player, data, chargeRatio, source, autoRelease)
 			tearData.BaseScale = tearData.BaseScale * scale
 			InvertedCrossTear:UpdateChargeScale(tear, player, chargeRatio)
 			InvertedCrossTear:Release(tear, Vector.FromAngle(direction), speed,
-				player.TearRange * InitInfo.RangeMul * chargeRatio, chargeRatio, player, autoRelease)
+				player.TearRange * InitInfo.RangeMul * chargeRatio, chargeRatio, player,
+				autoRelease, nil, true)
 		end
 	end
 end
@@ -1073,7 +1134,7 @@ function BAzazel:UpdateCursedEyeTears(player, data, source)
 			if tear then
 				InvertedCrossTear:UpdateChargeScale(tear, player, shot.ChargeRatio)
 				InvertedCrossTear:Release(tear, direction, InitInfo.ShotSpeedMul,
-					shot.Range, shot.ChargeRatio, player, shot.AutoRelease)
+					shot.Range, shot.ChargeRatio, player, shot.AutoRelease, nil, true)
 				table.remove(shots, index)
 			else
 				shot.Delay = 1
@@ -1122,6 +1183,7 @@ function BAzazel:UpdateTrisagionTears(player, data, source)
 			local tear = player:FireTear(position, direction * player.ShotSpeed * InitInfo.ShotSpeedMul,
 				false, true, true, player, shot.DamageMultiplier)
 			if tear then
+				InvertedCrossTear:SetTouchedFlags(tear, true)
 				tear:AddTearFlags(TearFlags.TEAR_LASERSHOT)
 				table.remove(shots, index)
 			else
@@ -1170,7 +1232,9 @@ function BAzazel:ReleaseCharge(player, data, source, autoRelease)
 		local tearData = InvertedCrossTear:GetData(tear)
 		local direction = Vector.FromAngle(data.AimAngle + tearData.DirectionOffset)
 		InvertedCrossTear:UpdateChargeScale(tear, player, chargeRatio)
-		InvertedCrossTear:Release(tear, direction, speed, player.TearRange * InitInfo.RangeMul * chargeRatio, chargeRatio, player, autoRelease)
+		InvertedCrossTear:Release(tear, direction, speed,
+			player.TearRange * InitInfo.RangeMul * chargeRatio, chargeRatio, player,
+			autoRelease, nil, true)
 
 		if player:HasCollectible(CollectibleType.COLLECTIBLE_LEAD_PENCIL) then
 			data.PencilCount = (data.PencilCount or 0) + 1
@@ -1269,6 +1333,10 @@ function BAzazel:UpdateAttack(player, source)
 		self:UpdateNeptune(player, data, source)
 		return
 	end
+	if self:IsBlackForm(player) then
+		self:UpdateBlackFormDirectAttack(player, data, source)
+		return
+	end
 
 	local firing = self:IsFiring(player)
 	local tears = self:GetHeldTears(data)
@@ -1339,12 +1407,13 @@ function BAzazel:OnPlayerRender(player, offset)
 		charge = data.Charge or 0
 		maxCharge = data.MaxCharge > 0 and data.MaxCharge or self:GetChargeTime(player)
 	else
-		local charging = #self:GetHeldTears(data) > 0 and data.MaxCharge > 0 and data.Charge > 0
+		local charging = (#self:GetHeldTears(data) > 0 or self:IsBlackForm(player))
+			and data.MaxCharge > 0 and data.Charge > 0
 		charge = charging and data.Charge or 0
 		maxCharge = charging and data.MaxCharge or self:GetChargeTime(player)
 	end
 
-	--特殊攻击模式显示自动蓄力,普通模式只在持有悬浮引弹时显示充能
+	--特殊攻击和堕落形态显示无悬浮引弹蓄力,普通模式仅显示悬浮引弹充能
 	if charge > 0 and maxCharge > 0 then
 		if charge >= maxCharge then
 			local animation = bar:GetAnimation()
@@ -1419,7 +1488,6 @@ function BAzazel:OnEvaluateCache(player, flag)
 end
 BAzazel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, 'OnEvaluateCache')
 
-
 --神秘测伤土豆特殊兼容
 mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_,npc)
 	if npc.Variant == 2 and npc:IsFrame(30,0) and PlayerManager.AnyoneIsPlayerType(BAzazel.ID) then		
@@ -1427,5 +1495,14 @@ mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_,npc)
 	end
 end, 231)
 
+--变身
+function BAzazel:Benighted(player, fromMenu)
+	if CharacterLock.BAzazel:IsLocked() then return end
+	player:ChangePlayerType(self.ID)
+	player:AddSoulHearts(-player:GetSoulHearts())
+	player:AddSoulHearts(6)
+	self:SpawnBlackFormTransitionEffect(player)
+end
+BAzazel:AddCallback(mod.IBS_CallbackID.BENIGHTED, 'Benighted', PlayerType.PLAYER_AZAZEL)
 
 return BAzazel

@@ -2007,9 +2007,8 @@ local itemEID={
 
 [IBS_ItemID.WitchHuntingSeason]={
 	name='Witch Hunting Season',
-	info='20% chance to fire a cross tear ({{Luck}}Luck 10: 100%):'..
-		 '#{{Blank}} Apply {{IBSBAzazelMark}}Heresy Mark'..
-		 '#{{Blank}} When {{IBSBAzazelMark}}Heresy Marked enemies are killed, spawn 5 holy light, 300% {{Damage}}damage',
+	info='20% chance to fire a cross tear that applies {{IBSBAzazelMark}}Heresy Mark ({{Luck}}Luck 10: 100%)'..
+		 '#When {{IBSBAzazelMark}}Heresy Marked enemies are killed, spawn 5 holy light, 300% {{Damage}}damage',
 },
 
 [IBS_ItemID.AtonementCeremony]={
@@ -2029,6 +2028,12 @@ local itemEID={
 		 '#When used, apply {{IBSBAzazelMark}}Heresy Mark to enemies, and drop this item',
 	virtue='2 middle wisps, surrounding this item first',
 	belial='When enemies killed by fire or holy light, 10% chance to spawn {{BlackHeart}}Black Heart'
+},
+
+[IBS_ItemID.Dominoptions]={
+	name='Dominoptions',
+	info='For the item that is of the highest quality in a new room, spawn random items with lower quality, until {{Quality0}}Quality 0'..
+		 '#Stop if blocked by border or when trying to spawn {{Collectible25}}Breakfast',
 },
 
 }

@@ -2,6 +2,7 @@
 
 local mod = Isaac_BenightedSoul
 local zh = (mod.Language == 'zh')
+--local zh = false
 local IBS_ChallengeID = mod.IBS_ChallengeID
 local IBS_PlayerKey = mod.IBS_PlayerKey
 
@@ -225,6 +226,22 @@ local info_zh = {
 			{Str = '架势!', Offset = Vector(17, 0)},
 			{Str = '塔罗牌?', Offset = Vector(7, 25), ConditionKey='bc7'},
 		},
+	},
+	[8] = {
+		PlayerKey = IBS_PlayerKey.BAzazel,
+		LockCheck = {
+			Lock = lock.BAzazel,
+			Desc = {
+				{Str = '拜访天使于', Offset = Vector(40, 5)},
+				{Str = '褪色中三次', Offset = Vector(35, 30)},
+			}
+		},
+		Portrait = {Anim = 'BAzazel'},	
+		Name = {Str = '阿撒泻勒', Offset = Vector(-25,0)},
+		Desc = {
+			{Str = '亡羊补牢'},
+			{Str = '圣光扫荡', Offset = Vector(0, 16)},
+		},
 	},	
 	[10] = {
 		PlayerKey = IBS_PlayerKey.BEden,
@@ -447,6 +464,22 @@ local info_en = {
 		Thing = {
 			{Str = 'Posture!', Offset = Vector(5, 0)},
 			{Str = 'Tarot?', Offset = Vector(10, 25), ConditionKey='bc7'},
+		},
+	},	
+	[8] = {
+		PlayerKey = IBS_PlayerKey.BAzazel,
+		LockCheck = {
+			Lock = lock.BAzazel,
+			Desc = {
+				{Str = 'View Angel in Faded', Offset = Vector(0, 5)},
+				{Str = 'for three times', Offset = Vector(15, 30)},
+			}
+		},
+		Portrait = {Anim = 'BAzazel'},	
+		Name = {Str = 'Azazel', Offset = Vector(-18,0)},
+		Desc = {
+			{Str = 'Go at mend', Offset = Vector(-10, 0)},
+			{Str = 'Light sweeper', Offset = Vector(-16, 16)},
 		},
 	},	
 	[10] = {

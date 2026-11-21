@@ -233,6 +233,7 @@ ADropOfBlood = Isaac.GetItemIdByName("A Drop of Blood"),
 WitchHuntingSeason = Isaac.GetItemIdByName("Witch-Hunting Season"),
 AtonementCeremony = Isaac.GetItemIdByName("Atonement Ceremony"),
 OnThePyre = Isaac.GetItemIdByName("On The Pyre"),
+Dominoptions = Isaac.GetItemIdByName("Dominoptions"),
 
 }
 

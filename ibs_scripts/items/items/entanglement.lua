@@ -48,7 +48,7 @@ function Entanglement:CheckDAOpen(devil, angel)
 					end
 				end
 			end	
-			seed = seed - 1
+			seed = math.max(1, seed - 1)
 		end
 	end
 end

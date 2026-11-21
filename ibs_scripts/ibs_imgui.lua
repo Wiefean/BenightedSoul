@@ -2,13 +2,20 @@
 
 local mod = Isaac_BenightedSoul
 local IBS_PlayerKey = mod.IBS_PlayerKey
+local IBS_ItemID = mod.IBS_ItemID
+local IBS_TrinketID = mod.IBS_TrinketID
+local IBS_PocketID = mod.IBS_PocketID
 local IBS_Curse = mod.IBS_Curse
+local Translations = mod.IBS_Lib.Translations
 local Screens = mod.IBS_Lib.Screens
 local Ents = mod.IBS_Lib.Ents
+local Players = mod.IBS_Lib.Players
 local Stats = mod.IBS_Lib.Stats
 local Levels = mod.IBS_Lib.Levels
+local LANG = mod.Language
 
 local game = Game()
+local config = Isaac.GetItemConfig()
 
 local _Menu = mod.Name..'_' --主菜单
 
@@ -443,6 +450,37 @@ MakeCharacterBar(IBS_PlayerKey.BSamson, Language('参孙', 'Samson'), {
 	Greed = {'maw_bank'},
 	-- FINISHED = {'secret_histories'},
 })
+MakeCharacterBar(IBS_PlayerKey.BAzazel, Language('阿撒泻勒', 'Azazel'), {
+	Unlocked = Language('在挑战"褪色"中进入天使房三次以解锁', 'Enter Angel Room for 3 tiems in challenge "Faded" to unlock'),
+	Heart = Language('解锁 "命运纠缠"', 'For "Entanglement"'),
+	Isaac = Language('解锁 "赎罪仪式"', 'For "Atonement Ceremony"'),
+	BlueBaby = Language('解锁 "悠悠"', 'For "MM"'),
+	Satan = Language('解锁 "阿撒泻勒的旷野"', 'For "Azazel The Wild"'),
+	Lamb = Language('解锁 "愤怒的悠悠"', 'For "MMS"'),
+	-- MegaSatan = Language('解锁 ""', 'For ""'),
+	BossRush = Language('解锁 "圣乔治蘑菇"', 'For "Calocybe gambosa"'),
+	Delirium = Language('解锁 "猎巫时节"', 'For "Witch-Hunting Season"'),
+	Witness = Language('解锁 "根系之仪"', 'For "Rites of The Roots"'),
+	Beast = Language('解锁 "一滴血"', 'For "A Drop of Blood"'),
+	Greed = Language('解锁 "火刑架"', 'For "On The Pyre"'),
+	FINISHED = Language('解锁 "米迦勒的赐福"', 'For "Blessing of Michael"'),
+},
+{
+	Unlocked = {'bazazel_unlock'},
+	-- Heart = {'dmg_transmitter'},
+	-- Isaac = {'peace_pipe'},
+	-- BlueBaby = {'spirit_poop'},
+	-- Satan = {'luck_enchantment'},
+	-- Lamb = {'signature_move'},
+	-- MegaSatan = {'choose'},
+	-- BossRush = {'armageddon'},
+	-- Hush = {'bsamson_falsehood'},
+	-- Delirium = {'posture'},
+	-- Witness = {'bulky_worm'},
+	-- Beast = {'loong'},
+	-- Greed = {'maw_bank'},
+	-- FINISHED = {'secret_histories'},
+})
 MakeCharacterBar(IBS_PlayerKey.BEden, Language('伊甸', 'Eden'), {
 	Unlocked = Language('伊甸/堕化伊甸在开局留在初始房间等待2分钟左右以解锁', 'Eden / Tainted Eden stays in the starting room at the start of a run for about 2 minutes to unlock'),
 	Heart = Language('解锁 "21点"', 'For "Blackjack"'),
@@ -582,6 +620,7 @@ do
 	MakeCheckBox(_AchievTab2, 'bc5', Language('双重释放', 'Dualcast'), Language('完成以强化昧化???：额外初始物品', 'Finish it to boost Benighted ???: Extra starting items'), {'bxxx_up'} )
 	MakeCheckBox(_AchievTab2, 'bc6', Language('池沼魔谷', 'Marsh Rooms'), Language('完成以强化昧化夏娃：额外初始物品', 'Finish it to boost Benighted Eve: Extra starting items'), {'beve_up'} )
 	MakeCheckBox(_AchievTab2, 'bc7', Language('背刺', 'Backstab'), Language('完成以强化昧化参孙：额外初始物品；\n  完成头目房后正逆塔罗牌交替出现', 'Finish it to boost Benighted Samson: Extra starting items; \n  Common and Reversed Tarot alternately appear after Boss Room'), {'bsamson_up'} )
+	MakeCheckBox(_AchievTab2, 'bc8', Language('褪色', 'Faded'), Language('在过程中进入三次天使房以解锁昧化阿撒泻勒', 'Enter Angel Room for 3 times in this challenge to unlock Benighted Azazel') )
 	
 	MakeCheckBox(_AchievTab2, 'bc10', Language('天妒英才', 'Envery'), Language('完成以强化昧化伊甸：额外初始物品', 'Finish it to boost Benighted Eden: Extra starting items'), {'beden_up'} )
 	MakeCheckBox(_AchievTab2, 'bc11', Language('钥匙变炸弹', 'Keys are bomb'), Language('完成以强化昧化游魂：额外初始物品', 'Finish it to boost Benighted Lost: Extra starting items'), {'blost_up'} )
@@ -614,6 +653,7 @@ local _SettingWindow =  _Menu..'SettingWindow' --设置窗口
 local _SettingTabBar = _Menu..'SettingTabBar' --设置点选框
 local _SettingTabD = _Menu..'SettingTabD' --难度栏
 local _SettingTabC = _Menu..'SettingTabC' --诅咒栏
+local _SettingTabI = _Menu..'SettingTabI' --物品栏
 local _SettingTabT = _Menu..'SettingTabT' --套装栏
 local _SettingTabS = _Menu..'SettingTabS' --可互动实体栏
 local _SettingTabB = _Menu..'SettingTabB' --头目栏
@@ -626,6 +666,7 @@ ImGui.LinkWindowToElement(_SettingWindow, _Setting)
 ImGui.AddTabBar(_SettingWindow, _SettingTabBar)
 ImGui.AddTab(_SettingTabBar, _SettingTabD, Language('难度', 'Difficulty') )
 ImGui.AddTab(_SettingTabBar, _SettingTabC, Language('诅咒', 'Curses') )
+ImGui.AddTab(_SettingTabBar, _SettingTabI, Language('物品', 'Items') )
 ImGui.AddTab(_SettingTabBar, _SettingTabT, Language('套装', 'Trans') )
 ImGui.AddTab(_SettingTabBar, _SettingTabS, Language('可互动实体', 'Slots') )
 ImGui.AddTab(_SettingTabBar, _SettingTabB, Language('头目', 'Bosses') )
@@ -711,6 +752,290 @@ do
 	MakeCheckBox(_SettingTabC, 'curse_d7', Language('七面骰诅咒', 'Curse Of D7') )
 end
 ----↑诅咒栏相关↑----
+
+
+----↓物品栏相关↓----
+do
+	--道具禁用栏
+	MakeCheckBox(_SettingTabI, 'item_noItem', Language('禁用道具', 'Disable Collectibles') )
+	do
+		local header = _SettingTabI..'_item'
+		ImGui.AddElement(_SettingTabI, header, ImGuiElement.CollapsingHeader, Language('禁用道具列表', 'Disabled Collectibles'))
+		
+		local cache = {}
+		
+		if LANG == 'zh' then
+			for k,id in pairs(IBS_ItemID) do
+				local itemConfig = config:GetCollectible(id)
+				if itemConfig and not itemConfig.Hidden then
+					local name = ""
+					local i = Translations["zh"]["Item"][id]
+					if i then
+						name = i.Name
+					end
+					table.insert(cache, {Key = k, Name = name, ID = id})
+				end
+			end
+		else
+			for k,id in pairs(IBS_ItemID) do
+				local itemConfig = config:GetCollectible(id)
+				if itemConfig and not itemConfig.Hidden then				
+					local name = itemConfig.Name or ""
+					table.insert(cache, {Key = k, Name = name, ID = id})
+				end
+			end	
+		end
+		
+		--按id升序
+		table.sort(cache, function(a,b)
+			return (a.ID < b.ID)
+		end)		
+		
+		--创建勾选框
+		local num = 1
+		local MaxNum = (LANG == 'zh' and 4) or 3
+		local last = #cache
+		for k,v in ipairs(cache) do
+			local KEY = v.Key
+			local box = header..'_'..KEY
+			ImGui.AddCheckbox(header, box, v.Name)
+			
+			if k ~= last then
+				if num < MaxNum then
+					num = num + 1
+					ImGui.AddElement(header, '', ImGuiElement.SameLine)
+				else
+					num = 1
+				end
+			end
+			
+			ImGui.AddCallback(box, ImGuiCallback.Render, function()
+				ImGui.UpdateData(box, ImGuiData.Value, mod:GetIBSData('persis').item_noItem_list[KEY] or false)
+			end)
+			ImGui.AddCallback(box, ImGuiCallback.Edited, function()
+				if not IsSaveslotLoaded() then
+					return
+				end
+
+				local data = mod:GetIBSData('persis').item_noItem_list
+				if data[KEY] then
+					data[KEY] = nil
+				else
+					data[KEY] = true
+				end
+				mod:SaveIBSData()
+			end)
+		end	
+	end
+
+	ImGui.AddElement(_SettingTabI, '', ImGuiElement.SeparatorText)
+	
+	--饰品禁用栏
+	MakeCheckBox(_SettingTabI, 'item_noTrinket', Language('禁用饰品', 'Disable Trinkets') )
+	do
+		local header = _SettingTabI..'_trinket'
+		ImGui.AddElement(_SettingTabI, header, ImGuiElement.CollapsingHeader, Language('禁用饰品列表', 'Disabled Trinkets'))
+		
+		local cache = {}
+		
+		if LANG == 'zh' then
+			for k,id in pairs(IBS_TrinketID) do
+				local itemConfig = config:GetTrinket(id)
+				if itemConfig and not itemConfig.Hidden then
+					local name = ""
+					local i = Translations["zh"]["Trinket"][id]
+					if i then
+						name = i.Name
+					end
+					table.insert(cache, {Key = k, Name = name, ID = id})
+				end
+			end
+		else
+			for k,id in pairs(IBS_TrinketID) do
+				local itemConfig = config:GetTrinket(id)
+				if itemConfig and not itemConfig.Hidden then				
+					local name = itemConfig.Name or ""
+					table.insert(cache, {Key = k, Name = name, ID = id})
+				end
+			end	
+		end
+		
+		--按id升序
+		table.sort(cache, function(a,b)
+			return (a.ID < b.ID)
+		end)		
+		
+		--创建勾选框
+		local num = 1
+		local MaxNum = (LANG == 'zh' and 4) or 3
+		local last = #cache
+		for k,v in ipairs(cache) do
+			local KEY = v.Key
+			local box = header..'_'..KEY
+			ImGui.AddCheckbox(header, box, v.Name)
+			
+			if k ~= last then
+				if num < MaxNum then
+					num = num + 1
+					ImGui.AddElement(header, '', ImGuiElement.SameLine)
+				else
+					num = 1
+				end
+			end
+			
+			ImGui.AddCallback(box, ImGuiCallback.Render, function()
+				ImGui.UpdateData(box, ImGuiData.Value, mod:GetIBSData('persis').item_noTrinket_list[KEY] or false)
+			end)
+			ImGui.AddCallback(box, ImGuiCallback.Edited, function()
+				if not IsSaveslotLoaded() then
+					return
+				end
+
+				local data = mod:GetIBSData('persis').item_noTrinket_list
+				if data[KEY] then
+					data[KEY] = nil
+				else
+					data[KEY] = true
+				end
+				mod:SaveIBSData()
+			end)
+		end	
+	end	
+	
+	ImGui.AddElement(_SettingTabI, '', ImGuiElement.SeparatorText)
+	
+	MakeCheckBox(_SettingTabI, 'item_noPocket', Language('禁用口袋物品', 'Disable Pockets') )
+	do
+		local header = _SettingTabI..'_pocket'
+		ImGui.AddElement(_SettingTabI, header, ImGuiElement.CollapsingHeader, Language('禁用口袋物品列表', 'Disabled Pockets'))
+		
+		local cache = {}
+		
+		if LANG == 'zh' then
+			for k,id in pairs(IBS_PocketID) do
+				local itemConfig = config:GetCard(id)
+				if itemConfig then
+					local name = ""
+					local i = Translations["zh"]["Pocket"][id]
+					if i then
+						name = i.Name
+					end
+					table.insert(cache, {Key = k, Name = name, ID = id})
+				end
+			end
+		else
+			for k,id in pairs(IBS_PocketID) do
+				local itemConfig = config:GetCard(id)
+				if itemConfig then				
+					local name = itemConfig.Name or ""
+					table.insert(cache, {Key = k, Name = name, ID = id})
+				end
+			end	
+		end
+		
+		--按id升序
+		table.sort(cache, function(a,b)
+			return (a.ID < b.ID)
+		end)		
+		
+		--创建勾选框
+		local num = 1
+		local MaxNum = (LANG == 'zh' and 4) or 3
+		local last = #cache
+		for k,v in ipairs(cache) do
+			local KEY = v.Key
+			local box = header..'_'..KEY
+			ImGui.AddCheckbox(header, box, v.Name)
+			
+			if k > 1 and k ~= last then
+				if num < MaxNum then
+					num = num + 1
+					ImGui.AddElement(header, '', ImGuiElement.SameLine)
+				else
+					num = 1
+				end
+			end
+			
+			ImGui.AddCallback(box, ImGuiCallback.Render, function()
+				ImGui.UpdateData(box, ImGuiData.Value, mod:GetIBSData('persis').item_noPocket_list[KEY] or false)
+			end)
+			ImGui.AddCallback(box, ImGuiCallback.Edited, function()
+				if not IsSaveslotLoaded() then
+					return
+				end
+
+				local data = mod:GetIBSData('persis').item_noPocket_list
+				if data[KEY] then
+					data[KEY] = nil
+				else
+					data[KEY] = true
+				end
+				mod:SaveIBSData()
+			end)
+		end	
+	end		
+	
+	mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.IMPORTANT, function(_,isContinue)
+		if not isContinue then
+			local data = mod:GetIBSData('persis')
+			local itemPool = game:GetItemPool()
+		
+			if data["item_noItem"] then --道具
+				for KEY,id in pairs(IBS_ItemID) do
+					if data.item_noItem_list[KEY] then					
+						itemPool:RemoveCollectible(id)
+					end
+				end				
+			end
+			if data["item_noTrinket"] then --饰品
+				for KEY,id in pairs(IBS_TrinketID) do
+					if data.item_noTrinket_list[KEY] then	
+						itemPool:RemoveTrinket(id)
+					end
+				end
+			end
+		end	
+	end)
+	
+	mod:AddPriorityCallback(ModCallbacks.MC_POST_GET_COLLECTIBLE, CallbackPriority.IMPORTANT, function(_,id, pool, decrease, seed)
+		local data = mod:GetIBSData('persis')
+		if data["item_noItem"] then
+			for KEY,_id in pairs(IBS_ItemID) do
+				if _id == id and data.item_noItem_list[KEY] then
+					local itemPool = game:GetItemPool()
+					itemPool:RemoveCollectible(id)
+					return itemPool:GetCollectible(pool, decrease, seed)
+				end
+			end
+		end
+	end)
+
+	mod:AddPriorityCallback(ModCallbacks.MC_GET_TRINKET, CallbackPriority.IMPORTANT, function(_,id)
+		local data = mod:GetIBSData('persis')
+		if data["item_noTrinket"] then
+			for KEY,_id in pairs(IBS_TrinketID) do
+				if _id == id and data.item_noTrinket_list[KEY] then
+					local itemPool = game:GetItemPool()
+					itemPool:RemoveTrinket(id)
+					return itemPool:GetTrinket()
+				end
+			end
+		end
+	end)
+
+	mod:AddPriorityCallback(ModCallbacks.MC_GET_CARD, CallbackPriority.IMPORTANT, function(_,rng, id, includePlayingCards, includeRunes, onlyRunes)
+		local data = mod:GetIBSData('persis')
+		if data["item_noPocket"] then
+			for KEY,_id in pairs(IBS_PocketID) do
+				if _id == id and data.item_noPocket_list[KEY] then
+					local itemPool = game:GetItemPool()
+					return itemPool:GetCard(rng:Next(), includePlayingCards, includeRunes, onlyRunes)
+				end
+			end
+		end
+	end)
+end
+----↑物品栏相关↑----
 
 
 ----↓套装栏相关↓----
@@ -1681,6 +2006,12 @@ do
 		difficulty_boss_level_mult = 0.1, --boss敌人血量每层增长		
 		curse_moving = true, --动人诅咒
 		curse_d7 = true, --D7诅咒
+		item_noItem = false, --禁用道具
+		item_noItem_list = true, --禁用道具列表
+		item_noTrinket = false, --禁用饰品
+		item_noTrinket_list = true, --禁用饰品列表
+		item_noPocket = false, --禁用口袋物品
+		item_noPocket_list = true, --禁用口袋物品列表
 		trans_doormaker = true, --掌门
 		trans_bomber = true, --炸弹人
 		trans_abyss = true, --无底坑	

@@ -10,7 +10,6 @@ end
 
 --独立回调
 mod.IBS_Callback = {
-	RenderOverlay = Load('render_overlay'),
 	Benighted = Load('benighted'),
 	CheckIronHeart = Load('check_iron_heart'),
 	DevilAngelOpenState = Load('devil_angel_open_state'),

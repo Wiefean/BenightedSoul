@@ -23,7 +23,6 @@ function mod.IBS_Curse:_Emphasize()
 end
 
 local IBS_Curse = mod.IBS_Curse
-local IBS_CallbackID = mod.IBS_CallbackID
 local Levels = mod.IBS_Lib.Levels
 local Screens = mod.IBS_Lib.Screens
 
@@ -122,7 +121,7 @@ local function CurseRender()
 		X = X + 16
 	end
 end
-mod:AddCallback(IBS_CallbackID.RENDER_OVERLAY, CurseRender)
+mod:AddCallback(ModCallbacks.MC_POST_HUD_RENDER, CurseRender)
 
 --进入新层时调整贴图,使其更显眼
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()

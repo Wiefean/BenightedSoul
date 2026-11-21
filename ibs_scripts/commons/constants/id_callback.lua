@@ -121,11 +121,6 @@ DOUBLE_TAP = "IBS_CALLBACK_PLAYER_DOUBLE_TAP",
 ]]
 
 
---上层渲染
---[[说明:贴图通过该回调进行渲染会显示在HUD上层]]
-RENDER_OVERLAY = "IBS_CALLBACK_RENDER_OVERLAY",
-
-
 --尝试握住主动
 TRY_HOLD_ITEM = "IBS_CALLBACK_TRY_HOLD_ITEM",
 --[[可输入参数:道具ID]]

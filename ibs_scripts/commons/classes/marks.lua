@@ -444,7 +444,12 @@ local function ReminderRender()
 		reminder:Update()
 	end	
 end
-mod:AddCallback(mod.IBS_CallbackID.RENDER_OVERLAY, ReminderRender)
+mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
+	if game:GetPauseMenuState() == PauseMenuStates.CLOSED then
+		ReminderRender()
+	end
+end)
+mod:AddCallback(ModCallbacks.MC_POST_PAUSE_SCREEN_RENDER, ReminderRender)
 
 end
 

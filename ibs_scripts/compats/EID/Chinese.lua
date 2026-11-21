@@ -2047,9 +2047,8 @@ local itemEID={
 
 [IBS_ItemID.WitchHuntingSeason]={
 	name='猎巫时节',
-	info='20%概率发射倒十字泪弹({{Luck}}幸运10: 100%):'..
-		 '#{{Blank}} 施加{{IBSBAzazelMark}}异端标记'..
-		 '#{{Blank}} {{IBSBAzazelMark}}异端标记敌人死亡时，降下5道圣光，300%{{Damage}}伤害',
+	info='20%概率发射施加{{IBSBAzazelMark}}异端标记的倒十字泪弹({{Luck}}幸运10: 100%)'..
+		 '#{{IBSBAzazelMark}}异端标记敌人死亡时，降下5道圣光，300%{{Damage}}伤害',
 },
 
 [IBS_ItemID.AtonementCeremony]={
@@ -2069,6 +2068,12 @@ local itemEID={
 		 '#使用后，对所有敌人施加{{IBSBAzazelMark}}异端标记，并扔下该道具',
 	virtue='两个中环魂火，优先环绕该道具',
 	belial='敌人死于火焰或圣光伤害时，10%概率生成{{BlackHeart}}黑心'
+},
+
+[IBS_ItemID.Dominoptions]={
+	name='多米诺选择',
+	info='为新房间内品质最高的道具，生成更低品质的随机道具作为选择，直到{{Quality0}}品质0'..
+		 '#尝试生成{{Collectible25}}早餐或被边界阻挡时会中断',
 },
 
 }

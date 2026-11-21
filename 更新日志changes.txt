@@ -1,5 +1,29 @@
 -----------------------------------
 2026.11
+v0.13.5
+
+新增禁用道具相关设置
+
+新挑战：褪色
+
+新道具：多米诺选择
+
+调整：
+ <角色>
+ 昧化阿撒泻勒：能力更新；解锁树更新；现在需要解锁
+
+
+Add options that disable items
+
+New Challenge: Faded
+
+New Item: Dominoptions
+ 
+Adjustments:
+ <Character>
+ Benighted Azazel: Abilities update; Unlock-tree update; Now needs to be unlocked
+-----------------------------------
+2026.11
 v0.13.4
 
 新道具：
@@ -259,7 +283,7 @@ New Items:
 
 Adjustments:
  <Character>
- Benighted Forgotten: Abilities update; Unlcok-tree update; Needs to be unlocked now
+ Benighted Forgotten: Abilities update; Unlock-tree update; Needs to be unlocked now
 -----------------------------------
 2026.8
 v0.12.5
@@ -393,7 +417,7 @@ New Challenge: Backstab
  
 Adjustments:
  <Character>
- Benighted Samson: Abilities update; Unlcok-tree update
+ Benighted Samson: Abilities update; Unlock-tree update
 -----------------------------------
 2026.7
 v0.11.6
@@ -409,7 +433,7 @@ New Item: Broken TV
 
 Adjustments:
  <Character>
- Benighted Samson: Abilities update; Unlcok-tree update; Needs to be unlocked now
+ Benighted Samson: Abilities update; Unlock-tree update; Needs to be unlocked now
 -----------------------------------
 2026.7
 v0.11.5
@@ -836,7 +860,7 @@ New Item: Folk Prescription
 
 Adjustments:
  <Character>
- Benighted Eve: Abilities update; Unlcok-tree update; Needs to be unlocked now
+ Benighted Eve: Abilities update; Unlock-tree update; Needs to be unlocked now
  <Items>
  Chubby Cookbook: Charge 6
  Re-death: Better pickups
@@ -1345,7 +1369,7 @@ New Slot: Brother Albern
 
 Adjustments:
  <Character>
- Benighted Lost: Unlcok-tree update
+ Benighted Lost: Unlock-tree update
  <Slot>
  Collection Box: Droop
 -----------------------------------
@@ -1374,7 +1398,7 @@ New Challenge: Keys are Bomb
 
 Adjustments:
  <Character>
- Benighted Lost: Abilities update; Unlcok-tree update
+ Benighted Lost: Abilities update; Unlock-tree update
 -----------------------------------
 2025.3
 v0.9.2
@@ -1395,7 +1419,7 @@ New Itemj: Turbo
 
 Adjustments:
  <Character>
- Benighted Lost: Abilities update; Unlcok-tree update; Needs to be unlocked now
+ Benighted Lost: Abilities update; Unlock-tree update; Needs to be unlocked now
  <Items>
  Sword of Siberite: DMG up; Always block projectiles
  Colonel Edge: Fire tears only when shooting
@@ -1693,7 +1717,7 @@ New Trinkets:
 Adjustments:
  <Characters>
  Benighted Isaac: Birthright boost
- Benighted Keeper: Abilities update; Unlcok-tree update
+ Benighted Keeper: Abilities update; Unlock-tree update
 -----------------------------------
 2024.12
 v0.8.3
@@ -1782,7 +1806,7 @@ Adjustments:
  <Pockets>
  Falsehood of Apollon: No effect on Jera
  <Characters>
- Benighted ???: Can not decompose big memories now; Unlcok-tree update
+ Benighted ???: Can not decompose big memories now; Unlock-tree update
 
 BUG Patches:
  Fixed an issue that the Light D6 ignores the effect of Chaos
@@ -1978,7 +2002,7 @@ New Item: Falowerse
 
 Adjustments:
  <Characters>
- Benighted ???: Needs to be unlocked now; Unlcok-tree update
+ Benighted ???: Needs to be unlocked now; Unlock-tree update
  <Items>
  Ether: The tag "offensive" is removed
 -----------------------------------
@@ -2283,7 +2307,7 @@ Adjustments:
  Sketch: Discharge4: Only passive items: Book of Virtues compatibility
  <Characters>
  Benighted Judas:  Dash damage won't  increase progressively
- Benighted Eden：Unlcok-tree update
+ Benighted Eden：Unlock-tree update
 
 BUG Patches:
  Fixed an issue taht Gold Experience can be unlocked abnormally
@@ -2407,7 +2431,7 @@ Hyercube: Needs to be unlocked now
 Defined: Needs to be unlocked now
 
  <Charactesr>
- Benighted Eden: Skills update; Unlcok-tree update: Birthright update
+ Benighted Eden: Skills update; Unlock-tree update: Birthright update
 -----------------------------------
 2024.7
 v0.5.8
@@ -2418,7 +2442,7 @@ v0.5.8
 
 Adjustments:
  <Charactesr>
- Benighted Eden: Skills update; Unlcok-tree update
+ Benighted Eden: Skills update; Unlock-tree update
 -----------------------------------
 2024.7
 v0.5.8
